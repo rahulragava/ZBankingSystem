@@ -1,0 +1,58 @@
+﻿<UserControl
+    x:Class="ZBMS.View.UserControl.BalanceDetailUserControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ZBMS.View.UserControl"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DesignHeight="200"
+    d:DesignWidth="400">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.5*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0"
+                    Grid.Column="0"
+                    Margin="0 20 0 0"
+                    Grid.ColumnSpan="2">
+            <TextBlock Text="Total Balance"
+                       HorizontalAlignment="Center"
+                       Margin="0 0" />
+            <TextBlock HorizontalAlignment="Center">
+                <Run Text="&#x20b9;" /> <Run Text="2000.00"></Run>
+            </TextBlock>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1"
+                    Margin="0 20 0 0"
+                    Grid.Column="0">
+
+            <TextBlock Text="Total Savings"
+                       HorizontalAlignment="Center"
+                       Margin="0 0" />
+            <TextBlock HorizontalAlignment="Center">
+                <Run Text="&#x20b9;" /> <Run Text="2000.00"></Run>
+            </TextBlock>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1"
+                    Grid.Column="1"
+                    Margin="0 20 0 0"                    >
+            <TextBlock Text="Total Amount Deposited"
+                       HorizontalAlignment="Center"
+                       Margin="0 0" />
+            <TextBlock HorizontalAlignment="Center">
+                <Run Text="&#x20b9;" /> <Run Text="1000.00"></Run>
+            </TextBlock>
+        </StackPanel>
+       
+    </Grid>
+</UserControl>

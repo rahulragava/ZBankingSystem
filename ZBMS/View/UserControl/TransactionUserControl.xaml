@@ -1,0 +1,84 @@
+﻿<UserControl x:Class="ZBMS.View.UserControl.TransactionUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="using:ZBMS.View.UserControl"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:model="using:ZBMSLibrary.Entities.Model"
+             xmlns:converters="using:ZBMS.Util.Converters"
+             mc:Ignorable="d">
+
+    
+    <Grid Background="{ThemeResource BackgroundColor}" CornerRadius="10">
+        <Grid.Resources>
+            <DataTemplate x:Key="TransactionData"
+                          x:DataType="model:TransactionSummary">
+                <local:TransactionDataControl x:Name="TransactionData"
+                                              Id="{x:Bind Id, Mode=OneWay}"
+                                              TransactionAmount="{x:Bind Amount, Mode=OneWay}"
+                                              Description="{x:Bind Description, Mode=OneWay}"
+                                              Status="{x:Bind TransactionType, Mode=OneWay}"
+                                              SenderAccountNumber="{x:Bind SenderAccountNumber, Mode=OneWay}"
+                                              ReceiverAccountNumber="{x:Bind ReceiverAccountNumber, Mode=OneWay}"
+                                              TransactionOn="{x:Bind TransactionOn,Mode=OneWay}"
+                                              />
+            </DataTemplate>
+        </Grid.Resources>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="S.no"
+                   HorizontalAlignment="Center"
+                   Margin="0 5 0 0"
+                   VerticalAlignment="top"></TextBlock>
+        <TextBlock Grid.Row="0" Grid.Column="1"
+                   Text="From Account"
+                   Margin="0 5 0 0"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="top"></TextBlock>
+        <TextBlock Grid.Row="0" Grid.Column="2"
+                   Text="To Account"
+                   Margin="0 5 0 0"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="top"></TextBlock>
+        <TextBlock Grid.Row="0" Grid.Column="3"
+                   Text="Time"
+                   Margin="0 5 0 0"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="top"></TextBlock>
+        <TextBlock Grid.Row="0" Grid.Column="4"
+                   Text="Amount"
+                   Margin="0 5 0 0"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="top"></TextBlock>
+        <TextBlock Grid.Row="0" Grid.Column="5"
+                   Margin="0 5 0 0"
+                   Text="Description"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="top"></TextBlock>
+        <ListView Grid.Row="1"
+                  Grid.Column="0"
+                  Grid.ColumnSpan="6"
+                  SelectionMode="None"
+                  Margin="0 10"
+                  BorderBrush="Gray"
+                  BorderThickness="0 1"
+                  x:Name="TransactionListView"
+                  ItemsSource="{x:Bind TransactionList,Mode=OneWay}"
+                  IsItemClickEnabled="False"
+                  ItemTemplate="{StaticResource TransactionData}">
+        </ListView>
+    </Grid>
+
+
+</UserControl>

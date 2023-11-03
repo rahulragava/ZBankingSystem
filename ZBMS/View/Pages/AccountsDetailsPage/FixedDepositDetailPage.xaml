@@ -1,0 +1,125 @@
+﻿<Page
+    x:Class="ZBMS.View.Pages.AccountsDetailsPage.FixedDepositDetailPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ZBMS.View.Pages.AccountsDetailsPage"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:userControl="using:ZBMS.View.UserControl"
+    xmlns:accountSummary="using:ZBMS.View.UserControl.AccountSummary"
+    xmlns:depositSummary="using:ZBMS.View.UserControl.DepositSummary"
+    xmlns:converters="using:ZBMS.Util.Converters"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Page.Resources>
+        <converters:DateFormatter x:Name="DateFormatConverter" />
+
+    </Page.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <FontIcon FontFamily="Segoe MDL2 Assets"
+                  x:Name="BackButton"
+                  HorizontalAlignment="Left"
+                  Margin="5"
+                  Tapped="BackButton_OnTapped"
+                  Glyph="" />
+        <depositSummary:FixedDepositSummary Grid.Row="1"
+                                    Grid.Column="0"
+                                    Margin="5"
+                                    FixedDepositBObj="{x:Bind FixedDepositDetailViewModel.FixedDepositBObj,Mode=OneWay}"/>
+        <userControl:OneByTwoGrid Grid.Row="2"
+                                  Width1Ratio="3*"
+                                  Width2Ratio="2*"
+                                  NarrowScreenBreakPoint="1000">
+            <userControl:OneByTwoGrid.Column1Content>
+                <!--<userControl:AccountDetailUserControl Margin="5"></userControl:AccountDetailUserControl>-->
+                <Grid Background="{ThemeResource BackgroundColor}"
+                      Padding="20 10 0 0"
+                      Margin="5 5 0 0"
+                      RowSpacing="20"
+
+                      CornerRadius="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Row="0"
+                               Grid.Column="0"
+                               Text="Deposit Details"
+                               FontSize="20"
+                               Margin="0 0 0 20"
+                               FontWeight="SemiBold"/>
+                    <TextBlock Grid.Row="1"
+                               Grid.Column="0"
+                               Text="Tenure in years" />
+                    <TextBlock Grid.Column="1"
+                               Grid.Row="1"
+                               Text="{x:Bind FixedDepositDetailViewModel.FixedDepositBObj.Tenure,Mode=OneWay}"/>
+                    <TextBlock Grid.Row="2"
+                               Grid.Column="0"
+                               Text="Maturity Amount" />
+                    <TextBlock Grid.Column="1"
+                               Grid.Row="2"
+                               Text="{x:Bind FixedDepositDetailViewModel.FixedDepositBObj.MaturityAmount,Mode=OneWay}" />
+                    <TextBlock Grid.Row="3"
+                               Grid.Column="0"
+                               Text="Maturity Date" />
+                    <TextBlock Grid.Column="1"
+                               Grid.Row="3"
+                               Text="{x:Bind FixedDepositDetailViewModel.FixedDepositBObj.MaturityDate,Mode=OneWay,Converter={StaticResource DateFormatConverter}}"/>
+                    <TextBlock Grid.Row="4"
+                               Grid.Column="0"
+                               Text="From Account Number" />
+                    <TextBlock Grid.Column="1"
+                               Grid.Row="4"
+                               Text="{x:Bind FixedDepositDetailViewModel.FixedDepositBObj.FromAccountId,Mode=OneWay}" />
+                    <TextBlock Grid.Row="5"
+                               Grid.Column="0"
+                               Text="Repayment Account Number" />
+                    <TextBlock Grid.Column="1"
+                               Grid.Row="5" 
+                               Text="{x:Bind FixedDepositDetailViewModel.FixedDepositBObj.SavingsAccountId,Mode=OneWay}"/>
+                </Grid>
+
+            </userControl:OneByTwoGrid.Column1Content>
+            <userControl:OneByTwoGrid.Column2Content>
+                <Grid CornerRadius="0"
+                      BorderBrush="{ThemeResource AppBarBorderThemeBrush}"
+                      BorderThickness="2"
+                      Margin="5">
+                    <Grid.RowDefinitions>
+                        <!--<RowDefinition Height="Auto"></RowDefinition>-->
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <userControl:ChangeRepaymentAccount></userControl:ChangeRepaymentAccount>
+                    <Grid Grid.Row="1"
+                          CornerRadius="10"
+                          Grid.Column="0"
+                          Margin="5"
+                          Background="{ThemeResource BackgroundColor}">
+                        <TextBlock HorizontalAlignment="Center"
+                                   VerticalAlignment="Center">Coming soon</TextBlock>
+
+                    </Grid>
+                </Grid>
+            </userControl:OneByTwoGrid.Column2Content>
+        </userControl:OneByTwoGrid>
+    </Grid>
+
+</Page>

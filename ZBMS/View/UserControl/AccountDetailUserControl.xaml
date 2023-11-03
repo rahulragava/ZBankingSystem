@@ -1,0 +1,76 @@
+﻿<UserControl
+    x:Class="ZBMS.View.UserControl.AccountDetailUserControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ZBMS.View.UserControl"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    >
+    <UserControl.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="FontSize"
+                    Value="15" />
+            <!--<Setter Property="Foreground"
+                    Value="{ThemeResource SubtleText}" />-->
+        </Style>
+    </UserControl.Resources>
+
+    <Grid Background="{ThemeResource BackgroundColor}"
+          Padding="10"
+          Margin="5 5 0 5"
+          RowSpacing="20"
+
+          CornerRadius="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Grid.Row="0"
+                   Grid.Column="0"
+                   Text="Deposit Details"
+                   FontSize="20"
+                   FontWeight="SemiBold"
+                   Margin="10 10 0 10" />
+        <TextBlock Grid.Row="1"
+                   Grid.Column="0"
+                   Margin="10 10 0 10"
+                   Text="Tenure in Months"/>
+        <TextBlock Grid.Column="1"
+                   Grid.Row="1"/>
+        <TextBlock Grid.Row="2"
+                   Grid.Column="0"
+                   Margin="10 10 0 10"
+                   Text="Maturity Amount"/>
+        <TextBlock Grid.Column="1"
+                   Grid.Row="2" />
+        <TextBlock Grid.Row="3"
+                   Grid.Column="0"
+                   Margin="10 10 0 10"
+                   Text="Maturity Date"/>
+        <TextBlock Grid.Column="1"
+                   Grid.Row="3" />
+        <TextBlock Grid.Row="4"
+                   Grid.Column="0"
+                   Margin="10 10 0 10"
+                   Text="Repayment Account Number" />
+        <TextBlock Grid.Column="1"
+                   Grid.Row="4" />
+        <TextBlock Grid.Row="5"
+                   Grid.Column="0"
+                   Margin="10 10 0 10"
+                   Text="Deposit Amount" />
+        <TextBlock Grid.Column="1"
+                   Grid.Row="5" />
+    </Grid>
+</UserControl>

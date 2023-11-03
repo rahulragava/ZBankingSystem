@@ -1,0 +1,193 @@
+﻿<Page x:Class="ZBMS.View.Pages.AccountsDetailsPage.SavingsAccountDetailPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:local="using:ZBMS.View.Pages"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:userControl="using:ZBMS.View.UserControl"
+      xmlns:accountSummary="using:ZBMS.View.UserControl.AccountSummary"
+      xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+      mc:Ignorable="d"
+      Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Page.Resources>
+        <Style TargetType="controls:InAppNotification"
+               x:Key="MsEdgeNotificationTemplateNoDismissButton">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Grid>
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="State">
+                                    <VisualState x:Name="Collapsed">
+                                        <Storyboard>
+                                            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="RootGrid"
+                                                                           Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)">
+                                                <EasingDoubleKeyFrame KeyTime="0"
+                                                                      Value="0" />
+                                                <EasingDoubleKeyFrame controls:InAppNotification.KeyFrameDuration="{Binding AnimationDuration, RelativeSource={RelativeSource TemplatedParent}}"
+                                                                      Value="{Binding HorizontalOffset, RelativeSource={RelativeSource TemplatedParent}}" />
+                                            </DoubleAnimationUsingKeyFrames>
+
+                                            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="RootGrid"
+                                                                           Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)">
+                                                <EasingDoubleKeyFrame KeyTime="0"
+                                                                      Value="0" />
+                                                <EasingDoubleKeyFrame controls:InAppNotification.KeyFrameDuration="{Binding AnimationDuration, RelativeSource={RelativeSource TemplatedParent}}"
+                                                                      Value="{Binding VerticalOffset, RelativeSource={RelativeSource TemplatedParent}}" />
+                                            </DoubleAnimationUsingKeyFrames>
+
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="RootGrid"
+                                                                           Storyboard.TargetProperty="(UIElement.Visibility)">
+                                                <DiscreteObjectKeyFrame KeyTime="0">
+                                                    <DiscreteObjectKeyFrame.Value>
+                                                        <Visibility>Visible</Visibility>
+                                                    </DiscreteObjectKeyFrame.Value>
+                                                </DiscreteObjectKeyFrame>
+                                                <DiscreteObjectKeyFrame controls:InAppNotification.KeyFrameDuration="{Binding AnimationDuration, RelativeSource={RelativeSource TemplatedParent}}">
+                                                    <DiscreteObjectKeyFrame.Value>
+                                                        <Visibility>Collapsed</Visibility>
+                                                    </DiscreteObjectKeyFrame.Value>
+                                                </DiscreteObjectKeyFrame>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+
+                                    <VisualState x:Name="Visible">
+                                        <Storyboard>
+                                            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="RootGrid"
+                                                                           Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)">
+                                                <EasingDoubleKeyFrame KeyTime="0"
+                                                                      Value="{Binding HorizontalOffset, RelativeSource={RelativeSource TemplatedParent}}" />
+                                                <EasingDoubleKeyFrame controls:InAppNotification.KeyFrameDuration="{Binding AnimationDuration, RelativeSource={RelativeSource TemplatedParent}}"
+                                                                      Value="0" />
+                                            </DoubleAnimationUsingKeyFrames>
+
+                                            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="RootGrid"
+                                                                           Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)">
+                                                <EasingDoubleKeyFrame KeyTime="0"
+                                                                      Value="{Binding VerticalOffset, RelativeSource={RelativeSource TemplatedParent}}" />
+                                                <EasingDoubleKeyFrame controls:InAppNotification.KeyFrameDuration="{Binding AnimationDuration, RelativeSource={RelativeSource TemplatedParent}}"
+                                                                      Value="0" />
+                                            </DoubleAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <Grid x:Name="RootGrid"
+                                  RenderTransformOrigin="{TemplateBinding RenderTransformOrigin}"
+                                  Margin="{TemplateBinding Margin}"
+                                  Padding="{TemplateBinding Padding}"
+                                  MaxWidth="{TemplateBinding MaxWidth}"
+                                  Visibility="{TemplateBinding Visibility}"
+                                  Background="{TemplateBinding Background}"
+                                  BorderBrush="{TemplateBinding BorderBrush}"
+                                  BorderThickness="{TemplateBinding BorderThickness}">
+                                <Grid.RenderTransform>
+                                    <CompositeTransform />
+                                </Grid.RenderTransform>
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <ContentPresenter x:Name="PART_Presenter"
+                                                  HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                                                  HorizontalContentAlignment="Stretch"
+                                                  Foreground="Green"
+                                                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                  VerticalContentAlignment="Center"
+                                                  TextWrapping="WrapWholeWords" />
+                            </Grid>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+    </Page.Resources>
+    <Grid>
+        <controls:InAppNotification Grid.Row="0"
+                                    Grid.Column="0"
+                                    x:Name="NotificationControl"
+                                    AnimationDuration="00:00:00.1000000"
+                                    HorizontalOffset="00"
+                                    Style="{StaticResource MsEdgeNotificationTemplateNoDismissButton}"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="top"
+                                    StackMode="Replace">
+        </controls:InAppNotification>
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <FontIcon Grid.Row="1"
+                          FontFamily="Segoe MDL2 Assets"
+                          x:Name="BackButton"
+                          HorizontalAlignment="Left"
+                          Margin="5"
+                          Tapped="BackButton_OnTapped"
+                          Glyph="" />
+                <accountSummary:SavingsAccountSummary Grid.Row="2"
+                                                      Grid.Column="0"
+                                                      Margin="5"
+                                                      SavingsAccountBObj="{x:Bind SavingsAccountDetailViewModel.SavingsAccountBObj,Mode=OneWay}"
+                                                      WithdrawSuccessNotification="SavingsAccountSummary_OnWithdrawSuccessNotification"
+                                                      DepositSuccessNotification="SavingsAccountSummary_OnDepositSuccessNotification" />
+                <userControl:OneByTwoGrid Grid.Row="3"
+                                          Width1Ratio="3*"
+                                          Width2Ratio="2*"
+                                          NarrowScreenBreakPoint="1000">
+                    <userControl:OneByTwoGrid.Column1Content>
+                        <!--<Grid Background="{ThemeResource BackgroundColor}"
+                      CornerRadius="10" Margin="5 5 0 5">
+                    -->
+                        <!--<TextBlock Text="Transaction" HorizontalAlignment="Center"
+                               VerticalAlignment="Center" 
+                               Foreground="{ThemeResource SubtleText}"/>-->
+                        <!--
+                    <userControl:TransactionUserControl ></userControl:TransactionUserControl>
+                </Grid>-->
+                        <userControl:TransactionUserControl Margin="5 5 0 5"
+                                                            x:Name="TransactionUserControl"
+                                                            TransactionList="{x:Bind SavingsAccountDetailViewModel.TransactionList,Mode=OneWay}">
+
+                        </userControl:TransactionUserControl>
+                    </userControl:OneByTwoGrid.Column1Content>
+                    <userControl:OneByTwoGrid.Column2Content>
+                        <Grid CornerRadius="0"
+                              BorderBrush="{ThemeResource AppBarBorderThemeBrush}"
+                              BorderThickness="2"
+                              Margin="5">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="*"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <userControl:DepositMoneyUserControl  Margin="0"
+                                                                  Account="{x:Bind SavingsAccountDetailViewModel.SavingsAccountBObj,Mode=OneWay}"></userControl:DepositMoneyUserControl>
+                            <userControl:WithdrawalUserControl Grid.Row="1"
+                                                               Margin="0 5"
+                                                               Account="{x:Bind SavingsAccountDetailViewModel.SavingsAccountBObj,Mode=OneWay}"></userControl:WithdrawalUserControl>
+                            <Grid Grid.Row="2"
+                                  CornerRadius="10"
+                                  Grid.Column="0"
+                                  Margin="5"
+                                  Background="{ThemeResource BackgroundColor}">
+                                <TextBlock HorizontalAlignment="Center"
+                                           VerticalAlignment="Center">Coming soon</TextBlock>
+                            </Grid>
+                        </Grid>
+                    </userControl:OneByTwoGrid.Column2Content>
+                </userControl:OneByTwoGrid>
+
+            </Grid>
+        </ScrollViewer>
+
+    </Grid>
+</Page>

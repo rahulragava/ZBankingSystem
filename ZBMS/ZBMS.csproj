@@ -1,0 +1,425 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProjectGuid>{883BF09D-D8DA-4F45-B7BF-597C92848921}</ProjectGuid>
+    <OutputType>AppContainerExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ZBMS</RootNamespace>
+    <AssemblyName>ZBMS</AssemblyName>
+    <DefaultLanguage>en-US</DefaultLanguage>
+    <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
+    <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.19041.0</TargetPlatformVersion>
+    <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
+    <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WindowsXamlEnableOverview>true</WindowsXamlEnableOverview>
+    <AppxPackageSigningEnabled>false</AppxPackageSigningEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\ARM\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>ARM</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM'">
+    <OutputPath>bin\ARM\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>ARM</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\ARM64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>ARM64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM64'">
+    <OutputPath>bin\ARM64\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>ARM64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Services\AppSettings.cs" />
+    <Compile Include="Util\Converters\DateFormatter.cs" />
+    <Compile Include="Util\ObservableDictionary.cs" />
+    <Compile Include="Util\Converters\TypeToBackgroundConverter.cs" />
+    <Compile Include="Util\SelectAccountTemplate.cs" />
+    <Compile Include="Util\SelectDepositTemplate.cs" />
+    <Compile Include="Util\SelectLoanTemplate.cs" />
+    <Compile Include="ViewModel\AccountCreationViewModel.cs" />
+    <Compile Include="ViewModel\AccountPageViewModel.cs" />
+    <Compile Include="ViewModel\DepositDetailViewModel.cs" />
+    <Compile Include="ViewModel\DepositMoneyViewModel.cs" />
+    <Compile Include="ViewModel\DetailViewModel\CurrentAccountDetailViewModel.cs" />
+    <Compile Include="ViewModel\DetailViewModel\FixedDepositDetailViewModel.cs" />
+    <Compile Include="ViewModel\DetailViewModel\PersonalLoanAccountDetailViewModel.cs" />
+    <Compile Include="ViewModel\DetailViewModel\RecurringDepositDetailViewModel.cs" />
+    <Compile Include="ViewModel\DetailViewModel\SavingsAccountDetailViewModel.cs" />
+    <Compile Include="ViewModel\HomePageViewModel.cs" />
+    <Compile Include="ViewModel\MainPageViewModel.cs" />
+    <Compile Include="ViewModel\ViewModelBase.cs" />
+    <Compile Include="ViewModel\WithdrawMoneyViewModel.cs" />
+    <Compile Include="View\Pages\AccountsDetailsPage\CurrentAccountDetailsPage.xaml.cs">
+      <DependentUpon>CurrentAccountDetailsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Pages\AccountsDetailsPage\FixedDepositDetailPage.xaml.cs">
+      <DependentUpon>FixedDepositDetailPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Pages\AccountsDetailsPage\PersonalLoanDetailPage.xaml.cs">
+      <DependentUpon>PersonalLoanDetailPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Pages\AccountsDetailsPage\RecurringDepositDetailPage.xaml.cs">
+      <DependentUpon>RecurringDepositDetailPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Pages\AccountsDetailsPage\SavingsAccountDetailPage.xaml.cs">
+      <DependentUpon>SavingsAccountDetailPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Pages\AccountsPage.xaml.cs">
+      <DependentUpon>AccountsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Pages\DashboardPage.xaml.cs">
+      <DependentUpon>DashboardPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Pages\MainPage.xaml.cs">
+      <DependentUpon>MainPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="View\Pages\HomePage.xaml.cs">
+      <DependentUpon>HomePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Pages\TransactionPage.xaml.cs">
+      <DependentUpon>TransactionPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\UserControl\AccountCreationUserControl.xaml.cs">
+      <DependentUpon>AccountCreationUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\UserControl\AccountDetailUserControl.xaml.cs">
+      <DependentUpon>AccountDetailUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\UserControl\AccountSummary\CurrentAccountSummary.xaml.cs">
+      <DependentUpon>CurrentAccountSummary.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\UserControl\AccountSummary\SavingsAccountSummary.xaml.cs">
+      <DependentUpon>SavingsAccountSummary.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\UserControl\DepositCreationUserControl.xaml.cs">
+      <DependentUpon>DepositCreationUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\UserControl\DepositSummary\FixedDepositSummary.xaml.cs">
+      <DependentUpon>FixedDepositSummary.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\UserControl\DepositSummary\RecurringDepositSummary.xaml.cs">
+      <DependentUpon>RecurringDepositSummary.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\UserControl\BalanceDetailUserControl.xaml.cs">
+      <DependentUpon>BalanceDetailUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\UserControl\ChangeRepaymentAccount.xaml.cs">
+      <DependentUpon>ChangeRepaymentAccount.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\UserControl\CustomTitleBarUserControl.xaml.cs">
+      <DependentUpon>CustomTitleBarUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\UserControl\DepositMoneyUserControl.xaml.cs">
+      <DependentUpon>DepositMoneyUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\UserControl\LoanCreationUserControl.xaml.cs">
+      <DependentUpon>LoanCreationUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\UserControl\LoanSummary\PersonalAccountSummary.xaml.cs">
+      <DependentUpon>PersonalAccountSummary.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\UserControl\LoginUserControl.xaml.cs">
+      <DependentUpon>LoginUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\UserControl\NetBalancePerMonthDetailsUserControl.xaml.cs">
+      <DependentUpon>NetBalancePerMonthDetailsUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\UserControl\OneByTwoGrid.xaml.cs">
+      <DependentUpon>OneByTwoGrid.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\UserControl\SignUpUserControl.xaml.cs">
+      <DependentUpon>SignUpUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\UserControl\TransactionDataControl.xaml.cs">
+      <DependentUpon>TransactionDataControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\UserControl\TransactionUserControl.xaml.cs">
+      <DependentUpon>TransactionUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\UserControl\WithdrawalUserControl.xaml.cs">
+      <DependentUpon>WithdrawalUserControl.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <AppxManifest Include="Package.appxmanifest">
+      <SubType>Designer</SubType>
+    </AppxManifest>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\AccountIcon.png" />
+    <Content Include="Assets\AppLoginPageBackgroundImage.jpg" />
+    <Content Include="Assets\banklogo.png" />
+    <Content Include="Assets\CardBackgrounds\card1.jpg" />
+    <Content Include="Assets\CardBackgrounds\card2.jpg" />
+    <Content Include="Assets\CardBackgrounds\card3.jpg" />
+    <Content Include="Assets\CardBackgrounds\card4.jpg" />
+    <Content Include="Assets\CardLogo\banklogo.png" />
+    <Content Include="Assets\CardLogo\mastercard.png" />
+    <Content Include="Assets\CardLogo\rupay.jpg" />
+    <Content Include="Assets\CardLogo\visa.png" />
+    <Content Include="Assets\depositIcon.png" />
+    <Content Include="Assets\loanImage.jpg" />
+    <Content Include="Properties\Default.rd.xml" />
+    <Content Include="Assets\LockScreenLogo.scale-200.png" />
+    <Content Include="Assets\SplashScreen.scale-200.png" />
+    <Content Include="Assets\Square150x150Logo.scale-200.png" />
+    <Content Include="Assets\Square44x44Logo.scale-200.png" />
+    <Content Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
+    <Content Include="Assets\StoreLogo.png" />
+    <Content Include="Assets\Wide310x150Logo.scale-200.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Page Include="Styles\Styles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\ThemeResource.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Pages\AccountsDetailsPage\CurrentAccountDetailsPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Pages\AccountsDetailsPage\FixedDepositDetailPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Pages\AccountsDetailsPage\PersonalLoanDetailPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Pages\AccountsDetailsPage\RecurringDepositDetailPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Pages\AccountsDetailsPage\SavingsAccountDetailPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Pages\AccountsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Pages\DashboardPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Pages\MainPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Pages\HomePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Pages\TransactionPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\UserControl\AccountCreationUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\UserControl\AccountDetailUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\UserControl\AccountSummary\CurrentAccountSummary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\UserControl\AccountSummary\SavingsAccountSummary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\UserControl\DepositCreationUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\UserControl\DepositSummary\FixedDepositSummary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\UserControl\DepositSummary\RecurringDepositSummary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\UserControl\BalanceDetailUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\UserControl\ChangeRepaymentAccount.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\UserControl\CustomTitleBarUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\UserControl\DepositMoneyUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\UserControl\LoanCreationUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\UserControl\LoanSummary\PersonalAccountSummary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\UserControl\LoginUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\UserControl\NetBalancePerMonthDetailsUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\UserControl\OneByTwoGrid.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\UserControl\SignUpUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\UserControl\TransactionDataControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\UserControl\TransactionUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\UserControl\WithdrawalUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
+      <Version>6.2.14</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Toolkit.Uwp">
+      <Version>7.1.3</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Controls">
+      <Version>7.1.3</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ZBMSLibrary\ZBMSLibrary.csproj">
+      <Project>{70271870-5a60-481e-93fb-541d5e1b7f75}</Project>
+      <Name>ZBMSLibrary</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
+    <VisualStudioVersion>14.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

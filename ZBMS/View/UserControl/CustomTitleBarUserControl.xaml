@@ -1,0 +1,30 @@
+﻿<UserControl
+    x:Class="ZBMS.View.UserControl.CustomTitleBarUserControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    >
+    <Grid Canvas.ZIndex="20"
+          HorizontalAlignment="Stretch"
+          Background="{ThemeResource SystemControlBackgroundChromeWhiteBrush}"
+          x:Name="AppTitleBar">
+        <Image Margin="10,0,0,0"
+               HorizontalAlignment="Left"
+               Width="25"
+               Height="25"
+               Source="/Assets/banklogo.png"
+               Stretch="UniformToFill" />
+        <TextBlock FontWeight="SemiBold"
+                   x:Name="AppTitleTextBlock"
+                   Text="{x:Bind Title, Mode=OneWay}"
+                   Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
+                   Grid.Column="0"
+                   VerticalAlignment="Center"
+                   Margin="50,0,0,0" />
+    </Grid>
+</UserControl>
+
+     
+

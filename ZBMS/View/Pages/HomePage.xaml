@@ -1,0 +1,94 @@
+﻿<Page x:Class="ZBMS.View.Pages.HomePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:local="using:ZBMS.View.Pages"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      mc:Ignorable="d"
+      Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <NavigationView x:Name="NavigationMenu"
+                        IsPaneToggleButtonVisible="False"
+                        IsBackButtonVisible="Collapsed"
+                        PaneDisplayMode="LeftCompact"
+                        IsSettingsVisible="False"
+                        ExpandedModeThresholdWidth="1100"
+                        OpenPaneLength="250"
+                        IsPaneOpen="false"
+                        SelectionChanged="NavigationMenu_OnSelectionChanged">
+            <NavigationView.Resources>
+                <ResourceDictionary>
+                    <ResourceDictionary.ThemeDictionaries>
+                        <ResourceDictionary x:Key="Light">
+                            <SolidColorBrush x:Key="NavigationViewExpandedPaneBackground"
+                                             Color="#f0f2f5" />
+                            <SolidColorBrush x:Key="NavigationViewDefaultPaneBackground"
+                                             Color="#f0f2f5" />
+                        </ResourceDictionary>
+                        <ResourceDictionary x:Key="Dark">
+                            <SolidColorBrush x:Key="NavigationViewExpandedPaneBackground"
+                                             Color="#18191a" />
+                            <SolidColorBrush x:Key="NavigationViewDefaultPaneBackground"
+                                             Color="#18191a" />
+                        </ResourceDictionary>
+                    </ResourceDictionary.ThemeDictionaries>
+
+                </ResourceDictionary>
+
+                <!--<SolidColorBrush x:Key="NavBackgroundColor" Color="{ThemeResource }"></SolidColorBrush>-->
+            </NavigationView.Resources>
+
+            <NavigationView.MenuItems>
+                <NavigationViewItem Tag="DashBoard"
+                                    Content="Dashboard"
+                                    x:Uid="DashBoard">
+                    <NavigationViewItem.Icon>
+                        <FontIcon FontFamily="Segoe MDL2 Assets"
+                                  x:Name="Feed"
+                                  Glyph="" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+                <NavigationViewItem x:Uid="Accounts"
+                                    Content="Accounts"
+                                    VerticalAlignment="Center"
+                                    Tag="AccountsPage">
+                    <NavigationViewItem.Icon>
+                        <FontIcon FontFamily="Segoe MDL2 Assets"
+                                  Glyph="" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+            </NavigationView.MenuItems>
+
+            <NavigationView.PaneFooter>
+                <StackPanel>
+                    <NavigationViewItem x:Name="ThemeChangerNavigationItem"
+                                        Tapped="ThemeChanger_OnTapped">
+                        <NavigationViewItem.Icon>
+                            <FontIcon x:Name="ThemeChanger"
+                                      FontFamily="Segoe MDL2 Assets"
+                                      Glyph=""/>
+                        </NavigationViewItem.Icon>
+
+                    </NavigationViewItem>
+                    <NavigationViewItem x:Name="User">
+                        <PersonPicture Height="20" Margin="-5 0 0 0"></PersonPicture>
+                    </NavigationViewItem>
+                    <NavigationViewItem x:Name="UserLogOut"
+                                        x:Uid="LogOut"
+                                        Tapped="UserLogOut_OnTapped">
+                        <NavigationViewItem.Icon>
+                            <FontIcon FontFamily="Segoe MDL2 Assets"
+                                      Foreground="Red"
+                                      Glyph="&#xF3B1;" />
+                        </NavigationViewItem.Icon>
+                    </NavigationViewItem>
+                </StackPanel>
+            </NavigationView.PaneFooter>
+            <NavigationView.Content>
+                <Frame x:Name="ContentFrame" />
+            </NavigationView.Content>
+        </NavigationView>
+    </Grid>
+
+</Page>
