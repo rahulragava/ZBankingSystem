@@ -161,6 +161,7 @@
     <Compile Include="Entities\BusinessObject\PersonalLoanBObj.cs" />
     <Compile Include="Entities\BusinessObject\RecurringAccountBObj.cs" />
     <Compile Include="Entities\BusinessObject\SavingsAccountBObj.cs" />
+    <Compile Include="Entities\BusinessObject\TransactionSummaryVObj.cs" />
     <Compile Include="Entities\BusinessObject\UserBObj.cs" />
     <Compile Include="Entities\Enums\AccountStatus.cs" />
     <Compile Include="Entities\Enums\BeneficiaryType.cs" />

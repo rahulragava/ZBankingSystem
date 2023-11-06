@@ -11,6 +11,8 @@
     <Grid Background="{ThemeResource BackgroundColor}"
           CornerRadius="10"
           Padding="10"
+          Height="200"
+          Width="300"
           RowSpacing="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>

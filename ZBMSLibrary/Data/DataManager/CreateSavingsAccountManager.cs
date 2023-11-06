@@ -3,6 +3,8 @@ using System.Threading.Tasks;
 using ZBMSLibrary.Data.DataHandler.Contract;
 using ZBMSLibrary.Data.DataManager.Contract;
 using ZBMSLibrary.Entities.BusinessObject;
+using ZBMSLibrary.Entities.Enums;
+using ZBMSLibrary.Entities.Model;
 using ZBMSLibrary.UseCase;
 
 namespace ZBMSLibrary.Data.DataManager
@@ -21,6 +23,16 @@ namespace ZBMSLibrary.Data.DataManager
         {
             try
             {
+                TransactionSummary transactionSummary = new TransactionSummary()
+                {
+                    Amount = createSavingsAccountRequest.SavingsAccount.Balance,
+                    Description = "First Deposit in savings Account",
+                    ReceiverAccountNumber = createSavingsAccountRequest.SavingsAccount.AccountNumber,
+                    TransactionOn = DateTime.Now,
+                    TransactionType = TransactionType.Credit,
+                    SenderAccountNumber = "-"
+                };
+                await _dbHandler.InsertTransactionAsync(transactionSummary);
                 await _dbHandler.CreateSavingsAccountAsync(createSavingsAccountRequest.SavingsAccount);
                 var savingsAccountBObj = new SavingsAccountBObj()
                 {
@@ -36,8 +48,10 @@ namespace ZBMSLibrary.Data.DataManager
                     FineAmount = createSavingsAccountRequest.SavingsAccount.FineAmount,
                     ToBeCreditedAmount = createSavingsAccountRequest.SavingsAccount.ToBeCreditedAmount,
                 };
+                savingsAccountBObj.TransactionList.Add(transactionSummary);
                 var userName = await _dbHandler.GetUserNameAsync(createSavingsAccountRequest.SavingsAccount.UserId);
                 var branchName = await _dbHandler.GetBranchNameAsync(createSavingsAccountRequest.SavingsAccount.IfscCode);
+
                 savingsAccountBObj.BranchName = branchName;
                 savingsAccountBObj.UserName = userName;
                 NotificationEvents.SavingsAccountCreated?.Invoke(savingsAccountBObj);

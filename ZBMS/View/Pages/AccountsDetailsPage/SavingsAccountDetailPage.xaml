@@ -107,16 +107,15 @@
         </Style>
 
     </Page.Resources>
-    <!--<Grid>-->
-      
-        <ScrollViewer VerticalScrollBarVisibility="Auto" KeyDown="UIElement_OnKeyDown">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-                <!--<controls:InAppNotification Grid.Row="0"
+    <ScrollViewer VerticalScrollBarVisibility="Auto"
+                  KeyDown="UIElement_OnKeyDown">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <!--<controls:InAppNotification Grid.Row="0"
                                             Grid.Column="0"
                                             x:Name="NotificationControl"
                                             Height="50"
@@ -127,64 +126,54 @@
                                             VerticalAlignment="top"
                                             StackMode="Replace">
                 </controls:InAppNotification>-->
-                <FontIcon Grid.Row="0"
-                          FontFamily="Segoe MDL2 Assets"
-                          x:Name="BackButton"
-                          HorizontalAlignment="Left"
-                          Margin="5"
-                          Tapped="BackButton_OnTapped"
-                          Glyph="" />
-                <accountSummary:SavingsAccountSummary Grid.Row="1"
-                                                      Grid.Column="0"
-                                                      Margin="5"
-                                                      WithdrawSuccessNotification="SavingsAccountSummary_OnWithdrawSuccessNotification"
-                                                      DepositSuccessNotification="SavingsAccountSummary_OnDepositSuccessNotification"
-                                                      SavingsAccountBObj="{x:Bind SavingsAccountDetailViewModel.SavingsAccountBObj,Mode=OneWay}"
-                                                       />
-             
-            <userControl:OneByTwoGrid Grid.Row="2"
-                                          Width1Ratio="3*"
-                                          Width2Ratio="2*"
-                                          NarrowScreenBreakPoint="1000">
-                    <userControl:OneByTwoGrid.Column1Content>
-                        
-                        <userControl:TransactionUserControl Margin="5 5 0 0"
-                                                            x:Name="TransactionUserControl"
-                                                            TransactionList="{x:Bind SavingsAccountDetailViewModel.TransactionList,Mode=OneWay}">
+            <FontIcon Grid.Row="0"
+                      FontFamily="Segoe MDL2 Assets"
+                      x:Name="BackButton"
+                      HorizontalAlignment="Left"
+                      Margin="5"
+                      Tapped="BackButton_OnTapped"
+                      Glyph="" />
 
-                        </userControl:TransactionUserControl>
-                    </userControl:OneByTwoGrid.Column1Content>
-                    <userControl:OneByTwoGrid.Column2Content>
-                        <Grid CornerRadius="0"
-                              BorderBrush="{ThemeResource AppBarBorderThemeBrush}"
-                              BorderThickness="2"
-                              Margin="5">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"></RowDefinition>
-                                <RowDefinition Height="Auto"></RowDefinition>
-                                <RowDefinition Height="*"></RowDefinition>
-                            </Grid.RowDefinitions>
-                            <userControl:DepositMoneyUserControl  Margin="0"
-                                                                  Account="{x:Bind SavingsAccountDetailViewModel.SavingsAccountBObj,Mode=OneWay}"></userControl:DepositMoneyUserControl>
-                            <userControl:WithdrawalUserControl Grid.Row="1"
-                                                               Margin="0 5"
-                                                               Account="{x:Bind SavingsAccountDetailViewModel.SavingsAccountBObj,Mode=OneWay}"></userControl:WithdrawalUserControl>
-                            <Grid Grid.Row="2"
-                                  CornerRadius="10"
-                                  Grid.Column="0"
-                                  Margin="5"
-                                  Height="300"
-                                  VerticalAlignment="Top"
-                                  Background="{ThemeResource BackgroundColor}">
-                                <TextBlock HorizontalAlignment="Center"
-                                           VerticalAlignment="Center">Coming soon</TextBlock>
-                            </Grid>
-                        </Grid>
-                    </userControl:OneByTwoGrid.Column2Content>
-                </userControl:OneByTwoGrid>
+            <StackPanel Orientation="Horizontal"
+                        Grid.Row="0"
+                        HorizontalAlignment="Right"
+                        Margin=" 0 5 30 5"
+                        Spacing="10">
+                <Button Grid.Column="1"
+                        Content="Deposit"
+                        x:Name="DepositButton">
+                    <Button.Flyout>
+                        <Flyout>
+                            <userControl:DepositMoneyUserControl Account="{x:Bind SavingsAccountDetailViewModel.SavingsAccountBObj,Mode=OneWay}"></userControl:DepositMoneyUserControl>
+                        </Flyout>
+                    </Button.Flyout>
+                </Button>
+                <Button Grid.Column="2"
+                        Content="Withdraw"
+                        x:Name="WithdrawButton">
+                    <Button.Flyout>
+                        <Flyout>
+                            <userControl:WithdrawalUserControl Account="{x:Bind SavingsAccountDetailViewModel.SavingsAccountBObj,Mode=OneWay}"></userControl:WithdrawalUserControl>
+                        </Flyout>
+                    </Button.Flyout>
+                </Button>
+            </StackPanel>
+
+            <accountSummary:SavingsAccountSummary Grid.Row="1"
+                                                  Grid.Column="0"
+                                                  Margin="5"
+                                                  WithdrawSuccessNotification="SavingsAccountSummary_OnWithdrawSuccessNotification"
+                                                  DepositSuccessNotification="SavingsAccountSummary_OnDepositSuccessNotification"
+                                                  SavingsAccountBObj="{x:Bind SavingsAccountDetailViewModel.SavingsAccountBObj,Mode=OneWay}" />
+            <Grid Grid.Row="2">
+                <userControl:TransactionUserControl Margin="5 5 0 0"
+                                                    x:Name="TransactionUserControl"
+                                                    TransactionList="{x:Bind SavingsAccountDetailViewModel.TransactionList,Mode=OneWay}" />
 
             </Grid>
-        </ScrollViewer>
+
+        </Grid>
+    </ScrollViewer>
 
     <!--</Grid>-->
 </Page>

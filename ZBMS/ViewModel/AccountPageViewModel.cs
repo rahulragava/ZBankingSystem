@@ -153,7 +153,7 @@ namespace ZBMS.ViewModel
         private void CheckAccountForFine(IEnumerable<Account> responseAccounts)
         {
             //var toBeFinedCurrentAccounts = new List<CurrentAccountBObj>();
-            //var toBeFinedSavingsAccounts= new List<SavingsAccountBObj>();
+            //var toBeFinedSavingsAccounts = new List<SavingsAccountBObj>();
             //foreach (var responseAccount in responseAccounts)
             //{
             //    if (responseAccount.Balance < responseAccount.MinimumBalance)
@@ -170,7 +170,7 @@ namespace ZBMS.ViewModel
             //        }
             //    }
             //}
-             //usecase
+            //usecase
         }
 
         public class GetUserAccountsPresenterCallback : IPresenterCallBack<GetUserAccountsResponse>

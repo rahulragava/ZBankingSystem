@@ -25,11 +25,36 @@
                       Margin="5"
                       Tapped="BackButton_OnTapped"
                       Glyph="" />
+            <StackPanel Orientation="Horizontal"
+                        Grid.Row="0"
+                        HorizontalAlignment="Right"
+                        Margin=" 0 5 30 5"
+                        Spacing="10">
+                <Button Grid.Column="1"
+                        Content="Deposit"
+                        x:Name="DepositButton">
+                    <Button.Flyout>
+                        <Flyout>
+                            <userControl:DepositMoneyUserControl Account="{x:Bind CurrentAccountDetailsViewModel.CurrentAccountBObj,Mode=OneWay}"></userControl:DepositMoneyUserControl>
+                        </Flyout>
+                    </Button.Flyout>
+                </Button>
+                <Button Grid.Column="2"
+                        Content="Withdraw"
+                        x:Name="WithdrawButton">
+                    <Button.Flyout>
+                        <Flyout>
+                            <userControl:WithdrawalUserControl Account="{x:Bind CurrentAccountDetailsViewModel.CurrentAccountBObj,Mode=OneWay}"></userControl:WithdrawalUserControl>
+                        </Flyout>
+                    </Button.Flyout>
+                </Button>
+            </StackPanel>
+
             <accountSummary:CurrentAccountSummary Grid.Row="1"
                                                   Grid.Column="0"
                                                   Margin="5"
                                                   CurrentAccountBObj="{x:Bind CurrentAccountDetailsViewModel.CurrentAccountBObj,Mode=OneWay}" />
-            <userControl:OneByTwoGrid Grid.Row="2"
+            <!--<userControl:OneByTwoGrid Grid.Row="2"
                                       Width1Ratio="3*"
                                       Width2Ratio="2*"
                                       NarrowScreenBreakPoint="1000">
@@ -66,7 +91,14 @@
                         </Grid>
                     </Grid>
                 </userControl:OneByTwoGrid.Column2Content>
-            </userControl:OneByTwoGrid>
+            </userControl:OneByTwoGrid>-->
+
+            <Grid Grid.Row="2">
+                <userControl:TransactionUserControl Margin="5 5 0 0"
+                                                    x:Name="TransactionUserControl"
+                                                    TransactionList="{x:Bind CurrentAccountDetailsViewModel.TransactionList,Mode=OneWay}" />
+
+            </Grid>
         </Grid>
 
     </ScrollViewer>

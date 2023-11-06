@@ -5,7 +5,7 @@ namespace ZBMSLibrary.Data.DataManager.Contract
 {
     public interface ICreateCurrentAccountManager
     {
-        Task CreateSavingsAccountAsync(CreateCurrentAccountRequest createCurrentAccountRequest, CreateCurrentAccountUseCaseCallBack createCurrentAccountUseCaseCallBack);
+        Task CreateCurrentAccountAsync(CreateCurrentAccountRequest createCurrentAccountRequest, CreateCurrentAccountUseCaseCallBack createCurrentAccountUseCaseCallBack);
 
     }
 }

@@ -6,6 +6,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:converters="using:ZBMS.Util.Converters"
              xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+             xmlns:userControl="using:ZBMS.View.UserControl"
              mc:Ignorable="d"
              d:DesignHeight="200">
 
@@ -139,6 +140,7 @@
                    HorizontalAlignment="Left"
                    Margin="10 0"
                    Text="{x:Bind SavingsAccountBObj.AccountNumber, Mode=OneWay}" />
+     
         <StackPanel Grid.Row="0"
                     Grid.Column="3"
                     Grid.ColumnSpan="3"

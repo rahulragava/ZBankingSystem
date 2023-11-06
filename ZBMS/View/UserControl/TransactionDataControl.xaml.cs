@@ -100,5 +100,18 @@ namespace ZBMS.View.UserControl
             get => (string)GetValue(IdProperty);
             set => SetValue(IdProperty, value);
         }
+
+        public event Action GoBack;
+
+        private void GoBackButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            GoBack?.Invoke();
+        }
+
+
+        public void PaneViewModeChange(TwoPaneView sender, object obj)
+        {
+            GoBackButton.Visibility = sender.Mode == (TwoPaneViewMode)Microsoft.UI.Xaml.Controls.TwoPaneViewMode.SinglePane ? Visibility.Visible : Visibility.Collapsed;
+        }
     }
 }

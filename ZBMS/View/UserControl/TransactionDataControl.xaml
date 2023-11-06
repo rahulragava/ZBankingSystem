@@ -8,68 +8,108 @@
     xmlns:converters="using:ZBMS.Util.Converters"
     mc:Ignorable="d">
 <UserControl.Resources>
+    <converters:DateFormatter x:Key="DateTimeConverter" />
     <converters:TypeToBackgroundConverter x:Key="TransactionTypeToBackgroundConverter" />
 </UserControl.Resources>
-    <Grid Background="{ThemeResource BackgroundColor}" ColumnSpacing="70">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"></ColumnDefinition>
-            <ColumnDefinition Width="*"></ColumnDefinition>
-            <ColumnDefinition Width="*"></ColumnDefinition>
-            <ColumnDefinition Width="*"></ColumnDefinition>
-            <ColumnDefinition Width="*"></ColumnDefinition>
-            <ColumnDefinition Width="*"></ColumnDefinition>
-        </Grid.ColumnDefinitions>
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+          RowSpacing="20"
+          CornerRadius="10"
+          Margin="5 0 5 0" 
+          Padding="5">
+        <Grid.RowDefinitions>
+           <RowDefinition Height="Auto"/>
+           <RowDefinition Height="Auto"/>
+           <RowDefinition Height="Auto"/>
+           <RowDefinition Height="Auto"/>
+           <RowDefinition Height="Auto"/>
+           <RowDefinition Height="Auto"/>
+           <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
 
-        <StackPanel Grid.Column="0"
-                    Width="90">
+        <Button x:Name="GoBackButton" Click="GoBackButton_OnClick" 
+                HorizontalAlignment="Left">
+            <Button.Content>
+                <FontIcon Glyph=""/>
+            </Button.Content>
+        </Button>
+
+        <StackPanel Grid.Row="1" Margin="10">
+            <TextBlock Text="Reference ID : "
+                       Foreground="{ThemeResource SubtleText}"></TextBlock>
             <TextBlock Text="{x:Bind Id,Mode=OneWay}"
                        TextTrimming="CharacterEllipsis"
-                       TextAlignment="Center"></TextBlock>
+                       HorizontalAlignment="Left"
+                       Margin="20 10 20 0"></TextBlock>
         </StackPanel>
-        <StackPanel Grid.Column="1"
-                    Width="90">
-            <TextBlock Grid.Column="1"
-                       TextAlignment="Center"
-                       TextTrimming="CharacterEllipsis"
-                       Text="{x:Bind SenderAccountNumber,Mode=OneWay}"></TextBlock>
+        <StackPanel Grid.Row="2"
+                    Margin="10 0"
+                    Height="150"
+                    Padding="9"
+                    CornerRadius="10"
+                    Background="{ThemeResource BackgroundColor}">
+            <TextBlock Text="From"
+                       Foreground="{ThemeResource SubtleText}"
+                       />
+            <TextBlock Text="Me" Margin="20 10 0 10" HorizontalAlignment="Left"/>
+            <TextBlock Text="Account Number"
+                       Foreground="{ThemeResource SubtleText}" />
+            <TextBlock TextTrimming="CharacterEllipsis"
+                       HorizontalAlignment="Left"
+                       Margin="20 10 20 0"
+                       Text="{x:Bind SenderAccountNumber,Mode=OneWay}"/>
         </StackPanel>
 
-        <StackPanel Grid.Column="2"
-                    Width="90">
+        <StackPanel Grid.Row="3"
+                    Margin="10 5"
+                    Height="150"
+                    Padding="10"
+                    CornerRadius="10"
+                    Background="{ThemeResource BackgroundColor}">
+
+            <TextBlock Text="To"
+                       Foreground="{ThemeResource SubtleText}" />
+            <TextBlock Text="Me"
+                       Margin="20 10 0 10"
+                       HorizontalAlignment="Left" />
+            <TextBlock Text="Account Number"
+                       Foreground="{ThemeResource SubtleText}" />
             <TextBlock Grid.Column="2"
-                       TextAlignment="Center"
                        TextTrimming="CharacterEllipsis"
+                       HorizontalAlignment="Left"
+                       Margin="20 10 20 0"
                        Text="{x:Bind ReceiverAccountNumber,Mode=OneWay}" />
         </StackPanel>
 
-        <StackPanel Grid.Column="3"
-                    Width="100">
-            <TextBlock Grid.Column="3"
-                       TextAlignment="Center"
-                       TextTrimming="CharacterEllipsis"
-                       Text="{x:Bind TransactionOn,Mode=OneWay}"></TextBlock>
-        </StackPanel>
-
-        <StackPanel Width="60"
-                    Grid.Column="4"
-                    CornerRadius="5"
-                    Height="20"
-                    Background="{x:Bind Status,Mode=OneWay,Converter={StaticResource TransactionTypeToBackgroundConverter}}">
-            <TextBlock TextAlignment="Center"
-                       Foreground="White"
+        <StackPanel Grid.Row="4" Margin="0 5 0 0" HorizontalAlignment="Center">
+            <TextBlock Text="Amount"
+                       Foreground="{ThemeResource SubtleText}"></TextBlock>
+            <TextBlock HorizontalAlignment="Center"
+                       Foreground="{x:Bind Status,Mode=OneWay,Converter={StaticResource TransactionTypeToBackgroundConverter}}"
                        VerticalAlignment="top">
-                                <Run Text="&#x20b9;" /> <Run  Text="{x:Bind TransactionAmount,Mode=OneWay}"></Run>
+                <Run Text="&#x20b9;" /> <Run  Text="{x:Bind TransactionAmount,Mode=OneWay}"></Run>
             </TextBlock>
+            
         </StackPanel>
 
-        <StackPanel Grid.Column="5"
-                    Width="100">
+        <StackPanel  Grid.Row="6"
+                     HorizontalAlignment="Center"
+                    CornerRadius="5"
+                  >
+            <TextBlock Text="Transaction on"></TextBlock>
+            <TextBlock TextAlignment="Center"
+                       TextTrimming="CharacterEllipsis"
+                       Text="{x:Bind TransactionOn,Mode=OneWay,Converter={StaticResource DateTimeConverter}}"></TextBlock>
+        </StackPanel>
+
+        <StackPanel Grid.Row="5"
+                    HorizontalAlignment="Center"
+                  >
+            <TextBlock Text="Description"
+                       Foreground="{ThemeResource SubtleText}"></TextBlock>
             <TextBlock Grid.Column="5"
                        Text="{x:Bind Description,Mode=OneWay}"
                        TextAlignment="Center"
                        VerticalAlignment="top"></TextBlock>
         </StackPanel>
-
     </Grid>
-
 </UserControl>

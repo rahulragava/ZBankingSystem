@@ -91,6 +91,7 @@
                                Text="{x:Bind RecurringDepositDetailViewModel.RecurringAccountBObj.FromAccountId,Mode=OneWay}" />
                     <TextBlock Grid.Row="5"
                                Grid.Column="0"
+                               Margin="10 10 0 10"
                                VerticalAlignment="Center"
                                Text="Repayment Account Number" />
                     <TextBlock Grid.Column="1"

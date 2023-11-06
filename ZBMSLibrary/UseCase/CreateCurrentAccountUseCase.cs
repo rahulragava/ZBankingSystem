@@ -19,7 +19,7 @@ namespace ZBMSLibrary.UseCase
 
         public override void Action()
         {
-            _createCurrentAccountManager.CreateSavingsAccountAsync(CreateCurrentAccountRequest,
+            _createCurrentAccountManager.CreateCurrentAccountAsync(CreateCurrentAccountRequest,
                 new CreateCurrentAccountUseCaseCallBack(this));
         }
     }

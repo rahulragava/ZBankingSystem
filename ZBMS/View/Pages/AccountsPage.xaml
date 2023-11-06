@@ -393,9 +393,8 @@
     </Page.Resources>
 
     <Grid>
-        <Popup IsLightDismissEnabled="False"
-               LightDismissOverlayMode="Off"
-               x:Name="AccountCreationPopup">
+        <!--<Popup x:Name="AccountCreationPopup"
+               IsLightDismissEnabled="False">
             <Border PointerPressed="StandardPopup_PointerPressed"
                     Height="500"
                     CornerRadius="8"
@@ -409,9 +408,9 @@
                                                         VerticalAlignment="Stretch" />
 
             </Border>
-        </Popup>
-        <Popup IsLightDismissEnabled="False"
-               LightDismissOverlayMode="Off"
+        </Popup>-->
+        
+        <Popup
                x:Name="DepositCreationPopup">
             <Border Width="500"
                     Height="770"
@@ -421,6 +420,22 @@
                     PointerPressed="DepositCreationPopup_OnPointerPressed"
                     PointerReleased="DepositCreationPopup_OnPointerReleased">
                 <userControl:DepositCreationUserControl OnClosingPopup="DepositCreationUserControl_OnOnClosingPopup"
+                                                        HorizontalAlignment="Stretch"
+                                                        AccountList="{x:Bind AccountViewModel.Accounts,Mode=OneWay}"
+                                                        VerticalAlignment="Stretch" />
+            </Border>
+
+        </Popup>
+        <Popup x:Name="AccountCreationPopup"
+               LightDismissOverlayMode="On">
+            <Border Width="500"
+                    Height="500"
+                    CornerRadius="8"
+                    Background="Gray"
+                    PointerMoved="AccountCreationPopup_OnPointerMoved"
+                    PointerPressed="AccountCreationPopup_OnPointerPressed"
+                    PointerReleased="AccountCreationPopup_OnPointerReleased">
+                <userControl:AccountCreationUserControl OnClosingPopup="AccountCreationUserControl_OnClosingPopup"
                                                         HorizontalAlignment="Stretch"
                                                         AccountList="{x:Bind AccountViewModel.Accounts,Mode=OneWay}"
                                                         VerticalAlignment="Stretch" />

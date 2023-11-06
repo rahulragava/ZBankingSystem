@@ -33,6 +33,8 @@ namespace ZBMS.View.Pages
         public AccountsPage()
         {
             AccountViewModel = new AccountPageViewModel(this);
+            IsAccountPopupDragging = false;
+            IsDepositPopupDragging = false;
             this.InitializeComponent();
             Loaded += OnLoaded;
             Unloaded -= OnUnloaded;
@@ -184,81 +186,70 @@ namespace ZBMS.View.Pages
         }
         public bool IsAccountPopupDragging { get; set; }
         public bool IsDepositPopupDragging{ get; set; }
-        //public double InitialXPosition { get; set; }
-        //public double InitialYPosition { get; set; }
-        private void StandardPopup_PointerPressed(object sender, PointerRoutedEventArgs e)
-        {
-            //enable dragging
-            IsAccountPopupDragging = true;
-            e.Handled = true;
-            //var pointerPosition = Windows.UI.Core.CoreWindow.GetForCurrentThread().PointerPosition;
-            //InitialXPosition = pointerPosition.X - Window.Current.Bounds.X;
-            //InitialYPosition = pointerPosition.Y - Window.Current.Bounds.Y;
-        }
-        private void StandardPopup_PointerMoved(object sender, PointerRoutedEventArgs e)
-        {
-            if (IsAccountPopupDragging)
-            {
 
-                var pointerPosition = Windows.UI.Core.CoreWindow.GetForCurrentThread().PointerPosition;
-                var x = pointerPosition.X - Window.Current.Bounds.X - 84;
-                var y = pointerPosition.Y - Window.Current.Bounds.Y-37;
-                //change position
-                AccountCreationPopup.HorizontalOffset = x;
-                AccountCreationPopup.VerticalOffset = y;
+        //private void StandardPopup_PointerPressed(object sender, PointerRoutedEventArgs e)
+        //{
+        //    //enable dragging
+        //    IsAccountPopupDragging = true;
+        //    e.Handled = true;
+            
+        //}
+        //private void StandardPopup_PointerMoved(object sender, PointerRoutedEventArgs e)
+        //{
+        //    if (IsAccountPopupDragging)
+        //    {
 
-                var properties = e.GetCurrentPoint(this).Properties;
+        //        var pointerPosition = Windows.UI.Core.CoreWindow.GetForCurrentThread().PointerPosition;
+        //        var x = pointerPosition.X - Window.Current.Bounds.X - 84;
+        //        var y = pointerPosition.Y - Window.Current.Bounds.Y-37;
+        //        //change position
+        //        AccountCreationPopup.HorizontalOffset = x;
+        //        AccountCreationPopup.VerticalOffset = y;
 
-                if (properties.PointerUpdateKind == Windows.UI.Input.PointerUpdateKind.LeftButtonReleased)
-                {
-                    IsAccountPopupDragging = false;
+        //        //var properties = e.GetCurrentPoint(this).Properties;
 
-                }
-                else if (properties.PointerUpdateKind == Windows.UI.Input.PointerUpdateKind.RightButtonReleased)
-                {
-                    IsAccountPopupDragging = false;
+        //        //if (properties.IsLeftButtonPressed)
+        //        //{
+        //        //    IsAccountPopupDragging = false;
 
-                }
-            }
-            //get pointer position
+        //        //}
+        //        //else if (properties.IsRightButtonPressed)
+        //        //{
+        //        //    IsAccountPopupDragging = false;
+        //        //}
+        //    }
            
 
-            e.Handled = true;
-        }
+        //    e.Handled = true;
+        //}
 
-        private void StandardPopup_PointerReleased(object sender, PointerRoutedEventArgs e)
-        {
-            IsAccountPopupDragging = false;
+        //private void StandardPopup_PointerReleased(object sender, PointerRoutedEventArgs e)
+        //{
+        //    //var properties = e.GetCurrentPoint(this).Properties;
 
-            //disable dragging
-            //if (properties.PointerUpdateKind == Windows.UI.Input.PointerUpdateKind.LeftButtonReleased)
-            //{
+        //    //if (properties.PointerUpdateKind == Windows.UI.Input.PointerUpdateKind.LeftButtonPressed)
+        //    //{
+        //    //    IsAccountPopupDragging = false;
 
-            //}
-            //else if (properties.PointerUpdateKind == Windows.UI.Input.PointerUpdateKind.RightButtonReleased)
-            //{
-            //    IsAccountPopupDragging = false;
+        //    //}
+        //    //else if (properties.PointerUpdateKind == Windows.UI.Input.PointerUpdateKind.RightButtonPressed)
+        //    //{
+        //    //    IsAccountPopupDragging = false;
 
-            //}
-            e.Handled = true;
-            //var a = AccountCreationPopup.HorizontalOffset;
-            //var b = AccountCreationPopup.VerticalOffset;
-            //var pointerPosition = Windows.UI.Core.CoreWindow.GetForCurrentThread().PointerPosition;
-            //var x = pointerPosition.X - Window.Current.Bounds.X;
-            //var y = pointerPosition.Y - Window.Current.Bounds.Y;
-            //Debug.WriteLine(a + " " + b + " " + x + "" + y);
+        //    //}
+        //    IsAccountPopupDragging = false;
 
-        }
+        //    e.Handled = true;
+          
+
+        //}
         private void CreateAccountButton_OnClick(object sender, RoutedEventArgs e)
         {
-            //AccountCreationPopup.IsOpen = false;
             AccountCreationPopup.IsOpen = !(AccountCreationPopup.IsOpen);
-            //PopInStoryboard.Begin();
         }
 
         private void AccountCreationUserControl_OnClosingPopup()
         {
-            //PopOutStoryboard.Begin();
             AccountCreationPopup.IsOpen = false;
         }
 
@@ -274,20 +265,13 @@ namespace ZBMS.View.Pages
             this.Frame.Navigate(typeof(AccountsDetailsPage.CurrentAccountDetailsPage), btn.DataContext);
         }
 
-        //private void CreateAccountButton_OnClick(object sender, RoutedEventArgs e)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
         private void CreateDepositButton_OnClick(object sender, RoutedEventArgs e)
         {
-            //throw new NotImplementedException();
             DepositCreationPopup.IsOpen = true;
         }
 
         private void CreateLoanButton_OnClick(object sender, RoutedEventArgs e)
         {
-            //throw new NotImplementedException();
         }
 
         private void DepositCreationUserControl_OnOnClosingPopup()
@@ -301,23 +285,25 @@ namespace ZBMS.View.Pages
             IsDepositPopupDragging = true;
             e.Handled = true;
         }
-
-        private void DepositCreationPopup_OnPointerReleased(object sender, PointerRoutedEventArgs e)
+        private void AccountCreationPopup_OnPointerPressed(object sender, PointerRoutedEventArgs e)
         {
-            var properties = e.GetCurrentPoint(this).Properties;
-            if (properties.PointerUpdateKind == Windows.UI.Input.PointerUpdateKind.LeftButtonReleased)
-            {
-                IsDepositPopupDragging = false;
-
-            }
-            else if (properties.PointerUpdateKind == Windows.UI.Input.PointerUpdateKind.RightButtonReleased)
-            {
-                IsDepositPopupDragging = false;
-
-            }
+            IsAccountPopupDragging = true;
             e.Handled = true;
         }
 
+        private void DepositCreationPopup_OnPointerReleased(object sender, PointerRoutedEventArgs e)
+        {
+           
+            IsDepositPopupDragging = false;
+
+            e.Handled = true;
+        }
+        private void AccountCreationPopup_OnPointerReleased(object sender, PointerRoutedEventArgs e)
+        {
+            IsAccountPopupDragging = false;
+
+            e.Handled = true;
+        }
         private void DepositCreationPopup_OnPointerMoved(object sender, PointerRoutedEventArgs e)
         {
             if (IsDepositPopupDragging)
@@ -335,8 +321,25 @@ namespace ZBMS.View.Pages
 
             e.Handled = true;
         }
+        private void AccountCreationPopup_OnPointerMoved(object sender, PointerRoutedEventArgs e)
+        {
+            if (IsAccountPopupDragging)
+            {
 
-       
+                var pointerPosition = Windows.UI.Core.CoreWindow.GetForCurrentThread().PointerPosition;
+                var x = pointerPosition.X - Window.Current.Bounds.X - 84;
+                var y = pointerPosition.Y - Window.Current.Bounds.Y - 37;
+                //change position
+                AccountCreationPopup.HorizontalOffset = x;
+                AccountCreationPopup.VerticalOffset = y;
+            }
+            //get pointer position
+
+
+            e.Handled = true;
+        }
+
+
     }
 
     public interface IAccountView

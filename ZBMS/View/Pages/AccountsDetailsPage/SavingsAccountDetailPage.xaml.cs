@@ -74,6 +74,7 @@ namespace ZBMS.View.Pages.AccountsDetailsPage
                 {
                     //TransactionUserControl.TransactionList.Add(transactionSummary);
                     SavingsAccountDetailViewModel.TransactionList.Insert(0,transactionSummary);
+                    TransactionUserControl.OnTransactionUpdated(transactionSummary);
                 }
             );
 

@@ -137,6 +137,7 @@
     <Compile Include="ViewModel\DetailViewModel\SavingsAccountDetailViewModel.cs" />
     <Compile Include="ViewModel\HomePageViewModel.cs" />
     <Compile Include="ViewModel\MainPageViewModel.cs" />
+    <Compile Include="ViewModel\TransactionViewModel.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
     <Compile Include="ViewModel\WithdrawMoneyViewModel.cs" />
     <Compile Include="View\Pages\AccountsDetailsPage\CurrentAccountDetailsPage.xaml.cs">
@@ -241,6 +242,8 @@
     <Content Include="Assets\AppLoginPageBackgroundImage.jpg" />
     <Content Include="Assets\AppLoginPageBackgroundImage1.jpg" />
     <Content Include="Assets\AppLoginPageBackgroundImage2.jpg" />
+    <Content Include="Assets\backButton.jfif" />
+    <Content Include="Assets\backButton1.jfif" />
     <Content Include="Assets\banklogo.png" />
     <Content Include="Assets\CardBackgrounds\card1.jpg" />
     <Content Include="Assets\CardBackgrounds\card2.jpg" />
@@ -438,7 +441,9 @@
       <Name>ZBMSLibrary</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Assets\bg2" />
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
