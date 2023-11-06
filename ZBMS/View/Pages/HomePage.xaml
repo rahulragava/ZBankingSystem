@@ -40,7 +40,7 @@
             </NavigationView.Resources>
 
             <NavigationView.MenuItems>
-                <NavigationViewItem Tag="DashBoard"
+                <!--<NavigationViewItem Tag="DashBoard"
                                     Content="Dashboard"
                                     x:Uid="DashBoard">
                     <NavigationViewItem.Icon>
@@ -48,7 +48,7 @@
                                   x:Name="Feed"
                                   Glyph="" />
                     </NavigationViewItem.Icon>
-                </NavigationViewItem>
+                </NavigationViewItem>-->
                 <NavigationViewItem x:Uid="Accounts"
                                     Content="Accounts"
                                     VerticalAlignment="Center"

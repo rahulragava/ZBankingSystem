@@ -73,10 +73,20 @@ namespace ZBMS.View.Pages.AccountsDetailsPage
                 () =>
                 {
                     //TransactionUserControl.TransactionList.Add(transactionSummary);
-                    SavingsAccountDetailViewModel.TransactionList.Add(transactionSummary);
+                    SavingsAccountDetailViewModel.TransactionList.Insert(0,transactionSummary);
                 }
             );
 
+        }
+
+        private void UIElement_OnKeyDown(object sender, KeyRoutedEventArgs e)
+        {
+            if (e.Key == Windows.System.VirtualKey.Escape)
+            {
+                e.Handled = true;
+                BackButton_OnTapped(sender, new TappedRoutedEventArgs());
+                //DepositButton_OnClick(sender, e);
+            }
         }
 
         //private void UpdateDepositTransaction(TransactionSummary transactionSummary)
@@ -123,12 +133,12 @@ namespace ZBMS.View.Pages.AccountsDetailsPage
 
         private void SavingsAccountSummary_OnWithdrawSuccessNotification(double depositedAmount)
         {
-            NotificationControl.Show($"Successfully Withdrawn the amount {depositedAmount} to your account", 5000);
+            //NotificationControl.Show($"Successfully Withdrawn the amount {depositedAmount} to your account", 3000);
         }
 
         private void SavingsAccountSummary_OnDepositSuccessNotification(double depositedAmount)
         {
-            NotificationControl.Show($"Successfully deposited the amount {depositedAmount} to your account", 5000);
+            //NotificationControl.Show($"Successfully deposited the amount {depositedAmount} to your account", 3000);
 
         }
     }

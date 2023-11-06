@@ -67,7 +67,7 @@ namespace ZBMS.View.UserControl.AccountSummary
                     try
                     {
                         SavingsAccountBObj.Balance += depositedAmount;
-                        //DepositSuccessNotification?.Invoke(depositedAmount);
+                        DepositSuccessNotification?.Invoke(depositedAmount);
                     }
                     catch (Exception ex)
                     {

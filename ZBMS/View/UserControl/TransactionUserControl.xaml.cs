@@ -25,7 +25,21 @@ namespace ZBMS.View.UserControl
         public TransactionUserControl()
         {
             this.InitializeComponent();
+            Loaded += OnLoaded;
         }
+
+        private void OnLoaded(object sender, RoutedEventArgs e)
+        {
+            if (TransactionList != null || TransactionList.Count == 0)
+            {
+
+            }
+            else
+            {
+
+            }
+        }
+
         public static readonly DependencyProperty TransactionListProperty = DependencyProperty.Register(
             nameof(TransactionList), typeof(ObservableCollection<TransactionSummary>), typeof(TransactionUserControl), new PropertyMetadata(default(ObservableCollection<TransactionSummary>)));
 

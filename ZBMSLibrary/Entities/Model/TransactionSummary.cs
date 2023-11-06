@@ -9,12 +9,14 @@ namespace ZBMSLibrary.Entities.Model
     {
         [PrimaryKey]
         public string Id { get; set; }
-        public TransactionType TransactionType { get; set; }
-        public double Amount { get; set; }
         public string SenderAccountNumber { get;set; }
         public string ReceiverAccountNumber { get; set; }
         public DateTime TransactionOn { get; set; }
+        public double Amount { get; set; }
+        public TransactionType TransactionType { get; set; }
         public string Description { get; set; }
+
+
 
         public TransactionSummary()
         {

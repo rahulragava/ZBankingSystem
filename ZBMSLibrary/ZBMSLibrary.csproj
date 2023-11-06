@@ -197,6 +197,7 @@
     <Compile Include="UseCase\WithdrawUseCase.cs" />
     <Compile Include="Util\DepositCalculationUtil.cs" />
     <Compile Include="Util\Generator.cs" />
+    <Compile Include="Util\OrderByUtil.cs" />
     <EmbeddedResource Include="Properties\ZBMSLibrary.rd.xml" />
   </ItemGroup>
   <ItemGroup>

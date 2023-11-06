@@ -95,6 +95,11 @@ namespace ZBMS.View.UserControl
 
         private void CreateAccount_OnClick(object sender, RoutedEventArgs e)
         {
+            if ((String.IsNullOrEmpty(PanTextBox.Text) && string.IsNullOrEmpty(BalanceTextBox.Text) &&
+                  string.IsNullOrEmpty(BalanceTextBox.Text)))
+            {
+                return;
+            }
             if(AccountCreationViewModel.IsValidPan())
             {
                 if (SavingsAccountRadioButton.IsChecked != null && (bool)SavingsAccountRadioButton.IsChecked)

@@ -107,53 +107,48 @@
         </Style>
 
     </Page.Resources>
-    <Grid>
-        <controls:InAppNotification Grid.Row="0"
-                                    Grid.Column="0"
-                                    x:Name="NotificationControl"
-                                    AnimationDuration="00:00:00.1000000"
-                                    HorizontalOffset="00"
-                                    Style="{StaticResource MsEdgeNotificationTemplateNoDismissButton}"
-                                    HorizontalAlignment="Center"
-                                    VerticalAlignment="top"
-                                    StackMode="Replace">
-        </controls:InAppNotification>
-        <ScrollViewer VerticalScrollBarVisibility="Auto">
+    <!--<Grid>-->
+      
+        <ScrollViewer VerticalScrollBarVisibility="Auto" KeyDown="UIElement_OnKeyDown">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
-                <FontIcon Grid.Row="1"
+                <!--<controls:InAppNotification Grid.Row="0"
+                                            Grid.Column="0"
+                                            x:Name="NotificationControl"
+                                            Height="50"
+                                            AnimationDuration="00:00:00.1000000"
+                                            HorizontalOffset="00"
+                                            Style="{StaticResource MsEdgeNotificationTemplateNoDismissButton}"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="top"
+                                            StackMode="Replace">
+                </controls:InAppNotification>-->
+                <FontIcon Grid.Row="0"
                           FontFamily="Segoe MDL2 Assets"
                           x:Name="BackButton"
                           HorizontalAlignment="Left"
                           Margin="5"
                           Tapped="BackButton_OnTapped"
                           Glyph="" />
-                <accountSummary:SavingsAccountSummary Grid.Row="2"
+                <accountSummary:SavingsAccountSummary Grid.Row="1"
                                                       Grid.Column="0"
                                                       Margin="5"
-                                                      SavingsAccountBObj="{x:Bind SavingsAccountDetailViewModel.SavingsAccountBObj,Mode=OneWay}"
                                                       WithdrawSuccessNotification="SavingsAccountSummary_OnWithdrawSuccessNotification"
-                                                      DepositSuccessNotification="SavingsAccountSummary_OnDepositSuccessNotification" />
-                <userControl:OneByTwoGrid Grid.Row="3"
+                                                      DepositSuccessNotification="SavingsAccountSummary_OnDepositSuccessNotification"
+                                                      SavingsAccountBObj="{x:Bind SavingsAccountDetailViewModel.SavingsAccountBObj,Mode=OneWay}"
+                                                       />
+             
+            <userControl:OneByTwoGrid Grid.Row="2"
                                           Width1Ratio="3*"
                                           Width2Ratio="2*"
                                           NarrowScreenBreakPoint="1000">
                     <userControl:OneByTwoGrid.Column1Content>
-                        <!--<Grid Background="{ThemeResource BackgroundColor}"
-                      CornerRadius="10" Margin="5 5 0 5">
-                    -->
-                        <!--<TextBlock Text="Transaction" HorizontalAlignment="Center"
-                               VerticalAlignment="Center" 
-                               Foreground="{ThemeResource SubtleText}"/>-->
-                        <!--
-                    <userControl:TransactionUserControl ></userControl:TransactionUserControl>
-                </Grid>-->
-                        <userControl:TransactionUserControl Margin="5 5 0 5"
+                        
+                        <userControl:TransactionUserControl Margin="5 5 0 0"
                                                             x:Name="TransactionUserControl"
                                                             TransactionList="{x:Bind SavingsAccountDetailViewModel.TransactionList,Mode=OneWay}">
 
@@ -178,6 +173,8 @@
                                   CornerRadius="10"
                                   Grid.Column="0"
                                   Margin="5"
+                                  Height="300"
+                                  VerticalAlignment="Top"
                                   Background="{ThemeResource BackgroundColor}">
                                 <TextBlock HorizontalAlignment="Center"
                                            VerticalAlignment="Center">Coming soon</TextBlock>
@@ -189,5 +186,6 @@
             </Grid>
         </ScrollViewer>
 
-    </Grid>
+    <!--</Grid>-->
 </Page>
+    

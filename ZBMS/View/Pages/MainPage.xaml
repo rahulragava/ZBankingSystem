@@ -10,7 +10,7 @@
 
     <Grid>
         <Grid.Background>
-            <ImageBrush ImageSource="/Assets/AppLoginPageBackgroundImage.jpg" Stretch="UniformToFill" Opacity="0.7"></ImageBrush>
+            <ImageBrush ImageSource="/Assets/AppLoginPageBackgroundImage1.jpg" Stretch="UniformToFill" Opacity="0.7"></ImageBrush>
         </Grid.Background>
         <userControl:LoginUserControl x:Name="LoginUserControl"
                                       GoToLogInControl="LoginInPage_OnGoToHome"></userControl:LoginUserControl>

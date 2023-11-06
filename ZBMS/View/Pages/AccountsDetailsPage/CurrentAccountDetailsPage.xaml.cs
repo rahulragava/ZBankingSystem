@@ -54,7 +54,7 @@ namespace ZBMS.View.Pages.AccountsDetailsPage
                 () =>
                 {
                     //TransactionUserControl.TransactionList.Add(transactionSummary);
-                    CurrentAccountDetailsViewModel.TransactionList.Add(transactionSummary);
+                    CurrentAccountDetailsViewModel.TransactionList.Insert(0,transactionSummary);
                 }
             );
 
@@ -81,6 +81,15 @@ namespace ZBMS.View.Pages.AccountsDetailsPage
         //{
         //    CurrentAccountDetailsViewModel.CurrentAccountBObj.Balance += amount;
         //}
+        private void UIElement_OnKeyDown(object sender, KeyRoutedEventArgs e)
+        {
+            if (e.Key == Windows.System.VirtualKey.Escape)
+            {
+                e.Handled = true;
+                BackButton_OnTapped(sender, new TappedRoutedEventArgs());
+                //DepositButton_OnClick(sender, e);
+            }
+        }
     }
     
 }

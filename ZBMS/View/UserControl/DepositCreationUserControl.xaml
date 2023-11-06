@@ -185,6 +185,7 @@
                 <Button Grid.Row="12"
                         Margin="0 10 0 0"
                         Grid.Column="0"
+                        CornerRadius="8"
                         Grid.ColumnSpan="2"
                         BorderThickness="2"
                         Click="CreateDeposit_OnClick"

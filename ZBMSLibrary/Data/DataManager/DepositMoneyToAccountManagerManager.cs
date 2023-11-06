@@ -45,7 +45,7 @@ namespace ZBMSLibrary.Data.DataManager
                         transactionSummary.ReceiverAccountNumber = currentAccount.AccountNumber;
                         await _dbHandler.InsertTransactionAsync(transactionSummary);
                         //transactionSummary.Id = id;
-                        NotificationEvents.UpdateCurrentAccountDepositTransaction(transactionSummary);
+                        NotificationEvents.UpdateCurrentAccountDepositTransaction?.Invoke(transactionSummary);
                         NotificationEvents.DepositCurrentAmountUpdation?.Invoke(depositMoneyRequest.Amount);
                         await _dbHandler.UpdateCurrentAccountAsync(currentAccount);
                         break;

@@ -20,9 +20,11 @@ namespace ZBMS.Util.Converters
                 case AccountStatus.Closed:
                     return new SolidColorBrush(Colors.IndianRed);
                 case TransactionType.Credit:
-                    return new SolidColorBrush(Colors.IndianRed);
-                case TransactionType.Debit:
                     return new SolidColorBrush(Colors.ForestGreen);
+                  
+                case TransactionType.Debit:
+                    return new SolidColorBrush(Colors.IndianRed);
+
 
             }
             return new SolidColorBrush(Colors.White);

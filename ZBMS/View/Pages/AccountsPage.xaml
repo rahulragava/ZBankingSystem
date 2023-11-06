@@ -84,6 +84,8 @@
                         Margin="20"
                         Click="ViewSavingsAccountButton_OnClick"
                         Grid.Row="4"
+                        CornerRadius="8"
+                        Style="{ThemeResource FeatureButtonStyle}"
                         HorizontalAlignment="Center"
                         Content="View Details">
                 </Button>
@@ -452,7 +454,6 @@
 
                 <StackPanel  Grid.Row="0"
                              Grid.Column="0"
-                             Height="40"
                              VerticalAlignment="Center"
                              Orientation="Horizontal"
                              Spacing="10"
@@ -460,22 +461,35 @@
                              HorizontalAlignment="Right">
                     <Button x:Name="CreateAccountButton"
                             Click="CreateAccountButton_OnClick"
+                            Width="50"
+                            Height="35"
+                            BorderBrush="{ThemeResource ButtonBorderThemeBrush}"
                             ToolTipService.ToolTip="create account"
-                            Width="100">
-                        <controls1:ImageIcon Source="../../Assets/AccountIcon.png" />
+                            >
+                        <Button.Content>
+                            <FontIcon x:Name="CreateAccount"
+                                      FontFamily="Segoe MDL2 Assets"
+                                      Glyph="" />
+
+                        </Button.Content>
+
+                        <!--<controls1:ImageIcon Source="../../Assets/AccountIcon.png" />-->
                     </Button>
                     <Button x:Name="CreateDepositButton"
                             Click="CreateDepositButton_OnClick"
+                            Width="50"
+                            Height="35"
+                            BorderBrush="{ThemeResource ButtonBorderThemeBrush}"
                             ToolTipService.ToolTip="create deposit"
-                            Width="100">
+                           >
                         <controls1:ImageIcon Source="../../Assets/depositIcon.png" />
                     </Button>
-                    <Button x:Name="CreateLoanButton"
+                    <!--<Button x:Name="CreateLoanButton"
                             ToolTipService.ToolTip="create loan"
                             Click="CreateLoanButton_OnClick"
                             Width="100">
                         <controls1:ImageIcon Source="../../Assets/loanImage.jpg" />
-                    </Button>
+                    </Button>-->
                 </StackPanel>
 
                 <!--<Button Grid.Row="0"
@@ -528,6 +542,17 @@
                         <ItemsWrapGrid MaximumRowsOrColumns="3"
                                        Orientation="Horizontal"></ItemsWrapGrid>
                     </ItemsPanelTemplate>
+                    <controls:AdaptiveGridView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate>
+                                        <ContentPresenter />
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </controls:AdaptiveGridView.ItemContainerStyle>
 
                 </controls:AdaptiveGridView>
 

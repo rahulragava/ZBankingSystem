@@ -33,7 +33,7 @@ namespace ZBMS.View.Pages
         {
             HomePageViewModel = new HomePageViewModel(this);
             this.InitializeComponent();
-            NavigationViewItem itemContent = NavigationMenu.MenuItems.ElementAt(1) as NavigationViewItem;
+            NavigationViewItem itemContent = NavigationMenu.MenuItems.ElementAt(0) as NavigationViewItem;
             NavigationMenu.SelectedItem = itemContent;
             FrameworkElement root = (FrameworkElement)Window.Current.Content;
             root.RequestedTheme = AppSettings.Theme;

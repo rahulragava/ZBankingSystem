@@ -17,6 +17,8 @@ using Microsoft.Toolkit.Uwp.UI.Controls.TextToolbarSymbols;
 using SQLite;
 using ZBMSLibrary.UseCase;
 using System.Transactions;
+using System.Collections.ObjectModel;
+using ZBMS.Util;
 
 namespace ZBMSLibrary.Data.DataHandler
 {
@@ -45,6 +47,7 @@ namespace ZBMSLibrary.Data.DataHandler
                 var transactionAsRecipient= await _dbAdapter.Query<TransactionSummary>($"SELECT * FROM TransactionSummary WHERE ReceiverAccountNumber = '{savingsAccount.AccountNumber}';");
                 transactions.AddRange(transactionAsSender);
                 transactions.AddRange(transactionAsRecipient);
+                OrderByUtil.OrderByDescending<TransactionSummary>(transactions);
                 var savingsAccountBObj = new SavingsAccountBObj
                 {
                     UserId = userId,
@@ -64,9 +67,10 @@ namespace ZBMSLibrary.Data.DataHandler
                 };
                 savingsAccountBObjList.Add(savingsAccountBObj);
             }
+            
             return savingsAccountBObjList;
         }
-
+        
         public async Task<IEnumerable<CurrentAccountBObj>> GetUserCurrentAccountsAsync(string userId)
         {
             var currentAccountBObjList = new List<CurrentAccountBObj>();
@@ -83,6 +87,7 @@ namespace ZBMSLibrary.Data.DataHandler
                 var transactionAsRecipient = await _dbAdapter.Query<TransactionSummary>($"SELECT * FROM TransactionSummary WHERE ReceiverAccountNumber = '{currentAccount.AccountNumber}';");
                 transactions.AddRange(transactionAsSender);
                 transactions.AddRange(transactionAsRecipient);
+                OrderByUtil.OrderByDescending<TransactionSummary>(transactions);
 
                 var currentAccountBObj = new CurrentAccountBObj
                 {
