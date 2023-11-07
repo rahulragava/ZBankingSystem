@@ -40,14 +40,44 @@ namespace ZBMSLibrary.Data.DataHandler
             {
                 var branchName = (await _dbAdapter.GetObjectFromTableAsync<Branch>(savingsAccount.IfscCode).ConfigureAwait(false)).Name;
 
-                var transactions = new List<TransactionSummary>();
+                var transactions = new List<TransactionSummaryVObj>();
 
 
                 var transactionAsSender = await _dbAdapter.Query<TransactionSummary>($"SELECT * FROM TransactionSummary WHERE SenderAccountNumber = '{savingsAccount.AccountNumber}';");
+                foreach (var transactionSummary in transactionAsSender)
+                {
+                    TransactionSummaryVObj transactionSummaryVObj = new TransactionSummaryVObj()
+                    {
+                        Amount = transactionSummary.Amount,
+                        Description = transactionSummary.Description,
+                        ReceiverAccountNumber = transactionSummary.ReceiverAccountNumber,
+                        TransactionOn = transactionSummary.TransactionOn,
+                        TransactionType = transactionSummary.TransactionType,
+                        SenderAccountNumber = transactionSummary.SenderAccountNumber,
+                        Id = transactionSummary.Id,
+                        UserName = userName,
+                    };
+                    transactions.Add(transactionSummaryVObj);
+                }
                 var transactionAsRecipient= await _dbAdapter.Query<TransactionSummary>($"SELECT * FROM TransactionSummary WHERE ReceiverAccountNumber = '{savingsAccount.AccountNumber}';");
-                transactions.AddRange(transactionAsSender);
-                transactions.AddRange(transactionAsRecipient);
-                OrderByUtil.OrderByDescending<TransactionSummary>(transactions);
+                foreach (var transactionSummary in transactionAsRecipient)
+                {
+                    TransactionSummaryVObj transactionSummaryVObj = new TransactionSummaryVObj()
+                    {
+                        Amount = transactionSummary.Amount,
+                        Description = transactionSummary.Description,
+                        ReceiverAccountNumber = transactionSummary.ReceiverAccountNumber,
+                        TransactionOn = transactionSummary.TransactionOn,
+                        TransactionType = transactionSummary.TransactionType,
+                        SenderAccountNumber = transactionSummary.SenderAccountNumber,
+                        Id = transactionSummary.Id,
+                        UserName = userName,
+                    };
+                    transactions.Add(transactionSummaryVObj);
+                }
+                //transactions.AddRange(transactionAsSender);
+                //transactions.AddRange(transactionAsRecipient);
+                OrderByUtil.OrderByDescending<TransactionSummaryVObj>(transactions);
                 var savingsAccountBObj = new SavingsAccountBObj
                 {
                     UserId = userId,
@@ -81,13 +111,43 @@ namespace ZBMSLibrary.Data.DataHandler
             {
                 var branchName = (await _dbAdapter.GetObjectFromTableAsync<Branch>(currentAccount.IfscCode).ConfigureAwait(false)).Name;
 
-                var transactions = new List<TransactionSummary>();
+                var transactions = new List<TransactionSummaryVObj>();
 
                 var transactionAsSender = await _dbAdapter.Query<TransactionSummary>($"SELECT * FROM TransactionSummary WHERE SenderAccountNumber = '{currentAccount.AccountNumber}';");
+                foreach (var transactionSummary in transactionAsSender)
+                {
+                    TransactionSummaryVObj transactionSummaryVObj = new TransactionSummaryVObj()
+                    {
+                        Amount = transactionSummary.Amount,
+                        Description = transactionSummary.Description,
+                        ReceiverAccountNumber = transactionSummary.ReceiverAccountNumber,
+                        TransactionOn = transactionSummary.TransactionOn,
+                        TransactionType = transactionSummary.TransactionType,
+                        SenderAccountNumber = transactionSummary.SenderAccountNumber,
+                        Id = transactionSummary.Id,
+                        UserName = userName,
+                    };
+                    transactions.Add(transactionSummaryVObj);
+                }
                 var transactionAsRecipient = await _dbAdapter.Query<TransactionSummary>($"SELECT * FROM TransactionSummary WHERE ReceiverAccountNumber = '{currentAccount.AccountNumber}';");
-                transactions.AddRange(transactionAsSender);
-                transactions.AddRange(transactionAsRecipient);
-                OrderByUtil.OrderByDescending<TransactionSummary>(transactions);
+                foreach (var transactionSummary in transactionAsRecipient)
+                {
+                    TransactionSummaryVObj transactionSummaryVObj = new TransactionSummaryVObj()
+                    {
+                        Amount = transactionSummary.Amount,
+                        Description = transactionSummary.Description,
+                        ReceiverAccountNumber = transactionSummary.ReceiverAccountNumber,
+                        TransactionOn = transactionSummary.TransactionOn,
+                        TransactionType = transactionSummary.TransactionType,
+                        SenderAccountNumber = transactionSummary.SenderAccountNumber,
+                        Id = transactionSummary.Id,
+                        UserName = userName,
+                    };
+                    transactions.Add(transactionSummaryVObj);
+                }
+                //transactions.AddRange(transactionAsSender);
+                //transactions.AddRange(transactionAsRecipient);
+                OrderByUtil.OrderByDescending<TransactionSummaryVObj>(transactions);
 
                 var currentAccountBObj = new CurrentAccountBObj
                 {

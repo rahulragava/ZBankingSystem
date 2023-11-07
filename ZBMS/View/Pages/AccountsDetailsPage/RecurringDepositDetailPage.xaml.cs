@@ -44,5 +44,15 @@ namespace ZBMS.View.Pages.AccountsDetailsPage
             var recurringDepositBObj = e.Parameter as RecurringAccountBObj;
             RecurringDepositDetailViewModel.RecurringAccountBObj= recurringDepositBObj;
         }
+
+        private void UIElement_OnKeyDown(object sender, KeyRoutedEventArgs e)
+        {
+            if (e.Key == Windows.System.VirtualKey.Escape)
+            {
+                e.Handled = true;
+                BackButton_OnTapped(sender, new TappedRoutedEventArgs());
+                //DepositButton_OnClick(sender, e);
+            }
+        }
     }
 }

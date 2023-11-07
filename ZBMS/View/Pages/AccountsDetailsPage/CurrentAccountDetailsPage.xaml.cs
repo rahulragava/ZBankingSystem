@@ -1,4 +1,6 @@
-﻿using Windows.UI.Core;
+﻿using Microsoft.UI.Xaml.Controls;
+using System;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -19,6 +21,7 @@ namespace ZBMS.View.Pages.AccountsDetailsPage
     public sealed partial class CurrentAccountDetailsPage : Page
     {
         public CurrentAccountDetailViewModel CurrentAccountDetailsViewModel { get; set; }
+        private DispatcherTimer _dispatchTimer;
         public CurrentAccountDetailsPage()
         {
             CurrentAccountDetailsViewModel = new CurrentAccountDetailViewModel();
@@ -29,9 +32,9 @@ namespace ZBMS.View.Pages.AccountsDetailsPage
 
         private void OnUnloaded(object sender, RoutedEventArgs e)
         {
-            NotificationEvents.UpdateCurrentAccountWithdrawTransaction -= UpdateTransaction;
+            NotificationEvents.UpdateCurrentAccountWithdrawTransaction -= UpdateWithdrawTransaction;
 
-            NotificationEvents.UpdateCurrentAccountDepositTransaction -= UpdateTransaction;
+            NotificationEvents.UpdateCurrentAccountDepositTransaction -= UpdateDepositTransaction;
             NotificationEvents.MonthlyRdCurrentTransaction -= UpdateTransaction;
             NotificationEvents.RdCreationCurrentTransaction -= UpdateTransaction;
             NotificationEvents.FdCreationCurrentTransaction -= UpdateTransaction;
@@ -40,15 +43,31 @@ namespace ZBMS.View.Pages.AccountsDetailsPage
 
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
-            NotificationEvents.UpdateCurrentAccountWithdrawTransaction += UpdateTransaction;
+            NotificationEvents.UpdateCurrentAccountWithdrawTransaction += UpdateWithdrawTransaction;
 
-            NotificationEvents.UpdateCurrentAccountDepositTransaction += UpdateTransaction;
+            NotificationEvents.UpdateCurrentAccountDepositTransaction += UpdateDepositTransaction;
             NotificationEvents.MonthlyRdCurrentTransaction += UpdateTransaction;
             NotificationEvents.RdCreationCurrentTransaction += UpdateTransaction;
             NotificationEvents.FdCreationCurrentTransaction += UpdateTransaction;
         }
 
-        private void UpdateTransaction(TransactionSummary transactionSummary)
+        public void CreateTimer()
+        {
+            // get a timer to close the infobar after 2s
+            _dispatchTimer = new DispatcherTimer();
+            _dispatchTimer.Tick += DispatcherTimer_Tick; ;
+            _dispatchTimer.Interval = new TimeSpan(0, 0, 4);
+            _dispatchTimer.Start();
+        }
+
+        private void DispatcherTimer_Tick(object sender, object e)
+        {
+            // release the timer
+            InfoBar.IsOpen = false;
+            _dispatchTimer = null;
+        }
+
+        private void UpdateTransaction(TransactionSummaryVObj transactionSummary)
         {
             Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                 () =>
@@ -56,6 +75,38 @@ namespace ZBMS.View.Pages.AccountsDetailsPage
                     //TransactionUserControl.TransactionList.Add(transactionSummary);
                     CurrentAccountDetailsViewModel.TransactionList.Insert(0,transactionSummary);
                     TransactionUserControl.OnTransactionUpdated(transactionSummary);
+                }
+            );
+
+        }
+
+        private void UpdateDepositTransaction(TransactionSummaryVObj transactionSummary)
+        {
+            Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                () =>
+                {
+                    //TransactionUserControl.TransactionList.Add(transactionSummary);
+                    CurrentAccountDetailsViewModel.TransactionList.Insert(0, transactionSummary);
+                    TransactionUserControl.OnTransactionUpdated(transactionSummary);
+                    InfoBar.Message = $"Successfully Deposited Rs.{transactionSummary.Amount}";
+                    CreateTimer();
+                    InfoBar.IsOpen = true;
+                }
+            );
+
+        }
+
+        private void UpdateWithdrawTransaction(TransactionSummaryVObj transactionSummary)
+        {
+            Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                () =>
+                {
+                    //TransactionUserControl.TransactionList.Add(transactionSummary);
+                    CurrentAccountDetailsViewModel.TransactionList.Insert(0, transactionSummary);
+                    TransactionUserControl.OnTransactionUpdated(transactionSummary);
+                    InfoBar.Message = $"Successfully Withdrawn Rs.{transactionSummary.Amount}";
+                    CreateTimer();
+                    InfoBar.IsOpen = true;
                 }
             );
 

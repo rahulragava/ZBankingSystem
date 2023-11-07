@@ -35,6 +35,8 @@ namespace ZBMSLibrary.Data.DataManager
                         TransactionType = TransactionType.Credit,
                         
                     };
+                    var userName = await _dbHandler.GetUserNameAsync(deposit.UserId);
+
 
                     if (deposit is RecurringAccountBObj recurringAccount)
                     {
@@ -89,9 +91,19 @@ namespace ZBMSLibrary.Data.DataManager
                     var account = await _dbHandler.GetSavingsAccountAsync(deposit.SavingsAccountId);
                     account.Balance += maturityAmount;
                     await _dbHandler.UpdateSavingsAccountAsync(account);
-
+                    TransactionSummaryVObj transactionSummaryVObj = new TransactionSummaryVObj()
+                    {
+                        Amount = transactionSummary.Amount,
+                        Description = transactionSummary.Description,
+                        ReceiverAccountNumber = transactionSummary.ReceiverAccountNumber,
+                        TransactionOn = transactionSummary.TransactionOn,
+                        TransactionType = transactionSummary.TransactionType,
+                        SenderAccountNumber = transactionSummary.SenderAccountNumber,
+                        Id = transactionSummary.Id,
+                        UserName = userName,
+                    };
                     NotificationEvents.DepositSettled?.Invoke(deposit, maturityAmount);
-                    NotificationEvents.SettlementDepositTransaction?.Invoke(transactionSummary);
+                    NotificationEvents.SettlementDepositTransaction?.Invoke(transactionSummaryVObj);
                 }
                 //NotifyEvents
                 //NotificationEvents.

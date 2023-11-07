@@ -409,9 +409,8 @@
 
             </Border>
         </Popup>-->
-        
-        <Popup
-               x:Name="DepositCreationPopup">
+
+        <Popup x:Name="DepositCreationPopup">
             <Border Width="500"
                     Height="770"
                     CornerRadius="8"
@@ -467,6 +466,14 @@
                     <RowDefinition Height="Auto"></RowDefinition>
                 </Grid.RowDefinitions>
 
+                <controls1:InfoBar IsOpen="False"
+                                   x:Name="InfoBar"
+                                   Severity="Success"
+                                   HorizontalAlignment="Center"
+                                   IsIconVisible="True"
+                                   IsClosable="True"
+                                   Title="Account Creation"/>
+
                 <StackPanel  Grid.Row="0"
                              Grid.Column="0"
                              VerticalAlignment="Center"
@@ -479,8 +486,7 @@
                             Width="50"
                             Height="35"
                             BorderBrush="{ThemeResource ButtonBorderThemeBrush}"
-                            ToolTipService.ToolTip="create account"
-                            >
+                            ToolTipService.ToolTip="create account">
                         <Button.Content>
                             <FontIcon x:Name="CreateAccount"
                                       FontFamily="Segoe MDL2 Assets"
@@ -495,8 +501,7 @@
                             Width="50"
                             Height="35"
                             BorderBrush="{ThemeResource ButtonBorderThemeBrush}"
-                            ToolTipService.ToolTip="create deposit"
-                           >
+                            ToolTipService.ToolTip="create deposit">
                         <controls1:ImageIcon Source="../../Assets/depositIcon.png" />
                     </Button>
                     <!--<Button x:Name="CreateLoanButton"

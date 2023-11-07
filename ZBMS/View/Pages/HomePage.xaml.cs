@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
@@ -33,11 +34,17 @@ namespace ZBMS.View.Pages
         {
             HomePageViewModel = new HomePageViewModel(this);
             this.InitializeComponent();
+            Loaded += OnLoaded;
             NavigationViewItem itemContent = NavigationMenu.MenuItems.ElementAt(0) as NavigationViewItem;
             NavigationMenu.SelectedItem = itemContent;
             FrameworkElement root = (FrameworkElement)Window.Current.Content;
             root.RequestedTheme = AppSettings.Theme;
             SetThemeToggle(AppSettings.Theme);
+        }
+
+        private void OnLoaded(object sender, RoutedEventArgs e)
+        {
+            HomePageViewModel.GetUser();
         }
 
         private void NavigationMenu_OnSelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
@@ -66,7 +73,6 @@ namespace ZBMS.View.Pages
         {
             if (theme == AppSettings.LightTheme)
             {
-                ThemeChangerNavigationItem.Content = "Dark";
                 var titleBar = AppSettings.TitleBar;
                 //titleBar.BackgroundColor = Colors.White;
                 titleBar.ForegroundColor = Colors.Black;
@@ -86,7 +92,6 @@ namespace ZBMS.View.Pages
                 titleBar.BackgroundColor = Color.FromArgb(255, 24, 25, 26);
                 titleBar.ButtonBackgroundColor = Color.FromArgb(255, 24, 25, 26);
                 titleBar.ButtonForegroundColor = Colors.White;
-                ThemeChangerNavigationItem.Content = "Light";
 
             }
         }
@@ -99,40 +104,38 @@ namespace ZBMS.View.Pages
         //    set => SetField(ref _themeIcon, value);
         //}
 
-        private void ThemeChanger_OnTapped(object sender, TappedRoutedEventArgs e)
-        {
-            FrameworkElement window = (FrameworkElement)Window.Current.Content;
+        //private void ThemeChanger_OnTapped(object sender, TappedRoutedEventArgs e)
+        //{
+        //    FrameworkElement window = (FrameworkElement)Window.Current.Content;
 
-            if (AppSettings.Theme == AppSettings.LightTheme)
-            {
-                AppSettings.Theme = AppSettings.DarkTheme;
-                var titleBar = AppSettings.TitleBar;
-                //titleBar.BackgroundColor = Colors.Black;
-                titleBar.ForegroundColor = Colors.White;
-                //titleBar.ButtonBackgroundColor = Colors.Black;
-                titleBar.ButtonForegroundColor = Colors.White;
-                titleBar.BackgroundColor = Color.FromArgb(255, 24, 25, 26);
-                titleBar.ButtonBackgroundColor = Color.FromArgb(255, 24, 25, 26);
-                window.RequestedTheme = AppSettings.DarkTheme;
-                ThemeChangerNavigationItem.Content = "Light";
-                //ThemeChanger.Glyph = "&#E793;";
-            }
-            else
-            {
-                AppSettings.Theme = AppSettings.LightTheme;
-                window.RequestedTheme = AppSettings.LightTheme;
-                //ThemeChanger.Glyph = "&#xE945;";
-                var titleBar = AppSettings.TitleBar;
-                //titleBar.BackgroundColor = Colors.White;
-                titleBar.ForegroundColor = Colors.Black;
-                //titleBar.ButtonBackgroundColor = Colors.White;
-                titleBar.BackgroundColor = Color.FromArgb(255, 240, 242, 245);
-                titleBar.ButtonBackgroundColor = Color.FromArgb(255, 240, 242, 245);
-                titleBar.ButtonForegroundColor = Colors.Black;
-                ThemeChangerNavigationItem.Content = "Dark";
+        //    if (AppSettings.Theme == AppSettings.LightTheme)
+        //    {
+        //        AppSettings.Theme = AppSettings.DarkTheme;
+        //        var titleBar = AppSettings.TitleBar;
+        //        //titleBar.BackgroundColor = Colors.Black;
+        //        titleBar.ForegroundColor = Colors.White;
+        //        //titleBar.ButtonBackgroundColor = Colors.Black;
+        //        titleBar.ButtonForegroundColor = Colors.White;
+        //        titleBar.BackgroundColor = Color.FromArgb(255, 24, 25, 26);
+        //        titleBar.ButtonBackgroundColor = Color.FromArgb(255, 24, 25, 26);
+        //        window.RequestedTheme = AppSettings.DarkTheme;
+        //        //ThemeChanger.Glyph = "&#E793;";
+        //    }
+        //    else
+        //    {
+        //        AppSettings.Theme = AppSettings.LightTheme;
+        //        window.RequestedTheme = AppSettings.LightTheme;
+        //        //ThemeChanger.Glyph = "&#xE945;";
+        //        var titleBar = AppSettings.TitleBar;
+        //        //titleBar.BackgroundColor = Colors.White;
+        //        titleBar.ForegroundColor = Colors.Black;
+        //        //titleBar.ButtonBackgroundColor = Colors.White;
+        //        titleBar.BackgroundColor = Color.FromArgb(255, 240, 242, 245);
+        //        titleBar.ButtonBackgroundColor = Color.FromArgb(255, 240, 242, 245);
+        //        titleBar.ButtonForegroundColor = Colors.Black;
 
-            }
-        }
+        //    }
+        //}
 
 
         private void UserLogOut_OnTapped(object sender, TappedRoutedEventArgs e)
@@ -161,6 +164,24 @@ namespace ZBMS.View.Pages
             AppSettings.LocalSettings.Values.Remove("UserId");
             AppSettings.CustomerId = null;
             this.Frame.Navigate(typeof(MainPage));
+        }
+
+        private void UIElement_OnTapped(object sender, TappedRoutedEventArgs e)
+        {
+            var fe = PersonPicture;
+            var menu = Flyout.GetAttachedFlyout(fe);
+            menu.ShowAt(fe);
+        }
+
+        private void UserProfileControl_OnThemeChanged()
+        {
+            var menu = Flyout.GetAttachedFlyout(PersonPicture);
+            menu.Hide();
+        }
+
+        private void UserProfileControl_OnLogOutClicked()
+        {
+            UserLogOut_OnTapped(new object(),new TappedRoutedEventArgs());
         }
     }
 

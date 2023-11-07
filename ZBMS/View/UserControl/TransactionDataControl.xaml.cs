@@ -101,6 +101,14 @@ namespace ZBMS.View.UserControl
             set => SetValue(IdProperty, value);
         }
 
+        public static readonly DependencyProperty UserNameProperty = DependencyProperty.Register(
+            nameof(UserName), typeof(string), typeof(TransactionDataControl), new PropertyMetadata(default(string)));
+
+        public string UserName
+        {
+            get => (string)GetValue(UserNameProperty);
+            set => SetValue(UserNameProperty, value);
+        }
         public event Action GoBack;
 
         private void GoBackButton_OnClick(object sender, RoutedEventArgs e)

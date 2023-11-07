@@ -6,6 +6,6 @@ namespace ZBMSLibrary.Entities.BusinessObject
 {
     public class UserBObj : User
     {
-       public IEnumerable<Account> AccountList { get; set; }
+       //public IEnumerable<Account> AccountList { get; set; }
     }
 }

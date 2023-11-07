@@ -26,6 +26,7 @@ namespace ZBMSLibrary.Data.Dependencies
                 .AddSingleton<IDepositSettlementManager,DepositSettlementManager>()
                 .AddSingleton<ICreateRecurringDepositManager, CreateRecurringDepositManager>()
                 .AddSingleton<IUpdateUserLoggedInManager, UpdateUserLoggedInManager>()
+                .AddSingleton<IGetUserManager, GetUserManager>()
                 .AddSingleton<IGetInterestRateOfAllUniqueAccountsManager,GetInterestRateOfAllUniqueAccountsManager>()
                 .BuildServiceProvider();
         }

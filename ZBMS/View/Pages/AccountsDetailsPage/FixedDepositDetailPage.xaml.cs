@@ -46,8 +46,15 @@ namespace ZBMS.View.Pages.AccountsDetailsPage
             var fixedDepositBObj = e.Parameter as FixedDepositBObj;
             FixedDepositDetailViewModel.FixedDepositBObj = fixedDepositBObj;
         }
-
-       
+        private void UIElement_OnKeyDown(object sender, KeyRoutedEventArgs e)
+        {
+            if (e.Key == Windows.System.VirtualKey.Escape)
+            {
+                e.Handled = true;
+                BackButton_OnTapped(sender, new TappedRoutedEventArgs());
+                //DepositButton_OnClick(sender, e);
+            }
+        }
     }
 
 }

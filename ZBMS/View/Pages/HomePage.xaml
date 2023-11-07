@@ -4,6 +4,7 @@
       xmlns:local="using:ZBMS.View.Pages"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:userControl="using:ZBMS.View.UserControl"
       mc:Ignorable="d"
       Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
@@ -15,7 +16,7 @@
                         IsSettingsVisible="False"
                         ExpandedModeThresholdWidth="1100"
                         OpenPaneLength="250"
-                        IsPaneOpen="false"
+                        IsPaneOpen="False"
                         SelectionChanged="NavigationMenu_OnSelectionChanged">
             <NavigationView.Resources>
                 <ResourceDictionary>
@@ -62,7 +63,7 @@
 
             <NavigationView.PaneFooter>
                 <StackPanel>
-                    <NavigationViewItem x:Name="ThemeChangerNavigationItem"
+                    <!--<NavigationViewItem x:Name="ThemeChangerNavigationItem"
                                         Tapped="ThemeChanger_OnTapped">
                         <NavigationViewItem.Icon>
                             <FontIcon x:Name="ThemeChanger"
@@ -70,9 +71,26 @@
                                       Glyph=""/>
                         </NavigationViewItem.Icon>
 
-                    </NavigationViewItem>
-                    <NavigationViewItem x:Name="User">
-                        <PersonPicture Height="20" Margin="-5 0 0 0"></PersonPicture>
+                    </NavigationViewItem>-->
+                    <NavigationViewItem x:Name="User"
+                                        Tapped="UIElement_OnTapped">
+                        <PersonPicture Height="20" Margin="-5 0 0 0" Tapped="UIElement_OnTapped" x:Name="PersonPicture">
+                            <FlyoutBase.AttachedFlyout>
+                                <Flyout Placement="RightEdgeAlignedBottom">
+                                    <userControl:UserProfileControl UserName="{x:Bind HomePageViewModel.UserName,Mode=OneWay}"
+                                                                    Mail="{x:Bind HomePageViewModel.Email,Mode=OneWay}"
+                                                                    Height="270"
+                                                                    Width="250"
+                                                                    BorderBrush="{ThemeResource ButtonBorderThemeBrush}"
+                                                                    BorderThickness="0.5"
+                                                                    PhoneNumber="{x:Bind HomePageViewModel.PhoneNumber,Mode=OneWay}"
+                                                                    LastLoggedOn="{x:Bind HomePageViewModel.LastLoggedOn,Mode=OneWay}" 
+                                                                    LogOutClicked="UserProfileControl_OnLogOutClicked"
+                                                                    ThemeChanged="UserProfileControl_OnThemeChanged"/>
+                                </Flyout>
+                            </FlyoutBase.AttachedFlyout>
+                        </PersonPicture>
+
                     </NavigationViewItem>
                     <NavigationViewItem x:Name="UserLogOut"
                                         x:Uid="LogOut"

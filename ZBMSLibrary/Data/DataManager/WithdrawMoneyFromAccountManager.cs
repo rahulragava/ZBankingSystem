@@ -31,6 +31,7 @@ namespace ZBMSLibrary.Data.DataManager
                     TransactionOn = DateTime.Now,
                     TransactionType = TransactionType.Debit,
                 };
+                var userName = await _dbHandler.GetUserNameAsync(withdrawMoneyRequest.Account.UserId);
 
                 switch (withdrawMoneyRequest.Account)
                 {
@@ -39,7 +40,19 @@ namespace ZBMSLibrary.Data.DataManager
                         transactionSummary.SenderAccountNumber = savingsAccount.AccountNumber;
                         await _dbHandler.UpdateSavingsAccountAsync(savingsAccount);
                         await _dbHandler.InsertTransactionAsync(transactionSummary);
-                        NotificationEvents.UpdateSavingsAccountWithdrawTransaction?.Invoke(transactionSummary);
+
+                        TransactionSummaryVObj transactionSummaryVObj = new TransactionSummaryVObj()
+                        {
+                            Amount = transactionSummary.Amount,
+                            Description = transactionSummary.Description,
+                            ReceiverAccountNumber = transactionSummary.ReceiverAccountNumber,
+                            TransactionOn = transactionSummary.TransactionOn,
+                            TransactionType = transactionSummary.TransactionType,
+                            SenderAccountNumber = transactionSummary.SenderAccountNumber,
+                            Id = transactionSummary.Id,
+                            UserName = userName,
+                        };
+                        NotificationEvents.UpdateSavingsAccountWithdrawTransaction?.Invoke(transactionSummaryVObj);
                         NotificationEvents.WithdrawSavingsAccountAmountUpdation?.Invoke(withdrawMoneyRequest.Amount);
                         //await _dbHandler.InsertTransactionAsync(transactionSummary);
                         break;
@@ -47,7 +60,18 @@ namespace ZBMSLibrary.Data.DataManager
                         transactionSummary.SenderAccountNumber = currentAccount.AccountNumber;
                         currentAccount.Balance -= withdrawMoneyRequest.Amount;
                         await _dbHandler.InsertTransactionAsync(transactionSummary);
-                        NotificationEvents.UpdateCurrentAccountWithdrawTransaction?.Invoke(transactionSummary);
+                        TransactionSummaryVObj transactionVObj = new TransactionSummaryVObj()
+                        {
+                            Amount = transactionSummary.Amount,
+                            Description = transactionSummary.Description,
+                            ReceiverAccountNumber = transactionSummary.ReceiverAccountNumber,
+                            TransactionOn = transactionSummary.TransactionOn,
+                            TransactionType = transactionSummary.TransactionType,
+                            SenderAccountNumber = transactionSummary.SenderAccountNumber,
+                            Id = transactionSummary.Id,
+                            UserName = userName,
+                        };
+                        NotificationEvents.UpdateCurrentAccountWithdrawTransaction?.Invoke(transactionVObj);
                         NotificationEvents.WithdrawCurrentAccountAmountUpdation?.Invoke(withdrawMoneyRequest.Amount);
                         await _dbHandler.UpdateCurrentAccountAsync(currentAccount);
                         break;

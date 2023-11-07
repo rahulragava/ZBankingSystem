@@ -17,17 +17,17 @@ namespace ZBMSLibrary.Data.DataManager
         public static Action<RecurringAccountBObj> RecurringDepositCreated;
         public static Action<RecurringAccount,double> MonthlyInstallmentDeposited;
         public static Action<Deposit,double> DepositSettled;
-        public static Action<TransactionSummary> UpdateSavingsAccountWithdrawTransaction;
-        public static Action<TransactionSummary> UpdateCurrentAccountWithdrawTransaction;  
-        public static Action<TransactionSummary> UpdateSavingsAccountDepositTransaction;
-        public static Action<TransactionSummary> UpdateCurrentAccountDepositTransaction;
-        public static Action<TransactionSummary> RdCreationSavingsTransaction;
-        public static Action<TransactionSummary> RdCreationCurrentTransaction;
-        public static Action<TransactionSummary> FdCreationSavingsTransaction;
-        public static Action<TransactionSummary> FdCreationCurrentTransaction;
-        public static Action<TransactionSummary> MonthlyRdCurrentTransaction;
-        public static Action<TransactionSummary> MonthlyRdSavingsTransaction;
-        public static Action<TransactionSummary> SettlementDepositTransaction;
+        public static Action<TransactionSummaryVObj> UpdateSavingsAccountWithdrawTransaction;
+        public static Action<TransactionSummaryVObj> UpdateCurrentAccountWithdrawTransaction;  
+        public static Action<TransactionSummaryVObj> UpdateSavingsAccountDepositTransaction;
+        public static Action<TransactionSummaryVObj> UpdateCurrentAccountDepositTransaction;
+        public static Action<TransactionSummaryVObj> RdCreationSavingsTransaction;
+        public static Action<TransactionSummaryVObj> RdCreationCurrentTransaction;
+        public static Action<TransactionSummaryVObj> FdCreationSavingsTransaction;
+        public static Action<TransactionSummaryVObj> FdCreationCurrentTransaction;
+        public static Action<TransactionSummaryVObj> MonthlyRdCurrentTransaction;
+        public static Action<TransactionSummaryVObj> MonthlyRdSavingsTransaction;
+        public static Action<TransactionSummaryVObj> SettlementDepositTransaction;
         //public static Action<TransactionSummary> MonthlyInstallmentTransaction;
 
     }

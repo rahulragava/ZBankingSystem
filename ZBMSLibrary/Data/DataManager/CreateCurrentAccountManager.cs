@@ -50,17 +50,18 @@ namespace ZBMSLibrary.Data.DataManager
 
                 var userName = await _dbHandler.GetUserNameAsync(createCurrentAccountRequest.CurrentAccount.UserId);
                 var branchName = await _dbHandler.GetBranchNameAsync(createCurrentAccountRequest.CurrentAccount.IfscCode);
-                currentAccountBObj.TransactionList.Add(transactionSummary);
-                //TransactionSummaryVObj transactionSummaryVObj = new TransactionSummaryVObj()
-                //{
-                //    Amount = transactionSummary.Amount,
-                //    Description = transactionSummary.Description,
-                //    ReceiverAccountNumber = transactionSummary.ReceiverAccountNumber,
-                //    TransactionOn = transactionSummary.TransactionOn,
-                //    TransactionType = transactionSummary.TransactionType,
-                //    SenderAccountNumber = transactionSummary.SenderAccountNumber,
-                //    UserName = userName,
-                //};
+                TransactionSummaryVObj transactionSummaryVObj = new TransactionSummaryVObj()
+                {
+                    Amount = transactionSummary.Amount,
+                    Description = transactionSummary.Description,
+                    ReceiverAccountNumber = transactionSummary.ReceiverAccountNumber,
+                    TransactionOn = transactionSummary.TransactionOn,
+                    TransactionType = transactionSummary.TransactionType,
+                    SenderAccountNumber = transactionSummary.SenderAccountNumber,
+                    UserName = userName,
+                    Id = transactionSummary.Id,
+                };
+                currentAccountBObj.TransactionList.Add(transactionSummaryVObj);
                 currentAccountBObj.BranchName = branchName;
                 currentAccountBObj.UserName = userName;
                 NotificationEvents.CurrentAccountCreated?.Invoke(currentAccountBObj);

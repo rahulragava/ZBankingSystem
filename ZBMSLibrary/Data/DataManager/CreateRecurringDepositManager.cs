@@ -31,6 +31,8 @@ namespace ZBMSLibrary.Data.DataManager
                     TransactionOn = DateTime.Now,
                     TransactionType = TransactionType.Debit,
                 };
+                var userName = await _dbHandler.GetUserNameAsync(createRecurringDepositRequest.RecurringAccount.UserId);
+
                 try
                 {
                     var account = await _dbHandler.GetSavingsAccountAsync(createRecurringDepositRequest.RecurringAccount.FromAccountId);
@@ -38,7 +40,19 @@ namespace ZBMSLibrary.Data.DataManager
                     await _dbHandler.UpdateSavingsAccountAsync(account);
                     transactionSummary.SenderAccountNumber = account.AccountNumber;
                     await _dbHandler.InsertTransactionAsync(transactionSummary);
-                    NotificationEvents.RdCreationSavingsTransaction?.Invoke(transactionSummary);
+                    TransactionSummaryVObj transactionSummaryVObj = new TransactionSummaryVObj()
+                    {
+                        Amount = transactionSummary.Amount,
+                        Description = transactionSummary.Description,
+                        ReceiverAccountNumber = transactionSummary.ReceiverAccountNumber,
+                        TransactionOn = transactionSummary.TransactionOn,
+                        TransactionType = transactionSummary.TransactionType,
+                        SenderAccountNumber = transactionSummary.SenderAccountNumber,
+                        Id = transactionSummary.Id,
+                        UserName = userName,
+                    };
+                    NotificationEvents.RdCreationSavingsTransaction?.Invoke(transactionSummaryVObj);
+                    // var userName = await _dbHandler.GetUserNameAsync(account.UserId);
                 }
                 catch (Exception ex)
                 {
@@ -47,10 +61,21 @@ namespace ZBMSLibrary.Data.DataManager
                     await _dbHandler.UpdateCurrentAccountAsync(account);
                     transactionSummary.SenderAccountNumber = account.AccountNumber;
                     await _dbHandler.InsertTransactionAsync(transactionSummary);
-                    NotificationEvents.RdCreationCurrentTransaction?.Invoke(transactionSummary);
+                    TransactionSummaryVObj transactionSummaryVObj = new TransactionSummaryVObj()
+                    {
+                        Amount = transactionSummary.Amount,
+                        Description = transactionSummary.Description,
+                        ReceiverAccountNumber = transactionSummary.ReceiverAccountNumber,
+                        TransactionOn = transactionSummary.TransactionOn,
+                        TransactionType = transactionSummary.TransactionType,
+                        SenderAccountNumber = transactionSummary.SenderAccountNumber,
+                        Id = transactionSummary.Id,
+                        UserName = userName,
+                    };
+                    NotificationEvents.RdCreationCurrentTransaction?.Invoke(transactionSummaryVObj);
                 }
                 await _dbHandler.CreateRecurringDepositAsync(createRecurringDepositRequest.RecurringAccount);
-
+                
                 var recurringDepositBObj = new RecurringAccountBObj()
                 {
                     UserId = createRecurringDepositRequest.RecurringAccount.UserId,
@@ -66,12 +91,12 @@ namespace ZBMSLibrary.Data.DataManager
                     LastPaidDate = createRecurringDepositRequest.RecurringAccount.LastPaidDate,
                     MonthlyInstallment = createRecurringDepositRequest.RecurringAccount.MonthlyInstallment,
                 };
-                var userName = await _dbHandler.GetUserNameAsync(createRecurringDepositRequest.RecurringAccount.UserId);
                 var branchName =
                     await _dbHandler.GetBranchNameAsync(createRecurringDepositRequest.RecurringAccount.IfscCode);
                 recurringDepositBObj.SetDefault();
                 recurringDepositBObj.BranchName = branchName;
                 recurringDepositBObj.UserName = userName;
+              
                 NotificationEvents.RecurringDepositCreated?.Invoke(recurringDepositBObj);
                 createRecurringDepositUseCaseCallBack?.OnSuccess(new CreateRecurringDepositResponse());
             }

@@ -16,7 +16,7 @@
         <converters:DateFormatter x:Name="DateFormatConverter" />
 
     </Page.Resources>
-    <Grid>
+    <Grid KeyDown="UIElement_OnKeyDown">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />

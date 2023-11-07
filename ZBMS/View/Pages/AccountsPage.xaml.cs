@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Microsoft.UI.Xaml.Controls;
 using ZBMS.View.Pages.AccountsDetailsPage;
 using ZBMS.ViewModel;
 using ZBMSLibrary.Data.DataManager;
@@ -30,6 +31,8 @@ namespace ZBMS.View.Pages
     public sealed partial class AccountsPage : Page, IAccountView
     {
         public AccountPageViewModel AccountViewModel { get; set; }
+        public DispatcherTimer dispatchTimer;
+        
         public AccountsPage()
         {
             AccountViewModel = new AccountPageViewModel(this);
@@ -37,7 +40,7 @@ namespace ZBMS.View.Pages
             IsDepositPopupDragging = false;
             this.InitializeComponent();
             Loaded += OnLoaded;
-            Unloaded -= OnUnloaded;
+            Unloaded += OnUnloaded;
         }
 
         private void OnLoaded(object sender, RoutedEventArgs e)
@@ -45,7 +48,6 @@ namespace ZBMS.View.Pages
 
             AccountViewModel.GetUserAccounts();
             AccountViewModel.GetUserLastLogged();
-
             NotificationEvents.SavingsAccountCreated += SavingsAccountCreated;
             NotificationEvents.CurrentAccountCreated += CurrentAccountCreated;
             NotificationEvents.FixedDepositCreated += FixedDepositCreated;
@@ -77,6 +79,9 @@ namespace ZBMS.View.Pages
                     {
                         account.Balance = account.Balance - recurringDeposit.DepositedAmount;
                     }
+                    InfoBar.Message = "Recurring Deposit is Successfully Created";
+                    CreateTimer();
+                    InfoBar.IsOpen = true;
                 }
             );
         }
@@ -93,6 +98,9 @@ namespace ZBMS.View.Pages
                     {
                         account.Balance = account.Balance - fixedDeposit.DepositedAmount;
                     }
+                    InfoBar.Message = "Fixed Deposit is Successfully Created";
+                    CreateTimer();
+                    InfoBar.IsOpen = true;
                 }
             );
         }
@@ -111,7 +119,10 @@ namespace ZBMS.View.Pages
                     {
                         savingsAccount.Balance += maturityAmount;
                     }
-                 
+                    InfoBar.Message = "Deposit Amount is Deposited with interest in your savings Account";
+                    InfoBar.Severity = InfoBarSeverity.Informational;
+                    CreateTimer();
+                    InfoBar.IsOpen = true;
                 }
             );
         }
@@ -134,13 +145,30 @@ namespace ZBMS.View.Pages
                             account.Balance = account.Balance - dueAmount;
                         }
                     }
-                    
+                    InfoBar.Message = "Monthly installment for recurring deposit is withdrawn from your Account";
+                    InfoBar.Severity = InfoBarSeverity.Informational;
+                    CreateTimer();
+                    InfoBar.IsOpen = true;
 
                 }
             );
 
         }
+        public void CreateTimer()
+        {
+            // get a timer to close the infobar after 2s
+            dispatchTimer = new DispatcherTimer();
+            dispatchTimer.Tick += DispatcherTimer_Tick; ;
+            dispatchTimer.Interval = new TimeSpan(0, 0, 2);
+            dispatchTimer.Start();
+        }
 
+        private void DispatcherTimer_Tick(object sender, object e)
+        {
+            // release the timer
+            InfoBar.IsOpen = false;
+            dispatchTimer = null;
+        }
 
         private void CurrentAccountCreated(CurrentAccountBObj currentAccount)
         {
@@ -149,6 +177,9 @@ namespace ZBMS.View.Pages
                 {
                     AccountCreationPopup.IsOpen = false;
                     AccountViewModel.Accounts.Add(currentAccount);
+                    InfoBar.Message = "Current Account is Successfully Created";
+                    CreateTimer();
+                    InfoBar.IsOpen = true;
                 }
             );
         }
@@ -160,9 +191,10 @@ namespace ZBMS.View.Pages
             {
                 AccountCreationPopup.IsOpen = false;
                 AccountViewModel.Accounts.Add(savingsAccount);
-
-            }
-            );
+                InfoBar.Message = "Savings Account is Successfully Created";
+                CreateTimer();
+                InfoBar.IsOpen = true;
+            });
         }
 
         private void ViewFixedDepositAccountButton_OnClick(object sender, RoutedEventArgs e)

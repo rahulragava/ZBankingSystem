@@ -29,6 +29,7 @@ namespace ZBMSLibrary.Data.DataManager
                     TransactionOn = DateTime.Now,
                     TransactionType = TransactionType.Credit,
                 };
+                var userName = await _dbHandler.GetUserNameAsync(depositMoneyRequest.Account.UserId);
                 switch (depositMoneyRequest.Account)
                 {
                     case SavingsAccount savingsAccount:
@@ -36,7 +37,18 @@ namespace ZBMSLibrary.Data.DataManager
                         transactionSummary.ReceiverAccountNumber = savingsAccount.AccountNumber;
                         await _dbHandler.InsertTransactionAsync(transactionSummary);
                         //transactionSummary.Id = transactionId;
-                        NotificationEvents.UpdateSavingsAccountDepositTransaction?.Invoke(transactionSummary);
+                        TransactionSummaryVObj transactionSummaryVObj = new TransactionSummaryVObj()
+                        {
+                            Amount = transactionSummary.Amount,
+                            Description = transactionSummary.Description,
+                            ReceiverAccountNumber = transactionSummary.ReceiverAccountNumber,
+                            TransactionOn = transactionSummary.TransactionOn,
+                            TransactionType = transactionSummary.TransactionType,
+                            SenderAccountNumber = transactionSummary.SenderAccountNumber,
+                            Id = transactionSummary.Id,
+                            UserName = userName,
+                        };
+                        NotificationEvents.UpdateSavingsAccountDepositTransaction?.Invoke(transactionSummaryVObj);
                         NotificationEvents.DepositSavingsAccountAmountUpdation?.Invoke(depositMoneyRequest.Amount);
                         await _dbHandler.UpdateSavingsAccountAsync(savingsAccount);
                         break;
@@ -45,7 +57,18 @@ namespace ZBMSLibrary.Data.DataManager
                         transactionSummary.ReceiverAccountNumber = currentAccount.AccountNumber;
                         await _dbHandler.InsertTransactionAsync(transactionSummary);
                         //transactionSummary.Id = id;
-                        NotificationEvents.UpdateCurrentAccountDepositTransaction?.Invoke(transactionSummary);
+                        TransactionSummaryVObj transactionVObj = new TransactionSummaryVObj()
+                        {
+                            Amount = transactionSummary.Amount,
+                            Description = transactionSummary.Description,
+                            ReceiverAccountNumber = transactionSummary.ReceiverAccountNumber,
+                            TransactionOn = transactionSummary.TransactionOn,
+                            TransactionType = transactionSummary.TransactionType,
+                            SenderAccountNumber = transactionSummary.SenderAccountNumber,
+                            Id = transactionSummary.Id,
+                            UserName = userName,
+                        };
+                        NotificationEvents.UpdateCurrentAccountDepositTransaction?.Invoke(transactionVObj);
                         NotificationEvents.DepositCurrentAmountUpdation?.Invoke(depositMoneyRequest.Amount);
                         await _dbHandler.UpdateCurrentAccountAsync(currentAccount);
                         break;

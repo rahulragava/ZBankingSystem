@@ -75,5 +75,16 @@ namespace ZBMS.View.UserControl
             OnPropertyChanged(propertyName);
             return true;
         }
+
+        private void UIElement_OnKeyDown(object sender, KeyRoutedEventArgs e)
+        {
+            if (e.Key == Windows.System.VirtualKey.Enter)
+            {
+                _userId = (sender as TextBox)?.Text;
+                e.Handled = true;
+                LoginButton_OnClick(sender, new TappedRoutedEventArgs());
+                //DepositButton_OnClick(sender, e);
+            }
+        }
     }
 }

@@ -1,4 +1,6 @@
-﻿using System.Transactions;
+﻿using Microsoft.UI.Xaml.Controls;
+using System;
+using System.Transactions;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -21,6 +23,7 @@ namespace ZBMS.View.Pages.AccountsDetailsPage
     public sealed partial class SavingsAccountDetailPage : Page
     {
         public SavingsAccountDetailViewModel SavingsAccountDetailViewModel { get; set; }
+        private DispatcherTimer _dispatchTimer;
         public SavingsAccountDetailPage()
         {
             SavingsAccountDetailViewModel = new SavingsAccountDetailViewModel();
@@ -31,8 +34,8 @@ namespace ZBMS.View.Pages.AccountsDetailsPage
 
         private void OnUnloaded(object sender, RoutedEventArgs e)
         {
-            NotificationEvents.UpdateSavingsAccountWithdrawTransaction -= UpdateTransaction;
-            NotificationEvents.UpdateSavingsAccountDepositTransaction -= UpdateTransaction;
+            NotificationEvents.UpdateSavingsAccountWithdrawTransaction -= UpdateWithdrawTransaction;
+            NotificationEvents.UpdateSavingsAccountDepositTransaction -= UpdateDepositTransaction;
             NotificationEvents.MonthlyRdSavingsTransaction -= UpdateTransaction;
             NotificationEvents.SettlementDepositTransaction -= UpdateTransaction;
             NotificationEvents.RdCreationSavingsTransaction -= UpdateTransaction;
@@ -43,14 +46,28 @@ namespace ZBMS.View.Pages.AccountsDetailsPage
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
             //SavingsAccountDetailViewModel.ClearAndAddTransaction();
-            NotificationEvents.UpdateSavingsAccountWithdrawTransaction += UpdateTransaction;
-            NotificationEvents.UpdateSavingsAccountDepositTransaction += UpdateTransaction;
+            NotificationEvents.UpdateSavingsAccountWithdrawTransaction += UpdateWithdrawTransaction;
+            NotificationEvents.UpdateSavingsAccountDepositTransaction += UpdateDepositTransaction;
             NotificationEvents.MonthlyRdSavingsTransaction += UpdateTransaction;
             NotificationEvents.SettlementDepositTransaction += UpdateTransaction;
             NotificationEvents.RdCreationSavingsTransaction += UpdateTransaction;
             NotificationEvents.FdCreationSavingsTransaction += UpdateTransaction;
         }
+        public void CreateTimer()
+        {
+            // get a timer to close the infobar after 2s
+            _dispatchTimer = new DispatcherTimer();
+            _dispatchTimer.Tick += DispatcherTimer_Tick; ;
+            _dispatchTimer.Interval = new TimeSpan(0, 0, 14);
+            _dispatchTimer.Start();
+        }
 
+        private void DispatcherTimer_Tick(object sender, object e)
+        {
+            // release the timer
+            InfoBar.IsOpen = false;
+            _dispatchTimer = null;
+        }
 
         private void BackButton_OnTapped(object sender, TappedRoutedEventArgs e)
         {
@@ -67,7 +84,9 @@ namespace ZBMS.View.Pages.AccountsDetailsPage
             SavingsAccountDetailViewModel.ClearAndAddTransaction();
         }
 
-        private void UpdateTransaction(TransactionSummary transactionSummary)
+
+
+        private void UpdateTransaction(TransactionSummaryVObj transactionSummary)
         {
             Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                 () =>
@@ -80,6 +99,37 @@ namespace ZBMS.View.Pages.AccountsDetailsPage
 
         }
 
+        private void UpdateDepositTransaction(TransactionSummaryVObj transactionSummary)
+        {
+            Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                () =>
+                {
+                    //TransactionUserControl.TransactionList.Add(transactionSummary);
+                    SavingsAccountDetailViewModel.TransactionList.Insert(0, transactionSummary);
+                    TransactionUserControl.OnTransactionUpdated(transactionSummary);
+                    InfoBar.Message = $"Successfully Deposited Rs.{transactionSummary.Amount}";
+                    CreateTimer();
+                    InfoBar.IsOpen = true;
+                }
+            );
+
+        }
+
+        private void UpdateWithdrawTransaction(TransactionSummaryVObj transactionSummary)
+        {
+            Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                () =>
+                {
+                    //TransactionUserControl.TransactionList.Add(transactionSummary);
+                    SavingsAccountDetailViewModel.TransactionList.Insert(0, transactionSummary);
+                    TransactionUserControl.OnTransactionUpdated(transactionSummary);
+                    InfoBar.Message = $"Successfully Withdrawn Rs.{transactionSummary.Amount}";
+                    CreateTimer();
+                    InfoBar.IsOpen = true;
+                }
+            );
+
+        }
         private void UIElement_OnKeyDown(object sender, KeyRoutedEventArgs e)
         {
             if (e.Key == Windows.System.VirtualKey.Escape)

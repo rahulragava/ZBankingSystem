@@ -12,15 +12,15 @@ namespace ZBMS.ViewModel
 {
     public class TransactionViewModel : INotifyPropertyChanged
     {
-        public ObservableCollection<TransactionSummary> AllTransactionSummaries;
-        public ObservableCollection<TransactionSummary> PageTransactionSummaries;
+        public ObservableCollection<TransactionSummaryVObj> AllTransactionSummaries;
+        public ObservableCollection<TransactionSummaryVObj> PageTransactionSummaries;
 
 
 
         public TransactionViewModel()
         {
-            AllTransactionSummaries = new ObservableCollection<TransactionSummary>();
-            PageTransactionSummaries = new ObservableCollection<TransactionSummary>();
+            AllTransactionSummaries = new ObservableCollection<TransactionSummaryVObj>();
+            PageTransactionSummaries = new ObservableCollection<TransactionSummaryVObj>();
         }
 
         private int _totalPages;
@@ -67,7 +67,7 @@ namespace ZBMS.ViewModel
         public void InitialValues()
         {
             CurrentPage = 1;
-            NumberOfRowsPerPage = 12;
+            NumberOfRowsPerPage = 11;
             FirstItemIndex = 0;
             if (AllTransactionSummaries.Count < NumberOfRowsPerPage)
             {
@@ -163,6 +163,14 @@ namespace ZBMS.ViewModel
         {
             get => _senderAccountNumber;
             set => SetField(ref _senderAccountNumber, value);
+        }
+
+        private string _userName;
+
+        public string UserName
+        {
+            get => _userName;
+            set => SetField(ref _userName, value);
         }
 
         private string _receiverAccountNumber;

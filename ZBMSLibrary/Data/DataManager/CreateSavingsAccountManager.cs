@@ -48,10 +48,20 @@ namespace ZBMSLibrary.Data.DataManager
                     FineAmount = createSavingsAccountRequest.SavingsAccount.FineAmount,
                     ToBeCreditedAmount = createSavingsAccountRequest.SavingsAccount.ToBeCreditedAmount,
                 };
-                savingsAccountBObj.TransactionList.Add(transactionSummary);
                 var userName = await _dbHandler.GetUserNameAsync(createSavingsAccountRequest.SavingsAccount.UserId);
                 var branchName = await _dbHandler.GetBranchNameAsync(createSavingsAccountRequest.SavingsAccount.IfscCode);
-
+                TransactionSummaryVObj transactionSummaryVObj = new TransactionSummaryVObj()
+                {
+                    Amount = transactionSummary.Amount,
+                    Description = transactionSummary.Description,
+                    ReceiverAccountNumber = transactionSummary.ReceiverAccountNumber,
+                    TransactionOn = transactionSummary.TransactionOn,
+                    TransactionType = transactionSummary.TransactionType,
+                    SenderAccountNumber = transactionSummary.SenderAccountNumber,
+                    UserName = userName,
+                    Id = transactionSummary.Id,
+                };
+                savingsAccountBObj.TransactionList.Add(transactionSummaryVObj);
                 savingsAccountBObj.BranchName = branchName;
                 savingsAccountBObj.UserName = userName;
                 NotificationEvents.SavingsAccountCreated?.Invoke(savingsAccountBObj);

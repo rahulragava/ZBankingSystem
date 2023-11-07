@@ -42,14 +42,14 @@
         </TextBox>
 
         <Button Grid.Row="3"
-                HorizontalAlignment="Right"
+                HorizontalAlignment="Center"
                 Margin="0 0 20 10"
                 Content="Deposit"
                 x:Name="DepositButton"
                 IsEnabled="False"
                 Click="DepositButton_OnClick"
-                Foreground="white"
-                Background="{ThemeResource SecondaryColor}"
+                CornerRadius="8"
+                Style="{ThemeResource FeatureButtonStyle}"
                 VerticalAlignment="Bottom"></Button>
     </Grid>
 </UserControl>

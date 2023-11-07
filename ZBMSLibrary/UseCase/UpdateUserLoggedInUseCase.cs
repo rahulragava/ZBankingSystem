@@ -61,6 +61,7 @@ namespace ZBMSLibrary.UseCase
     {
         public UpdateUserLoggedInResponse()
         {
+
         }
     }
 }

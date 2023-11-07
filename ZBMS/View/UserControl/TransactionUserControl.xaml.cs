@@ -15,6 +15,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Microsoft.Toolkit.Uwp.UI.Controls;
 using ZBMS.ViewModel;
+using ZBMSLibrary.Entities.BusinessObject;
 using ZBMSLibrary.Entities.Model;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
@@ -37,11 +38,11 @@ namespace ZBMS.View.UserControl
             //TransactionListDataGrid.SelectedItem = 
             PreviousPageButton.IsEnabled = false;
             TransactionViewModel.AllTransactionSummaries = TransactionList;
+            TransactionViewModel.InitialValues();
             if (TransactionList.Count > 0)
             {
                 TransactionListDataGrid.SelectedItem = TransactionList[0];
             }
-            TransactionViewModel.InitialValues();
             if (TransactionViewModel.CurrentPage == TransactionViewModel.TotalPages)
             {
                 NextPageButton.IsEnabled = false;
@@ -52,11 +53,11 @@ namespace ZBMS.View.UserControl
         }
 
         public static readonly DependencyProperty TransactionListProperty = DependencyProperty.Register(
-            nameof(TransactionList), typeof(ObservableCollection<TransactionSummary>), typeof(TransactionUserControl), new PropertyMetadata(default(ObservableCollection<TransactionSummary>)));
+            nameof(TransactionList), typeof(ObservableCollection<TransactionSummaryVObj>), typeof(TransactionUserControl), new PropertyMetadata(default(ObservableCollection<TransactionSummaryVObj>)));
 
-        public ObservableCollection<TransactionSummary> TransactionList
+        public ObservableCollection<TransactionSummaryVObj> TransactionList
         {
-            get => (ObservableCollection<TransactionSummary>)GetValue(TransactionListProperty);
+            get => (ObservableCollection<TransactionSummaryVObj>)GetValue(TransactionListProperty);
             set => SetValue(TransactionListProperty, value);
         }
 
@@ -68,7 +69,7 @@ namespace ZBMS.View.UserControl
             PaneView.PanePriority = TwoPaneViewPriority.Pane2;
             if (dataGrid != null)
             {
-                var transaction = dataGrid.SelectedItem as TransactionSummary;
+                var transaction = dataGrid.SelectedItem as TransactionSummaryVObj;
                 TransactionViewModel.TransactionSummary = transaction;
                 if (transaction != null)
                 {
@@ -79,6 +80,7 @@ namespace ZBMS.View.UserControl
                     TransactionViewModel.TransactionOn = transaction.TransactionOn;
                     TransactionViewModel.SenderAccountNumber = transaction.SenderAccountNumber;
                     TransactionViewModel.ReceiverAccountNumber = transaction.ReceiverAccountNumber;
+                    TransactionViewModel.UserName = transaction.UserName;
                 }
             }
         }
@@ -90,7 +92,7 @@ namespace ZBMS.View.UserControl
             DetailsContent.PaneViewModeChange(sender,args);
         }
 
-        public void OnTransactionUpdated(TransactionSummary transaction)
+        public void OnTransactionUpdated(TransactionSummaryVObj transaction)
         {
             if (TransactionViewModel.CurrentPage == 1)
             {
@@ -100,10 +102,19 @@ namespace ZBMS.View.UserControl
                     TransactionViewModel.PageTransactionSummaries.RemoveAt(TransactionViewModel.PageTransactionSummaries.Count - 1);
                 }
                 TransactionViewModel.TotalPages = TransactionViewModel.AllTransactionSummaries.Count / TransactionViewModel.NumberOfRowsPerPage;
+                if (TransactionViewModel.TotalPages == 0)
+                {
+                    TransactionViewModel.TotalPages = 1;
+                    NextPageButton.IsEnabled = false;
+                    LastPageButton.IsEnabled = false;
+                    PreviousPageButton.IsEnabled = false;
+                    FirstPageButton.IsEnabled = false;
+                }
                 if (TransactionViewModel.TotalPages > 1)
                 {
                     NextPageButton.IsEnabled = true;
                     LastPageButton.IsEnabled = true;
+                    
                 }
             }
         }

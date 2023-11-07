@@ -14,7 +14,7 @@
         <converters:DateFormatter x:Name="DateFormatConverter" />
     </Page.Resources>
 
-    <Grid>
+    <Grid KeyDown="UIElement_OnKeyDown">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -67,12 +67,14 @@
                                Text="Tenure in years" />
                     <TextBlock Grid.Column="1"
                                Grid.Row="1"
+                               VerticalAlignment="Center"
                                Text="{x:Bind RecurringDepositDetailViewModel.RecurringAccountBObj.Tenure,Mode=OneWay}" />
                     <TextBlock Grid.Row="2"
                                Grid.Column="0"
                                Margin="10 10 0 10"
                                Text="Maturity Amount" />
                     <TextBlock Grid.Column="1"
+                               VerticalAlignment="Center"
                                Grid.Row="2"
                                Text="{x:Bind RecurringDepositDetailViewModel.RecurringAccountBObj.MaturityAmount,Mode=OneWay}" />
                     <TextBlock Grid.Row="3"
@@ -80,6 +82,7 @@
                                Margin="10 10 0 10"
                                Text="Maturity Date" />
                     <TextBlock Grid.Column="1"
+                               VerticalAlignment="Center"
                                Grid.Row="3"
                                Text="{x:Bind RecurringDepositDetailViewModel.RecurringAccountBObj.MaturityDate,Mode=OneWay,Converter={StaticResource DateFormatConverter}}" />
                     <TextBlock Grid.Row="4"
@@ -87,6 +90,7 @@
                                Margin="10 10 0 10"
                                Text="From Account Number" />
                     <TextBlock Grid.Column="1"
+                               VerticalAlignment="Center"
                                Grid.Row="4"
                                Text="{x:Bind RecurringDepositDetailViewModel.RecurringAccountBObj.FromAccountId,Mode=OneWay}" />
                     <TextBlock Grid.Row="5"

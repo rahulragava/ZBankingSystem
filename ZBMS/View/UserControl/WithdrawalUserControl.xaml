@@ -101,10 +101,10 @@
                 Margin="0 0 20 10"
                 Content="Withdraw"
                 x:Name="WithdrawButton"
-                Foreground="White"
                 IsEnabled="False"
+                CornerRadius="8"
                 Click="WithdrawButton_OnClick"
-                Background="{ThemeResource SecondaryColor}"
+                Style="{ThemeResource FeatureButtonStyle}"
                 VerticalAlignment="Bottom"></Button>
 
     </Grid>

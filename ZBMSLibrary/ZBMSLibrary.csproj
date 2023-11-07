@@ -125,6 +125,7 @@
     <Compile Include="Data\DatabaseInitializer.cs" />
     <Compile Include="Data\DataHandler\Contract\IDbHandler.cs" />
     <Compile Include="Data\DataHandler\DbHandler.cs" />
+    <Compile Include="Data\DataManager\Contract\IGetUserManager.cs" />
     <Compile Include="Data\DataManager\Contract\IUpdateUserLoggedInManager.cs" />
     <Compile Include="Data\DataManager\Contract\IUpdateUserLoggedOutManager.cs" />
     <Compile Include="Data\DataManager\DeduceMonthlyInstallmentManager.cs" />
@@ -150,6 +151,7 @@
     <Compile Include="Data\DataManager\GetInterestRateOfAllUniqueAccountsManager.cs" />
     <Compile Include="Data\DataManager\GetUserAccountsManager.cs" />
     <Compile Include="Data\DataManager\GetUserLastSeenManager.cs" />
+    <Compile Include="Data\DataManager\GetUserManager.cs" />
     <Compile Include="Data\DataManager\NotificationEvents.cs" />
     <Compile Include="Data\DataManager\UpdateUserLoggedInManager.cs" />
     <Compile Include="Data\DataManager\UpdateUserLoggedOutManager.cs" />
@@ -192,8 +194,8 @@
     <Compile Include="UseCase\GetInterestRateOfAllUniqueAccountsUseCase.cs" />
     <Compile Include="UseCase\GetUserAccountUseCase.cs" />
     <Compile Include="UseCase\GetUserLastSeenUseCase.cs" />
+    <Compile Include="UseCase\GetUserUseCase.cs" />
     <Compile Include="UseCase\UpdateUserLoggedInUseCase.cs" />
-    <Compile Include="UseCase\UpdateUserLoggedOutUseCase.cs" />
     <Compile Include="UseCase\UseCaseBase.cs" />
     <Compile Include="UseCase\WithdrawUseCase.cs" />
     <Compile Include="Util\DepositCalculationUtil.cs" />

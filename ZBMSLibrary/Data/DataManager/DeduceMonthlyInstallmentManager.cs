@@ -37,6 +37,7 @@ namespace ZBMSLibrary.Data.DataManager
                         Description = "Monthly RD Installment",
                         
                     };
+                    var userName = await _dbHandler.GetUserNameAsync(monthlyInstallment.Key.UserId);
                     try
                     {
                         var account = await _dbHandler.GetSavingsAccountAsync(monthlyInstallment.Key.FromAccountId);
@@ -45,7 +46,18 @@ namespace ZBMSLibrary.Data.DataManager
                         monthlyInstallment.Key.DepositedAmount += dueAmount;
                         await _dbHandler.UpdateSavingsAccountAsync(account);
                         await _dbHandler.InsertTransactionAsync(transactionSummary);
-                        NotificationEvents.MonthlyRdSavingsTransaction?.Invoke(transactionSummary);
+                        TransactionSummaryVObj transactionSummaryVObj = new TransactionSummaryVObj()
+                        {
+                            Amount = transactionSummary.Amount,
+                            Description = transactionSummary.Description,
+                            ReceiverAccountNumber = transactionSummary.ReceiverAccountNumber,
+                            TransactionOn = transactionSummary.TransactionOn,
+                            TransactionType = transactionSummary.TransactionType,
+                            SenderAccountNumber = transactionSummary.SenderAccountNumber,
+                            Id = transactionSummary.Id,
+                            UserName = userName,
+                        };
+                        NotificationEvents.MonthlyRdSavingsTransaction?.Invoke(transactionSummaryVObj);
                     }
                     catch (Exception ex)
                     {
@@ -55,7 +67,18 @@ namespace ZBMSLibrary.Data.DataManager
                         monthlyInstallment.Key.DepositedAmount += dueAmount;
                         await _dbHandler.UpdateCurrentAccountAsync(account);
                         await _dbHandler.InsertTransactionAsync(transactionSummary);
-                        NotificationEvents.MonthlyRdCurrentTransaction?.Invoke(transactionSummary);
+                        TransactionSummaryVObj transactionSummaryVObj = new TransactionSummaryVObj()
+                        {
+                            Amount = transactionSummary.Amount,
+                            Description = transactionSummary.Description,
+                            ReceiverAccountNumber = transactionSummary.ReceiverAccountNumber,
+                            TransactionOn = transactionSummary.TransactionOn,
+                            TransactionType = transactionSummary.TransactionType,
+                            SenderAccountNumber = transactionSummary.SenderAccountNumber,
+                            Id = transactionSummary.Id,
+                            UserName = userName,
+                        };
+                        NotificationEvents.MonthlyRdCurrentTransaction?.Invoke(transactionSummaryVObj);
                     }
                     //var recurringDeposit = new RecurringAccount()
                     //{

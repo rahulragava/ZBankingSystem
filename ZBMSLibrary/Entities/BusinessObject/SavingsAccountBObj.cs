@@ -10,11 +10,11 @@ namespace ZBMSLibrary.Entities.BusinessObject
         public string UserName { get; set; }
         public string BranchName { get; set; }
 
-        public List<TransactionSummary> TransactionList { get; set; }
+        public List<TransactionSummaryVObj> TransactionList { get; set; }
 
         public SavingsAccountBObj()
         {
-            TransactionList = new List<TransactionSummary>();
+            TransactionList = new List<TransactionSummaryVObj>();
         }
         //account based calculation will be coded in here
 

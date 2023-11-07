@@ -31,6 +31,8 @@ namespace ZBMSLibrary.Data.DataManager
                     TransactionOn = DateTime.Now,
                     TransactionType = TransactionType.Debit,
                 };
+                var userName = await _dbHandler.GetUserNameAsync(createFixedDepositRequest.FixedDeposit.UserId);
+
                 try
                 {
                     var account = await _dbHandler.GetSavingsAccountAsync(createFixedDepositRequest.FixedDeposit.FromAccountId);
@@ -38,7 +40,18 @@ namespace ZBMSLibrary.Data.DataManager
                     transactionSummary.SenderAccountNumber = account.AccountNumber;
                     await _dbHandler.InsertTransactionAsync(transactionSummary);
                     await _dbHandler.UpdateSavingsAccountAsync(account);
-                    NotificationEvents.FdCreationSavingsTransaction?.Invoke(transactionSummary);
+                    TransactionSummaryVObj transactionSummaryVObj = new TransactionSummaryVObj()
+                    {
+                        Amount = transactionSummary.Amount,
+                        Description = transactionSummary.Description,
+                        ReceiverAccountNumber = transactionSummary.ReceiverAccountNumber,
+                        TransactionOn = transactionSummary.TransactionOn,
+                        TransactionType = transactionSummary.TransactionType,
+                        SenderAccountNumber = transactionSummary.SenderAccountNumber,
+                        Id = transactionSummary.Id,
+                        UserName = userName,
+                    };
+                    NotificationEvents.FdCreationSavingsTransaction?.Invoke(transactionSummaryVObj);
 
                 }
                 catch (Exception ex)
@@ -48,7 +61,19 @@ namespace ZBMSLibrary.Data.DataManager
                     transactionSummary.SenderAccountNumber = account.AccountNumber;
                     await _dbHandler.InsertTransactionAsync(transactionSummary);
                     await _dbHandler.UpdateCurrentAccountAsync(account);
-                    NotificationEvents.FdCreationCurrentTransaction?.Invoke(transactionSummary);
+                    TransactionSummaryVObj transactionSummaryVObj = new TransactionSummaryVObj()
+                    {
+                        Amount = transactionSummary.Amount,
+                        Description = transactionSummary.Description,
+                        ReceiverAccountNumber = transactionSummary.ReceiverAccountNumber,
+                        TransactionOn = transactionSummary.TransactionOn,
+                        TransactionType = transactionSummary.TransactionType,
+                        SenderAccountNumber = transactionSummary.SenderAccountNumber,
+                        Id = transactionSummary.Id,
+                        UserName = userName,
+                        
+                    };
+                    NotificationEvents.FdCreationCurrentTransaction?.Invoke(transactionSummaryVObj);
                 } 
                 await _dbHandler.CreateFixedDepositAsync(createFixedDepositRequest.FixedDeposit);
 
@@ -65,7 +90,6 @@ namespace ZBMSLibrary.Data.DataManager
                    FromAccountId = createFixedDepositRequest.FixedDeposit.FromAccountId,
                    SavingsAccountId= createFixedDepositRequest.FixedDeposit.SavingsAccountId,
                 };
-                var userName = await _dbHandler.GetUserNameAsync(createFixedDepositRequest.FixedDeposit.UserId);
                 var branchName = await _dbHandler.GetBranchNameAsync(createFixedDepositRequest.FixedDeposit.IfscCode);
                 fixedDepositBObj.SetDefault();
                 fixedDepositBObj.BranchName = branchName;
