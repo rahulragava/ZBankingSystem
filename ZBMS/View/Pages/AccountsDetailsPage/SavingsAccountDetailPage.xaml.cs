@@ -58,7 +58,7 @@ namespace ZBMS.View.Pages.AccountsDetailsPage
             // get a timer to close the infobar after 2s
             _dispatchTimer = new DispatcherTimer();
             _dispatchTimer.Tick += DispatcherTimer_Tick; ;
-            _dispatchTimer.Interval = new TimeSpan(0, 0, 14);
+            _dispatchTimer.Interval = new TimeSpan(0, 0, 5);
             _dispatchTimer.Start();
         }
 
@@ -107,6 +107,7 @@ namespace ZBMS.View.Pages.AccountsDetailsPage
                     //TransactionUserControl.TransactionList.Add(transactionSummary);
                     SavingsAccountDetailViewModel.TransactionList.Insert(0, transactionSummary);
                     TransactionUserControl.OnTransactionUpdated(transactionSummary);
+                    InfoBar.Severity = InfoBarSeverity.Success;
                     InfoBar.Message = $"Successfully Deposited Rs.{transactionSummary.Amount}";
                     CreateTimer();
                     InfoBar.IsOpen = true;
@@ -123,6 +124,7 @@ namespace ZBMS.View.Pages.AccountsDetailsPage
                     //TransactionUserControl.TransactionList.Add(transactionSummary);
                     SavingsAccountDetailViewModel.TransactionList.Insert(0, transactionSummary);
                     TransactionUserControl.OnTransactionUpdated(transactionSummary);
+                    InfoBar.Severity = InfoBarSeverity.Success;
                     InfoBar.Message = $"Successfully Withdrawn Rs.{transactionSummary.Amount}";
                     CreateTimer();
                     InfoBar.IsOpen = true;
@@ -191,6 +193,32 @@ namespace ZBMS.View.Pages.AccountsDetailsPage
         {
             //NotificationControl.Show($"Successfully deposited the amount {depositedAmount} to your account", 3000);
 
+        }
+
+        private void WithdrawalUserControl_OnWithDrawZeroWarning()
+        {
+            InfoBar.Severity = InfoBarSeverity.Warning;
+            InfoBar.Message = "cant withdraw Rs.0";
+            CreateTimer();
+            InfoBar.IsOpen = true;
+
+
+        }
+
+        private void WithdrawalUserControl_OnWithdrawInsufficientBalanceWarning()
+        {
+            InfoBar.Severity = InfoBarSeverity.Warning;
+            InfoBar.Message = "InSufficient Balance. Kindly check your balance and withdraw";
+            CreateTimer();
+            InfoBar.IsOpen = true;
+        }
+
+        private void DepositMoneyUserControl_OnZeroDepositWarning()
+        {
+            InfoBar.Severity = InfoBarSeverity.Warning;
+            InfoBar.Message = "cant Deposit Rs.0";
+            CreateTimer();
+            InfoBar.IsOpen = true;
         }
     }
 }

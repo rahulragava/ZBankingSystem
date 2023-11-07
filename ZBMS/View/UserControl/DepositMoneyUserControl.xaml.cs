@@ -63,18 +63,20 @@ namespace ZBMS.View.UserControl
             sender.SelectionStart = sender.Text.Length;
         }
 
+        public event Action ZeroDepositWarning;
         private void DepositButton_OnClick(object sender, RoutedEventArgs e)
         {
             var amount = double.Parse(AmountTextBox.Text);
-            if (amount > 0 && amount < 1_000_000)
+            if (amount > 0)
             {
                 DepositMoneyViewModel.DepositMoney(double.Parse(AmountTextBox.Text));
                 AmountTextBox.Text = string.Empty;
             }
-            else
+            else if(amount == 0)
             {
-                //error
                 AmountTextBox.Text = string.Empty;
+                //error
+                ZeroDepositWarning?.Invoke();
             }
             
         }

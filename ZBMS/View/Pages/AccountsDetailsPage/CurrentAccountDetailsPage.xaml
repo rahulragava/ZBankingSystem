@@ -9,54 +9,60 @@
       xmlns:controls="using:Microsoft.UI.Xaml.Controls"
       mc:Ignorable="d"
       Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-    <Grid KeyDown="UIElement_OnKeyDown">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <FontIcon FontFamily="Segoe MDL2 Assets"
-                  x:Name="BackButton"
-                  HorizontalAlignment="Left"
-                  Margin="5"
-                  Tapped="BackButton_OnTapped"
-                  Glyph="" />
-        <controls:InfoBar Grid.Row="0" IsOpen="False"
-                          x:Name="InfoBar"
-                          HorizontalAlignment="Center"
-                          Severity="Success"
-                          IsIconVisible="True"
-                          IsClosable="True"/>
-        <StackPanel Orientation="Horizontal"
-                    Grid.Row="0"
-                    HorizontalAlignment="Right"
-                    Margin=" 0 5 30 5"
-                    Spacing="10">
-            <Button Grid.Column="1"
-                    Content="Deposit"
-                    x:Name="DepositButton">
-                <Button.Flyout>
-                    <Flyout>
-                        <userControl:DepositMoneyUserControl Account="{x:Bind CurrentAccountDetailsViewModel.CurrentAccountBObj,Mode=OneWay}"></userControl:DepositMoneyUserControl>
-                    </Flyout>
-                </Button.Flyout>
-            </Button>
-            <Button Grid.Column="2"
-                    Content="Withdraw"
-                    x:Name="WithdrawButton">
-                <Button.Flyout>
-                    <Flyout>
-                        <userControl:WithdrawalUserControl Account="{x:Bind CurrentAccountDetailsViewModel.CurrentAccountBObj,Mode=OneWay}"></userControl:WithdrawalUserControl>
-                    </Flyout>
-                </Button.Flyout>
-            </Button>
-        </StackPanel>
+    <ScrollViewer KeyDown="UIElement_OnKeyDown">
 
-        <accountSummary:CurrentAccountSummary Grid.Row="1"
-                                              Grid.Column="0"
-                                              Margin="5"
-                                              CurrentAccountBObj="{x:Bind CurrentAccountDetailsViewModel.CurrentAccountBObj,Mode=OneWay}" />
-        <!--<userControl:OneByTwoGrid Grid.Row="2"
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <FontIcon FontFamily="Segoe MDL2 Assets"
+                      x:Name="BackButton"
+                      HorizontalAlignment="Left"
+                      Margin="5 5 0 0"
+                      Tapped="BackButton_OnTapped"
+                      Glyph="" />
+            <controls:InfoBar Grid.Row="0"
+                              IsOpen="False"
+                              x:Name="InfoBar"
+                              HorizontalAlignment="Center"
+                              Severity="Success"
+                              IsIconVisible="True"
+                              IsClosable="True" />
+            <StackPanel Orientation="Horizontal"
+                        Grid.Row="0"
+                        HorizontalAlignment="Right"
+                        Margin=" 0 15 30 15"
+                        Spacing="10">
+                <Button Grid.Column="1"
+                        Content="Deposit"
+                        x:Name="DepositButton">
+                    <Button.Flyout>
+                        <Flyout>
+                            <userControl:DepositMoneyUserControl ZeroDepositWarning="DepositMoneyUserControl_OnZeroDepositWarning"
+                                                                 Account="{x:Bind CurrentAccountDetailsViewModel.CurrentAccountBObj,Mode=OneWay}"></userControl:DepositMoneyUserControl>
+                        </Flyout>
+                    </Button.Flyout>
+                </Button>
+                <Button Grid.Column="2"
+                        Content="Withdraw"
+                        x:Name="WithdrawButton">
+                    <Button.Flyout>
+                        <Flyout>
+                            <userControl:WithdrawalUserControl WithDrawZeroWarning="WithdrawalUserControl_OnWithDrawZeroWarning"
+                                                               WithdrawInsufficientBalanceWarning="WithdrawalUserControl_OnWithdrawInsufficientBalanceWarning"
+                                                               Account="{x:Bind CurrentAccountDetailsViewModel.CurrentAccountBObj,Mode=OneWay}"></userControl:WithdrawalUserControl>
+                        </Flyout>
+                    </Button.Flyout>
+                </Button>
+            </StackPanel>
+
+            <accountSummary:CurrentAccountSummary Grid.Row="1"
+                                                  Grid.Column="0"
+                                                  Margin="5"
+                                                  CurrentAccountBObj="{x:Bind CurrentAccountDetailsViewModel.CurrentAccountBObj,Mode=OneWay}" />
+            <!--<userControl:OneByTwoGrid Grid.Row="2"
                                       Width1Ratio="3*"
                                       Width2Ratio="2*"
                                       NarrowScreenBreakPoint="1000">
@@ -95,13 +101,14 @@
                 </userControl:OneByTwoGrid.Column2Content>
             </userControl:OneByTwoGrid>-->
 
-        <Grid Grid.Row="2">
-            <userControl:TransactionUserControl Margin="5 5 0 0"
-                                                x:Name="TransactionUserControl"
-                                                TransactionList="{x:Bind CurrentAccountDetailsViewModel.TransactionList,Mode=OneWay}" />
+            <Grid Grid.Row="2">
+                <userControl:TransactionUserControl Margin="5 5 0 0"
+                                                    x:Name="TransactionUserControl"
+                                                    TransactionList="{x:Bind CurrentAccountDetailsViewModel.TransactionList,Mode=OneWay}" />
 
+            </Grid>
         </Grid>
-    </Grid>
+    </ScrollViewer>
 
     <!--</ScrollViewer>-->
 

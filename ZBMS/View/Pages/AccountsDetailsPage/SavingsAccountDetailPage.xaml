@@ -108,14 +108,15 @@
         </Style>
 
     </Page.Resources>
-    <!--<ScrollViewer VerticalScrollBarVisibility="Auto">-->
-    <Grid KeyDown="UIElement_OnKeyDown">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <!--<controls:InAppNotification Grid.Row="0"
+    <ScrollViewer VerticalScrollBarVisibility="Auto"
+                  KeyDown="UIElement_OnKeyDown">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <!--<controls:InAppNotification Grid.Row="0"
                                             Grid.Column="0"
                                             x:Name="NotificationControl"
                                             Height="50"
@@ -126,63 +127,65 @@
                                             VerticalAlignment="top"
                                             StackMode="Replace">
                 </controls:InAppNotification>-->
-        <FontIcon Grid.Row="0"
-                  FontFamily="Segoe MDL2 Assets"
-                  x:Name="BackButton"
-                  HorizontalAlignment="Left"
-                  Margin="5"
-                  Tapped="BackButton_OnTapped"
-                  Glyph="" />
+            <FontIcon Grid.Row="0"
+                      FontFamily="Segoe MDL2 Assets"
+                      x:Name="BackButton"
+                      HorizontalAlignment="Left"
+                      Margin="5 5 0 25"
+                      Tapped="BackButton_OnTapped"
+                      Glyph="" />
 
-        <controls1:InfoBar IsOpen="False"
-                           x:Name="InfoBar"
-                           IsIconVisible="True"
-                           IsClosable="True"
-                           Title="Title"
-                           HorizontalAlignment="Center"
-                           Severity="Success"
-                           Message="Essential app message for your users to be informed of, acknowledge, or take action on." />
+            <controls1:InfoBar IsOpen="False"
+                               x:Name="InfoBar"
+                               IsIconVisible="True"
+                               IsClosable="True"
+                               HorizontalAlignment="Center"
+                               Severity="Success"
+                               Message="Essential app message for your users to be informed of, acknowledge, or take action on." />
 
-        <StackPanel Orientation="Horizontal"
-                    Grid.Row="0"
-                    HorizontalAlignment="Right"
-                    Margin=" 0 5 30 5"
-                    Spacing="10">
-            <Button Grid.Column="1"
-                    Content="Deposit"
-                    x:Name="DepositButton">
-                <Button.Flyout>
-                    <Flyout>
-                        <userControl:DepositMoneyUserControl Account="{x:Bind SavingsAccountDetailViewModel.SavingsAccountBObj,Mode=OneWay}"></userControl:DepositMoneyUserControl>
-                    </Flyout>
-                </Button.Flyout>
-            </Button>
-            <Button Grid.Column="2"
-                    Content="Withdraw"
-                    x:Name="WithdrawButton">
-                <Button.Flyout>
-                    <Flyout>
-                        <userControl:WithdrawalUserControl Account="{x:Bind SavingsAccountDetailViewModel.SavingsAccountBObj,Mode=OneWay}"></userControl:WithdrawalUserControl>
-                    </Flyout>
-                </Button.Flyout>
-            </Button>
-        </StackPanel>
+            <StackPanel Orientation="Horizontal"
+                        Grid.Row="0"
+                        HorizontalAlignment="Right"
+                        Margin=" 0 5 30 25"
+                        Spacing="10">
+                <Button Grid.Column="1"
+                        Content="Deposit"
+                        x:Name="DepositButton">
+                    <Button.Flyout>
+                        <Flyout>
+                            <userControl:DepositMoneyUserControl ZeroDepositWarning="DepositMoneyUserControl_OnZeroDepositWarning"
+                                                                 Account="{x:Bind SavingsAccountDetailViewModel.SavingsAccountBObj,Mode=OneWay}"></userControl:DepositMoneyUserControl>
+                        </Flyout>
+                    </Button.Flyout>
+                </Button>
+                <Button Grid.Column="2"
+                        Content="Withdraw"
+                        x:Name="WithdrawButton">
+                    <Button.Flyout>
+                        <Flyout>
+                            <userControl:WithdrawalUserControl Account="{x:Bind SavingsAccountDetailViewModel.SavingsAccountBObj,Mode=OneWay}"
+                                                               WithDrawZeroWarning="WithdrawalUserControl_OnWithDrawZeroWarning"
+                                                               WithdrawInsufficientBalanceWarning="WithdrawalUserControl_OnWithdrawInsufficientBalanceWarning"></userControl:WithdrawalUserControl>
+                        </Flyout>
+                    </Button.Flyout>
+                </Button>
+            </StackPanel>
 
-        <accountSummary:SavingsAccountSummary Grid.Row="1"
-                                              Grid.Column="0"
-                                              Margin="5"
-                                              WithdrawSuccessNotification="SavingsAccountSummary_OnWithdrawSuccessNotification"
-                                              DepositSuccessNotification="SavingsAccountSummary_OnDepositSuccessNotification"
-                                              SavingsAccountBObj="{x:Bind SavingsAccountDetailViewModel.SavingsAccountBObj,Mode=OneWay}" />
-        <Grid Grid.Row="2">
-            <userControl:TransactionUserControl Margin="5 5 0 0"
-                                                x:Name="TransactionUserControl"
-                                                TransactionList="{x:Bind SavingsAccountDetailViewModel.TransactionList,Mode=OneWay}" />
+            <accountSummary:SavingsAccountSummary Grid.Row="1"
+                                                  Grid.Column="0"
+                                                  Margin="5"
+                                                  WithdrawSuccessNotification="SavingsAccountSummary_OnWithdrawSuccessNotification"
+                                                  DepositSuccessNotification="SavingsAccountSummary_OnDepositSuccessNotification"
+                                                  SavingsAccountBObj="{x:Bind SavingsAccountDetailViewModel.SavingsAccountBObj,Mode=OneWay}" />
+            <Grid Grid.Row="2">
+                <userControl:TransactionUserControl Margin="5 5 0 0"
+                                                    x:Name="TransactionUserControl"
+                                                    TransactionList="{x:Bind SavingsAccountDetailViewModel.TransactionList,Mode=OneWay}" />
+
+            </Grid>
 
         </Grid>
-
-    </Grid>
-    <!--</ScrollViewer>-->
+    </ScrollViewer>
 
     <!--</Grid>-->
 </Page>

@@ -88,6 +88,7 @@ namespace ZBMS.View.Pages.AccountsDetailsPage
                     //TransactionUserControl.TransactionList.Add(transactionSummary);
                     CurrentAccountDetailsViewModel.TransactionList.Insert(0, transactionSummary);
                     TransactionUserControl.OnTransactionUpdated(transactionSummary);
+                    InfoBar.Severity = InfoBarSeverity.Success;
                     InfoBar.Message = $"Successfully Deposited Rs.{transactionSummary.Amount}";
                     CreateTimer();
                     InfoBar.IsOpen = true;
@@ -104,6 +105,7 @@ namespace ZBMS.View.Pages.AccountsDetailsPage
                     //TransactionUserControl.TransactionList.Add(transactionSummary);
                     CurrentAccountDetailsViewModel.TransactionList.Insert(0, transactionSummary);
                     TransactionUserControl.OnTransactionUpdated(transactionSummary);
+                    InfoBar.Severity = InfoBarSeverity.Success;
                     InfoBar.Message = $"Successfully Withdrawn Rs.{transactionSummary.Amount}";
                     CreateTimer();
                     InfoBar.IsOpen = true;
@@ -127,6 +129,32 @@ namespace ZBMS.View.Pages.AccountsDetailsPage
             {
                 Frame.GoBack();
             }
+        }
+
+        private void WithdrawalUserControl_OnWithDrawZeroWarning()
+        {
+            InfoBar.Severity = InfoBarSeverity.Warning;
+            InfoBar.Message = "cant withdraw Rs.0";
+            CreateTimer();
+            InfoBar.IsOpen = true;
+
+
+        }
+
+        private void WithdrawalUserControl_OnWithdrawInsufficientBalanceWarning()
+        {
+            InfoBar.Severity = InfoBarSeverity.Warning;
+            InfoBar.Message = "InSufficient Balance. Kindly check your balance and withdraw";
+            CreateTimer();
+            InfoBar.IsOpen = true;
+        }
+
+        private void DepositMoneyUserControl_OnZeroDepositWarning()
+        {
+            InfoBar.Severity = InfoBarSeverity.Warning;
+            InfoBar.Message = "cant Deposit Rs.0";
+            CreateTimer();
+            InfoBar.IsOpen = true;
         }
 
         //private void DepositMoneyUserControl_OnUpdateBalanceInParentUserControls(double amount)

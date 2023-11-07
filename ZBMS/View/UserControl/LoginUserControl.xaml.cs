@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.UI.Xaml.Controls;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
@@ -42,23 +43,31 @@ namespace ZBMS.View.UserControl
         {
             if (string.IsNullOrEmpty(UserId) || string.IsNullOrWhiteSpace(UserId))
             {
-                ErrorBlock.Visibility = Visibility.Visible;
+                //ErrorBlock.Visibility = Visibility.Visible;
+                //IdBox.Header = "Invalid User Id";
+                InfoBar.Message = "id field cannot be empty";
+                InfoBar.IsOpen = true;
                 return;
             }
             switch (_userId)
             {
                 case "1":
                     AppSettings.CustomerId = "1";
+                    GoToLogInControl?.Invoke();
                     break;
                 case "2":
                     AppSettings.CustomerId = "2";
+                    GoToLogInControl?.Invoke();
                     break;
                 default:
-                    ErrorBlock.Visibility = Visibility.Visible;
+                    InfoBar.Message = "Invalid User Id";
+                    InfoBar.IsOpen = true;
+
+                    //ErrorBlock.Visibility = Visibility.Visible;
+                    //IdBox.Header = "Invalid User Id";
                     break;
             }
 
-            GoToLogInControl?.Invoke();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

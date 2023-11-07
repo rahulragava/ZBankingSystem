@@ -47,6 +47,7 @@ namespace ZBMS.View.UserControl
         private void AmountTextBox_TextChanging(TextBox sender, TextBoxTextChangingEventArgs args)
         {
             sender.Text = new String(sender.Text.Where(c => char.IsDigit(c) | c == '.').ToArray());
+            
             sender.SelectionStart = sender.Text.Length;
             WithdrawButton.IsEnabled = AmountTextBox.Text.Length > 0;
         }
@@ -63,20 +64,28 @@ namespace ZBMS.View.UserControl
             set => SetValue(AccountProperty, value);
         }
 
+        public event Action WithDrawZeroWarning;
+        public event Action WithdrawInsufficientBalanceWarning;
         private void WithdrawButton_OnClick(object sender, RoutedEventArgs e)
         {
             var amount = double.Parse(AmountTextBox.Text);
-            if (amount > 0 && amount < 1_000_000 && (Account.Balance - amount > 0))
+            if (amount > 0 && (Account.Balance - amount >= 0))
             {
                 WithdrawMoneyViewModel.WithdrawMoney(double.Parse(AmountTextBox.Text));
                 AmountTextBox.Text = string.Empty;
             }
-            else
+            else if(amount == 0)
             {
-                //error
+                //Cant withdraw 0 error
+                WithDrawZeroWarning?.Invoke();
                 AmountTextBox.Text = string.Empty;
             }
-
+            else if (Account.Balance - amount < 0)
+            {
+                //dont have sufficient balance error
+                WithdrawInsufficientBalanceWarning?.Invoke();
+                AmountTextBox.Text = string.Empty;
+            }
         }
 
         private void AmountTextBox_OnKeyDown(object sender, KeyRoutedEventArgs e)

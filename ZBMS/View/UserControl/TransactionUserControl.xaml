@@ -217,7 +217,7 @@
             </TwoPaneView.Pane1>
             <TwoPaneView.Pane2>
                <local:TransactionDataControl Id="{x:Bind TransactionViewModel.Id,Mode=OneWay}"
-                                             Height="620"
+                                             Height="650"
                                              VerticalAlignment="Top"
                                              x:Name="DetailsContent"
                                              TransactionAmount="{x:Bind TransactionViewModel.Amount,Mode=OneWay}"
@@ -227,7 +227,7 @@
                                              SenderAccountNumber="{x:Bind TransactionViewModel.SenderAccountNumber,Mode=OneWay}"
                                              UserName="{x:Bind TransactionViewModel.UserName,Mode=OneWay}"
                                              ReceiverAccountNumber="{x:Bind TransactionViewModel.ReceiverAccountNumber,Mode=OneWay}"
-                                              GoBack="DetailsContent_OnGoBack">
+                                             GoBack="DetailsContent_OnGoBack">
                </local:TransactionDataControl>
             </TwoPaneView.Pane2>
         </TwoPaneView>
