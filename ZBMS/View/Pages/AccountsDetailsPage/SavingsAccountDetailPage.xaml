@@ -131,25 +131,30 @@
                       FontFamily="Segoe MDL2 Assets"
                       x:Name="BackButton"
                       HorizontalAlignment="Left"
-                      Margin="5 5 0 25"
+                      VerticalAlignment="Center"
+                      Margin="10 5 0 0"
                       Tapped="BackButton_OnTapped"
                       Glyph="" />
 
-            <controls1:InfoBar IsOpen="False"
+            <controls1:InfoBar Grid.Row="0"
+                               IsOpen="False"
                                x:Name="InfoBar"
                                IsIconVisible="True"
                                IsClosable="True"
                                HorizontalAlignment="Center"
+                               VerticalAlignment="Top"
                                Severity="Success"
                                Message="Essential app message for your users to be informed of, acknowledge, or take action on." />
 
             <StackPanel Orientation="Horizontal"
                         Grid.Row="0"
                         HorizontalAlignment="Right"
-                        Margin=" 0 5 30 25"
+                        Height="50"
+                        Margin=" 0 5 30 0"
                         Spacing="10">
                 <Button Grid.Column="1"
                         Content="Deposit"
+                        VerticalAlignment="Center"
                         x:Name="DepositButton">
                     <Button.Flyout>
                         <Flyout>

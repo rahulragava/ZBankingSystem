@@ -33,6 +33,7 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
             <Grid.ColumnDefinitions>
@@ -66,12 +67,11 @@
             <TextBlock Grid.Row="1"
                        Grid.Column="0"
                        Text="Branch"></TextBlock>
-            <AutoSuggestBox Grid.Row="1"
-                            Grid.Column="1"
-                            x:Name="BranchNameAutoSuggestBox"
-                            ItemsSource="{x:Bind AccountCreationViewModel.BranchNames,Mode=OneWay}"
-                            Margin="5 0 5 0">
-            </AutoSuggestBox>
+            <ComboBox Grid.Row="1"
+                      Grid.Column="1"
+                      x:Name="BranchNameComboBox"
+                      ItemsSource="{x:Bind AccountCreationViewModel.BranchNames,Mode=OneWay}"
+                      Margin="5 0 5 0"></ComboBox>
 
             <TextBlock Grid.Row="2"
                        Grid.Column="0"
@@ -111,14 +111,24 @@
                        Grid.Column="1"
                        Visibility="Collapsed"
                        HorizontalAlignment="Left"></TextBlock>
-            <TextBlock Grid.Row="5"
+            <TextBlock Grid.Row="6"
                        Grid.Column="0"
                        Text="Balance" />
-            <TextBox Grid.Row="5"
+            <TextBlock x:Name="InvalidBalanceTextBlock"
+                       Grid.Column="1"
+                       Grid.Row="5"
+                       Foreground="Red"
+                       VerticalAlignment="Bottom"
+                       FontSize="13"
+                       Margin="4 0 5 -20"
+                       Visibility="Collapsed"></TextBlock>
+            <TextBox Grid.Row="6"
                      Grid.Column="1"
                      x:Name="BalanceTextBox"
+                     Width="300"
+                     TextChanged="BalanceTextBox_OnTextChanged"
                      TextChanging="TextBox_OnTextChanging"
-                     MaxLength="5"></TextBox>
+                     ></TextBox>
             <!--<controls:NumberBox Grid.Row="5"
                                 Grid.Column="1"
                                 Maximum="100000"
@@ -156,7 +166,7 @@
                             Margin="5 0 5 0"
                             QueryIcon="find" />-->
             <TextBlock 
-                Grid.Row="6"
+                Grid.Row="7"
                 Grid.Column="1"
                 x:Name="InvalidPanTextBlock"
                 Visibility="Collapsed"
@@ -164,15 +174,16 @@
                 FontSize="13"
                 Margin="0 0 5 -30"
                 Text="Invalid PAN"></TextBlock>
-            <TextBlock Grid.Row="7"
+            <TextBlock Grid.Row="8"
                        Grid.Column="0"
                        Text="PAN" />
-            <TextBox Grid.Row="7"
+            <TextBox Grid.Row="8"
                      x:Name="PanTextBox"
                      Grid.Column="1"
+                     Width="300"
                      Text="{x:Bind AccountCreationViewModel.PanNumber,Mode=TwoWay}"
                      Margin="0 0 5 0" />
-            <Button Grid.Row="8"
+            <Button Grid.Row="9"
                     Margin="0 10 0 0"
                     Grid.Column="0"
                     CornerRadius="8"

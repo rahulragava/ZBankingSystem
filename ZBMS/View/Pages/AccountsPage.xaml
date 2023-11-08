@@ -13,6 +13,7 @@
       xmlns:controls1="using:Microsoft.UI.Xaml.Controls"
       xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
       mc:Ignorable="d"
+      
       Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
     <Page.Resources>
         <converters:TypeToBackgroundConverter x:Key="BackgroundColorConverter" />
@@ -24,6 +25,7 @@
                   Margin="5"
                   CornerRadius="15,15,20,20"
                   BorderThickness="0"
+                  
                   BorderBrush="{ThemeResource SystemControlBackgroundAccentBrush}"
                   Background="{ThemeResource BackgroundColor}">
                 <Grid.RowDefinitions>
@@ -35,15 +37,15 @@
                 </Grid.RowDefinitions>
 
                 <StackPanel Grid.Row="0"
-                            Background="{ThemeResource SavingsAccountCardColor}"
+                            BorderThickness="1.5 0 0 1.5"
+                            BorderBrush="{ThemeResource SavingsAccountCardColor}"
                             MaxWidth="200"
                             Height="30"
                             VerticalAlignment="Top"
                             HorizontalAlignment="Right"
-                            CornerRadius="0,0,0,15">
+                            CornerRadius="0,15,0,15">
                     <TextBlock FontSize="13"
                                HorizontalAlignment="Right"
-                               Foreground="White"
                                Padding="10,5,10,5"
                                Text="Savings" />
                 </StackPanel>
@@ -110,14 +112,14 @@
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
-                <StackPanel Background="{ThemeResource CurrentAccountCardColor}"
+                <StackPanel BorderBrush="{ThemeResource CurrentAccountCardColor}"
+                            BorderThickness="1.5 0 0 1.5"
                             MaxWidth="200"
                             Height="30"
                             VerticalAlignment="Top"
                             HorizontalAlignment="Right"
                             CornerRadius="0,0,0,15">
                     <TextBlock FontSize="13"
-                               Foreground="White"
                                HorizontalAlignment="Right"
                                Padding="10,5,10,5"
                                Text="Current" />
@@ -183,14 +185,14 @@
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
-                <StackPanel Background="{ThemeResource RecurringDepositCardColor}"
+                <StackPanel BorderBrush="{ThemeResource RecurringDepositCardColor}"
                             MaxWidth="200"
+                            BorderThickness="1.5 0 0 1.5"
                             Height="30"
                             VerticalAlignment="Top"
                             HorizontalAlignment="Right"
                             CornerRadius="0,0,0,15">
                     <TextBlock FontSize="13"
-                               Foreground="White"
                                HorizontalAlignment="Right"
                                Padding="10,5,10,5"
                                Text="Recurring" />
@@ -256,14 +258,14 @@
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
-                <StackPanel Background="{ThemeResource FixedDepositCardColor}"
+                <StackPanel BorderBrush="{ThemeResource FixedDepositCardColor}"
+                            BorderThickness="1.5 0 0 1.5"
                             MaxWidth="200"
                             Height="30"
                             VerticalAlignment="Top"
                             HorizontalAlignment="Right"
                             CornerRadius="0,0,0,15">
                     <TextBlock FontSize="13"
-                               Foreground="White"
                                HorizontalAlignment="Right"
                                Padding="10,5,10,5"
                                Text="FD" />
@@ -392,25 +394,33 @@
         </util:SelectLoanTemplate>
     </Page.Resources>
 
-    <Grid>
-        <!--<Popup x:Name="AccountCreationPopup"
-               IsLightDismissEnabled="False">
-            <Border PointerPressed="StandardPopup_PointerPressed"
-                    Height="500"
-                    CornerRadius="8"
-                    Background="Gray"
-                    Width="500"
-                    PointerMoved="StandardPopup_PointerMoved"
-                    PointerReleased="StandardPopup_PointerReleased">
-                <userControl:AccountCreationUserControl OnClosingPopup="AccountCreationUserControl_OnClosingPopup"
-                                                        HorizontalAlignment="Stretch"
-                                                        AccountList="{x:Bind AccountViewModel.Accounts,Mode=OneWay}"
-                                                        VerticalAlignment="Stretch" />
+    <Grid x:Name="RootGrid">
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState x:Name="NarrowState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0"></AdaptiveTrigger>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="RootGrid.HorizontalAlignment" Value="Center"></Setter>
+                    </VisualState.Setters>
+                </VisualState>
 
-            </Border>
-        </Popup>-->
+                <VisualState x:Name="WideState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="700"></AdaptiveTrigger>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="RootGrid.HorizontalAlignment"
+                                Value="Stretch"></Setter>
 
-        <Popup x:Name="DepositCreationPopup">
+</VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+
+        <Popup x:Name="DepositCreationPopup"
+               >
             <Border Width="500"
                     Height="770"
                     CornerRadius="8"
@@ -425,10 +435,9 @@
             </Border>
 
         </Popup>
-        <Popup x:Name="AccountCreationPopup"
-               LightDismissOverlayMode="On">
+        <Popup x:Name="AccountCreationPopup">
             <Border Width="500"
-                    Height="500"
+                    Height="570"
                     CornerRadius="8"
                     Background="Gray"
                     PointerMoved="AccountCreationPopup_OnPointerMoved"
@@ -441,23 +450,7 @@
             </Border>
 
         </Popup>
-
-        <!--<Popup IsLightDismissEnabled="False"
-               LightDismissOverlayMode="Off"
-               x:Name="LoanCreationPopup">
-            <Border Width="500"
-                    Height="770"
-                    PointerMoved="DepositCreationPopup_OnPointerMoved"
-                    PointerPressed="DepositCreationPopup_OnPointerPressed"
-                    PointerReleased="DepositCreationPopup_OnPointerReleased">
-                <userControl:LoanCreationUserControl OnClosingPopup="DepositCreationUserControl_OnOnClosingPopup"
-                                                        HorizontalAlignment="Stretch"
-                                                        AccountList="{x:Bind AccountViewModel.Accounts,Mode=OneWay}"
-                                                        VerticalAlignment="Stretch" />
-            </Border>
-
-        </Popup>-->
-        <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <ScrollViewer VerticalScrollBarVisibility="Hidden">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"></RowDefinition>
@@ -485,7 +478,6 @@
                             Click="CreateAccountButton_OnClick"
                             Width="50"
                             Height="35"
-                            BorderBrush="{ThemeResource ButtonBorderThemeBrush}"
                             ToolTipService.ToolTip="create account">
                         <Button.Content>
                             <FontIcon x:Name="CreateAccount"
@@ -500,7 +492,6 @@
                             Click="CreateDepositButton_OnClick"
                             Width="50"
                             Height="35"
-                            BorderBrush="{ThemeResource ButtonBorderThemeBrush}"
                             ToolTipService.ToolTip="create deposit">
                         <controls1:ImageIcon Source="../../Assets/depositIcon.png" />
                     </Button>
@@ -550,7 +541,7 @@
                     </ItemsPanelTemplate>
 
                 </controls:AdaptiveGridView>
-                <controls:AdaptiveGridView Grid.Row="3"
+                <!--<controls:AdaptiveGridView Grid.Row="3"
                                            x:Name="LoanListView"
                                            Header="Loan"
                                            IsItemClickEnabled="False"
@@ -574,7 +565,7 @@
                         </Style>
                     </controls:AdaptiveGridView.ItemContainerStyle>
 
-                </controls:AdaptiveGridView>
+                </controls:AdaptiveGridView>-->
 
             </Grid>
 

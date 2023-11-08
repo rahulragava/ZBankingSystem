@@ -67,7 +67,7 @@ namespace ZBMS.View.UserControl
         private void DepositButton_OnClick(object sender, RoutedEventArgs e)
         {
             var amount = double.Parse(AmountTextBox.Text);
-            if (amount > 0)
+            if (amount > 0 && amount < 1_000_000_000_000)
             {
                 DepositMoneyViewModel.DepositMoney(double.Parse(AmountTextBox.Text));
                 AmountTextBox.Text = string.Empty;
@@ -96,6 +96,10 @@ namespace ZBMS.View.UserControl
             if (e.Key == Windows.System.VirtualKey.Enter)
             {
                 e.Handled = true;
+                if (string.IsNullOrEmpty(AmountTextBox.Text) || string.IsNullOrWhiteSpace(AmountTextBox.Text))
+                {
+                    return;
+                }
                 DepositButton_OnClick(sender, e);
             }
         }

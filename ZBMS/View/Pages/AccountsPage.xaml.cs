@@ -31,7 +31,7 @@ namespace ZBMS.View.Pages
     public sealed partial class AccountsPage : Page, IAccountView
     {
         public AccountPageViewModel AccountViewModel { get; set; }
-        public DispatcherTimer dispatchTimer;
+        private DispatcherTimer _dispatchTimer;
         
         public AccountsPage()
         {
@@ -157,17 +157,17 @@ namespace ZBMS.View.Pages
         public void CreateTimer()
         {
             // get a timer to close the infobar after 2s
-            dispatchTimer = new DispatcherTimer();
-            dispatchTimer.Tick += DispatcherTimer_Tick; ;
-            dispatchTimer.Interval = new TimeSpan(0, 0, 2);
-            dispatchTimer.Start();
+            _dispatchTimer = new DispatcherTimer();
+            _dispatchTimer.Tick += DispatcherTimer_Tick; ;
+            _dispatchTimer.Interval = new TimeSpan(0, 0, 2);
+            _dispatchTimer.Start();
         }
 
         private void DispatcherTimer_Tick(object sender, object e)
         {
             // release the timer
             InfoBar.IsOpen = false;
-            dispatchTimer = null;
+            _dispatchTimer = null;
         }
 
         private void CurrentAccountCreated(CurrentAccountBObj currentAccount)

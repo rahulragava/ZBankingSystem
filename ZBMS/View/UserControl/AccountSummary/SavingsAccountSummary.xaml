@@ -130,7 +130,7 @@
                    VerticalAlignment="Center"
                    HorizontalAlignment="Left"
                    Margin="10 0"
-                   FontSize="20"
+                   FontSize="16"
                    Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
                    FontWeight="SemiBold"
                    Text="Savings Account " />

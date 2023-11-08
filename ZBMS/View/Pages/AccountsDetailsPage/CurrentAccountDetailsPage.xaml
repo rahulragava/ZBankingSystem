@@ -33,7 +33,9 @@
             <StackPanel Orientation="Horizontal"
                         Grid.Row="0"
                         HorizontalAlignment="Right"
-                        Margin=" 0 15 30 15"
+                        VerticalAlignment="Center"
+                        Height="40"
+                        Margin=" 0 15 30 0"
                         Spacing="10">
                 <Button Grid.Column="1"
                         Content="Deposit"

@@ -31,6 +31,7 @@ namespace ZBMS.View.UserControl
         public AccountCreationUserControl()
         {
             AccountCreationViewModel = new AccountCreationViewModel(this);
+            AccountCreationViewModel.GetAllBranches();
             this.InitializeComponent();
             Loaded += AccountCreationUserControl_Loaded;
         }
@@ -40,8 +41,9 @@ namespace ZBMS.View.UserControl
         private void AccountCreationUserControl_Loaded(object sender, RoutedEventArgs e)
         {
             AccountCreationViewModel.SetAccounts(AccountList);
+            BranchNameComboBox.SelectedIndex = 0;
+            SavingsAccountRadioButton.IsChecked = true;
             //AccountCreationViewModel.SetAccountMetaData();
-            AccountCreationViewModel.GetAllBranches();
 
         }
 
@@ -50,6 +52,10 @@ namespace ZBMS.View.UserControl
         private void ClosePopup_OnClick(object sender, RoutedEventArgs e)
         {
             //ClosingPopup?.Invoke();
+            InvalidPanTextBlock.Visibility = Visibility.Collapsed;
+            InvalidBalanceTextBlock.Visibility = Visibility.Collapsed;
+            PanTextBox.Text = string.Empty;
+            BalanceTextBox.Text = string.Empty;
             OnClosingPopup?.Invoke();
         }
 
@@ -100,27 +106,56 @@ namespace ZBMS.View.UserControl
             {
                 return;
             }
+
+            if (CurrentAccountRadioButton.IsChecked != null && (bool)CurrentAccountRadioButton.IsChecked)
+            {
+                if (double.Parse(BalanceTextBox.Text) < AccountCreationViewModel.CurrentAccountMinimumBalance)
+                {
+                    //minimum balance
+                    InvalidBalanceTextBlock.Visibility = Visibility.Visible;
+                    InvalidBalanceTextBlock.Text = $"balance amount should be greater than {AccountCreationViewModel.CurrentAccountMinimumBalance}";
+                    return;
+                }
+               
+            }
+            else
+            {
+                if (double.Parse(BalanceTextBox.Text) < AccountCreationViewModel.SavingsAccountMinimumBalance)
+                {
+                    //minimum balance
+                    InvalidBalanceTextBlock.Visibility = Visibility.Visible;
+                    InvalidBalanceTextBlock.Text = $"balance amount should be greater than {AccountCreationViewModel.SavingsAccountMinimumBalance}";
+                    return;
+                }
+            }
+            
             if(AccountCreationViewModel.IsValidPan())
             {
                 if (SavingsAccountRadioButton.IsChecked != null && (bool)SavingsAccountRadioButton.IsChecked)
                 {
-                    var branchName = BranchNameAutoSuggestBox.Text;
+                    var branchName = BranchNameComboBox.SelectionBoxItem as string;
                     var ifsc = AccountCreationViewModel.Branches.Where(b => b.Name == branchName).FirstOrDefault(f => true)?.Ifsc;
 
                     AccountCreationViewModel.CreateSavingsAccount(ifsc,double.Parse(BalanceTextBox.Text));
                 }
                 else if (CurrentAccountRadioButton.IsChecked != null && (bool)CurrentAccountRadioButton.IsChecked)
                 {
-                    var branchName = BranchNameAutoSuggestBox.Text;
+                    var branchName = BranchNameComboBox.SelectionBoxItem as string;
                     var ifsc = AccountCreationViewModel.Branches.Where(b => b.Name == branchName).FirstOrDefault(f => true)?.Ifsc;
 
                     AccountCreationViewModel.CreateCurrentAccount(ifsc, double.Parse(BalanceTextBox.Text));
                 }
+
+                InvalidPanTextBlock.Visibility = Visibility.Collapsed;
+                InvalidBalanceTextBlock.Visibility = Visibility.Collapsed;
+                PanTextBox.Text = string.Empty;
+                BalanceTextBox.Text = string.Empty;
             }
             else
             {
                 PanTextBox.Background = new SolidColorBrush(Color.FromArgb(1, 255, 0, 0));
                 InvalidPanTextBlock.Visibility = Visibility.Visible;
+                InvalidBalanceTextBlock.Visibility = Visibility.Collapsed;
             }
         }
 
@@ -141,8 +176,29 @@ namespace ZBMS.View.UserControl
             BalanceTextBox.Text = string.Empty;
             InterestRateText.Visibility = Visibility.Collapsed;
             CurrentAccountRadioButton.IsChecked = false;
-            SavingsAccountRadioButton.IsChecked = false;
-            BranchNameAutoSuggestBox.Text = string.Empty;
+            SavingsAccountRadioButton.IsChecked = false; 
+        }
+
+        private void BalanceTextBox_OnTextChanged(object sender, TextChangedEventArgs e)
+        {
+            var textBox = sender as TextBox;
+            var dotCount = 0;
+            if (textBox != null)
+            {
+                foreach (var ch in textBox.Text)
+                {
+                    if (ch == '.')
+                    {
+                        dotCount++;
+                    }
+                }
+
+                if (dotCount > 1)
+                {
+                    PanTextBox.Background = new SolidColorBrush(Color.FromArgb(1, 255, 0, 0));
+                    InvalidPanTextBlock.Visibility = Visibility.Visible;
+                }
+            }
         }
     }
     
