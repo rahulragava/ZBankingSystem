@@ -47,14 +47,16 @@ namespace ZBMS.ViewModel
         public void SetAccounts(ObservableCollection<Account> accountList)
         {
             Accounts.Clear();
+            AccountNames.Clear();
+            SavingsAccountNames.Clear();
             foreach (var account in accountList)
             {
                 Accounts.Add(account);
                 AccountNames.Add(account.AccountNumber);
 
-                if (account is SavingsAccountBObj)
+                if (account is SavingsAccountBObj savingsAccount)
                 {
-                    SavingsAccountNames.Add((account as SavingsAccountBObj).AccountNumber);
+                    SavingsAccountNames.Add(savingsAccount.AccountNumber);
                 }
             }
         }

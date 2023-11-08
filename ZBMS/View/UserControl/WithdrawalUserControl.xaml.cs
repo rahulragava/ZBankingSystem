@@ -93,6 +93,10 @@ namespace ZBMS.View.UserControl
             if (e.Key == VirtualKey.Enter)
             {
                 e.Handled = true;
+                if (string.IsNullOrEmpty(AmountTextBox.Text) || string.IsNullOrWhiteSpace(AmountTextBox.Text))
+                {
+                    return;
+                }
                 WithdrawButton_OnClick(sender,e);
             }
         }

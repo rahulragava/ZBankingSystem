@@ -16,11 +16,12 @@ namespace ZBMS.ViewModel.DetailViewModel
 
         public void ClearAndAddTransaction()
         {
-            TransactionList.Clear();
-            foreach (var transaction in SavingsAccountBObj.TransactionList)
-            {
-                TransactionList.Add(transaction);
-            }
+            TransactionList = new ObservableCollection<TransactionSummaryVObj>(SavingsAccountBObj.TransactionList);
+            //TransactionList.Clear();
+            //foreach (var transaction in SavingsAccountBObj.TransactionList)
+            //{
+            //    TransactionList.Add(transaction);
+            //}
         }
     }
 }

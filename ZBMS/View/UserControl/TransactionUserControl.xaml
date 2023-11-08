@@ -69,9 +69,13 @@
                               Grid.Row="1">
 
 
-                    <controls:DataGrid ItemsSource="{x:Bind TransactionViewModel.PageTransactionSummaries,Mode=OneWay}"
+                    <controls:DataGrid ItemsSource="{x:Bind TransactionList,Mode=OneWay}"
                                        AutoGenerateColumns="False"
+                                       VerticalScrollBarVisibility="Auto"
                                        IsReadOnly="True"
+                                       MaxHeight="650"
+                                       CanUserReorderColumns="False"
+                                       CanUserSortColumns="True"
                                        x:Name="TransactionListDataGrid"
                                        IsTabStop="False"
                                        Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
@@ -234,7 +238,7 @@
 
 
 
-        <Grid>
+        <!--<Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
@@ -274,6 +278,6 @@
                     </Button>
                 </StackPanel>
             </Border>
-        </Grid>
+        </Grid>-->
     </Grid>
 </UserControl>
