@@ -68,7 +68,15 @@ namespace ZBMS.View.UserControl
             set => SetValue(AccountListProperty, value);
         }
 
-       
+        public static readonly DependencyProperty PanProperty = DependencyProperty.Register(
+            nameof(Pan), typeof(string), typeof(AccountCreationUserControl), new PropertyMetadata(default(string)));
+
+        public string Pan
+        {
+            get => (string)GetValue(PanProperty);
+            set => SetValue(PanProperty, value);
+        }
+
 
         private void SavingsAccountRadioButton_OnChecked(object sender, RoutedEventArgs e)
         {
@@ -131,30 +139,38 @@ namespace ZBMS.View.UserControl
             
             if(AccountCreationViewModel.IsValidPan())
             {
-                if (SavingsAccountRadioButton.IsChecked != null && (bool)SavingsAccountRadioButton.IsChecked)
+                if (AccountCreationViewModel.IsUserPan(Pan))
                 {
-                    var branchName = BranchNameComboBox.SelectionBoxItem as string;
-                    var ifsc = AccountCreationViewModel.Branches.Where(b => b.Name == branchName).FirstOrDefault(f => true)?.Ifsc;
+                    if (SavingsAccountRadioButton.IsChecked != null && (bool)SavingsAccountRadioButton.IsChecked)
+                    {
+                        var branchName = BranchNameComboBox.SelectionBoxItem as string;
+                        var ifsc = AccountCreationViewModel.Branches.Where(b => b.Name == branchName).FirstOrDefault(f => true)?.Ifsc;
 
-                    AccountCreationViewModel.CreateSavingsAccount(ifsc,double.Parse(BalanceTextBox.Text));
+                        AccountCreationViewModel.CreateSavingsAccount(ifsc, double.Parse(BalanceTextBox.Text));
+                    }
+                    else if (CurrentAccountRadioButton.IsChecked != null && (bool)CurrentAccountRadioButton.IsChecked)
+                    {
+                        var branchName = BranchNameComboBox.SelectionBoxItem as string;
+                        var ifsc = AccountCreationViewModel.Branches.Where(b => b.Name == branchName).FirstOrDefault(f => true)?.Ifsc;
+
+                        AccountCreationViewModel.CreateCurrentAccount(ifsc, double.Parse(BalanceTextBox.Text));
+                    }
+
+                    InvalidPanTextBlock.Visibility = Visibility.Collapsed;
+                    InvalidBalanceTextBlock.Visibility = Visibility.Collapsed;
+                    PanTextBox.Text = string.Empty;
+                    BalanceTextBox.Text = string.Empty;
                 }
-                else if (CurrentAccountRadioButton.IsChecked != null && (bool)CurrentAccountRadioButton.IsChecked)
-                {
-                    var branchName = BranchNameComboBox.SelectionBoxItem as string;
-                    var ifsc = AccountCreationViewModel.Branches.Where(b => b.Name == branchName).FirstOrDefault(f => true)?.Ifsc;
-
-                    AccountCreationViewModel.CreateCurrentAccount(ifsc, double.Parse(BalanceTextBox.Text));
-                }
-
-                InvalidPanTextBlock.Visibility = Visibility.Collapsed;
+                PanTextBox.Background = new SolidColorBrush(Color.FromArgb(1, 255, 0, 0));
+                InvalidPanTextBlock.Visibility = Visibility.Visible;
+                InvalidPanTextBlock.Text = "wrong PAN";
                 InvalidBalanceTextBlock.Visibility = Visibility.Collapsed;
-                PanTextBox.Text = string.Empty;
-                BalanceTextBox.Text = string.Empty;
             }
             else
             {
                 PanTextBox.Background = new SolidColorBrush(Color.FromArgb(1, 255, 0, 0));
                 InvalidPanTextBlock.Visibility = Visibility.Visible;
+                InvalidPanTextBlock.Text = "Invalid PAN";
                 InvalidBalanceTextBlock.Visibility = Visibility.Collapsed;
             }
         }

@@ -93,7 +93,7 @@ namespace ZBMS.View.Pages.AccountsDetailsPage
                 {
                     //TransactionUserControl.TransactionList.Add(transactionSummary);
                     SavingsAccountDetailViewModel.TransactionList.Insert(0,transactionSummary);
-                    TransactionUserControl.OnTransactionUpdated(transactionSummary);
+                    //TransactionUserControl.OnTransactionUpdated(transactionSummary);
                 }
             );
 
@@ -106,7 +106,7 @@ namespace ZBMS.View.Pages.AccountsDetailsPage
                 {
                     //TransactionUserControl.TransactionList.Add(transactionSummary);
                     SavingsAccountDetailViewModel.TransactionList.Insert(0, transactionSummary);
-                    TransactionUserControl.OnTransactionUpdated(transactionSummary);
+                    //TransactionUserControl.OnTransactionUpdated(transactionSummary);
                     InfoBar.Severity = InfoBarSeverity.Success;
                     InfoBar.Message = $"Successfully Deposited Rs.{transactionSummary.Amount}";
                     CreateTimer();
@@ -123,7 +123,7 @@ namespace ZBMS.View.Pages.AccountsDetailsPage
                 {
                     //TransactionUserControl.TransactionList.Add(transactionSummary);
                     SavingsAccountDetailViewModel.TransactionList.Insert(0, transactionSummary);
-                    TransactionUserControl.OnTransactionUpdated(transactionSummary);
+                    //TransactionUserControl.OnTransactionUpdated(transactionSummary);
                     InfoBar.Severity = InfoBarSeverity.Success;
                     InfoBar.Message = $"Successfully Withdrawn Rs.{transactionSummary.Amount}";
                     CreateTimer();

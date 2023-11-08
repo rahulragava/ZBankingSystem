@@ -59,6 +59,14 @@ namespace ZBMS.ViewModel
             get => _lastLoggedOn;
             set => SetField(ref _lastLoggedOn, value);
         }
+
+        private string _userPan;
+
+        public string UserPan
+        {
+            get => _userPan;
+            set => SetField(ref _userPan, value);
+        }
         public void GetUser()
         {
             var request = new GetUserRequest(AppSettings.CustomerId);
@@ -109,7 +117,7 @@ namespace ZBMS.ViewModel
                         _homePageViewModel.PhoneNumber= response.User.PhoneNumber;
                         _homePageViewModel.Email = response.User.Email;
                         _homePageViewModel.LastLoggedOn= response.User.LastLoggedOn;
-                        //_homePageViewModel.UserName = response.User.Name;
+                        _homePageViewModel.UserPan= response.User.PAN;
                     }
                 );
             }

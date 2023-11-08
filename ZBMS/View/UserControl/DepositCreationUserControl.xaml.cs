@@ -53,6 +53,15 @@ namespace ZBMS.View.UserControl
         }
 
 
+        public static readonly DependencyProperty PanProperty = DependencyProperty.Register(
+            nameof(Pan), typeof(string), typeof(AccountCreationUserControl), new PropertyMetadata(default(string)));
+
+        public string Pan
+        {
+            get => (string)GetValue(PanProperty);
+            set => SetValue(PanProperty, value);
+        }
+
         private void FixedDepositRadioButton_OnChecked(object sender, RoutedEventArgs e)
         {
 
@@ -125,23 +134,31 @@ namespace ZBMS.View.UserControl
             }
             if (AccountCreationViewModel.IsValidPan())
             {
-                if (FixedDepositRadioButton.IsChecked != null && (bool)FixedDepositRadioButton.IsChecked)
+                if (AccountCreationViewModel.IsUserPan(Pan))
                 {
-                    var branchName = BranchNameComboBox.SelectionBoxItem as string;
-                    var ifsc = AccountCreationViewModel.Branches.Where(b => b.Name == branchName).FirstOrDefault(f => true)?.Ifsc;
-                    AccountCreationViewModel.CreateFixedDepositAccount(ifsc,FromAccountComboBox.Text,RepaymentComboBox.Text,(int)TenureSlider.Value);
-                }
-                else if (RecurringDepositRadioButton.IsChecked != null && (bool)RecurringDepositRadioButton.IsChecked)
-                {
-                    var branchName = BranchNameComboBox.SelectionBoxItem as string;
-                    var ifsc = AccountCreationViewModel.Branches.Where(b => b.Name == branchName).FirstOrDefault(f => true)?.Ifsc;
-                    AccountCreationViewModel.CreateRecurringDepositAccount(ifsc, FromAccountComboBox.Text, RepaymentComboBox.Text,(int)TenureSlider.Value);
+                    if (FixedDepositRadioButton.IsChecked != null && (bool)FixedDepositRadioButton.IsChecked)
+                    {
+                        var branchName = BranchNameComboBox.SelectionBoxItem as string;
+                        var ifsc = AccountCreationViewModel.Branches.Where(b => b.Name == branchName).FirstOrDefault(f => true)?.Ifsc;
+                        AccountCreationViewModel.CreateFixedDepositAccount(ifsc, FromAccountComboBox.Text, RepaymentComboBox.Text, (int)TenureSlider.Value);
+                    }
+                    else if (RecurringDepositRadioButton.IsChecked != null && (bool)RecurringDepositRadioButton.IsChecked)
+                    {
+                        var branchName = BranchNameComboBox.SelectionBoxItem as string;
+                        var ifsc = AccountCreationViewModel.Branches.Where(b => b.Name == branchName).FirstOrDefault(f => true)?.Ifsc;
+                        AccountCreationViewModel.CreateRecurringDepositAccount(ifsc, FromAccountComboBox.Text, RepaymentComboBox.Text, (int)TenureSlider.Value);
 
+                    }
+                    InvalidPanTextBlock.Visibility = Visibility.Collapsed;
+                    PanTextBox.Text = string.Empty;
+                    BalanceSlider.Value = BalanceSlider.Minimum;
+                    TenureSlider.Value = TenureSlider.Minimum;
                 }
-                InvalidPanTextBlock.Visibility = Visibility.Collapsed;
-                PanTextBox.Text = string.Empty;
-                BalanceSlider.Value = BalanceSlider.Minimum;
-                TenureSlider.Value = TenureSlider.Minimum;
+                else
+                {
+                    InvalidPanTextBlock.Text = "wrong PAN";
+                    InvalidPanTextBlock.Visibility = Visibility.Visible;
+                }
             }
             else
             {

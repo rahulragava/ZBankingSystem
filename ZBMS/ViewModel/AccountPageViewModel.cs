@@ -2,7 +2,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Security.Cryptography.X509Certificates;
+using Windows.Security.Cryptography.Core;
 using Windows.UI.Core;
 using ZBMS.Services;
 using ZBMS.View.Pages;
@@ -14,7 +18,7 @@ using ZBMSLibrary.UseCase;
 
 namespace ZBMS.ViewModel
 {
-    public class AccountPageViewModel : ViewModelBase
+    public class AccountPageViewModel : INotifyPropertyChanged
     {
         public ObservableCollection<Account> Accounts { get; set; }
         public ObservableCollection<Deposit> Deposits { get; set; }
@@ -58,12 +62,29 @@ namespace ZBMS.ViewModel
             }
         }
 
+        private string _userPan;
+
+        public string UserPan
+        {
+            get => _userPan;
+            set => SetField(ref _userPan,value);
+        }
+
         public void GetUserLastLogged()
         {
             var userId = AppSettings.CustomerId;
             var getUserLastLoggedRequest = new GetUserLastSeenRequest(userId);
             var useCase =
                 new GetUserLastSeenUseCase(getUserLastLoggedRequest, new GetUserLastSeenPresenterCallBack(this));
+            useCase.Execute();
+        }
+
+
+        public void GetUser()
+        {
+            var userId = AppSettings.CustomerId;
+            var request = new GetUserRequest(userId);
+            var useCase = new GetUserUseCase(request, new GetUserPresenterCallBack(this));
             useCase.Execute();
         }
 
@@ -107,6 +128,8 @@ namespace ZBMS.ViewModel
                    
                 }
             }
+            
+
             //usecase
             if (monthlyInstallments.Count > 0)
             {
@@ -223,6 +246,8 @@ namespace ZBMS.ViewModel
             }
         }
 
+
+
         public class DepositSettlementPresenterCallBack : IPresenterCallBack<DepositSettlementResponse>
         {
             private readonly AccountPageViewModel _viewModel;
@@ -270,6 +295,46 @@ namespace ZBMS.ViewModel
             }
         }
 
+        public class GetUserPresenterCallBack : IPresenterCallBack<GetUserResponse>
+        {
+            private readonly AccountPageViewModel _viewModel;
 
+            public GetUserPresenterCallBack(AccountPageViewModel viewModel)
+            {
+                _viewModel = viewModel;
+            }
+
+            public void OnSuccess(GetUserResponse response)
+            {
+                Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                    () =>
+                    {
+                        //var esponse = response.User;
+                        _viewModel.UserPan = response.User.PAN;
+                    }
+                );
+            }
+
+            public void OnError(Exception ex)
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        protected bool SetField<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
+        {
+            if (EqualityComparer<T>.Default.Equals(field, value)) return false;
+            field = value;
+            OnPropertyChanged(propertyName);
+            return true;
+        }
     }
 }

@@ -13,7 +13,6 @@
       xmlns:controls1="using:Microsoft.UI.Xaml.Controls"
       xmlns:ui="using:Microsoft.Toolkit.Uwp.UI"
       mc:Ignorable="d"
-      
       Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
     <Page.Resources>
         <converters:TypeToBackgroundConverter x:Key="BackgroundColorConverter" />
@@ -21,15 +20,13 @@
         <DataTemplate x:Key="SavingsAccountCardTemplate"
                       x:DataType="businessObject:SavingsAccountBObj">
             <Grid MinHeight="200"
-                  MinWidth="320"
+                  MinWidth="300"
                   Margin="5"
                   CornerRadius="15,15,20,20"
                   BorderThickness="0"
-                  
                   BorderBrush="{ThemeResource SystemControlBackgroundAccentBrush}"
                   Background="{ThemeResource BackgroundColor}">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
@@ -82,7 +79,7 @@
                     <Run Text="&#x20b9;" /> <Run Text="{x:Bind Balance, Mode=OneWay}"></Run>
                 </TextBlock>
 
-                <Button x:Name="ViewSavingsAccountButton"
+                <!--<Button x:Name="ViewSavingsAccountButton"
                         Margin="20"
                         Click="ViewSavingsAccountButton_OnClick"
                         Grid.Row="4"
@@ -90,21 +87,20 @@
                         Style="{ThemeResource FeatureButtonStyle}"
                         HorizontalAlignment="Center"
                         Content="View Details">
-                </Button>
+                </Button>-->
             </Grid>
         </DataTemplate>
 
         <DataTemplate x:Key="CurrentAccountCardTemplate"
                       x:DataType="businessObject:CurrentAccountBObj">
             <Grid MinHeight="200"
-                  MinWidth="320"
+                  MinWidth="300"
                   Margin="5"
                   CornerRadius="15,15,20,20"
                   BorderThickness="0"
                   BorderBrush="{ThemeResource SystemControlBackgroundAccentBrush}"
                   Background="{ThemeResource BackgroundColor}">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
@@ -124,10 +120,9 @@
                                Padding="10,5,10,5"
                                Text="Current" />
                 </StackPanel>
-                <TextBlock Margin="0,25,0,0"
+                <TextBlock Grid.Row="1"
+                           Margin="0,25,0,0"
                            HorizontalAlignment="Center"
-                           Grid.Row="1"
-                           Height="50"
                            FontWeight="SemiBold"
                            FontSize="20"
                            Text="{x:Bind AccountNumber,Mode=OneWay}" />
@@ -156,13 +151,13 @@
                             HorizontalAlignment="Center">
                     <Run Text="&#x20b9;" /> <Run Text="{x:Bind Balance, Mode=OneWay}" />
                 </TextBlock>
-                <Button x:Name="ViewCurrentAccountButton"
+                <!--<Button x:Name="ViewCurrentAccountButton"
                         Click="ViewCurrentAccountButton_OnClick"
                         Margin="0"
                         Grid.Row="5"
                         HorizontalAlignment="Center"
                         Content="View Details">
-                </Button>
+                </Button>-->
             </Grid>
 
         </DataTemplate>
@@ -170,14 +165,13 @@
         <DataTemplate x:Key="RecurringDepositCardTemplate"
                       x:DataType="businessObject:RecurringAccountBObj">
             <Grid MinHeight="200"
-                  MinWidth="320"
+                  MinWidth="300"
                   Margin="5"
                   CornerRadius="15,15,20,20"
                   BorderThickness="0"
                   BorderBrush="{ThemeResource SystemControlBackgroundAccentBrush}"
                   Background="{ThemeResource BackgroundColor}">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
@@ -229,13 +223,13 @@
                     <Run Text="&#x20b9;" /> <Run Text="{x:Bind DepositedAmount, Mode=OneWay}"></Run>
 
                 </TextBlock>
-                <Button x:Name="ViewRecurringAccountButton"
+                <!--<Button x:Name="ViewRecurringAccountButton"
                         Margin="20"
                         Click="ViewRecurringDepositButton_OnClick"
                         Grid.Row="5"
                         HorizontalAlignment="Center"
                         Content="View Details">
-                </Button>
+                </Button>-->
             </Grid>
 
         </DataTemplate>
@@ -243,14 +237,13 @@
         <DataTemplate x:Key="FixedDepositCardTemplate"
                       x:DataType="businessObject:FixedDepositBObj">
             <Grid MinHeight="200"
-                  MinWidth="320"
+                  MinWidth="300"
                   Margin="5"
                   CornerRadius="15,15,20,20"
                   BorderThickness="0"
                   BorderBrush="{ThemeResource SystemControlBackgroundAccentBrush}"
                   Background="{ThemeResource BackgroundColor}">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
@@ -301,13 +294,13 @@
                             HorizontalAlignment="Center">
                     <Run Text="&#x20b9;" /> <Run Text="{x:Bind DepositedAmount, Mode=OneWay}"></Run>
                 </TextBlock>
-                <Button x:Name="ViewFixedDepositButton"
+                <!--<Button x:Name="ViewFixedDepositButton"
                         Margin="20"
                         Grid.Row="5"
                         HorizontalAlignment="Center"
                         Click="ViewFixedDepositAccountButton_OnClick"
                         Content="View Details">
-                </Button>
+                </Button>-->
             </Grid>
 
         </DataTemplate>
@@ -322,7 +315,6 @@
                   BorderBrush="{ThemeResource SystemControlBackgroundAccentBrush}"
                   Background="{ThemeResource BackgroundColor}">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
@@ -370,13 +362,13 @@
                             VerticalAlignment="Center"
                             HorizontalAlignment="Center"
                             Text="{x:Bind Due, Mode=OneWay}" />
-                <Button x:Name="ViewLoanAccountButton"
+                <!--<Button x:Name="ViewLoanAccountButton"
                         Margin="20"
                         Grid.Row="5"
                         HorizontalAlignment="Center"
                         Click="ViewLoanAccountButton_OnClick"
                         Content="View Details">
-                </Button>
+                </Button>-->
             </Grid>
 
         </DataTemplate>
@@ -402,7 +394,8 @@
                         <AdaptiveTrigger MinWindowWidth="0"></AdaptiveTrigger>
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="RootGrid.HorizontalAlignment" Value="Center"></Setter>
+                        <Setter Target="RootGrid.HorizontalAlignment"
+                                Value="Center"></Setter>
                     </VisualState.Setters>
                 </VisualState>
 
@@ -414,13 +407,12 @@
                         <Setter Target="RootGrid.HorizontalAlignment"
                                 Value="Stretch"></Setter>
 
-</VisualState.Setters>
+                    </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
 
-        <Popup x:Name="DepositCreationPopup"
-               >
+        <Popup x:Name="DepositCreationPopup">
             <Border Width="500"
                     Height="770"
                     CornerRadius="8"
@@ -430,6 +422,7 @@
                     PointerReleased="DepositCreationPopup_OnPointerReleased">
                 <userControl:DepositCreationUserControl OnClosingPopup="DepositCreationUserControl_OnOnClosingPopup"
                                                         HorizontalAlignment="Stretch"
+                                                        Pan="{x:Bind AccountViewModel.UserPan,Mode=OneWay}"
                                                         AccountList="{x:Bind AccountViewModel.Accounts,Mode=OneWay}"
                                                         VerticalAlignment="Stretch" />
             </Border>
@@ -441,10 +434,12 @@
                     CornerRadius="8"
                     Background="Gray"
                     PointerMoved="AccountCreationPopup_OnPointerMoved"
+                    
                     PointerPressed="AccountCreationPopup_OnPointerPressed"
                     PointerReleased="AccountCreationPopup_OnPointerReleased">
                 <userControl:AccountCreationUserControl OnClosingPopup="AccountCreationUserControl_OnClosingPopup"
                                                         HorizontalAlignment="Stretch"
+                                                        Pan="{x:Bind AccountViewModel.UserPan,Mode=OneWay}"
                                                         AccountList="{x:Bind AccountViewModel.Accounts,Mode=OneWay}"
                                                         VerticalAlignment="Stretch" />
             </Border>
@@ -465,7 +460,7 @@
                                    HorizontalAlignment="Center"
                                    IsIconVisible="True"
                                    IsClosable="True"
-                                   Title="Account Creation"/>
+                                   Title="Account Creation" />
 
                 <StackPanel  Grid.Row="0"
                              Grid.Column="0"
@@ -516,8 +511,9 @@
                 <controls:AdaptiveGridView Grid.Row="1"
                                            x:Name="AccountListView"
                                            Header="Accounts"
-                                           IsItemClickEnabled="False"
-                                           SelectionMode="None"
+                                           SelectionMode="Single"
+                                           IsItemClickEnabled="True"
+                                           SelectionChanged="AccountListView_OnSelectionChanged"
                                            Margin="15"
                                            ItemsSource="{x:Bind AccountViewModel.Accounts,Mode=OneWay}"
                                            ItemTemplateSelector="{StaticResource AccountTemplateSelector}">
@@ -525,36 +521,8 @@
                         <ItemsWrapGrid MaximumRowsOrColumns="3"
                                        Orientation="Horizontal"></ItemsWrapGrid>
                     </ItemsPanelTemplate>
-
-                </controls:AdaptiveGridView>
-                <controls:AdaptiveGridView Grid.Row="2"
-                                           x:Name="DepositListView"
-                                           IsItemClickEnabled="False"
-                                           Header="Deposits"
-                                           SelectionMode="None"
-                                           Margin="15"
-                                           ItemsSource="{x:Bind AccountViewModel.Deposits,Mode=OneWay}"
-                                           ItemTemplateSelector="{StaticResource DepositTemplateSelector}">
-                    <ItemsPanelTemplate>
-                        <ItemsWrapGrid MaximumRowsOrColumns="3"
-                                       Orientation="Horizontal"></ItemsWrapGrid>
-                    </ItemsPanelTemplate>
-
-                </controls:AdaptiveGridView>
-                <!--<controls:AdaptiveGridView Grid.Row="3"
-                                           x:Name="LoanListView"
-                                           Header="Loan"
-                                           IsItemClickEnabled="False"
-                                           SelectionMode="None"
-                                           Margin="15"
-                                           ItemsSource="{x:Bind AccountViewModel.Loans,Mode=OneWay}"
-                                           ItemTemplateSelector="{StaticResource LoanTemplateSelector}">
-                    <ItemsPanelTemplate>
-                        <ItemsWrapGrid MaximumRowsOrColumns="3"
-                                       Orientation="Horizontal"></ItemsWrapGrid>
-                    </ItemsPanelTemplate>
                     <controls:AdaptiveGridView.ItemContainerStyle>
-                        <Style TargetType="ListViewItem">
+                        <Style TargetType="controls:AdaptiveGridView">
                             <Setter Property="Template">
                                 <Setter.Value>
                                     <ControlTemplate>
@@ -564,6 +532,41 @@
                             </Setter>
                         </Style>
                     </controls:AdaptiveGridView.ItemContainerStyle>
+
+                </controls:AdaptiveGridView>
+                <controls:AdaptiveGridView Grid.Row="2"
+                                           x:Name="DepositListView"
+                                           Header="Deposits"
+                                           Margin="15"
+                                           IsItemClickEnabled="True"
+                                           SelectionChanged="DepositListView_OnSelectionChanged"
+                                           ItemsSource="{x:Bind AccountViewModel.Deposits,Mode=OneWay}"
+                                           ItemTemplateSelector="{StaticResource DepositTemplateSelector}">
+                    <ItemsPanelTemplate>
+                        <ItemsWrapGrid MaximumRowsOrColumns="3"
+                                       Orientation="Horizontal"></ItemsWrapGrid>
+                    </ItemsPanelTemplate>
+                    <controls:AdaptiveGridView.ItemContainerStyle>
+                        <Style TargetType="controls:AdaptiveGridView">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate>
+                                        <ContentPresenter />
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </controls:AdaptiveGridView.ItemContainerStyle>
+                </controls:AdaptiveGridView>
+                <!--<controls:AdaptiveGridView Grid.Row="3"
+                                           x:Name="LoanListView"
+                                           Header="Loan"
+                                           IsItemClickEnabled="False"
+                                           SelectionMode="None"
+                                           Margin="15"
+                                           ItemsSource="{x:Bind AccountViewModel.Loans,Mode=OneWay}"
+                                           ItemTemplateSelector="{StaticResource LoanTemplateSelector}">
+                 
 
                 </controls:AdaptiveGridView>-->
 

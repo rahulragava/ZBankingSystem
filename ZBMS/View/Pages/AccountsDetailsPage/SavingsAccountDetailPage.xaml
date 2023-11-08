@@ -184,6 +184,7 @@
                                                   SavingsAccountBObj="{x:Bind SavingsAccountDetailViewModel.SavingsAccountBObj,Mode=OneWay}" />
             <Grid Grid.Row="2">
                 <userControl:TransactionUserControl Margin="5 5 0 0"
+                                                    TabIndex="0"
                                                     x:Name="TransactionUserControl"
                                                     TransactionList="{x:Bind SavingsAccountDetailViewModel.TransactionList,Mode=OneWay}" />
 

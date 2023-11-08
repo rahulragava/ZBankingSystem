@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Microsoft.Toolkit.Uwp.UI.Controls;
 using Microsoft.UI.Xaml.Controls;
 using ZBMS.View.Pages.AccountsDetailsPage;
 using ZBMS.ViewModel;
@@ -48,6 +49,7 @@ namespace ZBMS.View.Pages
 
             AccountViewModel.GetUserAccounts();
             AccountViewModel.GetUserLastLogged();
+            AccountViewModel.GetUser();
             NotificationEvents.SavingsAccountCreated += SavingsAccountCreated;
             NotificationEvents.CurrentAccountCreated += CurrentAccountCreated;
             NotificationEvents.FixedDepositCreated += FixedDepositCreated;
@@ -197,84 +199,9 @@ namespace ZBMS.View.Pages
             });
         }
 
-        private void ViewFixedDepositAccountButton_OnClick(object sender, RoutedEventArgs e)
-        {
-            var btn = (Button)sender;
-            this.Frame.Navigate(typeof(FixedDepositDetailPage), btn.DataContext);
-
-        }
-        private void ViewRecurringDepositButton_OnClick(object sender, RoutedEventArgs e)
-        {
-            var btn = (Button)sender;
-            this.Frame.Navigate(typeof(RecurringDepositDetailPage), btn.DataContext);
-
-        }
-
-        private void ViewLoanAccountButton_OnClick(object sender, RoutedEventArgs e)
-        {
-            var btn = (Button)sender;
-            this.Frame.Navigate(typeof(PersonalLoanDetailPage), btn.DataContext);
-
-        }
         public bool IsAccountPopupDragging { get; set; }
         public bool IsDepositPopupDragging{ get; set; }
 
-        //private void StandardPopup_PointerPressed(object sender, PointerRoutedEventArgs e)
-        //{
-        //    //enable dragging
-        //    IsAccountPopupDragging = true;
-        //    e.Handled = true;
-            
-        //}
-        //private void StandardPopup_PointerMoved(object sender, PointerRoutedEventArgs e)
-        //{
-        //    if (IsAccountPopupDragging)
-        //    {
-
-        //        var pointerPosition = Windows.UI.Core.CoreWindow.GetForCurrentThread().PointerPosition;
-        //        var x = pointerPosition.X - Window.Current.Bounds.X - 84;
-        //        var y = pointerPosition.Y - Window.Current.Bounds.Y-37;
-        //        //change position
-        //        AccountCreationPopup.HorizontalOffset = x;
-        //        AccountCreationPopup.VerticalOffset = y;
-
-        //        //var properties = e.GetCurrentPoint(this).Properties;
-
-        //        //if (properties.IsLeftButtonPressed)
-        //        //{
-        //        //    IsAccountPopupDragging = false;
-
-        //        //}
-        //        //else if (properties.IsRightButtonPressed)
-        //        //{
-        //        //    IsAccountPopupDragging = false;
-        //        //}
-        //    }
-           
-
-        //    e.Handled = true;
-        //}
-
-        //private void StandardPopup_PointerReleased(object sender, PointerRoutedEventArgs e)
-        //{
-        //    //var properties = e.GetCurrentPoint(this).Properties;
-
-        //    //if (properties.PointerUpdateKind == Windows.UI.Input.PointerUpdateKind.LeftButtonPressed)
-        //    //{
-        //    //    IsAccountPopupDragging = false;
-
-        //    //}
-        //    //else if (properties.PointerUpdateKind == Windows.UI.Input.PointerUpdateKind.RightButtonPressed)
-        //    //{
-        //    //    IsAccountPopupDragging = false;
-
-        //    //}
-        //    IsAccountPopupDragging = false;
-
-        //    e.Handled = true;
-          
-
-        //}
         private void CreateAccountButton_OnClick(object sender, RoutedEventArgs e)
         {
             AccountCreationPopup.IsOpen = !(AccountCreationPopup.IsOpen);
@@ -285,17 +212,6 @@ namespace ZBMS.View.Pages
             AccountCreationPopup.IsOpen = false;
         }
 
-        private void ViewSavingsAccountButton_OnClick(object sender, RoutedEventArgs e)
-        {
-            var btn = (Button)sender;
-            this.Frame.Navigate(typeof(AccountsDetailsPage.SavingsAccountDetailPage), btn.DataContext);
-        }
-
-        private void ViewCurrentAccountButton_OnClick(object sender, RoutedEventArgs e)
-        {
-            var btn = (Button)sender;
-            this.Frame.Navigate(typeof(AccountsDetailsPage.CurrentAccountDetailsPage), btn.DataContext);
-        }
 
         private void CreateDepositButton_OnClick(object sender, RoutedEventArgs e)
         {
@@ -371,7 +287,32 @@ namespace ZBMS.View.Pages
             e.Handled = true;
         }
 
+        private void AccountListView_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var gridView = sender as AdaptiveGridView;
 
+            if (gridView?.SelectedItem is SavingsAccountBObj savingsAccount)
+            {
+                this.Frame.Navigate(typeof(AccountsDetailsPage.SavingsAccountDetailPage), savingsAccount);
+            }
+            else if (gridView?.SelectedItem is CurrentAccountBObj currentAccount)
+            {
+                this.Frame.Navigate(typeof(AccountsDetailsPage.CurrentAccountDetailsPage), currentAccount);
+            }
+        }
+
+        private void DepositListView_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var gridView = sender as AdaptiveGridView;
+            if (gridView?.SelectedItem is FixedDepositBObj fixedDeposit)
+            {
+                this.Frame.Navigate(typeof(AccountsDetailsPage.FixedDepositDetailPage), fixedDeposit);
+            }
+            else if (gridView?.SelectedItem is RecurringAccountBObj recurringAccount)
+            {
+                this.Frame.Navigate(typeof(AccountsDetailsPage.RecurringDepositDetailPage), recurringAccount);
+            }
+        }
     }
 
     public interface IAccountView

@@ -52,6 +52,7 @@
                 </NavigationViewItem>-->
                 <NavigationViewItem x:Uid="Accounts"
                                     Content="Accounts"
+                                    TabIndex="0"
                                     VerticalAlignment="Center"
                                     Tag="AccountsPage">
                     <NavigationViewItem.Icon>
@@ -73,6 +74,7 @@
 
                     </NavigationViewItem>-->
                     <NavigationViewItem x:Name="User"
+                                        TabIndex="0"
                                         Tapped="UIElement_OnTapped">
                         <PersonPicture Height="20" Margin="-5 0 0 0" Tapped="UIElement_OnTapped" x:Name="PersonPicture">
                             <FlyoutBase.AttachedFlyout>
@@ -92,7 +94,7 @@
                         </PersonPicture>
 
                     </NavigationViewItem>
-                    <NavigationViewItem x:Name="UserLogOut"
+                    <!--<NavigationViewItem x:Name="UserLogOut"
                                         x:Uid="LogOut"
                                         Tapped="UserLogOut_OnTapped">
                         <NavigationViewItem.Icon>
@@ -100,7 +102,7 @@
                                       Foreground="Red"
                                       Glyph="&#xF3B1;" />
                         </NavigationViewItem.Icon>
-                    </NavigationViewItem>
+                    </NavigationViewItem>-->
                 </StackPanel>
             </NavigationView.PaneFooter>
             <NavigationView.Content>

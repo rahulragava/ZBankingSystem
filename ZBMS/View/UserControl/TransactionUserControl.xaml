@@ -14,47 +14,13 @@
         <converters:TypeToBackgroundConverter x:Key="TransactionTypeToBackgroundConverter" />
         <converters:DateFormatter x:Key="DateTimeConverter" />
     </UserControl.Resources>
-    <Grid 
-                  CornerRadius="10"
-                  Padding="6"
-                  Background="{ThemeResource BackgroundColor}">
+    <Grid CornerRadius="10"
+          Padding="6"
+          Background="{ThemeResource BackgroundColor}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
-        <!--<Grid.ColumnDefinitions>
-            <ColumnDefinition Width="3*"></ColumnDefinition>
-            <ColumnDefinition Width="2*"></ColumnDefinition>
-        </Grid.ColumnDefinitions>-->
-        <!--<TwoPaneView Pane1Length="*"
-                     Pane2Length="2*"
-                     x:Name="PaneView"
-                     PanePriority="Pane2"
-                     WideModeConfiguration="LeftRight"
-                     TallModeConfiguration="SinglePane"
-                     ModeChanged="PaneView_OnModeChanged">
-            <TwoPaneView.Pane1>
-                <Grid>
-                    <Rectangle Fill="red"></Rectangle>
-                    <Button  Click="ButtonBase1_OnClick">CLick me</Button>
-
-                </Grid>
-            </TwoPaneView.Pane1>
-            <TwoPaneView.Pane2>
-                <Grid x:Name="Grid1">
-
-                    <Rectangle Fill="Blue"></Rectangle>
-                    <Button Click="ButtonBase_OnClick"
-                            x:Name="closeButton"
-                            Visibility="Collapsed">CLick me</Button>
-                    <Button Click="ButtonBase_OnClick2"
-                            x:Name="btn1"
-                            Visibility="Visible"
-                            HorizontalAlignment="Center">CLick me</Button>
-
-                </Grid>
-            </TwoPaneView.Pane2>
-        </TwoPaneView>-->
 
         <TwoPaneView PanePriority="Pane2"
                      Pane1Length="*"
@@ -64,23 +30,26 @@
                      Pane2Length="*"
                      ModeChanged="PaneView_OnModeChanged"
                      x:Name="PaneView">
-            <TwoPaneView.Pane1 >
+            <TwoPaneView.Pane1>
                 <ScrollViewer VerticalScrollBarVisibility="Hidden"
                               Grid.Row="1">
-
 
                     <controls:DataGrid ItemsSource="{x:Bind TransactionList,Mode=OneWay}"
                                        AutoGenerateColumns="False"
                                        VerticalScrollBarVisibility="Auto"
                                        IsReadOnly="True"
+                                       TabFocusNavigation="Once"
+                                       TabIndex="1"
+                                       
                                        MaxHeight="650"
                                        CanUserReorderColumns="False"
-                                       CanUserSortColumns="True"
+                                       CanUserSortColumns="False"
                                        x:Name="TransactionListDataGrid"
-                                       IsTabStop="False"
+                                       IsTabStop="true" 
+
+                                       KeyDown="PaneView_OnKeyDown"
                                        Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
                                        IsDoubleTapEnabled="False"
-                                       IsTapEnabled="True"
                                        SelectionChanged="TransactionListDataGrid_OnSelectionChanged"
                                        RowHeight="60"
                                        CanUserResizeColumns="False">
@@ -220,64 +189,20 @@
                 </ScrollViewer>
             </TwoPaneView.Pane1>
             <TwoPaneView.Pane2>
-               <local:TransactionDataControl Id="{x:Bind TransactionViewModel.Id,Mode=OneWay}"
-                                             Height="650"
-                                             VerticalAlignment="Top"
-                                             x:Name="DetailsContent"
-                                             TransactionAmount="{x:Bind TransactionViewModel.Amount,Mode=OneWay}"
-                                             TransactionOn="{x:Bind TransactionViewModel.TransactionOn,Mode=OneWay}"
-                                             Status ="{x:Bind TransactionViewModel.TransactionType,Mode=OneWay}"
-                                             Description="{x:Bind TransactionViewModel.Description,Mode=OneWay}"
-                                             SenderAccountNumber="{x:Bind TransactionViewModel.SenderAccountNumber,Mode=OneWay}"
-                                             UserName="{x:Bind TransactionViewModel.UserName,Mode=OneWay}"
-                                             ReceiverAccountNumber="{x:Bind TransactionViewModel.ReceiverAccountNumber,Mode=OneWay}"
-                                             GoBack="DetailsContent_OnGoBack">
-               </local:TransactionDataControl>
+                <local:TransactionDataControl Id="{x:Bind TransactionViewModel.Id,Mode=OneWay}"
+                                              Height="650"
+                                              VerticalAlignment="Top"
+                                              x:Name="DetailsContent"
+                                              TransactionAmount="{x:Bind TransactionViewModel.Amount,Mode=OneWay}"
+                                              TransactionOn="{x:Bind TransactionViewModel.TransactionOn,Mode=OneWay}"
+                                              Status="{x:Bind TransactionViewModel.TransactionType,Mode=OneWay}"
+                                              Description="{x:Bind TransactionViewModel.Description,Mode=OneWay}"
+                                              SenderAccountNumber="{x:Bind TransactionViewModel.SenderAccountNumber,Mode=OneWay}"
+                                              UserName="{x:Bind TransactionViewModel.UserName,Mode=OneWay}"
+                                              ReceiverAccountNumber="{x:Bind TransactionViewModel.ReceiverAccountNumber,Mode=OneWay}"
+                                              GoBack="DetailsContent_OnGoBack">
+                </local:TransactionDataControl>
             </TwoPaneView.Pane2>
         </TwoPaneView>
-
-
-
-        <!--<Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <Border Grid.Row="0"
-                    HorizontalAlignment="Center"
-                    BorderBrush="#DEE4EC"
-                    BorderThickness="1"
-                    CornerRadius="5"
-                    Padding="5"
-                    Margin="0 5 10 10">
-                <StackPanel Orientation="Horizontal">
-                    <Button x:Name="FirstPageButton" Click="FirstPageButton_OnClick">
-                        <iconPacks:PackIconMaterial Kind="ChevronDoubleLeft" />
-                    </Button>
-                    <Button x:Name="PreviousPageButton"
-                            Click="PreviousPageButton_OnClick">
-                        <iconPacks:PackIconMaterial Kind="ChevronLeft" />
-                    </Button>
-                    <StackPanel Orientation="Horizontal"
-                                CornerRadius="8"
-                                Background="{ThemeResource SecondaryColor}"
-                                Padding="5">
-                        <TextBlock Text="{x:Bind TransactionViewModel.CurrentPage,Mode=OneWay}" Foreground="White" />
-                        <TextBlock Text="/" Margin="3 0 3 0"
-                                   Foreground="White" />
-                        <TextBlock Text="{x:Bind TransactionViewModel.TotalPages,Mode=OneWay}"
-                                   Foreground="White" />
-
-                    </StackPanel>
-                    <Button x:Name="NextPageButton" Click="NextPageButton_OnClick">
-                        <iconPacks:PackIconMaterial Kind="ChevronRight"/>
-                    </Button>
-                    <Button x:Name="LastPageButton"
-                            Click="LastPageButton_OnClick">
-                        <iconPacks:PackIconMaterial Kind="ChevronDoubleRight" />
-                    </Button>
-                </StackPanel>
-            </Border>
-        </Grid>-->
     </Grid>
 </UserControl>

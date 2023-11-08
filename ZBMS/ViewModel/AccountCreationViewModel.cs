@@ -196,6 +196,10 @@ namespace ZBMS.ViewModel
             
         }
 
+        public bool IsUserPan(string pan)
+        {
+            return PanNumber == pan;
+        }
         public void CreateSavingsAccount(string ifsc,double balance)
         {
             var savingsAccount = new SavingsAccount()
