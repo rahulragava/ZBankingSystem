@@ -151,7 +151,7 @@
                     CornerRadius="8"
                     Width="150"
                     Height="50"
-                    Background="{ThemeResource SecondaryColor}">
+                    Background="{ThemeResource SavingsAccountCardColor}">
             <TextBlock Text="Balance"
                        Foreground="White"
                        HorizontalAlignment="Center" />

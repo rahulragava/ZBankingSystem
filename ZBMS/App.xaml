@@ -2,13 +2,19 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:controls="using:Microsoft.UI.Xaml.Controls"
-             xmlns:local="using:ZBMS">
+             xmlns:local="using:ZBMS"
+             xmlns:media="using:Microsoft.UI.Xaml.Media">
     <Application.Resources>
         <controls:XamlControlsResources>
             <controls:XamlControlsResources.MergedDictionaries>
                 <!--<ResourceDictionary Source="Styles/Styles.xaml" />-->
                 <ResourceDictionary Source="Styles/ThemeResource.xaml" />
-                <ResourceDictionary Source="Styles/Styles.xaml" />
+                <!--<ResourceDictionary>
+                    <media:AcrylicBrush x:Key="AcrylicBrushBackground"
+                                        BackgroundSource="Backdrop"
+                                        TintColor="DarkCyan"
+                                        TintOpacity="0.2" />
+                </ResourceDictionary>-->
             </controls:XamlControlsResources.MergedDictionaries>
         </controls:XamlControlsResources>
 

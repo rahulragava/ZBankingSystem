@@ -38,7 +38,12 @@
                         Margin=" 0 15 30 0"
                         Spacing="10">
                 <Button Grid.Column="1"
+                        Style="{ThemeResource FeatureButtonStyle}"
+                        Background="{ThemeResource AcrylicBrushBackground}"
                         Content="Deposit"
+                        Foreground="White"
+                        CornerRadius="5"
+                        IsTabStop="False"
                         x:Name="DepositButton">
                     <Button.Flyout>
                         <Flyout>
@@ -48,7 +53,12 @@
                     </Button.Flyout>
                 </Button>
                 <Button Grid.Column="2"
+                        Style="{ThemeResource FeatureButtonStyle}"
+                        Background="{ThemeResource AcrylicBrushBackground}"
                         Content="Withdraw"
+                        CornerRadius="5"
+                        Foreground="White"
+IsTabStop="False"
                         x:Name="WithdrawButton">
                     <Button.Flyout>
                         <Flyout>

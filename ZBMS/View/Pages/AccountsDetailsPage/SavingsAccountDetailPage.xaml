@@ -154,23 +154,53 @@
                         Spacing="10">
                 <Button Grid.Column="1"
                         Content="Deposit"
+                        Foreground="white"
+                        IsTabStop="False"
+                        CornerRadius="5"
+                        Style="{ThemeResource FeatureButtonStyle}"
+                        Background="{ThemeResource AcrylicBrushBackground}"
                         VerticalAlignment="Center"
                         x:Name="DepositButton">
                     <Button.Flyout>
                         <Flyout>
                             <userControl:DepositMoneyUserControl ZeroDepositWarning="DepositMoneyUserControl_OnZeroDepositWarning"
+                                                                 x:Name="DepositMoneyUserControl"
                                                                  Account="{x:Bind SavingsAccountDetailViewModel.SavingsAccountBObj,Mode=OneWay}"></userControl:DepositMoneyUserControl>
                         </Flyout>
                     </Button.Flyout>
                 </Button>
                 <Button Grid.Column="2"
                         Content="Withdraw"
+                        CornerRadius="5"
+                        Foreground="white"
+                        Style="{ThemeResource FeatureButtonStyle}"
+                        Background="{ThemeResource AcrylicBrushBackground}"
+                        IsTabStop="False"
                         x:Name="WithdrawButton">
                     <Button.Flyout>
                         <Flyout>
                             <userControl:WithdrawalUserControl Account="{x:Bind SavingsAccountDetailViewModel.SavingsAccountBObj,Mode=OneWay}"
                                                                WithDrawZeroWarning="WithdrawalUserControl_OnWithDrawZeroWarning"
+                                                               x:Name="WithdrawalUserControl"
                                                                WithdrawInsufficientBalanceWarning="WithdrawalUserControl_OnWithdrawInsufficientBalanceWarning"></userControl:WithdrawalUserControl>
+                        </Flyout>
+                    </Button.Flyout>
+                </Button>
+
+                <Button Grid.Column="1"
+                        Content="Transfer"
+                        Foreground="white"
+                        IsTabStop="False"
+                        CornerRadius="5"
+                        Style="{ThemeResource FeatureButtonStyle}"
+                        Background="{ThemeResource AcrylicBrushBackground}"
+                        VerticalAlignment="Center"
+                        x:Name="TransactionButton">
+                    <Button.Flyout>
+                        <Flyout>
+                            <!--<userControl:DepositMoneyUserControl ZeroDepositWarning="DepositMoneyUserControl_OnZeroDepositWarning"
+                                                                 x:Name="TransferMoneyUserControl"
+                                                                 Account="{x:Bind SavingsAccountDetailViewModel.SavingsAccountBObj,Mode=OneWay}"></userControl:DepositMoneyUserControl>-->
                         </Flyout>
                     </Button.Flyout>
                 </Button>

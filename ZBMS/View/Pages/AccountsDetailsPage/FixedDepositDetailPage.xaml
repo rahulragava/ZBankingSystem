@@ -87,13 +87,13 @@
                                Text="From Account Number" />
                     <TextBlock Grid.Column="1"
                                Grid.Row="4"
-                               Text="{x:Bind FixedDepositDetailViewModel.FixedDepositBObj.FromAccountId,Mode=OneWay}" />
+                               Text="{x:Bind FixedDepositDetailViewModel.FromAccountNumber,Mode=OneWay}" />
                     <TextBlock Grid.Row="5"
                                Grid.Column="0"
                                Text="Repayment Account Number" />
                     <TextBlock Grid.Column="1"
                                Grid.Row="5" 
-                               Text="{x:Bind FixedDepositDetailViewModel.FixedDepositBObj.SavingsAccountId,Mode=OneWay}"/>
+                               Text="{x:Bind FixedDepositDetailViewModel.RepaymentAccountNumber,Mode=OneWay}"/>
                 </Grid>
 
             </userControl:OneByTwoGrid.Column1Content>
@@ -107,7 +107,10 @@
                         <RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="*"></RowDefinition>
                     </Grid.RowDefinitions>
-                    <userControl:ChangeRepaymentAccount></userControl:ChangeRepaymentAccount>
+                    <userControl:ChangeRepaymentAccount DepositAccount="{x:Bind FixedDepositDetailViewModel.FixedDepositBObj,Mode=OneWay}"
+                                                        UpdateRepaymentAccountDeposit="UpdateRepaymentAccount"
+                                                        AccountList="{x:Bind FixedDepositDetailViewModel.Accounts,Mode=OneWay}"
+                        ></userControl:ChangeRepaymentAccount>
                     <Grid Grid.Row="1"
                           CornerRadius="10"
                           Grid.Column="0"

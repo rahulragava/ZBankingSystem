@@ -7,7 +7,8 @@ namespace ZBMSLibrary.Entities.Model
     {
         public PersonalLoan()
         {
-            InterestRate = 9.24;
+            InterestRate = 10;
         }
+
     }
 }

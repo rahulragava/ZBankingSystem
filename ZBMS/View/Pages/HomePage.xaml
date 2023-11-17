@@ -5,34 +5,57 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:userControl="using:ZBMS.View.UserControl"
+      xmlns:controls="using:Microsoft.UI.Xaml.Controls"
       mc:Ignorable="d"
       Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid>
+    <Grid Background="Transparent">
+        <!--<Grid.Resources>
+            <SolidColorBrush x:Key="NavigationViewSelectionIndicatorForeground"
+                             Color="{ThemeResource SystemAltMediumHighColor}" />
+            <SolidColorBrush x:Key="NavigationViewBackground"
+                             Color="{ThemeResource SystemAltMediumHighColor}" />
+        </Grid.Resources>-->
         <NavigationView x:Name="NavigationMenu"
                         IsPaneToggleButtonVisible="False"
                         IsBackButtonVisible="Collapsed"
                         PaneDisplayMode="LeftCompact"
                         IsSettingsVisible="False"
                         ExpandedModeThresholdWidth="1100"
+                        BorderBrush="White"
+                        BorderThickness="10"
                         OpenPaneLength="250"
                         IsPaneOpen="False"
                         SelectionChanged="NavigationMenu_OnSelectionChanged">
             <NavigationView.Resources>
+
                 <ResourceDictionary>
                     <ResourceDictionary.ThemeDictionaries>
                         <ResourceDictionary x:Key="Light">
+                            <!--<AcrylicBrush x:Key="NavigationViewDefaultPaneBackground"
+                                          TintColor="DarkCyan"
+                                          TintLuminosityOpacity="0.4"
+                                          TintOpacity="0.2"
+                                          ></AcrylicBrush>-->
                             <SolidColorBrush x:Key="NavigationViewExpandedPaneBackground"
-                                             Color="#f0f2f5" />
+                                             Color="Red" />
                             <SolidColorBrush x:Key="NavigationViewDefaultPaneBackground"
                                              Color="#f0f2f5" />
+                            <!--<SolidColorBrush x:Key="NavigationViewSelectionIndicatorForeground"
+                                             Color="Blue" />-->
                         </ResourceDictionary>
                         <ResourceDictionary x:Key="Dark">
-                            <SolidColorBrush x:Key="NavigationViewExpandedPaneBackground"
-                                             Color="#18191a" />
-                            <SolidColorBrush x:Key="NavigationViewDefaultPaneBackground"
-                                             Color="#18191a" />
+                            <!--<AcrylicBrush x:Key="NavigationViewDefaultPaneBackground"
+                                          TintColor="Cyan"
+                                          TintOpacity="0.2"></AcrylicBrush>-->
+                            <!--<SolidColorBrush x:Key="NavigationViewExpandedPaneBackground"
+                                             Color="#18191a" />-->
+                            <!--<SolidColorBrush x:Key="NavigationViewDefaultPaneBackground"
+                                             Color="#134142" />-->
+                            <!--<SolidColorBrush x:Key="NavigationViewSelectionIndicatorForeground"
+                                             Color="Blue" />-->
                         </ResourceDictionary>
+
                     </ResourceDictionary.ThemeDictionaries>
 
                 </ResourceDictionary>
@@ -52,7 +75,8 @@
                 </NavigationViewItem>-->
                 <NavigationViewItem x:Uid="Accounts"
                                     Content="Accounts"
-                                    TabIndex="0"
+                                    IsTabStop="False"
+                                    Tapped="NavigationView_OnTapped"
                                     VerticalAlignment="Center"
                                     Tag="AccountsPage">
                     <NavigationViewItem.Icon>
@@ -64,19 +88,54 @@
 
             <NavigationView.PaneFooter>
                 <StackPanel>
-                    <!--<NavigationViewItem x:Name="ThemeChangerNavigationItem"
-                                        Tapped="ThemeChanger_OnTapped">
+                    <!--<NavigationViewItem x:Name="AccentColorChangeItem"
+
+                                        Tapped="AccentColorChangeItem_OnTapped">
+
                         <NavigationViewItem.Icon>
-                            <FontIcon x:Name="ThemeChanger"
-                                      FontFamily="Segoe MDL2 Assets"
-                                      Glyph=""/>
+                            <controls:ImageIcon Source="../../Assets/palette.png" />
                         </NavigationViewItem.Icon>
+                        <FlyoutBase.AttachedFlyout>
+                            <Flyout  Placement="RightEdgeAlignedBottom">
+                                <StackPanel Orientation="Horizontal" Spacing="7">
+                                  
+                                    <Ellipse Height="20"
+                                             x:Name="RedAccent"
+                                             Tapped="RedAccent_OnTapped"
+                                             Fill="red"
+                                             Width="20"></Ellipse>
+                                    <Ellipse Height="20"
+                                             x:Name="BlueAccent"
+                                             Fill="Blue"
+                                             Tapped="BlueAccent_OnTapped"
+                                             Width="20"></Ellipse> 
+                                    <Ellipse Height="20"
+                                             x:Name="GreenAccent"
+                                             Fill="Green"
+                                             Tapped="GreenAccent_OnTapped"
+                                             Width="20"></Ellipse>
+                                    <Ellipse Height="20"
+                                             x:Name="OrangeAccent"
+                                             Tapped="OrangeAccent_OnTapped"
+                                             Fill="Orange"
+                                             Width="20"></Ellipse>
+                                </StackPanel>
+                               
+                            </Flyout>
+
+                        </FlyoutBase.AttachedFlyout>
 
                     </NavigationViewItem>-->
                     <NavigationViewItem x:Name="User"
-                                        TabIndex="0"
+                                        IsTabStop="False"
+                                        TabIndex="-1"
                                         Tapped="UIElement_OnTapped">
-                        <PersonPicture Height="20" Margin="-5 0 0 0" Tapped="UIElement_OnTapped" x:Name="PersonPicture">
+                        <PersonPicture Height="20"
+                                       Margin="-5 0 0 0"
+                                       IsTabStop="False"
+                                       Tapped="UIElement_OnTapped"
+                                       TabIndex="-1"
+                                       x:Name="PersonPicture">
                             <FlyoutBase.AttachedFlyout>
                                 <Flyout Placement="RightEdgeAlignedBottom">
                                     <userControl:UserProfileControl UserName="{x:Bind HomePageViewModel.UserName,Mode=OneWay}"
@@ -86,9 +145,9 @@
                                                                     BorderBrush="{ThemeResource ButtonBorderThemeBrush}"
                                                                     BorderThickness="0.5"
                                                                     PhoneNumber="{x:Bind HomePageViewModel.PhoneNumber,Mode=OneWay}"
-                                                                    LastLoggedOn="{x:Bind HomePageViewModel.LastLoggedOn,Mode=OneWay}" 
+                                                                    LastLoggedOn="{x:Bind HomePageViewModel.LastLoggedOn,Mode=OneWay}"
                                                                     LogOutClicked="UserProfileControl_OnLogOutClicked"
-                                                                    ThemeChanged="UserProfileControl_OnThemeChanged"/>
+                                                                    ThemeChanged="UserProfileControl_OnThemeChanged" />
                                 </Flyout>
                             </FlyoutBase.AttachedFlyout>
                         </PersonPicture>

@@ -12,6 +12,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using ZBMS.Util;
 using ZBMS.ViewModel.DetailViewModel;
 using ZBMSLibrary.Entities.BusinessObject;
 
@@ -40,11 +41,27 @@ namespace ZBMS.View.Pages.AccountsDetailsPage
             }
         }
 
+
+
+        public void UpdateSenderAccount(string fromSenderAccount)
+        {
+            FixedDepositDetailViewModel.FromAccountNumber = fromSenderAccount;
+        }
+
+        public void UpdateRepaymentAccount(string savingsAccountNumber)
+        {
+            FixedDepositDetailViewModel.RepaymentAccountNumber= savingsAccountNumber;
+
+        }
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            var fixedDepositBObj = e.Parameter as FixedDepositBObj;
-            FixedDepositDetailViewModel.FixedDepositBObj = fixedDepositBObj;
+            var fixedDepositParameters = e.Parameter as FixedDepositPageArguments;
+
+            FixedDepositDetailViewModel.FixedDepositBObj = fixedDepositParameters?.FixedDepositBObj;
+            FixedDepositDetailViewModel.FromAccountNumber = fixedDepositParameters?.FixedDepositBObj.FromAccountId;
+            FixedDepositDetailViewModel.RepaymentAccountNumber= fixedDepositParameters?.FixedDepositBObj.SavingsAccountId;
+            FixedDepositDetailViewModel.Accounts = fixedDepositParameters?.Accounts;
         }
         private void UIElement_OnKeyDown(object sender, KeyRoutedEventArgs e)
         {

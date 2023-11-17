@@ -1,5 +1,6 @@
 ﻿using Microsoft.UI.Xaml.Controls;
 using System;
+using Windows.System;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -37,18 +38,21 @@ namespace ZBMS.View.Pages.AccountsDetailsPage
             NotificationEvents.UpdateCurrentAccountDepositTransaction -= UpdateDepositTransaction;
             NotificationEvents.MonthlyRdCurrentTransaction -= UpdateTransaction;
             NotificationEvents.RdCreationCurrentTransaction -= UpdateTransaction;
+            NotificationEvents.CurrentAccountLoanDuePaidNotification -= UpdateTransaction;
             NotificationEvents.FdCreationCurrentTransaction -= UpdateTransaction;
-
+            NotificationEvents.LoanCreationUsingCurrentAccountTransaction -= UpdateTransaction;
         }
 
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
             NotificationEvents.UpdateCurrentAccountWithdrawTransaction += UpdateWithdrawTransaction;
+            NotificationEvents.CurrentAccountLoanDuePaidNotification += UpdateWithdrawTransaction;
 
             NotificationEvents.UpdateCurrentAccountDepositTransaction += UpdateDepositTransaction;
             NotificationEvents.MonthlyRdCurrentTransaction += UpdateTransaction;
             NotificationEvents.RdCreationCurrentTransaction += UpdateTransaction;
             NotificationEvents.FdCreationCurrentTransaction += UpdateTransaction;
+            NotificationEvents.LoanCreationUsingCurrentAccountTransaction += UpdateTransaction;
         }
 
         public void CreateTimer()
@@ -168,6 +172,21 @@ namespace ZBMS.View.Pages.AccountsDetailsPage
                 e.Handled = true;
                 BackButton_OnTapped(sender, new TappedRoutedEventArgs());
                 //DepositButton_OnClick(sender, e);
+            }
+            var ctrl = Window.Current.CoreWindow.GetKeyState(VirtualKey.Control);
+            if (ctrl.HasFlag(CoreVirtualKeyStates.Down) && e.Key == VirtualKey.W)
+            {
+                if (WithdrawButton.Flyout != null)
+                {
+                    WithdrawButton.Flyout.ShowAt(WithdrawButton);
+                }
+            }
+            else if (ctrl.HasFlag(CoreVirtualKeyStates.Down) && e.Key == VirtualKey.D)
+            {
+                if (DepositButton.Flyout != null)
+                {
+                    DepositButton.Flyout.ShowAt(DepositButton);
+                }
             }
         }
     }

@@ -27,7 +27,7 @@ namespace ZBMSLibrary.Data.DataManager
                 {
                     var maturityAmount = deposit.DepositedAmount;
                     //deposit.DepositedAmount = 0;
-                    deposit.AccountStatus = AccountStatus.Closed;
+                    //deposit.AccountStatus = AccountStatus.Closed;
                     TransactionSummary transactionSummary = new TransactionSummary()
                     {
                         Amount = deposit.DepositedAmount,
@@ -45,7 +45,7 @@ namespace ZBMSLibrary.Data.DataManager
                         var recurringDeposit= new RecurringAccount()
                         {
                             UserId = recurringAccount.UserId,
-                            AccountStatus = recurringAccount.AccountStatus,
+                            AccountStatus = AccountStatus.Closed,
                             DepositedAmount = recurringAccount.DepositedAmount,
                             IfscCode = recurringAccount.IfscCode,
                             CreatedOn = recurringAccount.CreatedOn,
@@ -57,7 +57,7 @@ namespace ZBMSLibrary.Data.DataManager
                             LastPaidDate = DateTime.Now,
                             MonthlyInstallment = recurringAccount.MonthlyInstallment,
                         };
-                        transactionSummary.Description = "recurring Deposit Closed";
+                        transactionSummary.Description = "Recurring Deposit Closed";
                         transactionSummary.SenderAccountNumber = recurringDeposit.AccountNumber;
                         transactionSummary.ReceiverAccountNumber = recurringDeposit.SavingsAccountId;
                         await _dbHandler.InsertTransactionAsync(transactionSummary);
@@ -71,8 +71,8 @@ namespace ZBMSLibrary.Data.DataManager
                         var fd= new FixedDeposit()
                         {
                             UserId = fixedDeposit.UserId,
-                            AccountStatus = fixedDeposit.AccountStatus,
-                            DepositedAmount = 0,
+                            AccountStatus = AccountStatus.Active,
+                            DepositedAmount = fixedDeposit.DepositedAmount,
                             IfscCode = fixedDeposit.IfscCode,
                             CreatedOn = fixedDeposit.CreatedOn,
                             AccountNumber = fixedDeposit.AccountNumber,
@@ -82,7 +82,7 @@ namespace ZBMSLibrary.Data.DataManager
                             SavingsAccountId = fixedDeposit.SavingsAccountId
                             
                         };
-                        transactionSummary.Description = "fixed Deposit Closed";
+                        transactionSummary.Description = "Fixed Deposit ReOpened";
                         transactionSummary.SenderAccountNumber = fixedDeposit.AccountNumber;
                         transactionSummary.ReceiverAccountNumber = fixedDeposit.SavingsAccountId;
                         await _dbHandler.InsertTransactionAsync(transactionSummary);

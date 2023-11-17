@@ -27,9 +27,10 @@ namespace ZBMS.View.Pages
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class HomePage : Page, INotifyPropertyChanged,IHomePage
+    public sealed partial class HomePage : Page, INotifyPropertyChanged, IHomePage
     {
         public HomePageViewModel HomePageViewModel;
+
         public HomePage()
         {
             HomePageViewModel = new HomePageViewModel(this);
@@ -47,7 +48,8 @@ namespace ZBMS.View.Pages
             HomePageViewModel.GetUser();
         }
 
-        private void NavigationMenu_OnSelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
+        private void NavigationMenu_OnSelectionChanged(NavigationView sender,
+            NavigationViewSelectionChangedEventArgs args)
         {
 
             var selectedTag = args.SelectedItemContainer.Tag.ToString();
@@ -74,24 +76,51 @@ namespace ZBMS.View.Pages
             if (theme == AppSettings.LightTheme)
             {
                 var titleBar = AppSettings.TitleBar;
-                //titleBar.BackgroundColor = Colors.White;
                 titleBar.ForegroundColor = Colors.Black;
-                //titleBar.ButtonBackgroundColor= Colors.White;
                 titleBar.BackgroundColor = Color.FromArgb(255, 240, 242, 245);
-                titleBar.ButtonBackgroundColor = Color.FromArgb(255, 240, 242, 245);
-                titleBar.ButtonForegroundColor = Colors.Black;
+                //var a = new AcrylicBrush
+                //{
+                //    TintColor = Color.FromArgb(205,43,141,143),
+                //    TintOpacity = 0.2,
+                    
+                //    BackgroundSource = AcrylicBackgroundSource.Backdrop
+                //};
+                titleBar.ForegroundColor = Colors.White;
+                titleBar.BackgroundColor = Color.FromArgb(205, 43, 141, 143);
+                titleBar.ButtonForegroundColor = Colors.White;
+                titleBar.ButtonBackgroundColor = Color.FromArgb(205, 43, 141, 143);
+
+
+                //var ab = Application.Current.Resources["AcrylicBrushBackground"] as Microsoft.UI.Xaml.Media.AcrylicBrush;
+                //var myResourceDictionary = new ResourceDictionary();
+                //myResourceDictionary.Source =
+                //    new Uri("../../Styles/ThemeResource.xaml",
+                //        UriKind.RelativeOrAbsolute);
+                //var b = myResourceDictionary["AcrylicBackground"] as AcrylicBrush;
+                // titleBar.ButtonBackgroundColor = Color.FromArgb(255, 240, 242, 245);
             }
             else
             {
                 var titleBar = AppSettings.TitleBar;
+                titleBar.ForegroundColor = Colors.White;
+                //titleBar.BackgroundColor = Color.FromArgb(205, 43, 141, 143);
+                //titleBar.ButtonBackgroundColor = Color.FromArgb(205, 43, 141, 143);
+                titleBar.ButtonForegroundColor = Colors.White;
+                titleBar.ButtonBackgroundColor = Colors.White;
+
+                //titleBar.ButtonBackgroundColor = a.TintColor;
                 //titleBar.BackgroundColor = Colors.Black;
 
-                titleBar.ForegroundColor = Colors.White;
-
+                //var a =
+                //    Application.Current.Resources.ThemeDictionaries.FirstOrDefault().Value;
+                //var myResourceDictionary = new ResourceDictionary();
+                //myResourceDictionary.Source =
+                //    new Uri("Styles/ThemeResource.xaml",
+                //        UriKind.RelativeOrAbsolute);
+                //var b = myResourceDictionary["AcrylicBackground"] as AcrylicBrush;
                 //titleBar.ButtonBackgroundColor = Colors.Black;
-                titleBar.BackgroundColor = Color.FromArgb(255, 24, 25, 26);
-                titleBar.ButtonBackgroundColor = Color.FromArgb(255, 24, 25, 26);
-                titleBar.ButtonForegroundColor = Colors.White;
+                //titleBar.BackgroundColor = Color.FromArgb(255, 24, 25, 26);
+                //titleBar.ButtonBackgroundColor = Color.FromArgb(255, 24, 25, 26);
 
             }
         }
@@ -181,10 +210,52 @@ namespace ZBMS.View.Pages
 
         private void UserProfileControl_OnLogOutClicked()
         {
-            UserLogOut_OnTapped(new object(),new TappedRoutedEventArgs());
+            UserLogOut_OnTapped(new object(), new TappedRoutedEventArgs());
+        }
+
+        private void NavigationView_OnTapped(object sender, TappedRoutedEventArgs e)
+        {
+
+            NavigationMenu.IsPaneOpen = false;
+            ContentFrame.Navigate(typeof(AccountsPage));
+
+
+        }
+
+
+        //private void AccentColorChangeItem_OnTapped(object sender, TappedRoutedEventArgs e)
+        //{
+        //    //var fe = PersonPicture;
+        //    var menu = FlyoutBase.GetAttachedFlyout(AccentColorChangeItem);
+        //    menu.ShowAt(AccentColorChangeItem);
+        //}
+
+
+        private void RedAccent_OnTapped(object sender, TappedRoutedEventArgs e)
+        {
+            //AppSettings.AccentColor = Colors.Red;
+            //AppSettings.UpdateSystemAccentColorAndBrushes(AppSettings.AccentColor);
+
+        }
+
+        private void OrangeAccent_OnTapped(object sender, TappedRoutedEventArgs e)
+        {
+            //AppSettings.AccentColor = Colors.Orange;
+            //AppSettings.UpdateSystemAccentColorAndBrushes(AppSettings.AccentColor);
+        }
+
+        private void GreenAccent_OnTapped(object sender, TappedRoutedEventArgs e)
+        {
+            //AppSettings.AccentColor = Colors.Green;
+            //AppSettings.UpdateSystemAccentColorAndBrushes(AppSettings.AccentColor);
+        }
+
+        private void BlueAccent_OnTapped(object sender, TappedRoutedEventArgs e)
+        {
+            //AppSettings.AccentColor = Colors.Blue;
+            //AppSettings.UpdateSystemAccentColorAndBrushes(AppSettings.AccentColor);
         }
     }
-
     public interface IHomePage
     {
         void Logout();

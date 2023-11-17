@@ -165,15 +165,18 @@ namespace ZBMS.ViewModel
                 }
             }
 
-            var request = new DepositSettlementRequest(settlementDepositBObjList);
-            var useCase = new DepositSettlementUseCase(request, new DepositSettlementPresenterCallBack(this));
-            useCase.Execute();
+            if (settlementDepositBObjList.Count > 0)
+            {
+                var request = new DepositSettlementRequest(settlementDepositBObjList);
+                var useCase = new DepositSettlementUseCase(request, new DepositSettlementPresenterCallBack(this));
+                useCase.Execute();
 
+            }
 
             //usecase
-        }
+            }
 
-        private void CheckAccountForFine(IEnumerable<Account> responseAccounts)
+            private void CheckAccountForFine(IEnumerable<Account> responseAccounts)
         {
             //var toBeFinedCurrentAccounts = new List<CurrentAccountBObj>();
             //var toBeFinedSavingsAccounts = new List<SavingsAccountBObj>();

@@ -41,6 +41,7 @@ namespace ZBMS.ViewModel
             //AccountToInterestRateMap = new ObservableDictionary<string,double>();
             SetAccountMetaData();
             SetDepositMetaData();
+            SetLoanMetaData();
             AccountCreationView = accountCreationView;
         }
 
@@ -86,6 +87,7 @@ namespace ZBMS.ViewModel
             var personalLoan = new PersonalLoan();
             PersonalLoanInterestRate = personalLoan.InterestRate;
         }
+
         private string _panNumber;
 
         public string PanNumber
@@ -164,12 +166,20 @@ namespace ZBMS.ViewModel
             set => Set(ref _personalLoanInterestRate, value);
         }
 
-        private double _depositedValue;
+        private double _depositedValue = 100.0;
 
         public double DepositedValue
         {
             get => _depositedValue;
             set => Set(ref _depositedValue, value);
+        }
+
+        private double _loanedValue;
+
+        public double LoanedValue
+        {
+            get => _loanedValue;
+            set => Set(ref _loanedValue, value);
         }
 
         private double _estimatedReturns;
@@ -178,6 +188,22 @@ namespace ZBMS.ViewModel
         {
             get => _estimatedReturns;
             set => Set(ref _estimatedReturns, value);
+        }
+
+        private double _originalValuePlusInterestRate = 0.0;
+
+        public double OriginalValuePlusInterestRate 
+        {
+            get => _originalValuePlusInterestRate;
+            set => Set(ref _originalValuePlusInterestRate, value);
+        }
+
+        private double _emiValue = 0.0;
+
+        public double EmiValue
+        {
+            get => _emiValue;
+            set => Set(ref _emiValue, value);
         }
 
         private int _tenure;
@@ -277,6 +303,29 @@ namespace ZBMS.ViewModel
             usecase.Execute();
         }
 
+        public void CreatePersonalLoanAccount(string ifsc, string loanedAmountGoesToAccountNumber, int tenureValue)
+        {
+            var personalLoan = new PersonalLoan()
+            {
+                AccountStatus = AccountStatus.Active,
+                CreatedOn = DateTime.Now,
+                IfscCode = ifsc,
+                AccountNumber = Generator.GenerateAccountNumber(),
+                UserId = AppSettings.CustomerId,
+                InterestRate = PersonalLoanInterestRate,
+                Tenure = tenureValue,
+                FineAmount = 0,
+                OriginalAmount = LoanedValue,
+                NextDateToBePaid = DateTime.Now.AddDays(30),
+                DueWithInterestAmount = OriginalValuePlusInterestRate,
+                Due = 0,
+            };
+
+            var request = new CreatePersonalLoanRequest(personalLoan,loanedAmountGoesToAccountNumber);
+            var usecase = new CreatePersonalLoanUseCase(request, new CreatePersonalLoanAccountPresenterCallBack(this));
+            usecase.Execute();
+        }
+
         public void EstimatedReturnCalculationForFixedDeposit(double interestRate,double balance, int years)
         {
             var val = (4 * years);
@@ -284,11 +333,11 @@ namespace ZBMS.ViewModel
             var estimatedValue = balance * (Math.Pow(1 + (interest), val));
             EstimatedReturns = Math.Round(estimatedValue, 2);
         }
-        public void EstimatedReturnCalculationForRecurringDeposit(double interestRate, double balance, int years)
+        public void EstimatedReturnCalculationForRecurringDeposit(double balance, int years)
         {
             //A = P * (1 + R / N) ^ (Nt)
 
-            var interest = interestRate / 400;
+            var interest = RecurringDepositInterestRate / 400;
             var tenureMonths = years * 12;
             int quarters = tenureMonths / 3;
             var amount = 0.0;
@@ -298,17 +347,17 @@ namespace ZBMS.ViewModel
                 amount += (balance*monthlyInterestPlusAmount);
                 amount += (balance*monthlyInterestPlusAmount);
             }
-            //M = P * [(1 + r) ^ n - 1] / (1 - (1 + r) ^ (-1 / 3))
-
-            //var numerator = (Math.Pow(1 + interest, quarters - 1));
-            //var denominator = 1 - 1 / (Math.Pow((1 + interest), (1.0 / 3)));
-            ////var numerator = (1 + interest) * (quarters - 1);
-            ////var denominator = 1 - ((1 + interest)*(-1.0/3));
-            //var estimatedValue = balance * numerator / denominator;
-            ////var estimatedValue = (balance * (Math.Pow(1 + (interest), quarters-1)))/denominator;
             EstimatedReturns = Math.Round(amount, 2);
         }
-
+        public void EstimatedReturnCalculationForPersonalLoan(double interestRate, double originalAmount, int years)
+        {
+            var rateOfInterest = interestRate / 12 / 100;
+            var value = Math.Pow(1 + rateOfInterest, years * 12);
+            var numerator = originalAmount * (rateOfInterest) * (value);
+            var denominator = value - 1;
+            EmiValue =  Math.Round((numerator / denominator),2);
+            OriginalValuePlusInterestRate = Math.Round(EmiValue * (years * 12),2);
+        }
         public void GetAllBranches()
         {
             var getAllBranchesUseCase =
@@ -396,6 +445,25 @@ namespace ZBMS.ViewModel
 
             public void OnSuccess(CreateRecurringDepositResponse response)
             {
+            }
+
+            public void OnError(Exception ex)
+            {
+            }
+        }
+
+        public class CreatePersonalLoanAccountPresenterCallBack : IPresenterCallBack<CreatePersonalLoanResponse>
+        {
+            private readonly AccountCreationViewModel _accountCreationViewModel;
+
+            public CreatePersonalLoanAccountPresenterCallBack(AccountCreationViewModel accountCreationViewModel)
+            {
+                _accountCreationViewModel = accountCreationViewModel;
+            }
+
+            public void OnSuccess(CreatePersonalLoanResponse response)
+            {
+               // throw new NotImplementedException();
             }
 
             public void OnError(Exception ex)

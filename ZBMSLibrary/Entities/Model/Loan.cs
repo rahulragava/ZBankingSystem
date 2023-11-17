@@ -13,7 +13,13 @@ namespace ZBMSLibrary.Entities.Model
         public DateTime CreatedOn { get; set; }
         public AccountStatus AccountStatus { get; set; }
         public double Due { get; set; }
+        public double DueWithInterestAmount { get; set; }
+        public double OriginalAmount { get; set; }
+        public DateTime NextDateToBePaid { get; set; }
+        public int Tenure { get; set; }
         public double FineAmount { get; set; }
         public double InterestRate { get; set; }
+
+        //p = balance * rate of interest/tenure
     }
 }

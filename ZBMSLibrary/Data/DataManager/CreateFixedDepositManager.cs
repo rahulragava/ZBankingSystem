@@ -26,7 +26,7 @@ namespace ZBMSLibrary.Data.DataManager
                 TransactionSummary transactionSummary = new TransactionSummary()
                 {
                     Amount = createFixedDepositRequest.FixedDeposit.DepositedAmount,
-                    Description = "Deposit",
+                    Description = "Fixed Deposit Created",
                     ReceiverAccountNumber = createFixedDepositRequest.FixedDeposit.AccountNumber,
                     TransactionOn = DateTime.Now,
                     TransactionType = TransactionType.Debit,
@@ -54,7 +54,7 @@ namespace ZBMSLibrary.Data.DataManager
                     NotificationEvents.FdCreationSavingsTransaction?.Invoke(transactionSummaryVObj);
 
                 }
-                catch (Exception ex)
+                catch (InvalidOperationException ex)
                 {
                     var account = await _dbHandler.GetCurrentAccountAsync(createFixedDepositRequest.FixedDeposit.FromAccountId);
                     account.Balance -= createFixedDepositRequest.FixedDeposit.DepositedAmount;

@@ -4,6 +4,7 @@ using ZBMSLibrary.Data.DataHandler;
 using ZBMSLibrary.Data.DataHandler.Contract;
 using ZBMSLibrary.Data.DataManager;
 using ZBMSLibrary.Data.DataManager.Contract;
+using ZBMSLibrary.UseCase;
 
 namespace ZBMSLibrary.Data.Dependencies
 {
@@ -27,6 +28,10 @@ namespace ZBMSLibrary.Data.Dependencies
                 .AddSingleton<ICreateRecurringDepositManager, CreateRecurringDepositManager>()
                 .AddSingleton<IUpdateUserLoggedInManager, UpdateUserLoggedInManager>()
                 .AddSingleton<IGetUserManager, GetUserManager>()
+                .AddSingleton<ICreateLoanAccountManager, CreateLoanAccountManager>()
+                .AddSingleton<ILoanMonthlyDuePaymentManager, LoanMonthlyDuePaymentManager>()
+                .AddSingleton<IChangeRepaymentAccountForDepositManager, ChangeRepaymentRepaymentAccountForDepositManager>()
+                .AddSingleton<IChangeSenderAccountDepositManager, ChangeSenderAccountDepositManager>()
                 .AddSingleton<IGetInterestRateOfAllUniqueAccountsManager,GetInterestRateOfAllUniqueAccountsManager>()
                 .BuildServiceProvider();
         }

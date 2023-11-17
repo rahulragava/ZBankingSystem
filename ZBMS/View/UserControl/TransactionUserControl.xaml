@@ -9,13 +9,41 @@
              xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
              xmlns:iconPacks="using:MahApps.Metro.IconPacks"
              xmlns:primitives="using:Microsoft.Toolkit.Uwp.UI.Controls.Primitives"
+             xmlns:interop="using:Windows.UI.Xaml.Interop"
              mc:Ignorable="d">
     <UserControl.Resources>
         <converters:TypeToBackgroundConverter x:Key="TransactionTypeToBackgroundConverter" />
         <converters:DateFormatter x:Key="DateTimeConverter" />
+        <!--<SolidColorBrush x:Key="DataGridColumnHeaderBackgroundColor">Blue</SolidColorBrush>-->
+        <!--<Style TargetType="primitives:DataGridColumnHeader">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="primitives:DataGridColumnHeader">
+                        <Border>
+                            <Border BorderThickness="1"
+                                    CornerRadius="6"
+                                    Background="LightBlue"
+                                    Padding="10,0,0,0"
+                                    Margin="2">
+                                <ContentPresenter />
+                            </Border>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Foreground"
+                    Value="White" />
+            <Setter Property="FontWeight"
+                    Value="SemiBold" />
+            <Setter Property="Height"
+                    Value="30" />
+            <Setter Property="FontSize"
+                    Value="15" />
+        </Style>-->
     </UserControl.Resources>
     <Grid CornerRadius="10"
           Padding="6"
+          PreviewKeyDown="TransactionListDataGrid_OnPreviewKeyDown"
           Background="{ThemeResource BackgroundColor}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
@@ -23,10 +51,11 @@
         </Grid.RowDefinitions>
 
         <TwoPaneView PanePriority="Pane2"
-                     Pane1Length="*"
+                     Pane1Length="1*"
                      Grid.Row="1"
                      WideModeConfiguration="LeftRight"
                      TallModeConfiguration="SinglePane"
+                     MinWideModeWidth="800"
                      Pane2Length="*"
                      ModeChanged="PaneView_OnModeChanged"
                      x:Name="PaneView">
@@ -38,22 +67,31 @@
                                        AutoGenerateColumns="False"
                                        VerticalScrollBarVisibility="Auto"
                                        IsReadOnly="True"
-                                       TabFocusNavigation="Once"
-                                       TabIndex="1"
-                                       
+                                       TabFocusNavigation="Local"
+                                       TabIndex="0"
                                        MaxHeight="650"
                                        CanUserReorderColumns="False"
                                        CanUserSortColumns="False"
                                        x:Name="TransactionListDataGrid"
-                                       IsTabStop="true" 
-
-                                       KeyDown="PaneView_OnKeyDown"
-                                       Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-                                       IsDoubleTapEnabled="False"
+                                       IsTabStop="true"
+                                       IsDoubleTapEnabled="True"
+                                       IsTapEnabled="True"
                                        SelectionChanged="TransactionListDataGrid_OnSelectionChanged"
                                        RowHeight="60"
                                        CanUserResizeColumns="False">
+                        <!--<controls:DataGrid.Resources>
+                            <SolidColorBrush x:Key="{x:Bind SystemColor.HighlightBrushKey}"
+                                             Color="#FF0000" />
+                        </controls:DataGrid.Resources>-->
+                        <controls:DataGrid.CellStyle>
+                            <Style TargetType="controls:DataGridCell">
+                                <Setter Property="BorderThickness"
+                                        Value="0" />
+
+                            </Style>
+                        </controls:DataGrid.CellStyle>
                         <controls:DataGrid.Columns>
+
                             <controls:DataGridTextColumn Header="Id"
                                                          CanUserResize="False"
                                                          Binding="{Binding Id}"
@@ -170,6 +208,9 @@
                                     <Style TargetType="TextBlock">
                                         <Setter Property="TextTrimming"
                                                 Value="CharacterEllipsis" />
+                                        <Setter Property="TextAlignment"
+                                                Value="Center" />
+
                                     </Style>
                                 </controls:DataGridTextColumn.ElementStyle>
                                 <controls:DataGridTextColumn.HeaderStyle>

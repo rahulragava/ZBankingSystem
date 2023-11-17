@@ -25,7 +25,7 @@ namespace ZBMSLibrary.Data.DataManager
                 var accounts = new List<Account>();
                 var deposits = new List<Deposit>();
                 var loans = new List<Loan>();
-                var savingsAccounts = await _dbHandler.GetUserSavingsAccountsAsync(getUserAccountsRequest.UserId)
+                 var savingsAccounts = await _dbHandler.GetUserSavingsAccountsAsync(getUserAccountsRequest.UserId)
                     .ConfigureAwait(false);
                 var currentAccounts = await _dbHandler.GetUserCurrentAccountsAsync(getUserAccountsRequest.UserId)
                     .ConfigureAwait(false);

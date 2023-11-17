@@ -121,13 +121,18 @@
     </Compile>
     <Compile Include="Services\AppSettings.cs" />
     <Compile Include="Util\Converters\DateFormatter.cs" />
+    <Compile Include="Util\FixedDepositPageArguments.cs" />
+    <Compile Include="Util\LoanPageArguments.cs" />
     <Compile Include="Util\ObservableDictionary.cs" />
     <Compile Include="Util\Converters\TypeToBackgroundConverter.cs" />
+    <Compile Include="Util\RecurringDepositPageArguments.cs" />
     <Compile Include="Util\SelectAccountTemplate.cs" />
     <Compile Include="Util\SelectDepositTemplate.cs" />
     <Compile Include="Util\SelectLoanTemplate.cs" />
     <Compile Include="ViewModel\AccountCreationViewModel.cs" />
     <Compile Include="ViewModel\AccountPageViewModel.cs" />
+    <Compile Include="ViewModel\ChangeRepaymentAccountDepositViewModel.cs" />
+    <Compile Include="ViewModel\ChangeSenderAccountDepositViewModel.cs" />
     <Compile Include="ViewModel\DepositDetailViewModel.cs" />
     <Compile Include="ViewModel\DepositMoneyViewModel.cs" />
     <Compile Include="ViewModel\DetailViewModel\CurrentAccountDetailViewModel.cs" />
@@ -136,6 +141,7 @@
     <Compile Include="ViewModel\DetailViewModel\RecurringDepositDetailViewModel.cs" />
     <Compile Include="ViewModel\DetailViewModel\SavingsAccountDetailViewModel.cs" />
     <Compile Include="ViewModel\HomePageViewModel.cs" />
+    <Compile Include="ViewModel\LoanPaymentViewModel.cs" />
     <Compile Include="ViewModel\MainPageViewModel.cs" />
     <Compile Include="ViewModel\TransactionViewModel.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
@@ -183,6 +189,21 @@
     <Compile Include="View\UserControl\AccountSummary\SavingsAccountSummary.xaml.cs">
       <DependentUpon>SavingsAccountSummary.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\UserControl\CardTemplates\CurrentAccountCardTemplate.xaml.cs">
+      <DependentUpon>CurrentAccountCardTemplate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\UserControl\CardTemplates\FixedDepositCardUserControl.xaml.cs">
+      <DependentUpon>FixedDepositCardUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\UserControl\CardTemplates\LoanAccountCardUserControl.xaml.cs">
+      <DependentUpon>LoanAccountCardUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\UserControl\CardTemplates\RecurringDepositCardUserControl.xaml.cs">
+      <DependentUpon>RecurringDepositCardUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\UserControl\CardTemplates\SavingsAccountCardUserControl.xaml.cs">
+      <DependentUpon>SavingsAccountCardUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\UserControl\DepositCreationUserControl.xaml.cs">
       <DependentUpon>DepositCreationUserControl.xaml</DependentUpon>
     </Compile>
@@ -206,6 +227,9 @@
     </Compile>
     <Compile Include="View\UserControl\LoanCreationUserControl.xaml.cs">
       <DependentUpon>LoanCreationUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\UserControl\LoanPaymentUserControl.xaml.cs">
+      <DependentUpon>LoanPaymentUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\UserControl\LoanSummary\PersonalAccountSummary.xaml.cs">
       <DependentUpon>PersonalAccountSummary.xaml</DependentUpon>
@@ -264,6 +288,7 @@
     <Content Include="Assets\depositIcon.png" />
     <Content Include="Assets\loanImage.jpg" />
     <Content Include="Assets\logo.jpg" />
+    <Content Include="Assets\palette.png" />
     <Content Include="Assets\SplashScreen.scale-100.png" />
     <Content Include="Assets\SplashScreen.scale-125.png" />
     <Content Include="Assets\SplashScreen.scale-150.png" />
@@ -368,6 +393,26 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\UserControl\CardTemplates\CurrentAccountCardTemplate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\UserControl\CardTemplates\FixedDepositCardUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\UserControl\CardTemplates\LoanAccountCardUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\UserControl\CardTemplates\RecurringDepositCardUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\UserControl\CardTemplates\SavingsAccountCardUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\UserControl\DepositCreationUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -397,6 +442,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\UserControl\LoanCreationUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\UserControl\LoanPaymentUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -460,6 +509,7 @@
   <ItemGroup>
     <None Include="Assets\bg2" />
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

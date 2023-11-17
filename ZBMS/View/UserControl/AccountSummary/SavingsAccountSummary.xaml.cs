@@ -71,7 +71,7 @@ namespace ZBMS.View.UserControl.AccountSummary
                     }
                     catch (Exception ex)
                     {
-                        var a = 0;
+                        //var a = 0;
                     }
                 }
             );

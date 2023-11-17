@@ -95,10 +95,12 @@
                     HorizontalAlignment="Center"
                   >
             <TextBlock Text="Description"
+                       HorizontalAlignment="Center"
                        Foreground="{ThemeResource SubtleText}"></TextBlock>
             <TextBlock Grid.Column="5"
                        Text="{x:Bind Description,Mode=OneWay}"
                        TextAlignment="Center"
+                       HorizontalAlignment="Center"
                        VerticalAlignment="top"></TextBlock>
         </StackPanel>
         <StackPanel  Grid.Row="6"

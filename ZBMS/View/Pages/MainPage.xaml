@@ -9,10 +9,40 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
+        <!--<Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Grid x:Name="AppTitleBar"
+              Background="Transparent">
+            --><!-- Width of the padding columns is set in LayoutMetricsChanged handler. -->
+            <!-- Using padding columns instead of Margin ensures that the background
+         paints the area under the caption control buttons (for transparent buttons). --><!--
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition x:Name="LeftPaddingColumn"
+                                  Width="0" />
+                <ColumnDefinition />
+                <ColumnDefinition x:Name="RightPaddingColumn"
+                                  Width="0" />
+            </Grid.ColumnDefinitions>
+            <Image Source="../../Assets/logo.jpg"
+                   Grid.Column="1"
+                   HorizontalAlignment="Left"
+                   Width="16"
+                   Height="16"
+                   Margin="8,0,0,0" />
+            <TextBlock x:Name="AppTitleTextBlock"
+                       Grid.Column="1"
+                       VerticalAlignment="Center"
+                       Margin="28,0,0,0" />
+        </Grid>-->
+
         <Grid.Background>
             <ImageBrush ImageSource="/Assets/AppLoginPageBackgroundImage1.jpg" Stretch="UniformToFill" Opacity="0.7"></ImageBrush>
         </Grid.Background>
-        <userControl:LoginUserControl x:Name="LoginUserControl"
+        <userControl:LoginUserControl Grid.Row="0" x:Name="LoginUserControl"
                                       GoToLogInControl="LoginInPage_OnGoToHome"></userControl:LoginUserControl>
     </Grid>
+
 </Page>

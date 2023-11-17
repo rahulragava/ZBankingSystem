@@ -15,19 +15,104 @@
             <Setter Property="Foreground"
                     Value="{ThemeResource SubtleText}" />
         </Style>
+
         <converters:TypeToBackgroundConverter x:Key="AccountStatusToBackgroundConverter" />
+        <converters:DateFormatter x:Name="DateFormatConverter" />
 
     </UserControl.Resources>
 
     <Grid Background="{ThemeResource BackgroundColor}"
           CornerRadius="10"
+          Margin="0 0 10 0"
+          BorderBrush="{ThemeResource SavingsAccountCardColor}"
+          BorderThickness="5 0 0 0"
           Padding="5">
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState x:Name="NarrowState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0"></AdaptiveTrigger>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="IfscPanel.(Grid.Row)"
+                                Value="4"></Setter>
+                        <Setter Target="IfscPanel.(Grid.Column)"
+                                Value="0"></Setter>
+                        <Setter Target="IfscPanel.(Grid.ColumnSpan)"
+                                Value="2"></Setter>
+                        <Setter Target="BranchNamePanel.(Grid.Row)"
+                                Value="4"></Setter>
+                        <Setter Target="BranchNamePanel.(Grid.Column)"
+                                Value="2"></Setter>
+                        <Setter Target="BranchNamePanel.(Grid.ColumnSpan)"
+                                Value="2"></Setter>
+                        <Setter Target="InterestRatePanel.(Grid.Row)"
+                                Value="4"></Setter>
+                        <Setter Target="InterestRatePanel.(Grid.Column)"
+                                Value="4"></Setter>
+                        <Setter Target="InterestRatePanel.(Grid.ColumnSpan)"
+                                Value="2"></Setter>
+                        <Setter Target="StatusPanel.(Grid.Column)"
+                                Value="0"></Setter>
+                        <Setter Target="StatusPanel.(Grid.ColumnSpan)"
+                                Value="2"></Setter>
+                        <Setter Target="NamePanel.(Grid.Column)"
+                                Value="2"></Setter>
+                        <Setter Target="NamePanel.(Grid.ColumnSpan)"
+                                Value="2"></Setter>
+                        <Setter Target="DatePanel.(Grid.Column)"
+                                Value="4"></Setter>
+                        <Setter Target="DatePanel.(Grid.ColumnSpan)"
+                                Value="2"></Setter>
+                    </VisualState.Setters>
+                </VisualState>
+
+                <VisualState x:Name="WideState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="780"></AdaptiveTrigger>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="IfscPanel.(Grid.Row)"
+                                Value="3"></Setter>
+                        <Setter Target="IfscPanel.(Grid.Column)"
+                                Value="3"></Setter>
+                        <Setter Target="IfscPanel.(Grid.ColumnSpan)"
+                                Value="1"></Setter>
+                        <Setter Target="BranchNamePanel.(Grid.Row)"
+                                Value="3"></Setter>
+                        <Setter Target="BranchNamePanel.(Grid.Column)"
+                                Value="4"></Setter>
+                        <Setter Target="BranchNamePanel.(Grid.ColumnSpan)"
+                                Value="1"></Setter>
+                        <Setter Target="InterestRatePanel.(Grid.Row)"
+                                Value="3"></Setter>
+                        <Setter Target="InterestRatePanel.(Grid.Column)"
+                                Value="5"></Setter>
+                        <Setter Target="InterestRatePanel.(Grid.ColumnSpan)"
+                                Value="1"></Setter>
+                        <Setter Target="StatusPanel.(Grid.Column)"
+                                Value="0"></Setter>
+                        <Setter Target="StatusPanel.(Grid.ColumnSpan)"
+                                Value="1"></Setter>
+                        <Setter Target="NamePanel.(Grid.Column)"
+                                Value="1"></Setter>
+                        <Setter Target="NamePanel.(Grid.ColumnSpan)"
+                                Value="1"></Setter>
+                        <Setter Target="DatePanel.(Grid.Column)"
+                                Value="2"></Setter>
+                        <Setter Target="DatePanel.(Grid.ColumnSpan)"
+                                Value="1"></Setter>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
@@ -44,64 +129,82 @@
                    VerticalAlignment="Center"
                    HorizontalAlignment="Left"
                    Margin="10 0"
-                   FontSize="20"
+                   FontSize="16"
                    Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
                    FontWeight="SemiBold"
-                   Text="Personal Loan" />
+                   Text="Personal Loan Account " />
         <TextBlock Grid.Row="1"
                    Grid.Column="0"
+                   Grid.ColumnSpan="6"
                    HorizontalAlignment="Left"
                    Margin="10 0"
-                   Text="{x:Bind PersonalLoanAccountBObj.AccountNumber,Mode=OneWay}"></TextBlock>
+                   Text="{x:Bind PersonalLoanAccountBObj.AccountNumber, Mode=OneWay}" />
+
         <StackPanel Grid.Row="0"
                     Grid.Column="3"
                     Grid.ColumnSpan="3"
                     Grid.RowSpan="2"
                     HorizontalAlignment="Right"
-                    Margin="0 10 20 10"
+                    Margin="0 10 20 0"
                     Padding="5"
-                    Background="{ThemeResource SecondaryColor}">
-            <TextBlock Text="Due Amount"
+                    CornerRadius="8"
+                    Width="150"
+                    Height="50"
+                    Background="IndianRed">
+            <TextBlock Text="Due"
                        Foreground="White"
                        HorizontalAlignment="Center" />
 
             <TextBlock HorizontalAlignment="Center"
                        Foreground="White">
-                  <Run Text="&#x20b9;" /> <Run Text="{x:Bind PersonalLoanAccountBObj.Due,Mode=OneWay}"></Run>
+               <Run Text="&#x20b9;" /> <Run Text="{x:Bind PersonalLoanAccountBObj.DueWithInterestAmount,Mode=OneWay}"></Run>
             </TextBlock>
         </StackPanel>
 
         <TextBlock Grid.Row="2"
                    Grid.Column="0"
+                   Grid.ColumnSpan="6"
                    Margin="10 0"
                    Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
                    FontWeight="SemiBold"
-                   Text="Loan Summary : "></TextBlock>
+                   Text="Account Summary : "></TextBlock>
         <StackPanel Grid.Row="3"
+                    x:Name="StatusPanel"
                     Grid.Column="0"
-                    HorizontalAlignment="Center"
-                    Background="{x:Bind PersonalLoanAccountBObj.AccountStatus,Mode=OneWay,  Converter={StaticResource AccountStatusToBackgroundConverter}}">
-            <TextBlock Text="Status" />
+                    Width="100"
+                    Height="50"
+                    HorizontalAlignment="Center">
+            <TextBlock Text="Status"
+                       HorizontalAlignment="Center" />
 
-            <TextBlock Text="{x:Bind PersonalLoanAccountBObj.AccountStatus,Mode=OneWay}"></TextBlock>
+            <StackPanel CornerRadius="5"
+                        Background="{x:Bind PersonalLoanAccountBObj.AccountStatus,Mode=OneWay, Converter={StaticResource AccountStatusToBackgroundConverter}}">
+                <TextBlock Text="{x:Bind PersonalLoanAccountBObj.AccountStatus, Mode=OneWay}"
+                           HorizontalAlignment="Center"
+                           Foreground="White"></TextBlock>
+            </StackPanel>
+
         </StackPanel>
 
         <StackPanel Grid.Row="3"
                     Grid.Column="1"
+                    x:Name="NamePanel"
                     HorizontalAlignment="Center">
             <TextBlock Text="Name" />
-            <TextBlock Text="{x:Bind PersonalLoanAccountBObj.UserName,Mode=OneWay}"></TextBlock>
+            <TextBlock Text="{x:Bind PersonalLoanAccountBObj.UserName, Mode=OneWay}"></TextBlock>
         </StackPanel>
 
         <StackPanel Grid.Row="3"
                     Grid.Column="2"
+                    x:Name="DatePanel"
                     HorizontalAlignment="Center">
             <TextBlock Text="Opened on"
                        HorizontalAlignment="Center" />
-            <TextBlock Text="{x:Bind PersonalLoanAccountBObj.CreatedOn,Mode=OneWay}"
+            <TextBlock Text="{x:Bind PersonalLoanAccountBObj.CreatedOn, Mode=OneWay, Converter={StaticResource DateFormatConverter}}"
                        HorizontalAlignment="Center"></TextBlock>
         </StackPanel>
         <StackPanel Grid.Row="3"
+                    x:Name="IfscPanel"
                     Grid.Column="3">
             <TextBlock Text="IFSC"
                        HorizontalAlignment="Center" />
@@ -110,20 +213,23 @@
         </StackPanel>
 
         <StackPanel Grid.Row="3"
-                    Grid.Column="4">
+                    Grid.Column="4"
+                    x:Name="BranchNamePanel">
             <TextBlock Text="Branch"
+                       TextWrapping="Wrap"
                        HorizontalAlignment="Center" />
             <TextBlock HorizontalAlignment="Center"
-                       Text="{x:Bind PersonalLoanAccountBObj.BranchName,Mode=OneWay}"></TextBlock>
+                       Text="{x:Bind PersonalLoanAccountBObj.BranchName}" />
         </StackPanel>
 
         <StackPanel Grid.Row="3"
                     Grid.Column="5"
-                    Margin="0 0 0 20">
+                    x:Name="InterestRatePanel"
+                    Margin="0 0 0 0">
             <TextBlock Text="Interest Rate"
                        HorizontalAlignment="Center" />
             <TextBlock HorizontalAlignment="Center"
-                       Text="{x:Bind PersonalLoanAccountBObj.InterestRate,Mode=OneWay}"></TextBlock>
+                       Text="{x:Bind PersonalLoanAccountBObj.InterestRate}"></TextBlock>
         </StackPanel>
 
     </Grid>

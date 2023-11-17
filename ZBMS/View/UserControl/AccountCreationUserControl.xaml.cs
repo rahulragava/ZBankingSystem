@@ -156,10 +156,7 @@ namespace ZBMS.View.UserControl
                         AccountCreationViewModel.CreateCurrentAccount(ifsc, double.Parse(BalanceTextBox.Text));
                     }
 
-                    InvalidPanTextBlock.Visibility = Visibility.Collapsed;
-                    InvalidBalanceTextBlock.Visibility = Visibility.Collapsed;
-                    PanTextBox.Text = string.Empty;
-                    BalanceTextBox.Text = string.Empty;
+                    ClearFields();
                 }
                 PanTextBox.Background = new SolidColorBrush(Color.FromArgb(1, 255, 0, 0));
                 InvalidPanTextBlock.Visibility = Visibility.Visible;
@@ -175,7 +172,17 @@ namespace ZBMS.View.UserControl
             }
         }
 
-
+        public void ClearFields()
+        {
+            PanTextBox.Text = String.Empty;
+            InvalidPanTextBlock.Visibility = Visibility.Collapsed;
+            InvalidPanTextBlock.Text = string.Empty;    
+            InvalidBalanceTextBlock.Text = string.Empty;
+            BalanceTextBox.Text = string.Empty;
+            InvalidBalanceTextBlock.Visibility = Visibility.Collapsed;
+            SavingsAccountRadioButton.IsChecked = true;
+            BranchNameComboBox.SelectedIndex = 0;
+        }
         private void NumberBox_OnValueChanged(NumberBox sender, NumberBoxValueChangedEventArgs args)
         {
             //sender.Value = double.Parse(new String(sender.Text.Where(c => char.IsDigit(c) | c == '.').ToArray()));

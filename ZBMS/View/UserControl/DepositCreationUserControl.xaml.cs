@@ -6,7 +6,9 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.System;
 using Windows.UI;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -78,8 +80,12 @@ namespace ZBMS.View.UserControl
                 RecurringDepositInterestRateText.Visibility = Visibility.Visible;
                 MonthlyInstallmentTextBlock.Visibility = Visibility.Visible;
                 DepositAmountTextBlock.Visibility = Visibility.Collapsed;
-
             }
+
+            BalanceSlider.Value = BalanceSlider.Minimum;
+            TenureSlider.Value = TenureSlider.Minimum;
+            AccountCreationViewModel.EstimatedReturnCalculationForFixedDeposit(double.Parse(FixedDepositInterestRate.Text), BalanceSlider.Value, (int)TenureSlider.Value);
+
         }
 
         private void RecurringDepositRadioButton_OnChecked(object sender, RoutedEventArgs e)
@@ -98,6 +104,11 @@ namespace ZBMS.View.UserControl
                 DepositAmountTextBlock.Visibility = Visibility.Visible;
                 MonthlyInstallmentTextBlock.Visibility = Visibility.Collapsed;
             }
+
+            BalanceSlider.Value = BalanceSlider.Minimum;
+            TenureSlider.Value = TenureSlider.Minimum;
+            AccountCreationViewModel.EstimatedReturnCalculationForRecurringDeposit(BalanceSlider.Value, (int)TenureSlider.Value);
+
         }
 
         private void CreateDeposit_OnClick(object sender, RoutedEventArgs e)
@@ -140,19 +151,16 @@ namespace ZBMS.View.UserControl
                     {
                         var branchName = BranchNameComboBox.SelectionBoxItem as string;
                         var ifsc = AccountCreationViewModel.Branches.Where(b => b.Name == branchName).FirstOrDefault(f => true)?.Ifsc;
-                        AccountCreationViewModel.CreateFixedDepositAccount(ifsc, FromAccountComboBox.Text, RepaymentComboBox.Text, (int)TenureSlider.Value);
+                        AccountCreationViewModel.CreateFixedDepositAccount(ifsc, FromAccountComboBox.SelectedItem as string, RepaymentComboBox.SelectedItem as string, (int)TenureSlider.Value);
                     }
                     else if (RecurringDepositRadioButton.IsChecked != null && (bool)RecurringDepositRadioButton.IsChecked)
                     {
                         var branchName = BranchNameComboBox.SelectionBoxItem as string;
                         var ifsc = AccountCreationViewModel.Branches.Where(b => b.Name == branchName).FirstOrDefault(f => true)?.Ifsc;
-                        AccountCreationViewModel.CreateRecurringDepositAccount(ifsc, FromAccountComboBox.Text, RepaymentComboBox.Text, (int)TenureSlider.Value);
+                        AccountCreationViewModel.CreateRecurringDepositAccount(ifsc, FromAccountComboBox.SelectedItem as string, RepaymentComboBox.SelectedItem as string, (int)TenureSlider.Value);
 
                     }
-                    InvalidPanTextBlock.Visibility = Visibility.Collapsed;
-                    PanTextBox.Text = string.Empty;
-                    BalanceSlider.Value = BalanceSlider.Minimum;
-                    TenureSlider.Value = TenureSlider.Minimum;
+                    ClearFields();
                 }
                 else
                 {
@@ -166,6 +174,16 @@ namespace ZBMS.View.UserControl
                 InvalidPanTextBlock.Text = "Invalid PAN";
                 InvalidPanTextBlock.Visibility = Visibility.Visible;
             }
+        }
+
+        public void ClearFields()
+        {
+            PanTextBox.Text = String.Empty;
+            InvalidPanTextBlock.Visibility = Visibility.Collapsed;
+            InvalidPanTextBlock.Text = string.Empty;
+            BalanceSlider.Value = BalanceSlider.Minimum;
+            TenureSlider.Value = TenureSlider.Minimum;
+            BranchNameComboBox.SelectedIndex = 0;
         }
         private void TextBox_OnTextChanging(TextBox sender, TextBoxTextChangingEventArgs args)
         {
@@ -215,8 +233,7 @@ namespace ZBMS.View.UserControl
             }
             else if(RecurringDepositRadioButton.IsChecked != null && (bool)RecurringDepositRadioButton.IsChecked)
             {
-                var interestRate = double.Parse(RecurringDepositInterestRateText.Text);
-                AccountCreationViewModel.EstimatedReturnCalculationForRecurringDeposit(interestRate, BalanceSlider.Value, (int)TenureSlider.Value);
+                AccountCreationViewModel.EstimatedReturnCalculationForRecurringDeposit(BalanceSlider.Value, (int)TenureSlider.Value);
             }
         }
 
@@ -237,6 +254,17 @@ namespace ZBMS.View.UserControl
             }
 
             //var savings
+        }
+
+        private void UIElement_OnKeyDown(object sender, KeyRoutedEventArgs e)
+        {
+            var ctrl = Window.Current.CoreWindow.GetKeyState(VirtualKey.Control);
+            if (ctrl.HasFlag(CoreVirtualKeyStates.Down) && e.Key == VirtualKey.Enter)
+            {
+                CreateDeposit_OnClick(sender,new RoutedEventArgs());
+            }
+            e.Handled = true;
+
         }
     }
 }

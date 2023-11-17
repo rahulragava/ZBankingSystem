@@ -26,7 +26,7 @@ namespace ZBMSLibrary.Data.DataManager
                 TransactionSummary transactionSummary = new TransactionSummary()
                 {
                     Amount = createRecurringDepositRequest.RecurringAccount.DepositedAmount,
-                    Description = "Deposit",
+                    Description = "Recurring Deposit Created",
                     ReceiverAccountNumber = createRecurringDepositRequest.RecurringAccount.AccountNumber,
                     TransactionOn = DateTime.Now,
                     TransactionType = TransactionType.Debit,
@@ -54,7 +54,7 @@ namespace ZBMSLibrary.Data.DataManager
                     NotificationEvents.RdCreationSavingsTransaction?.Invoke(transactionSummaryVObj);
                     // var userName = await _dbHandler.GetUserNameAsync(account.UserId);
                 }
-                catch (Exception ex)
+                catch (InvalidOperationException ex)
                 {
                     var account = await _dbHandler.GetCurrentAccountAsync(createRecurringDepositRequest.RecurringAccount.FromAccountId);
                     account.Balance -= createRecurringDepositRequest.RecurringAccount.DepositedAmount;

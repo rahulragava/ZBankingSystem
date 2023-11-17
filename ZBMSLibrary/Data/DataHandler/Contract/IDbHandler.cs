@@ -18,6 +18,7 @@ namespace ZBMSLibrary.Data.DataHandler.Contract
         Task UpdateCurrentAccountAsync(CurrentAccount currentAccount);
         Task UpdateRecurringAccountAsync(RecurringAccount recurringAccount);
         Task UpdateFixedDepositAsync(FixedDeposit fixedDeposit);
+        Task UpdatePersonalLoanAsync(PersonalLoan personalLoan);
         Task<double> GetSavingsAccountInterestRate();
         //Task<double> GetCurrentAccountInterestRate();
         Task<double> GetFixedDepositInterestRate();
@@ -29,8 +30,10 @@ namespace ZBMSLibrary.Data.DataHandler.Contract
         Task CreateSavingsAccountAsync(SavingsAccount savingsAccount);
         Task CreateFixedDepositAsync(FixedDeposit fixedDeposit);
         Task CreateRecurringDepositAsync(RecurringAccount recurringAccount);
+        Task CreatePersonalLoanAsync(PersonalLoan personalLoan);
         Task<CurrentAccount> GetCurrentAccountAsync(string id);
         Task<SavingsAccount> GetSavingsAccountAsync(string id);
+        Task<PersonalLoan> GetPersonalLoanAccountAsync(string id);
         Task<DateTime> GetUserLastLoggedAsync(string userId);
         Task UpdateUserLoggedInAsync(User user);
         Task<User> GetUserAsync(string userId);

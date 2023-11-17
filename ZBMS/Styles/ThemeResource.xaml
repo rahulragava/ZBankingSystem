@@ -6,7 +6,11 @@
     <ResourceDictionary.ThemeDictionaries>
         <ResourceDictionary x:Key="Light">
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary>
+                <ResourceDictionary >
+                    <media:AcrylicBrush x:Key="AcrylicBrushBackground"
+                                        BackgroundSource="Backdrop"
+                                        TintColor="DarkCyan"
+                                        TintOpacity="0.2" />
                     <SolidColorBrush x:Key="BackgroundColor"
                                      Color="White"></SolidColorBrush>
                     <!--<SolidColorBrush x:Key="ControlBackground"
@@ -17,7 +21,7 @@
                                      Color="#0D64FF"></SolidColorBrush>
                     <SolidColorBrush x:Key="SubtleText"
                                      Color="Gray"></SolidColorBrush>
-                    <SolidColorBrush x:Key="SavingsAccountCardColor" 
+                    <SolidColorBrush x:Key="SavingsAccountCardColor"
                                      Color="CornflowerBlue"/>
                     <SolidColorBrush x:Key="CurrentAccountCardColor"
                                      Color="BlueViolet"></SolidColorBrush>
@@ -27,7 +31,24 @@
                                      Color="Blue"></SolidColorBrush>
                     <SolidColorBrush x:Key="FixedDepositCardColor"
                                      Color="DarkMagenta"></SolidColorBrush>
-                    
+
+                   
+                    <!--//accent brush working-->
+
+                    <SolidColorBrush x:Key="SystemAccentColor"
+                                     Color="{ThemeResource SystemAltMediumColor}" />
+                    <!--<Color x:Key="SystemBasedMediumHighColor">#ffcb2128</Color>
+                    <Color x:Key="SystemAltHighColor">#ffcb2128</Color>
+                    <Color x:Key="SystemAltLowColor">#ffcb2128</Color>
+                    <Color x:Key="SystemAltMediumColor">#ffcb2128</Color>
+                    <Color x:Key="SystemAltMediumHighColor">#ffcb2128</Color>
+                    <Color x:Key="SystemAltMediumLowColor">#ffcb2128</Color>
+                    <Color x:Key="SystemBaseHighColor">#ffcb2128</Color>
+                    <Color x:Key="SystemBaseLowColor">#ffcb2128</Color>
+                    <Color x:Key="SystemBaseMediumColor">#ffcb2128</Color>
+                    <Color x:Key="SystemBaseMediumLowColor">#ffcb2128</Color>-->
+
+                   
                     <!--<media:AcrylicBrush x:Key="AcrylicBrushBackground"
                                         BackgroundSource="Backdrop"
                                         TintColor="DarkCyan"
@@ -43,6 +64,10 @@
                 <ResourceDictionary>
                     <!--<SolidColorBrush x:Key="ControlBackground"
                                      Color="DimGray"></SolidColorBrush>-->
+                    <media:AcrylicBrush x:Key="AcrylicBrushBackground"
+                                        BackgroundSource="Backdrop"
+                                        TintColor="DarkCyan"
+                                        TintOpacity="0.2" />
                     <SolidColorBrush x:Key="BackgroundColor"
                                      Color="#18191a"></SolidColorBrush>
                     <SolidColorBrush x:Key="PrimaryColor"
@@ -61,6 +86,25 @@
                                      Color="Blue"></SolidColorBrush>
                     <SolidColorBrush x:Key="FixedDepositCardColor"
                                      Color="DarkMagenta"></SolidColorBrush>
+                  
+
+                    <!--<media:AcrylicBrush x:Key="AcrylicBrushBackgroundTry"
+                                        BackgroundSource="Backdrop"
+                                        TintColor="DarkCyan"
+                                        TintOpacity="0.2" />-->
+
+                    <!--<SolidColorBrush x:Key="SystemAccentColor"
+                                     Color="#ffcb2128" />
+                    <Color x:Key="SystemBasedMediumHighColor">#ffcb2128</Color>
+                    <Color x:Key="SystemAltHighColor">#ffcb2128</Color>
+                    <Color x:Key="SystemAltLowColor">#ffcb2128</Color>
+                    <Color x:Key="SystemAltMediumColor">#ffcb2128</Color>
+                    <Color x:Key="SystemAltMediumHighColor">#ffcb2128</Color>
+                    <Color x:Key="SystemAltMediumLowColor">#ffcb2128</Color>
+                    <Color x:Key="SystemBaseHighColor">#ffcb2128</Color>
+                    <Color x:Key="SystemBaseLowColor">#ffcb2128</Color>
+                    <Color x:Key="SystemBaseMediumColor">#ffcb2128</Color>
+                    <Color x:Key="SystemBaseMediumLowColor">#ffcb2128</Color>-->
 
                     <!--<media:AcrylicBrush BackgroundSource="Backdrop"
                                         x:Key="AcrylicBrushBackground"
@@ -72,6 +116,10 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </ResourceDictionary.ThemeDictionaries>
+    <media:AcrylicBrush x:Key="AcrylicBrushBackground"
+                        BackgroundSource="Backdrop"
+                        TintColor="DarkCyan"
+                        TintOpacity="0.8" />
     <Style x:Key="CloseButtonStyle"
            TargetType="Button">
         <Setter Property="Background"
@@ -248,11 +296,11 @@
                                 </VisualState>
                                 <VisualState x:Name="PointerOver">
                                     <Storyboard>
-                                        <!--<ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter"
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter"
                                                                        Storyboard.TargetProperty="Background">
                                             <DiscreteObjectKeyFrame KeyTime="0"
-                                                                    Value="{ThemeResource ButtonPointerOverBackgroundThemeBrush}" />
-                                        </ObjectAnimationUsingKeyFrames>-->
+                                                                    Value="Transparent" />
+                                        </ObjectAnimationUsingKeyFrames>
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter"
                                                                        Storyboard.TargetProperty="Opacity">
                                             <DiscreteObjectKeyFrame KeyTime="0"

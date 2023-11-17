@@ -7,7 +7,9 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.System;
 using Windows.UI;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -22,107 +24,150 @@ using ZBMSLibrary.Entities.Model;
 
 namespace ZBMS.View.UserControl
 {
-    public sealed partial class LoanCreationUserControl : Windows.UI.Xaml.Controls.UserControl
+    public sealed partial class LoanCreationUserControl : Windows.UI.Xaml.Controls.UserControl,IAccountCreationView
     {
-        //public AccountCreationViewModel AccountCreationViewModel;
-        //public LoanCreationUserControl()
-        //{
+        public AccountCreationViewModel AccountCreationViewModel { get; set; }
+        public LoanCreationUserControl()
+        {
+            AccountCreationViewModel = new AccountCreationViewModel(this);
+            AccountCreationViewModel.GetAllBranches();
+            this.InitializeComponent();
+            Loaded += OnLoaded;
+        }
 
-        //    AccountCreationViewModel = new AccountCreationViewModel(this);
-        //    this.InitializeComponent();
-        //    Loaded += AccountCreationUserControl_Loaded;
-        //}
+        private void OnLoaded(object sender, RoutedEventArgs e)
+        {
+            AccountCreationViewModel.SetAccounts(AccountList);
+            AccountCreationViewModel.SetDepositMetaData();
+            BranchNameComboBox.SelectedIndex = 0;
+            LoanedAmountGoesToAccountNumber.SelectedIndex = 0;
+            PersonalLoanRadioButton.IsChecked = true;
+        }
 
+        public static readonly DependencyProperty AccountListProperty = DependencyProperty.Register(
+            nameof(AccountList), typeof(ObservableCollection<Account>), typeof(DepositCreationUserControl), new PropertyMetadata(default(ObservableCollection<Account>)));
 
-        //private void AccountCreationUserControl_Loaded(object sender, RoutedEventArgs e)
-        //{
-        //    AccountCreationViewModel.SetAccounts(AccountList);
-        //    //AccountCreationViewModel.SetAccountMetaData();
-        //    AccountCreationViewModel.GetAllBranches();
-
-        //}
-
-        //public event Action OnClosingPopup;
-
-        //private void ClosePopup_OnClick(object sender, RoutedEventArgs e)
-        //{
-        //    //ClosingPopup?.Invoke();
-        //    OnClosingPopup?.Invoke();
-        //}
-
-        //public static readonly DependencyProperty AccountListProperty = DependencyProperty.Register(
-        //    nameof(AccountList), typeof(ObservableCollection<Account>), typeof(LoanCreationUserControl), new PropertyMetadata(default(ObservableCollection<Account>)));
-
-        //public ObservableCollection<Account> AccountList
-        //{
-        //    get => (ObservableCollection<Account>)GetValue(AccountListProperty);
-        //    set => SetValue(AccountListProperty, value);
-        //}
+        public ObservableCollection<Account> AccountList
+        {
+            get => (ObservableCollection<Account>)GetValue(AccountListProperty);
+            set => SetValue(AccountListProperty, value);
+        }
 
 
+        public static readonly DependencyProperty PanProperty = DependencyProperty.Register(
+            nameof(Pan), typeof(string), typeof(AccountCreationUserControl), new PropertyMetadata(default(string)));
 
-        //private void SavingsAccountRadioButton_OnChecked(object sender, RoutedEventArgs e)
-        //{
+        public string Pan
+        {
+            get => (string)GetValue(PanProperty);
+            set => SetValue(PanProperty, value);
+        }
 
-        //    if (SavingsAccountRadioButton.IsChecked != null && (bool)SavingsAccountRadioButton.IsChecked)
-        //    {
-        //        InterestRateText.Visibility = Visibility.Visible;
-        //    }
-        //}
+        private void PersonalLoanRadioButton_OnChecked(object sender, RoutedEventArgs e)
+        {
+        }
 
-        ////private void CurrentAccountRadioButton_OnChecked(object sender, RoutedEventArgs e)
-        ////{
-        ////    if (CurrentAccountRadioButton.IsChecked != null && (bool)CurrentAccountRadioButton.IsChecked)
-        ////    {
-        ////        InterestRateText.Visibility = Visibility.Collapsed;
-        ////        CurrentInterestRateText.Visibility = Visibility.Visible;
-        ////    }
-        ////    else
-        ////    {
-        ////        InterestRateText.Visibility = Visibility.Visible;
-        ////        CurrentInterestRateText.Visibility = Visibility.Collapsed;
-        ////    }
-        ////}
+        private void CreateLoan_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(PanTextBox.Text) || string.IsNullOrWhiteSpace(PanTextBox.Text))
+            {
+                PanTextBox.Background = new SolidColorBrush(Color.FromArgb(1, 255, 0, 0));
+                InvalidPanTextBlock.Text = "PAN field cannot be empty";
+                InvalidPanTextBlock.Visibility = Visibility.Visible;
+                return;
+            }
+            else
+            {
+                InvalidPanTextBlock.Visibility = Visibility.Collapsed;
+            }
 
-        //private void CreateAccount_OnClick(object sender, RoutedEventArgs e)
-        //{
-        //    if (AccountCreationViewModel.IsValidPan())
-        //    {
-        //        if (SavingsAccountRadioButton.IsChecked != null && (bool)SavingsAccountRadioButton.IsChecked)
-        //        {
-        //            var branchName = BranchNameAutoSuggestBox.Text;
-        //            var ifsc = AccountCreationViewModel.Branches.Where(b => b.Name == branchName).FirstOrDefault(f => true)?.Ifsc;
+            if (string.IsNullOrEmpty(BranchNameComboBox.SelectedItem as string) || string.IsNullOrWhiteSpace(BranchNameComboBox.SelectedItem as string))
+            {
+                //PanTextBox.Background = new SolidColorBrush(Color.FromArgb(1, 255, 0, 0));
+                BranchNameComboBox.Header = "Branch field cannot be empty";
+                return;
+            }
 
-        //            AccountCreationViewModel.CreateLoanAccount(ifsc, double.Parse(BalanceTextBox.Text));
-        //        }
-        //        //else if (CurrentAccountRadioButton.IsChecked != null && (bool)CurrentAccountRadioButton.IsChecked)
-        //        //{
-        //        //    var branchName = BranchNameAutoSuggestBox.Text;
-        //        //    var ifsc = AccountCreationViewModel.Branches.Where(b => b.Name == branchName).FirstOrDefault(f => true)?.Ifsc;
+            if (string.IsNullOrEmpty(LoanedAmountGoesToAccountNumber.SelectedItem as string) || string.IsNullOrWhiteSpace(LoanedAmountGoesToAccountNumber.SelectedItem as string))
+            {
+                LoanedAmountGoesToAccountNumber.Header = "Account field cannot be empty";
+                return;
+            }
 
-        //        //    AccountCreationViewModel.CreateCurrentAccount(ifsc, double.Parse(BalanceTextBox.Text));
-        //        //}
-        //    }
-        //    else
-        //    {
-        //        PanTextBox.Background = new SolidColorBrush(Color.FromArgb(1, 255, 0, 0));
-        //        InvalidPanTextBlock.Visibility = Visibility.Visible;
-        //    }
-        //}
+            if (AccountCreationViewModel.IsValidPan())
+            {
+                if (AccountCreationViewModel.IsUserPan(Pan))
+                {
+                    if (PersonalLoanRadioButton.IsChecked != null && (bool)PersonalLoanRadioButton.IsChecked)
+                    {
+                        var branchName = BranchNameComboBox.SelectionBoxItem as string;
+                        var ifsc = AccountCreationViewModel.Branches.Where(b => b.Name == branchName).FirstOrDefault(f => true)?.Ifsc;
+                        var loanedAmountGoesToAccountNumber = LoanedAmountGoesToAccountNumber.SelectedItem as string;
+                        AccountCreationViewModel.CreatePersonalLoanAccount(ifsc, loanedAmountGoesToAccountNumber, (int)TenureSlider.Value);
+                    }
+                   
+                    ClearFields();
+                }
+                else
+                {
+                    InvalidPanTextBlock.Text = "wrong PAN";
+                    InvalidPanTextBlock.Visibility = Visibility.Visible;
+                }
+            }
+            else
+            {
+                PanTextBox.Background = new SolidColorBrush(Color.FromArgb(1, 255, 0, 0));
+                InvalidPanTextBlock.Text = "Invalid PAN";
+                InvalidPanTextBlock.Visibility = Visibility.Visible;
+            }
+        }
 
-        //private void TextBox_OnTextChanging(TextBox sender, TextBoxTextChangingEventArgs args)
-        //{
-        //    sender.Text = new String(sender.Text.Where(c => char.IsDigit(c) | c == '.').ToArray());
-        //    sender.SelectionStart = sender.Text.Length;
-        //}
+        public void ClearFields()
+        {
+            PanTextBox.Text = String.Empty;
+            InvalidPanTextBlock.Visibility = Visibility.Collapsed;
+            InvalidPanTextBlock.Text = string.Empty;
+            LoanAmountSlider.Value = LoanAmountSlider.Minimum;
+            TenureSlider.Value = TenureSlider.Minimum;
+            BranchNameComboBox.SelectedIndex = 0;
+        }
+        private void TextBox_OnTextChanging(TextBox sender, TextBoxTextChangingEventArgs args)
+        {
+            sender.Text = new String(sender.Text.Where(c => char.IsDigit(c) | c == '.').ToArray());
+            sender.SelectionStart = sender.Text.Length;
+        }
+        public event Action OnClosingPopup;
 
-        //public void SuccessfullyAccountCreated()
-        //{
-        //    BalanceTextBox.Text = string.Empty;
-        //    InterestRateText.Visibility = Visibility.Collapsed;
-        //    CurrentAccountRadioButton.IsChecked = false;
-        //    SavingsAccountRadioButton.IsChecked = false;
-        //    BranchNameAutoSuggestBox.Text = string.Empty;
-        //}
+        private void ClosePopup_OnClick(object sender, RoutedEventArgs e)
+        {
+            ClearFields();
+            OnClosingPopup?.Invoke();
+        }
+
+        public void SuccessfullyAccountCreated()
+        {
+            //FixedDepositInterestRate.Visibility = Visibility.Collapsed;
+        }
+
+
+        private void BalanceSlider_OnValueChanged(object sender, RangeBaseValueChangedEventArgs e)
+        {
+            if (PersonalLoanRadioButton.IsChecked != null && (bool)PersonalLoanRadioButton.IsChecked)
+            {
+                var dep = LoanAmountSlider.Value;
+                AccountCreationViewModel.EstimatedReturnCalculationForPersonalLoan(double.Parse(PersonalLoanInterestRate.Text), LoanAmountSlider.Value, (int)TenureSlider.Value);
+            }
+        }
+
+        private void UIElement_OnKeyDown(object sender, KeyRoutedEventArgs e)
+        {
+            var ctrl = Window.Current.CoreWindow.GetKeyState(VirtualKey.Control);
+            if (ctrl.HasFlag(CoreVirtualKeyStates.Down) && e.Key == VirtualKey.Enter)
+            {
+                CreateLoan_OnClick(sender, new RoutedEventArgs());
+            }
+            e.Handled = true;
+
+        }
     }
 }

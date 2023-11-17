@@ -65,7 +65,7 @@
 
                     Padding="5"
                     CornerRadius="10"
-                    Background="{ThemeResource SecondaryColor}">
+                    Background="{ThemeResource FixedDepositCardColor}">
             <TextBlock Text="Deposit Amount"
                        Foreground="White"
                        HorizontalAlignment="Center" />

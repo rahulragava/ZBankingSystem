@@ -171,7 +171,7 @@ namespace ZBMSLibrary.Data.DataHandler
 
         public async Task<IEnumerable<PersonalLoanBObj>> GetUserLoanAccountsAsync(string userId)
         {
-            var loanAccounts =  await _dbAdapter.Query<PersonalLoan>($"Select * From LoanAccount where UserId = {userId}");
+            var loanAccounts =  await _dbAdapter.Query<PersonalLoan>($"Select * From PersonalLoan where UserId = {userId}");
             var userName = (await _dbAdapter.GetObjectFromTableAsync<User>(userId).ConfigureAwait(false)).Name;
             var loanAccountBObjList = new List<PersonalLoanBObj>();
             foreach (var loanAccount in loanAccounts)
@@ -189,7 +189,11 @@ namespace ZBMSLibrary.Data.DataHandler
                     InterestRate = loanAccount.InterestRate,
                     FineAmount = loanAccount.FineAmount,
                     UserName = userName,
-                    BranchName = branchName
+                    BranchName = branchName,
+                    Tenure = loanAccount.Tenure,
+                    DueWithInterestAmount = loanAccount.DueWithInterestAmount,
+                    OriginalAmount = loanAccount.OriginalAmount,
+                    NextDateToBePaid = loanAccount.NextDateToBePaid,
                 };
                 loanAccountBObjList.Add(loanAccountBObj);
             }
@@ -267,6 +271,11 @@ namespace ZBMSLibrary.Data.DataHandler
         public async Task UpdateFixedDepositAsync(FixedDeposit fixedDeposit)
         {
             await _dbAdapter.UpdateObjectInTableAsync<FixedDeposit>(fixedDeposit);
+        }
+
+        public async Task UpdatePersonalLoanAsync(PersonalLoan personalLoan)
+        {
+            await _dbAdapter.UpdateObjectInTableAsync<PersonalLoan>(personalLoan);
         }
 
         public async Task<double> GetSavingsAccountInterestRate()
@@ -370,6 +379,11 @@ namespace ZBMSLibrary.Data.DataHandler
             return await _dbAdapter.GetObjectFromTableAsync<SavingsAccount>(id);
         }
 
+        public async Task<PersonalLoan> GetPersonalLoanAccountAsync(string id)
+        {
+            return await _dbAdapter.GetObjectFromTableAsync<PersonalLoan>(id);
+        }
+
         public async Task<DateTime> GetUserLastLoggedAsync(string userId)
         {
             //return await _dbAdapter.QueryFetchObject<User>($"SELECT LastLoggedOn FROM User Where Id={userId}");
@@ -431,6 +445,11 @@ namespace ZBMSLibrary.Data.DataHandler
             await _dbAdapter.InsertInTableAsync(recurringAccount);
 
             //await _dbAdapter.RunInTransactionAsync(CreateRecurringDeposit);
+        }
+
+        public async Task CreatePersonalLoanAsync(PersonalLoan personalLoan)
+        {
+            await _dbAdapter.InsertInTableAsync(personalLoan);
         }
 
         public async Task<IEnumerable<Branch>> GetAllBranchesAsync()

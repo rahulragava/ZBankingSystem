@@ -61,7 +61,7 @@ namespace ZBMS.View.UserControl
             set => SetValue(TransactionListProperty, value);
         }
 
-    
+
 
         private void TransactionListDataGrid_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -94,43 +94,59 @@ namespace ZBMS.View.UserControl
         {
 
 
-            switch (e.Key)
-            {
-                case Windows.System.VirtualKey.Up:
-                {
-                    e.Handled = true;
-                    if (TransactionListDataGrid.SelectedIndex == 0)
-                    {
-                        return;
-                    }
-                    TransactionListDataGrid.SelectedIndex--;
 
-                    // BackButton_OnTapped(sender, new TappedRoutedEventArgs());
-                    //DepositButton_OnClick(sender, e);
-                    break;
-                }
-                case Windows.System.VirtualKey.Down:
-                {
-                    e.Handled = true;
-                    if (TransactionListDataGrid.SelectedIndex == TransactionList.Count - 1)
-                    {
-                        return;
-                    }
-                    TransactionListDataGrid.SelectedIndex++;
-                    break;
-                }
-
-                default:
-                    e.Handled = true;
-                    return;
-            }
         }
 
 
         private void DetailsContent_OnGoBack()
         {
             PaneView.PanePriority = TwoPaneViewPriority.Pane1;
-            
+
+        }
+
+        private void TransactionListDataGrid_OnPreviewKeyDown(object sender, KeyRoutedEventArgs e)
+        {
+            switch (e.Key)
+            {
+                case Windows.System.VirtualKey.Up:
+                    {
+                        e.Handled = true;
+                        if (TransactionListDataGrid.SelectedIndex == 0)
+                        {
+                            return;
+                        }
+                        TransactionListDataGrid.SelectedIndex--;
+
+
+
+                        // BackButton_OnTapped(sender, new TappedRoutedEventArgs());
+                        //DepositButton_OnClick(sender, e);
+                        break;
+                    }
+                case Windows.System.VirtualKey.Down:
+                    {
+                        e.Handled = true;
+                        if (TransactionListDataGrid.SelectedIndex == TransactionList.Count - 1)
+                        {
+                            return;
+                        }
+                        TransactionListDataGrid.SelectedIndex++;
+                        break;
+                    }
+                case Windows.System.VirtualKey.Escape:
+                    {
+                        if (PaneView.PanePriority == TwoPaneViewPriority.Pane1)
+                        {
+                            e.Handled = false;
+                        }
+                        else
+                        {
+                            e.Handled = true;
+                            PaneView.PanePriority = TwoPaneViewPriority.Pane1;
+                        }
+                        break;
+                    }
+            }
         }
     }
 }

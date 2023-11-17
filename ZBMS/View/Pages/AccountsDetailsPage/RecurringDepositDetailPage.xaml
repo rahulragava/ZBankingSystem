@@ -92,7 +92,7 @@
                     <TextBlock Grid.Column="1"
                                VerticalAlignment="Center"
                                Grid.Row="4"
-                               Text="{x:Bind RecurringDepositDetailViewModel.RecurringAccountBObj.FromAccountId,Mode=OneWay}" />
+                               Text="{x:Bind RecurringDepositDetailViewModel.FromAccountNumber,Mode=OneWay}" />
                     <TextBlock Grid.Row="5"
                                Grid.Column="0"
                                Margin="10 10 0 10"
@@ -101,7 +101,7 @@
                     <TextBlock Grid.Column="1"
                                Grid.Row="5"
                                VerticalAlignment="Center"
-                               Text="{x:Bind RecurringDepositDetailViewModel.RecurringAccountBObj.SavingsAccountId,Mode=OneWay}" />
+                               Text="{x:Bind RecurringDepositDetailViewModel.RepaymentAccountNumber,Mode=OneWay}" />
                 </Grid>
 
             </userControl:OneByTwoGrid.Column1Content>
@@ -115,7 +115,12 @@
                         <RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="*"></RowDefinition>
                     </Grid.RowDefinitions>
-                    <userControl:ChangeRepaymentAccount></userControl:ChangeRepaymentAccount>
+                    <userControl:ChangeRepaymentAccount  DepositAccount="{x:Bind RecurringDepositDetailViewModel.RecurringAccountBObj,Mode=OneWay}"
+                                                         UpdateRepaymentAccountDeposit="UpdateRepaymentAccount"
+                                                         AccountList="{x:Bind RecurringDepositDetailViewModel.Accounts,Mode=OneWay}" />
+                    <!--<userControl:ChangeRepaymentAccount  DepositAccount="{x:Bind RecurringDepositDetailViewModel.RecurringAccountBObj,Mode=OneWay}"
+                                                         UpdateRepaymentAccountDeposit="UpdateRepaymentAccount"
+                                                         AccountList="{x:Bind RecurringDepositDetailViewModel.Accounts,Mode=OneWay}" />-->
                     <Grid Grid.Row="1"
                           CornerRadius="10"
                           Grid.Column="0"

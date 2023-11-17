@@ -12,6 +12,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using ZBMS.Util;
 using ZBMS.ViewModel.DetailViewModel;
 using ZBMSLibrary.Entities.BusinessObject;
 
@@ -41,8 +42,26 @@ namespace ZBMS.View.Pages.AccountsDetailsPage
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            var recurringDepositBObj = e.Parameter as RecurringAccountBObj;
-            RecurringDepositDetailViewModel.RecurringAccountBObj= recurringDepositBObj;
+            var recurringDepositParameters = e.Parameter as RecurringDepositPageArguments;
+            RecurringDepositDetailViewModel.RecurringAccountBObj= recurringDepositParameters?.RecurringAccountBObj;
+            RecurringDepositDetailViewModel.RepaymentAccountNumber =
+                recurringDepositParameters?.RecurringAccountBObj.SavingsAccountId;
+            RecurringDepositDetailViewModel.FromAccountNumber =
+                recurringDepositParameters?.RecurringAccountBObj.FromAccountId;
+            RecurringDepositDetailViewModel.Accounts= recurringDepositParameters?.Accounts;
+            
+        }
+
+
+        public void UpdateSenderAccount(string fromSenderAccount)
+        {
+            RecurringDepositDetailViewModel.FromAccountNumber= fromSenderAccount;
+        }
+
+        public void UpdateRepaymentAccount(string savingsAccountNumber)
+        {
+            RecurringDepositDetailViewModel.RepaymentAccountNumber = savingsAccountNumber;
+
         }
 
         private void UIElement_OnKeyDown(object sender, KeyRoutedEventArgs e)

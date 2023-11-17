@@ -16,8 +16,10 @@
         <controls:InfoBar Grid.Row="0"
                           IsOpen="False"
                           x:Name="InfoBar"
-                          Margin="0 3 0 0"
+                          Margin="0 0 0 0"
                           HorizontalAlignment="Center"
+                          VerticalAlignment="Center"
+                          Padding="0 0 0 5"
                           Severity="Warning"
                           IsIconVisible="True"
                           IsClosable="True" />

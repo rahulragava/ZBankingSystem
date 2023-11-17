@@ -75,32 +75,40 @@ namespace ZBMS.View.UserControl
         {
             FrameworkElement window = (FrameworkElement)Window.Current.Content;
 
-            if (AppSettings.Theme == AppSettings.LightTheme)
+            if (AppSettings.Theme == AppSettings.DarkTheme)
             {
-                AppSettings.Theme = AppSettings.DarkTheme;
+                AppSettings.Theme = AppSettings.LightTheme;
                 var titleBar = AppSettings.TitleBar;
-                //titleBar.BackgroundColor = Colors.Black;
                 titleBar.ForegroundColor = Colors.White;
-                //titleBar.ButtonBackgroundColor = Colors.Black;
+                titleBar.BackgroundColor = Color.FromArgb(205, 43, 141, 143);
                 titleBar.ButtonForegroundColor = Colors.White;
-                titleBar.BackgroundColor = Color.FromArgb(255, 24, 25, 26);
-                titleBar.ButtonBackgroundColor = Color.FromArgb(255, 24, 25, 26);
-                window.RequestedTheme = AppSettings.DarkTheme;
+                titleBar.ButtonBackgroundColor = Color.FromArgb(205, 43, 141, 143);
+                //titleBar.BackgroundColor = Colors.Black;
+                //titleBar.ForegroundColor = Colors.White;
+                ////titleBar.ButtonBackgroundColor = Colors.Black;
+                //titleBar.ButtonForegroundColor = Colors.White;
+                //titleBar.BackgroundColor = Color.FromArgb(255, 24, 25, 26);
+                //titleBar.ButtonBackgroundColor = Color.FromArgb(255, 24, 25, 26);
+                window.RequestedTheme = AppSettings.LightTheme;
                 //ThemeChangerNavigationItem.Content = "Light";
                 //ThemeChanger.Glyph = "&#E793;";
             }
             else
             {
-                AppSettings.Theme = AppSettings.LightTheme;
-                window.RequestedTheme = AppSettings.LightTheme;
+                AppSettings.Theme = AppSettings.DarkTheme;
+                window.RequestedTheme = AppSettings.DarkTheme;
                 //ThemeChanger.Glyph = "&#xE945;";
                 var titleBar = AppSettings.TitleBar;
-                //titleBar.BackgroundColor = Colors.White;
-                titleBar.ForegroundColor = Colors.Black;
+                titleBar.ForegroundColor = Colors.White;
+                //titleBar.BackgroundColor = Color.FromArgb(205, 43, 141, 143);
+                //titleBar.ButtonBackgroundColor = Color.FromArgb(205, 43, 141, 143);
+                titleBar.ButtonForegroundColor = Colors.White;
+                titleBar.BackgroundColor = Colors.White;
+                //titleBar.ForegroundColor = Colors.Black;
                 //titleBar.ButtonBackgroundColor = Colors.White;
-                titleBar.BackgroundColor = Color.FromArgb(255, 240, 242, 245);
-                titleBar.ButtonBackgroundColor = Color.FromArgb(255, 240, 242, 245);
-                titleBar.ButtonForegroundColor = Colors.Black;
+                //titleBar.BackgroundColor = Color.FromArgb(255, 240, 242, 245);
+                titleBar.ButtonBackgroundColor = Colors.White;
+                //titleBar.ButtonForegroundColor = Colors.Black;
 
                 //ThemeChangerNavigationItem.Content = "Dark";
             }
