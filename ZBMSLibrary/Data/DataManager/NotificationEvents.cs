@@ -11,6 +11,8 @@ namespace ZBMSLibrary.Data.DataManager
         public static Action<double> DepositCurrentAmountUpdation;
         public static Action<double> WithdrawSavingsAccountAmountUpdation;
         public static Action<double> WithdrawCurrentAccountAmountUpdation;
+        public static Action<double> TransferCurrentAccountBalanceUpdation;
+        public static Action<double> TransferSavingsAccountBalanceUpdation;
         public static Action<CurrentAccountBObj> CurrentAccountCreated;
         public static Action<SavingsAccountBObj> SavingsAccountCreated;
         public static Action<FixedDepositBObj> FixedDepositCreated;

@@ -27,6 +27,7 @@ using ZBMS.View.UserControl;
 using Windows.UI.Xaml.Controls.Maps;
 using ZBMS.Util;
 using Windows.UI.Xaml.Media.Animation;
+using ZBMS.Util.PageArguments;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -304,74 +305,27 @@ namespace ZBMS.View.Pages
             LoanCreationPopup.VerticalOffset = 0;
         }
 
-        private void DepositCreationPopup_OnPointerPressed(object sender, PointerRoutedEventArgs e)
-        {
-            IsDepositPopupDragging = true;
-            e.Handled = true;
-        }
-        private void AccountCreationPopup_OnPointerPressed(object sender, PointerRoutedEventArgs e)
-        {
-            IsAccountPopupDragging = true;
-            e.Handled = true;
-        }
-
-        private void DepositCreationPopup_OnPointerReleased(object sender, PointerRoutedEventArgs e)
-        {
-           
-            
-        }
-        private void AccountCreationPopup_OnPointerReleased(object sender, PointerRoutedEventArgs e)
-        {
-            IsAccountPopupDragging = false;
-
-            e.Handled = true;
-        }
-        private void DepositCreationPopup_OnPointerMoved(object sender, PointerRoutedEventArgs e)
-        {
-            if (IsDepositPopupDragging)
-            {
-
-                var pointerPosition = Windows.UI.Core.CoreWindow.GetForCurrentThread().PointerPosition;
-                var x = pointerPosition.X - Window.Current.Bounds.X - 84;
-                var y = pointerPosition.Y - Window.Current.Bounds.Y - 37;
-                //change position
-                DepositCreationPopup.HorizontalOffset = x;
-                DepositCreationPopup.VerticalOffset = y;
-            }
-            //get pointer position
-
-
-            e.Handled = true;
-        }
-        private void AccountCreationPopup_OnPointerMoved(object sender, PointerRoutedEventArgs e)
-        {
-            if (IsAccountPopupDragging)
-            {
-
-                var pointerPosition = Windows.UI.Core.CoreWindow.GetForCurrentThread().PointerPosition;
-                var x = pointerPosition.X - Window.Current.Bounds.X - 84;
-                var y = pointerPosition.Y - Window.Current.Bounds.Y - 37;
-                //change position
-                AccountCreationPopup.HorizontalOffset = x;
-                AccountCreationPopup.VerticalOffset = y;
-            }
-            //get pointer position
-
-
-            e.Handled = true;
-        }
-
         private void AccountListView_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var gridView = sender as AdaptiveGridView;
 
             if (gridView?.SelectedItem is SavingsAccountBObj savingsAccount)
             {
-                this.Frame.Navigate(typeof(AccountsDetailsPage.SavingsAccountDetailPage), savingsAccount);
+                var savingsAccountPageArgument = new SavingsAccountPageArguments()
+                {
+                    Accounts = AccountViewModel.Accounts,
+                    SavingsAccountBObj = savingsAccount,
+                };
+                this.Frame.Navigate(typeof(AccountsDetailsPage.SavingsAccountDetailPage), savingsAccountPageArgument);
             }
             else if (gridView?.SelectedItem is CurrentAccountBObj currentAccount)
             {
-                this.Frame.Navigate(typeof(AccountsDetailsPage.CurrentAccountDetailsPage), currentAccount);
+                var currentAccountPageArgument = new CurrentAccountPageArguments()
+                {
+                    Accounts = AccountViewModel.Accounts,
+                    CurrentAccountBObj = currentAccount,
+                };
+                this.Frame.Navigate(typeof(AccountsDetailsPage.CurrentAccountDetailsPage), currentAccountPageArgument);
             }
         }
 

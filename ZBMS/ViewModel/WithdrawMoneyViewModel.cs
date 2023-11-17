@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using ZBMSLibrary.Data;
 using ZBMSLibrary.Entities.BusinessObject;
 using ZBMSLibrary.Entities.Model;
@@ -6,14 +9,14 @@ using ZBMSLibrary.UseCase;
 
 namespace ZBMS.ViewModel
 {
-    public class WithdrawMoneyViewModel : ViewModelBase
+    public class WithdrawMoneyViewModel : INotifyPropertyChanged
     {
         private string _amountToBeDeposited;
 
         public string AmountToBeDeposited
         {
             get => _amountToBeDeposited;
-            set => Set(ref _amountToBeDeposited, value);
+            set => SetField(ref _amountToBeDeposited, value);
         }
 
         public CurrentAccountBObj CurrentAccountBObj { get; set; }
@@ -89,5 +92,19 @@ namespace ZBMS.ViewModel
         }
 
 
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        protected bool SetField<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
+        {
+            if (EqualityComparer<T>.Default.Equals(field, value)) return false;
+            field = value;
+            OnPropertyChanged(propertyName);
+            return true;
+        }
     }
 }

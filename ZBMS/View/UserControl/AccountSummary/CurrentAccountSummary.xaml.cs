@@ -32,14 +32,18 @@ namespace ZBMS.View.UserControl.AccountSummary
         private void OnUnloaded(object sender, RoutedEventArgs e)
         {
 
-            NotificationEvents.DepositCurrentAmountUpdation -= UpdateBalance;
+            NotificationEvents.DepositCurrentAmountUpdation -= DepositAmountUpdated;
             NotificationEvents.WithdrawCurrentAccountAmountUpdation -= WithdrawAmountUpdated;
+            NotificationEvents.TransferCurrentAccountBalanceUpdation -= UpdateBalance;
+
         }
 
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
-            NotificationEvents.DepositCurrentAmountUpdation += UpdateBalance;
+            NotificationEvents.DepositCurrentAmountUpdation += DepositAmountUpdated;
             NotificationEvents.WithdrawCurrentAccountAmountUpdation += WithdrawAmountUpdated;
+            NotificationEvents.TransferCurrentAccountBalanceUpdation += UpdateBalance;
+
         }
 
         private void WithdrawAmountUpdated(double depositedAmount)
@@ -52,7 +56,7 @@ namespace ZBMS.View.UserControl.AccountSummary
             );
         }
 
-        private void UpdateBalance(double depositedAmount)
+        private void DepositAmountUpdated(double depositedAmount)
         {
             Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                 () =>
@@ -60,6 +64,17 @@ namespace ZBMS.View.UserControl.AccountSummary
                     CurrentAccountBObj.Balance += depositedAmount;
                 }
             );  
+        }
+
+        private void UpdateBalance(double trasferredAmount)
+        {
+            Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                () =>
+                {
+                        CurrentAccountBObj.Balance -= trasferredAmount;
+                   
+                }
+            );
         }
 
         public static readonly DependencyProperty CurrentAccountBObjProperty =
@@ -71,14 +86,5 @@ namespace ZBMS.View.UserControl.AccountSummary
             get => (CurrentAccountBObj)GetValue(CurrentAccountBObjProperty);
             set => SetValue(CurrentAccountBObjProperty, value);
         }
-        //public static readonly DependencyProperty BalanceProperty =
-        //    DependencyProperty.Register(nameof(Balance), typeof(double), typeof(CurrentAccountSummary),
-        //        new PropertyMetadata(0.0));
-
-        //public double Balance
-        //{
-        //    get => (double)GetValue(BalanceProperty);
-        //    set => SetValue(BalanceProperty, value);
-        //}
     }
 }

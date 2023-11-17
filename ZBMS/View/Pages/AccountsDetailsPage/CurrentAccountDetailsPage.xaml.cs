@@ -6,6 +6,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
+using ZBMS.Util.PageArguments;
 using ZBMS.View.UserControl;
 using ZBMS.ViewModel.DetailViewModel;
 using ZBMSLibrary.Data.DataManager;
@@ -121,8 +122,9 @@ namespace ZBMS.View.Pages.AccountsDetailsPage
         {
 
             base.OnNavigatedTo(e);
-            var currentAccountBObj = e.Parameter as CurrentAccountBObj;
-            CurrentAccountDetailsViewModel.CurrentAccountBObj = currentAccountBObj;
+            var currentAccountPageArguments = e.Parameter as CurrentAccountPageArguments;
+            CurrentAccountDetailsViewModel.CurrentAccountBObj = currentAccountPageArguments?.CurrentAccountBObj;
+            CurrentAccountDetailsViewModel.Accounts= currentAccountPageArguments?.Accounts;
             CurrentAccountDetailsViewModel.ClearAndAddTransaction();
 
         }
@@ -138,7 +140,7 @@ namespace ZBMS.View.Pages.AccountsDetailsPage
         private void WithdrawalUserControl_OnWithDrawZeroWarning()
         {
             InfoBar.Severity = InfoBarSeverity.Warning;
-            InfoBar.Message = "cant withdraw Rs.0";
+            InfoBar.Message = "can't withdraw Rs.0";
             CreateTimer();
             InfoBar.IsOpen = true;
 
@@ -148,7 +150,7 @@ namespace ZBMS.View.Pages.AccountsDetailsPage
         private void WithdrawalUserControl_OnWithdrawInsufficientBalanceWarning()
         {
             InfoBar.Severity = InfoBarSeverity.Warning;
-            InfoBar.Message = "InSufficient Balance. Kindly check your balance and withdraw";
+            InfoBar.Message = "InSufficient balance. Kindly check your balance and withdraw";
             CreateTimer();
             InfoBar.IsOpen = true;
         }
@@ -156,7 +158,7 @@ namespace ZBMS.View.Pages.AccountsDetailsPage
         private void DepositMoneyUserControl_OnZeroDepositWarning()
         {
             InfoBar.Severity = InfoBarSeverity.Warning;
-            InfoBar.Message = "cant Deposit Rs.0";
+            InfoBar.Message = "can't deposit Rs.0";
             CreateTimer();
             InfoBar.IsOpen = true;
         }
@@ -188,6 +190,30 @@ namespace ZBMS.View.Pages.AccountsDetailsPage
                     DepositButton.Flyout.ShowAt(DepositButton);
                 }
             }
+        }
+
+        private void TransferMoneyUserControl_OnTransferInsufficientBalanceWarning()
+        {
+            InfoBar.Severity = InfoBarSeverity.Warning;
+            InfoBar.Message = "Insufficient Balance";
+            CreateTimer();
+            InfoBar.IsOpen = true;
+        }
+
+        private void TransferMoneyUserControl_OnTransferSuccess(TransactionSummaryVObj transactionSummaryVObj)
+        {
+            InfoBar.Severity = InfoBarSeverity.Success;
+            InfoBar.Message = $"successfully transferred Rs.{transactionSummaryVObj.Amount}";
+            CreateTimer();
+            InfoBar.IsOpen = true;
+            CurrentAccountDetailsViewModel.TransactionList.Insert(0, transactionSummaryVObj);
+        }
+        private void TransferMoneyUserControl_OnZeroDepositWarning()
+        {
+            InfoBar.Severity = InfoBarSeverity.Warning;
+            InfoBar.Message = "cant transfer Rs.0";
+            CreateTimer();
+            InfoBar.IsOpen = true;
         }
     }
     

@@ -121,11 +121,13 @@
     </Compile>
     <Compile Include="Services\AppSettings.cs" />
     <Compile Include="Util\Converters\DateFormatter.cs" />
-    <Compile Include="Util\FixedDepositPageArguments.cs" />
-    <Compile Include="Util\LoanPageArguments.cs" />
+    <Compile Include="Util\PageArguments\FixedDepositPageArguments.cs" />
+    <Compile Include="Util\PageArguments\LoanPageArguments.cs" />
     <Compile Include="Util\ObservableDictionary.cs" />
     <Compile Include="Util\Converters\TypeToBackgroundConverter.cs" />
-    <Compile Include="Util\RecurringDepositPageArguments.cs" />
+    <Compile Include="Util\PageArguments\CurrentAccountPageArguments.cs" />
+    <Compile Include="Util\PageArguments\SavingsAccountPageArguments.cs" />
+    <Compile Include="Util\PageArguments\RecurringDepositPageArguments.cs" />
     <Compile Include="Util\SelectAccountTemplate.cs" />
     <Compile Include="Util\SelectDepositTemplate.cs" />
     <Compile Include="Util\SelectLoanTemplate.cs" />
@@ -144,6 +146,7 @@
     <Compile Include="ViewModel\LoanPaymentViewModel.cs" />
     <Compile Include="ViewModel\MainPageViewModel.cs" />
     <Compile Include="ViewModel\TransactionViewModel.cs" />
+    <Compile Include="ViewModel\TransferMoneyViewModel.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
     <Compile Include="ViewModel\WithdrawMoneyViewModel.cs" />
     <Compile Include="View\Pages\AccountsDetailsPage\CurrentAccountDetailsPage.xaml.cs">
@@ -252,6 +255,9 @@
     <Compile Include="View\UserControl\TransactionUserControl.xaml.cs">
       <DependentUpon>TransactionUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\UserControl\TransferMoneyUserControl.xaml.cs">
+      <DependentUpon>TransferMoneyUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\UserControl\UserProfileControl.xaml.cs">
       <DependentUpon>UserProfileControl.xaml</DependentUpon>
     </Compile>
@@ -329,10 +335,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="Styles\Styles.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Styles\ThemeResource.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -474,6 +476,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\UserControl\TransactionUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\UserControl\TransferMoneyUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

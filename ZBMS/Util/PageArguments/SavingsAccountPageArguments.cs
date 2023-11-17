@@ -2,11 +2,11 @@
 using ZBMSLibrary.Entities.BusinessObject;
 using ZBMSLibrary.Entities.Model;
 
-namespace ZBMS.Util
+namespace ZBMS.Util.PageArguments
 {
-    public class RecurringDepositPageArguments
+    public class SavingsAccountPageArguments
     {
-        public RecurringAccountBObj RecurringAccountBObj{ get; set; }
+        public SavingsAccountBObj SavingsAccountBObj { get; set; }
         public ObservableCollection<Account> Accounts { get; set; }
     }
 }

@@ -13,6 +13,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using ZBMS.Util;
+using ZBMS.Util.PageArguments;
 using ZBMS.ViewModel.DetailViewModel;
 using ZBMSLibrary.Entities.BusinessObject;
 

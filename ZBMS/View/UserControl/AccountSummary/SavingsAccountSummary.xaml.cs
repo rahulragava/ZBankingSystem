@@ -32,15 +32,18 @@ namespace ZBMS.View.UserControl.AccountSummary
 
         private void OnUnloaded(object sender, RoutedEventArgs e)
         {
-            NotificationEvents.DepositSavingsAccountAmountUpdation -= UpdateBalance;
+            NotificationEvents.DepositSavingsAccountAmountUpdation -= DepositAmountUpdated;
             NotificationEvents.WithdrawSavingsAccountAmountUpdation -= WithdrawAmountUpdated;
+            NotificationEvents.TransferSavingsAccountBalanceUpdation -= UpdateBalance;
+
         }
 
 
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
-            NotificationEvents.DepositSavingsAccountAmountUpdation += UpdateBalance;
+            NotificationEvents.DepositSavingsAccountAmountUpdation += DepositAmountUpdated;
             NotificationEvents.WithdrawSavingsAccountAmountUpdation += WithdrawAmountUpdated;
+            NotificationEvents.TransferSavingsAccountBalanceUpdation += UpdateBalance;
         }
 
         public event Action<double> WithdrawSuccessNotification;
@@ -59,33 +62,30 @@ namespace ZBMS.View.UserControl.AccountSummary
             );
         }
 
-        private void UpdateBalance(double depositedAmount)
+        private void DepositAmountUpdated(double depositedAmount)
         {
             Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                 () =>
                 {
-                    try
-                    {
+              
                         SavingsAccountBObj.Balance += depositedAmount;
                         DepositSuccessNotification?.Invoke(depositedAmount);
-                    }
-                    catch (Exception ex)
-                    {
-                        //var a = 0;
-                    }
+                    
+                
                 }
             );
         }
 
-        //public static readonly DependencyProperty BalanceProperty =
-        //    DependencyProperty.Register(nameof(Balance), typeof(double), typeof(SavingsAccountSummary),
-        //        new PropertyMetadata(0.0));
-
-        //public double Balance
-        //{
-        //    get => (double)GetValue(BalanceProperty);
-        //    set => SetValue(BalanceProperty, value);
-        //}
+        private void UpdateBalance(double transferredAmount)
+        {
+            Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                () =>
+                {
+                        SavingsAccountBObj.Balance -= transferredAmount;
+                    
+                }
+            );
+        }
 
         public static readonly DependencyProperty SavingsAccountBObjProperty =
             DependencyProperty.Register(nameof(SavingsAccountBObj), typeof(SavingsAccountBObj), typeof(SavingsAccountSummary),

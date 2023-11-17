@@ -131,9 +131,11 @@
     <Compile Include="Data\DataManager\Contract\ICreateLoanAccountManager.cs" />
     <Compile Include="Data\DataManager\Contract\IGetUserManager.cs" />
     <Compile Include="Data\DataManager\Contract\ILoanMonthlyDuePaymentManager.cs" />
+    <Compile Include="Data\DataManager\Contract\ITransferManager.cs" />
     <Compile Include="Data\DataManager\Contract\IUpdateUserLoggedInManager.cs" />
     <Compile Include="Data\DataManager\Contract\IUpdateUserLoggedOutManager.cs" />
     <Compile Include="Data\DataManager\CreateLoanAccountManager.cs" />
+    <Compile Include="Data\DataManager\CustomException\InsufficientBalanceException.cs" />
     <Compile Include="Data\DataManager\DeduceMonthlyInstallmentManager.cs" />
     <Compile Include="Data\DataManager\Contract\ICreateCurrentAccountManager.cs" />
     <Compile Include="Data\DataManager\Contract\ICreateFixedDepositManager.cs" />
@@ -161,6 +163,7 @@
     <Compile Include="Data\DataManager\GetUserManager.cs" />
     <Compile Include="Data\DataManager\LoanMonthlyDuePaymentManager.cs" />
     <Compile Include="Data\DataManager\NotificationEvents.cs" />
+    <Compile Include="Data\DataManager\TransferManager.cs" />
     <Compile Include="Data\DataManager\UpdateUserLoggedInManager.cs" />
     <Compile Include="Data\DataManager\UpdateUserLoggedOutManager.cs" />
     <Compile Include="Data\DataManager\WithdrawMoneyFromAccountManager.cs" />
@@ -207,6 +210,7 @@
     <Compile Include="UseCase\GetUserLastSeenUseCase.cs" />
     <Compile Include="UseCase\GetUserUseCase.cs" />
     <Compile Include="UseCase\LoanMonthlyDuePaymentUseCase.cs" />
+    <Compile Include="UseCase\TransferUseCase.cs" />
     <Compile Include="UseCase\UpdateUserLoggedInUseCase.cs" />
     <Compile Include="UseCase\UseCaseBase.cs" />
     <Compile Include="UseCase\WithdrawUseCase.cs" />

@@ -2,11 +2,11 @@
 using ZBMSLibrary.Entities.BusinessObject;
 using ZBMSLibrary.Entities.Model;
 
-namespace ZBMS.Util
+namespace ZBMS.Util.PageArguments
 {
-    public class FixedDepositPageArguments
+    public class LoanPageArguments
     {
-        public FixedDepositBObj FixedDepositBObj { get; set; }
+        public PersonalLoanBObj PersonalLoanBObj { get; set; }
         public ObservableCollection<Account> Accounts { get; set; }
     }
 }

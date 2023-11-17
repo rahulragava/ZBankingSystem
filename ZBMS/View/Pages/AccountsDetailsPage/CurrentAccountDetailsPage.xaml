@@ -68,50 +68,31 @@ IsTabStop="False"
                         </Flyout>
                     </Button.Flyout>
                 </Button>
+                <Button Content="Transfer"
+                        Foreground="white"
+                        IsTabStop="False"
+                        CornerRadius="5"
+                        Style="{ThemeResource FeatureButtonStyle}"
+                        Background="{ThemeResource AcrylicBrushBackground}"
+                        VerticalAlignment="Center"
+                        x:Name="TransactionButton">
+                    <Button.Flyout>
+                        <Flyout>
+                            <userControl:TransferMoneyUserControl TransferZeroWarning="TransferMoneyUserControl_OnZeroDepositWarning"
+                                                                  x:Name="TransferMoneyUserControl"
+                                                                  AccountList="{x:Bind CurrentAccountDetailsViewModel.Accounts,Mode=OneWay}"
+                                                                  TransferInsufficientBalanceWarning="TransferMoneyUserControl_OnTransferInsufficientBalanceWarning"
+                                                                  TransferSuccess="TransferMoneyUserControl_OnTransferSuccess"
+                                                                  TransferFromAccount="{x:Bind CurrentAccountDetailsViewModel.CurrentAccountBObj,Mode=OneWay}"/>
+                        </Flyout>
+                    </Button.Flyout>
+                </Button>
             </StackPanel>
 
             <accountSummary:CurrentAccountSummary Grid.Row="1"
                                                   Grid.Column="0"
                                                   Margin="5"
                                                   CurrentAccountBObj="{x:Bind CurrentAccountDetailsViewModel.CurrentAccountBObj,Mode=OneWay}" />
-            <!--<userControl:OneByTwoGrid Grid.Row="2"
-                                      Width1Ratio="3*"
-                                      Width2Ratio="2*"
-                                      NarrowScreenBreakPoint="1000">
-                <userControl:OneByTwoGrid.Column1Content>
-                    <userControl:TransactionUserControl Margin="5 5 0 5"
-                                                        x:Name="TransactionUserControl"
-                                                        TransactionList="{x:Bind CurrentAccountDetailsViewModel.TransactionList,Mode=OneWay}">
-
-                    </userControl:TransactionUserControl>
-                </userControl:OneByTwoGrid.Column1Content>
-                <userControl:OneByTwoGrid.Column2Content>
-                    <Grid CornerRadius="0"
-                          BorderBrush="{ThemeResource AppBarBorderThemeBrush}"
-                          BorderThickness="0"
-                          Margin="5 0 0 0">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"></RowDefinition>
-                            <RowDefinition Height="Auto"></RowDefinition>
-                            <RowDefinition Height="*"></RowDefinition>
-                        </Grid.RowDefinitions>
-                        <userControl:DepositMoneyUserControl  Margin="5"
-                                                              Account="{x:Bind CurrentAccountDetailsViewModel.CurrentAccountBObj,Mode=OneWay}" />
-                        <userControl:WithdrawalUserControl Grid.Row="1"
-                                                           Margin="5"
-                                                           Account="{x:Bind CurrentAccountDetailsViewModel.CurrentAccountBObj,Mode=OneWay}" />
-                        <Grid Grid.Row="2"
-                              CornerRadius="10"
-                              Grid.Column="0"
-                              Margin="5"
-                              Background="{ThemeResource BackgroundColor}">
-                            <TextBlock HorizontalAlignment="Center"
-                                       VerticalAlignment="Center">Coming soon</TextBlock>
-
-                        </Grid>
-                    </Grid>
-                </userControl:OneByTwoGrid.Column2Content>
-            </userControl:OneByTwoGrid>-->
 
             <Grid Grid.Row="2">
                 <userControl:TransactionUserControl Margin="5 5 0 0"

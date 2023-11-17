@@ -8,12 +8,12 @@ namespace ZBMS.ViewModel.DetailViewModel
     {
         public SavingsAccountBObj SavingsAccountBObj { get; set; }
         public ObservableCollection<TransactionSummaryVObj> TransactionList { get; set; }
-
+        public ObservableCollection<Account> Accounts { get; set; }
         public SavingsAccountDetailViewModel()
         {
             TransactionList = new ObservableCollection<TransactionSummaryVObj>();
+            Accounts = new ObservableCollection<Account>();
         }
-
         public void ClearAndAddTransaction()
         {
             TransactionList = new ObservableCollection<TransactionSummaryVObj>(SavingsAccountBObj.TransactionList);

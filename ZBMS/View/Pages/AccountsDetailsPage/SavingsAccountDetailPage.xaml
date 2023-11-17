@@ -152,8 +152,7 @@
                         Height="50"
                         Margin=" 0 5 30 0"
                         Spacing="10">
-                <Button Grid.Column="1"
-                        Content="Deposit"
+                <Button Content="Deposit"
                         Foreground="white"
                         IsTabStop="False"
                         CornerRadius="5"
@@ -169,8 +168,7 @@
                         </Flyout>
                     </Button.Flyout>
                 </Button>
-                <Button Grid.Column="2"
-                        Content="Withdraw"
+                <Button Content="Withdraw"
                         CornerRadius="5"
                         Foreground="white"
                         Style="{ThemeResource FeatureButtonStyle}"
@@ -187,8 +185,7 @@
                     </Button.Flyout>
                 </Button>
 
-                <Button Grid.Column="1"
-                        Content="Transfer"
+                <Button Content="Transfer"
                         Foreground="white"
                         IsTabStop="False"
                         CornerRadius="5"
@@ -198,9 +195,12 @@
                         x:Name="TransactionButton">
                     <Button.Flyout>
                         <Flyout>
-                            <!--<userControl:DepositMoneyUserControl ZeroDepositWarning="DepositMoneyUserControl_OnZeroDepositWarning"
+                            <userControl:TransferMoneyUserControl TransferZeroWarning="TransferMoneyUserControl_OnZeroDepositWarning"
                                                                  x:Name="TransferMoneyUserControl"
-                                                                 Account="{x:Bind SavingsAccountDetailViewModel.SavingsAccountBObj,Mode=OneWay}"></userControl:DepositMoneyUserControl>-->
+                                                                 AccountList="{x:Bind SavingsAccountDetailViewModel.Accounts,Mode=OneWay}"
+                                                                 TransferInsufficientBalanceWarning="TransferMoneyUserControl_OnTransferInsufficientBalanceWarning"
+                                                                 TransferSuccess="TransferMoneyUserControl_OnTransferSuccess"
+                                                                 TransferFromAccount="{x:Bind SavingsAccountDetailViewModel.SavingsAccountBObj,Mode=OneWay}"></userControl:TransferMoneyUserControl>
                         </Flyout>
                     </Button.Flyout>
                 </Button>

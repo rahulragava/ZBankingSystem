@@ -19,6 +19,7 @@ using ZBMSLibrary.UseCase;
 using System.Transactions;
 using System.Collections.ObjectModel;
 using ZBMS.Util;
+using ZBMSLibrary.Entities.Enums;
 
 namespace ZBMSLibrary.Data.DataHandler
 {
@@ -52,7 +53,7 @@ namespace ZBMSLibrary.Data.DataHandler
                         Description = transactionSummary.Description,
                         ReceiverAccountNumber = transactionSummary.ReceiverAccountNumber,
                         TransactionOn = transactionSummary.TransactionOn,
-                        TransactionType = transactionSummary.TransactionType,
+                        TransactionType = TransactionType.Debit,
                         SenderAccountNumber = transactionSummary.SenderAccountNumber,
                         Id = transactionSummary.Id,
                         UserName = userName,
@@ -68,7 +69,8 @@ namespace ZBMSLibrary.Data.DataHandler
                         Description = transactionSummary.Description,
                         ReceiverAccountNumber = transactionSummary.ReceiverAccountNumber,
                         TransactionOn = transactionSummary.TransactionOn,
-                        TransactionType = transactionSummary.TransactionType,
+                        TransactionType = TransactionType.Credit,
+
                         SenderAccountNumber = transactionSummary.SenderAccountNumber,
                         Id = transactionSummary.Id,
                         UserName = userName,
@@ -122,7 +124,7 @@ namespace ZBMSLibrary.Data.DataHandler
                         Description = transactionSummary.Description,
                         ReceiverAccountNumber = transactionSummary.ReceiverAccountNumber,
                         TransactionOn = transactionSummary.TransactionOn,
-                        TransactionType = transactionSummary.TransactionType,
+                        TransactionType = TransactionType.Debit,
                         SenderAccountNumber = transactionSummary.SenderAccountNumber,
                         Id = transactionSummary.Id,
                         UserName = userName,
@@ -138,7 +140,7 @@ namespace ZBMSLibrary.Data.DataHandler
                         Description = transactionSummary.Description,
                         ReceiverAccountNumber = transactionSummary.ReceiverAccountNumber,
                         TransactionOn = transactionSummary.TransactionOn,
-                        TransactionType = transactionSummary.TransactionType,
+                        TransactionType = TransactionType.Credit,
                         SenderAccountNumber = transactionSummary.SenderAccountNumber,
                         Id = transactionSummary.Id,
                         UserName = userName,
