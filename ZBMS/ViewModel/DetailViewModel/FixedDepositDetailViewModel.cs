@@ -1,9 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using Windows.UI.Core;
+using ZBMS.View.Pages.AccountsDetailsPage;
+using ZBMSLibrary.Data;
 using ZBMSLibrary.Entities.BusinessObject;
 using ZBMSLibrary.Entities.Model;
+using ZBMSLibrary.UseCase;
 
 namespace ZBMS.ViewModel.DetailViewModel
 {
@@ -12,6 +17,8 @@ namespace ZBMS.ViewModel.DetailViewModel
         public FixedDepositBObj FixedDepositBObj { get; set; }
 
         public ObservableCollection<Account> Accounts { get; set; }
+
+        public IFixedDepositView FixedDepositView;
 
         private string _fromAccountNumber;
 
@@ -31,9 +38,45 @@ namespace ZBMS.ViewModel.DetailViewModel
         }
 
 
-        public FixedDepositDetailViewModel()
+        public FixedDepositDetailViewModel(IFixedDepositView fixedDepositView)
         {
             Accounts = new ObservableCollection<Account>();
+            FixedDepositView = fixedDepositView;
+        }
+
+
+        public void ClosingAccountManually()
+        {
+            //closing fd account manually
+            var request = new CloseFixedDepositRequest(FixedDepositBObj);
+            var useCase = new ClosingFixedDepositUseCase(request, new ClosingFixedDepositPresenterCallBack(this));
+            useCase.Execute();
+        }
+
+
+
+        public class ClosingFixedDepositPresenterCallBack : IPresenterCallBack<CloseFixedDepositResponse>
+        {
+            private readonly FixedDepositDetailViewModel _viewModel;
+            public ClosingFixedDepositPresenterCallBack(FixedDepositDetailViewModel viewModel)
+            {
+                _viewModel = viewModel;
+            }
+
+            public void OnSuccess(CloseFixedDepositResponse response)
+            {
+                Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                    () =>
+                    {
+                        _viewModel.FixedDepositView.OnFixedDepositSuccessfullyClosed();
+                    }
+                );
+            }
+
+            public void OnError(Exception ex)
+            {
+                //throw new NotImplementedException();
+            }
         }
 
 
@@ -51,5 +94,7 @@ namespace ZBMS.ViewModel.DetailViewModel
             OnPropertyChanged(propertyName);
             return true;
         }
+
+       
     }
 }

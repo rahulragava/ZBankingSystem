@@ -19,6 +19,7 @@ using Microsoft.UI.Xaml.Controls;
 using ZBMS.ViewModel;
 using ZBMSLibrary.Entities.Model;
 using RadioButton = Windows.UI.Xaml.Controls.RadioButton;
+using Windows.UI.Core;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -109,12 +110,28 @@ namespace ZBMS.View.UserControl
 
         private void CreateAccount_OnClick(object sender, RoutedEventArgs e)
         {
-            if ((String.IsNullOrEmpty(PanTextBox.Text) && string.IsNullOrEmpty(BalanceTextBox.Text) &&
-                  string.IsNullOrEmpty(BalanceTextBox.Text)))
+            if ((string.IsNullOrEmpty(BalanceTextBox.Text)) ||
+                  (string.IsNullOrWhiteSpace(BalanceTextBox.Text)))
             {
+                InvalidBalanceTextBlock.Visibility = Visibility.Visible;
+                InvalidBalanceTextBlock.Text = "Field cannot be empty";
                 return;
             }
+            else
+            {
+                InvalidBalanceTextBlock.Visibility = Visibility.Collapsed;
+            }
 
+            if (String.IsNullOrWhiteSpace(PanTextBox.Text) || String.IsNullOrEmpty(PanTextBox.Text))
+            {
+                InvalidPanTextBlock.Visibility = Visibility.Visible;
+                InvalidPanTextBlock.Text = "Field cannot be empty";
+                return;
+            }
+            else
+            {
+                InvalidPanTextBlock.Visibility = Visibility.Collapsed;
+            }
             if (CurrentAccountRadioButton.IsChecked != null && (bool)CurrentAccountRadioButton.IsChecked)
             {
                 if (double.Parse(BalanceTextBox.Text) < AccountCreationViewModel.CurrentAccountMinimumBalance)
@@ -218,10 +235,20 @@ namespace ZBMS.View.UserControl
 
                 if (dotCount > 1)
                 {
-                    PanTextBox.Background = new SolidColorBrush(Color.FromArgb(1, 255, 0, 0));
-                    InvalidPanTextBlock.Visibility = Visibility.Visible;
+                    InvalidBalanceTextBlock.Foreground = new SolidColorBrush(Color.FromArgb(255, 255, 0, 0));
+                    InvalidBalanceTextBlock.Visibility = Visibility.Visible;
                 }
             }
+        }
+
+        private void Button_OnPointerEntered(object sender, PointerRoutedEventArgs e)
+        {
+            Window.Current.CoreWindow.PointerCursor = new CoreCursor(CoreCursorType.Hand, 1);
+        }
+
+        private void Button_OnPointerExited(object sender, PointerRoutedEventArgs e)
+        {
+            Window.Current.CoreWindow.PointerCursor = new CoreCursor(CoreCursorType.Arrow, 1);
         }
     }
     

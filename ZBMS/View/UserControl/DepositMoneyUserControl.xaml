@@ -46,6 +46,8 @@
                 Margin="0 0 20 10"
                 Content="Deposit"
                 x:Name="DepositButton"
+                PointerExited="Button_OnPointerExited"
+                PointerEntered="Button_OnPointerEntered"
                 IsEnabled="False"
                 Click="DepositButton_OnClick"
                 CornerRadius="8"

@@ -128,7 +128,7 @@ namespace ZBMS.View.UserControl
             if (string.IsNullOrEmpty(BranchNameComboBox.SelectedItem as string) || string.IsNullOrWhiteSpace(BranchNameComboBox.SelectedItem as string))
             {
                 //PanTextBox.Background = new SolidColorBrush(Color.FromArgb(1, 255, 0, 0));
-                BranchNameComboBox.Header= "Branch field cannot be empty";
+                BranchNameComboBox.Header = "Branch field cannot be empty";
                 return;
             }
 
@@ -228,13 +228,34 @@ namespace ZBMS.View.UserControl
         {
             if (FixedDepositRadioButton.IsChecked != null && (bool)FixedDepositRadioButton.IsChecked)
             {
+                switch (AccountCreationViewModel.Tenure)
+                {
+                    case 0:
+                        AccountCreationViewModel.FixedDepositInterestRate = 0.0;
+                        break;
+                    case 1:
+                        AccountCreationViewModel.FixedDepositInterestRate = 6;
+                        break;
+                    case 2:
+                    case 3:
+                        AccountCreationViewModel.FixedDepositInterestRate = 6.8;
+                        break;
+                    case 4:
+                        AccountCreationViewModel.FixedDepositInterestRate = 7.2;
+                        break;
+                    default:
+                        AccountCreationViewModel.FixedDepositInterestRate = 7.2;
+                        break;
+                }
+
                 var dep = BalanceSlider.Value;
-                AccountCreationViewModel.EstimatedReturnCalculationForFixedDeposit(double.Parse(FixedDepositInterestRate.Text),BalanceSlider.Value,(int)TenureSlider.Value);
+                AccountCreationViewModel.EstimatedReturnCalculationForFixedDeposit(double.Parse(FixedDepositInterestRate.Text), BalanceSlider.Value, (int)TenureSlider.Value);
             }
-            else if(RecurringDepositRadioButton.IsChecked != null && (bool)RecurringDepositRadioButton.IsChecked)
+            else if (RecurringDepositRadioButton.IsChecked != null && (bool)RecurringDepositRadioButton.IsChecked)
             {
                 AccountCreationViewModel.EstimatedReturnCalculationForRecurringDeposit(BalanceSlider.Value, (int)TenureSlider.Value);
             }
+
         }
 
         private void FromAccountTextBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -261,10 +282,20 @@ namespace ZBMS.View.UserControl
             var ctrl = Window.Current.CoreWindow.GetKeyState(VirtualKey.Control);
             if (ctrl.HasFlag(CoreVirtualKeyStates.Down) && e.Key == VirtualKey.Enter)
             {
-                CreateDeposit_OnClick(sender,new RoutedEventArgs());
+                CreateDeposit_OnClick(sender, new RoutedEventArgs());
             }
             e.Handled = true;
 
+        }
+
+        private void Button_OnPointerEntered(object sender, PointerRoutedEventArgs e)
+        {
+            Window.Current.CoreWindow.PointerCursor = new CoreCursor(CoreCursorType.Hand, 1);
+        }
+
+        private void Button_OnPointerExited(object sender, PointerRoutedEventArgs e)
+        {
+            Window.Current.CoreWindow.PointerCursor = new CoreCursor(CoreCursorType.Arrow, 1);
         }
     }
 }

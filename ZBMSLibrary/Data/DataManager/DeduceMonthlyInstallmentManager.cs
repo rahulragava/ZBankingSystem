@@ -80,21 +80,7 @@ namespace ZBMSLibrary.Data.DataManager
                         };
                         NotificationEvents.MonthlyRdCurrentTransaction?.Invoke(transactionSummaryVObj);
                     }
-                    //var recurringDeposit = new RecurringAccount()
-                    //{
-                    //    UserId = monthlyInstallment.Key.UserId,
-                    //    AccountStatus = monthlyInstallment.Key.AccountStatus,
-                    //    DepositedAmount = monthlyInstallment.Key.DepositedAmount,
-                    //    IfscCode = monthlyInstallment.Key.IfscCode,
-                    //    CreatedOn = monthlyInstallment.Key.CreatedOn,
-                    //    AccountNumber = monthlyInstallment.Key.AccountNumber,
-                    //    InterestRate = monthlyInstallment.Key.InterestRate,
-                    //    Tenure = monthlyInstallment.Key.Tenure,
-                    //    FromAccountId = monthlyInstallment.Key.FromAccountId,
-                    //    SavingsAccountId = monthlyInstallment.Key.SavingsAccountId,
-                    //    MonthlyInstallment = monthlyInstallment.Key.MonthlyInstallment,
-                    //};
-                    monthlyInstallment.Key.LastPaidDate = DateTime.Now;
+                   
                     await _dbHandler.UpdateRecurringAccountAsync(monthlyInstallment.Key);
                     NotificationEvents.MonthlyInstallmentDeposited?.Invoke(monthlyInstallment.Key,dueAmount);
                 }

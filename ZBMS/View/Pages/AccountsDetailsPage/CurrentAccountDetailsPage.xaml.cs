@@ -215,6 +215,35 @@ namespace ZBMS.View.Pages.AccountsDetailsPage
             CreateTimer();
             InfoBar.IsOpen = true;
         }
+
+
+        private void Button_OnPointerEntered(object sender, PointerRoutedEventArgs e)
+        {
+            Window.Current.CoreWindow.PointerCursor = new CoreCursor(CoreCursorType.Hand, 1);
+        }
+
+        private void Button_OnPointerExited(object sender, PointerRoutedEventArgs e)
+        {
+            Window.Current.CoreWindow.PointerCursor = new CoreCursor(CoreCursorType.Arrow, 1);
+        }
+
+        private void BackButton_OnPointerExited(object sender, PointerRoutedEventArgs e)
+        {
+            if (sender is FontIcon icon)
+            {
+                icon.FontSize = 19;
+                Window.Current.CoreWindow.PointerCursor = new CoreCursor(CoreCursorType.Arrow, 1);
+            }
+        }
+
+        private void BackButton_OnPointerEntered(object sender, PointerRoutedEventArgs e)
+        {
+            if (sender is FontIcon icon)
+            {
+                icon.FontSize = 21;
+                Window.Current.CoreWindow.PointerCursor = new CoreCursor(CoreCursorType.Hand, 1);
+            }
+        }
     }
     
 }

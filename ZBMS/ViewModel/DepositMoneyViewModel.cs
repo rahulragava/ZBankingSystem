@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using ZBMS.View.UserControl;
 using ZBMSLibrary.Data;
 using ZBMSLibrary.Entities.BusinessObject;
@@ -9,7 +10,7 @@ namespace ZBMS.ViewModel
 {
     public class DepositMoneyViewModel : ViewModelBase
     {
-        private IDepositMoneyUserControl _depositMoneyUserControl;
+        private readonly IDepositMoneyUserControl _depositMoneyUserControl;
 
         public DepositMoneyViewModel(IDepositMoneyUserControl depositMoneyUserControl)
         {
@@ -26,48 +27,72 @@ namespace ZBMS.ViewModel
         public CurrentAccountBObj CurrentAccountBObj { get; set; }
         public SavingsAccountBObj SavingsAccountBObj { get; set; }
 
+        public bool IsTransactionLimitExceeded()
+        {
+            var today = DateTime.Today;
+            DateTime startOfDay = today.Date;
+            DateTime endOfDay = today.Date.AddDays(1);
+            var transactionsOnToday = SavingsAccountBObj.TransactionList
+                .Where(t =>
+                    (t.SenderAccountNumber == SavingsAccountBObj.AccountNumber || 
+                    t.ReceiverAccountNumber == SavingsAccountBObj.AccountNumber) &&
+                    t.TransactionOn >= startOfDay &&
+                    t.TransactionOn < endOfDay)
+                .ToList();
+            return transactionsOnToday.Count() < 10;
+        }
+
         public void DepositMoney(double depositAmount)
         {
-            if (SavingsAccountBObj != null)
-            {
-                var savingsAccount = new SavingsAccount
+            
+                if (SavingsAccountBObj != null)
                 {
-                    AccountNumber = SavingsAccountBObj.AccountNumber,
-                    IfscCode = SavingsAccountBObj.IfscCode,
-                    UserId = SavingsAccountBObj.UserId,
-                    CreatedOn = SavingsAccountBObj.CreatedOn,
-                    AccountStatus = SavingsAccountBObj.AccountStatus,
-                    Balance = SavingsAccountBObj.Balance,
-                    MinimumBalance = SavingsAccountBObj.MinimumBalance,
-                    FineAmount = SavingsAccountBObj.FineAmount,
-                    ServiceCharges = SavingsAccountBObj.ServiceCharges,
-                    InterestRate = SavingsAccountBObj.InterestRate,
-                    ToBeCreditedAmount = SavingsAccountBObj.ToBeCreditedAmount,
+                    if (IsTransactionLimitExceeded())
+                    {
+                        var savingsAccount = new SavingsAccount
+                        {
+                            AccountNumber = SavingsAccountBObj.AccountNumber,
+                            IfscCode = SavingsAccountBObj.IfscCode,
+                            UserId = SavingsAccountBObj.UserId,
+                            CreatedOn = SavingsAccountBObj.CreatedOn,
+                            AccountStatus = SavingsAccountBObj.AccountStatus,
+                            Balance = SavingsAccountBObj.Balance,
+                            MinimumBalance = SavingsAccountBObj.MinimumBalance,
+                            FineAmount = SavingsAccountBObj.FineAmount,
+                            ServiceCharges = SavingsAccountBObj.ServiceCharges,
+                            InterestRate = SavingsAccountBObj.InterestRate,
+                            ToBeCreditedAmount = SavingsAccountBObj.ToBeCreditedAmount,
+                            NextCreditDateTime = SavingsAccountBObj.NextCreditDateTime,
 
-                };
-                var request = new DepositMoneyRequest(depositAmount, savingsAccount);
-
-                var depositMoneyUseCase = new DepositMoneyUseCase(request, new DepositMoneyPresenterCallBack(this));
-                depositMoneyUseCase.Execute();
-            }
-            else
-            {
-                var currentAccount = new CurrentAccount()
+                        };
+                        var request = new DepositMoneyRequest(depositAmount, savingsAccount);
+                        var depositMoneyUseCase =
+                            new DepositMoneyUseCase(request, new DepositMoneyPresenterCallBack(this));
+                        depositMoneyUseCase.Execute();
+                    }
+                    else
+                    {
+                        _depositMoneyUserControl.TransactionLimitExceed();
+                    }
+                }
+                else
                 {
-                    AccountNumber = CurrentAccountBObj.AccountNumber,
-                    IfscCode = CurrentAccountBObj.IfscCode,
-                    UserId = CurrentAccountBObj.UserId,
-                    CreatedOn = CurrentAccountBObj.CreatedOn,
-                    AccountStatus = CurrentAccountBObj.AccountStatus,
-                    Balance = CurrentAccountBObj.Balance,
-                    MinimumBalance = CurrentAccountBObj.MinimumBalance,
-                    FineAmount = CurrentAccountBObj.FineAmount,
-                    ServiceCharges = CurrentAccountBObj.ServiceCharges,
-                };
-                var request = new DepositMoneyRequest(depositAmount, currentAccount);
-                var depositMoneyUseCase = new DepositMoneyUseCase(request, new DepositMoneyPresenterCallBack(this));
-                depositMoneyUseCase.Execute();
-            }
+                    var currentAccount = new CurrentAccount()
+                    {
+                        AccountNumber = CurrentAccountBObj.AccountNumber,
+                        IfscCode = CurrentAccountBObj.IfscCode,
+                        UserId = CurrentAccountBObj.UserId,
+                        CreatedOn = CurrentAccountBObj.CreatedOn,
+                        AccountStatus = CurrentAccountBObj.AccountStatus,
+                        Balance = CurrentAccountBObj.Balance,
+                        MinimumBalance = CurrentAccountBObj.MinimumBalance,
+                        FineAmount = CurrentAccountBObj.FineAmount,
+                        ServiceCharges = CurrentAccountBObj.ServiceCharges,
+                    };
+                    var request = new DepositMoneyRequest(depositAmount, currentAccount);
+                    var depositMoneyUseCase = new DepositMoneyUseCase(request, new DepositMoneyPresenterCallBack(this));
+                    depositMoneyUseCase.Execute();
+                }
         }
 
         public class DepositMoneyPresenterCallBack : IPresenterCallBack<DepositMoneyResponse>

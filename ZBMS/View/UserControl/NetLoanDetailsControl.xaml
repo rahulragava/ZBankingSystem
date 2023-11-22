@@ -1,0 +1,45 @@
+﻿<UserControl
+    x:Class="ZBMS.View.UserControl.NetLoanDetailsControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ZBMS.View.UserControl"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DesignHeight="300"
+    d:DesignWidth="400">
+    <UserControl.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="FontSize" Value="16"></Setter>
+            <Setter Property="FontWeight" Value="Normal"></Setter>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid x:Name="RootGrid" CornerRadius="8" Padding="5 5 5 10" Background="{ThemeResource BackgroundColor}" RowSpacing="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Total Due" Margin="5 5 0 0"></TextBlock>
+        <TextBlock Grid.Row="1"
+                   VerticalAlignment="Center"
+                   Margin="20 5 0 0"
+                   FontSize="16">
+            <Run Text="&#x20b9;" /> <Run Text="{x:Bind ConsolidatedReportViewModel.TotalDue,Mode=OneWay }"></Run>
+        </TextBlock>
+        <TextBlock Grid.Row="2" Text="Interest rate" Margin="5 5 0 0"></TextBlock>
+        <TextBlock Grid.Row="3" Text="10%"  Margin="20 5 0 0"></TextBlock>
+        <TextBlock Grid.Row="4" Text="Loan Range" Margin="5 5 0 0"/>
+        <TextBlock Grid.Row="5" Margin="25 5 0 0">
+            <Run Text="from"></Run>
+            <Run Text="&#x20b9;" /> <Run Text="{x:Bind ConsolidatedReportViewModel.LoanRangeFrom,Mode=OneWay }"></Run>
+            <Run Text="To"></Run> <Run Text="&#x20b9;" /> <Run Text="{x:Bind ConsolidatedReportViewModel.LoanRangeTo,Mode=OneWay }"></Run>
+
+        </TextBlock>
+    </Grid>
+</UserControl>

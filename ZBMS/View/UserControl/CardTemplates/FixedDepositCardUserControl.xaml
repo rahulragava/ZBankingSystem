@@ -101,7 +101,7 @@
                     Margin="0 0 0 0"
                     VerticalAlignment="Center"
                     HorizontalAlignment="Center">
-      <Run Text="&#x20b9;" /> <Run Text="{x:Bind AccountBalance, Mode=OneWay}"></Run>
+            <Run Text="&#x20b9;" /> <Run Text="{x:Bind AccountBalance, Mode=OneWay}"></Run>
         </TextBlock>
 
         <!--<Button x:Name="ViewSavingsAccountButton"

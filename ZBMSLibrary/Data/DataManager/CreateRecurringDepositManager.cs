@@ -88,7 +88,7 @@ namespace ZBMSLibrary.Data.DataManager
                     Tenure = createRecurringDepositRequest.RecurringAccount.Tenure,
                     FromAccountId = createRecurringDepositRequest.RecurringAccount.FromAccountId,
                     SavingsAccountId = createRecurringDepositRequest.RecurringAccount.SavingsAccountId,
-                    LastPaidDate = createRecurringDepositRequest.RecurringAccount.LastPaidDate,
+                    NextDueDate = createRecurringDepositRequest.RecurringAccount.NextDueDate,
                     MonthlyInstallment = createRecurringDepositRequest.RecurringAccount.MonthlyInstallment,
                 };
                 var branchName =

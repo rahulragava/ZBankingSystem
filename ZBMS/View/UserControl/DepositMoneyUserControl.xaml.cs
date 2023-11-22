@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -108,10 +109,27 @@ namespace ZBMS.View.UserControl
         {
             DepositButton.IsEnabled = AmountTextBox.Text.Length > 0;
         }
+
+        public event Action TransactionLimitExceeded;
+        public void TransactionLimitExceed()
+        {
+            TransactionLimitExceeded?.Invoke();
+        }
+
+        private void Button_OnPointerEntered(object sender, PointerRoutedEventArgs e)
+        {
+            Window.Current.CoreWindow.PointerCursor = new CoreCursor(CoreCursorType.Hand, 1);
+        }
+
+        private void Button_OnPointerExited(object sender, PointerRoutedEventArgs e)
+        {
+            Window.Current.CoreWindow.PointerCursor = new CoreCursor(CoreCursorType.Arrow, 1);
+        }
     }
 
     public interface IDepositMoneyUserControl
     {
         //void OnMoneyDeposited(double amount);
+        void TransactionLimitExceed();
     }
 }

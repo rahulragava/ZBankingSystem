@@ -89,6 +89,7 @@ namespace ZBMSLibrary.Data.DataHandler
                     IfscCode = savingsAccount.IfscCode,
                     CreatedOn = savingsAccount.CreatedOn,
                     ToBeCreditedAmount = savingsAccount.ToBeCreditedAmount,
+                    NextCreditDateTime = savingsAccount.NextCreditDateTime,
                     Balance = savingsAccount.Balance,
                     ServiceCharges = savingsAccount.ServiceCharges,
                     FineAmount = savingsAccount.FineAmount,
@@ -256,7 +257,7 @@ namespace ZBMSLibrary.Data.DataHandler
                     DepositedAmount = recurringAccount.DepositedAmount,
                     UserName = userName,
                     MonthlyInstallment = recurringAccount.MonthlyInstallment,
-                    LastPaidDate = recurringAccount.LastPaidDate,
+                    NextDueDate = recurringAccount.NextDueDate,
                     BranchName = branchName
                 };
                 recurringAccountBObj.SetDefault();

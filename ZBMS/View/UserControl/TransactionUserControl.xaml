@@ -183,19 +183,22 @@
                             <controls:DataGridTemplateColumn Header="Amount">
                                 <controls:DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate x:DataType="model:TransactionSummary">
-                                        <StackPanel Orientation="Horizontal"
-                                                    CornerRadius="6"
-                                                    Padding="3 3 4 3"
-                                                    HorizontalAlignment="Center"
-                                                    Background="{x:Bind TransactionType, Converter={StaticResource TransactionTypeToBackgroundConverter}}"
-                                                    VerticalAlignment="Center">
+                                        <Grid Width="60"
+                                              CornerRadius="6"
+                                              
+                                              Padding="3 3 4 3"
+                                              HorizontalAlignment="Center"
+                                              Background="{x:Bind TransactionType, Converter={StaticResource TransactionTypeToBackgroundConverter}}"
+                                              VerticalAlignment="Center">
                                             <TextBlock TextAlignment="Center"
                                                        Foreground="White"
+                                                       MaxWidth="80"
+                                                       TextTrimming="CharacterEllipsis"
                                                        ToolTipService.ToolTip="{x:Bind Amount,Mode=OneWay}"
                                                        VerticalAlignment="top">
-                                    <Run Text="&#x20b9;" /> <Run  Text="{x:Bind Amount,Mode=OneWay}"></Run>
+                                                 <Run Text="&#x20b9;" /> <Run  Text="{x:Bind Amount,Mode=OneWay}"></Run>
                                             </TextBlock>
-                                        </StackPanel>
+                                        </Grid>
                                     </DataTemplate>
                                 </controls:DataGridTemplateColumn.CellTemplate>
                             </controls:DataGridTemplateColumn>
@@ -228,6 +231,8 @@
                     </controls:DataGrid>
 
                 </ScrollViewer>
+
+
             </TwoPaneView.Pane1>
             <TwoPaneView.Pane2>
                 <local:TransactionDataControl Id="{x:Bind TransactionViewModel.Id,Mode=OneWay}"

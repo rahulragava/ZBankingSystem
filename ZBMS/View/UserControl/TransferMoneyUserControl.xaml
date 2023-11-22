@@ -72,6 +72,8 @@
                 CornerRadius="7"
                 IsEnabled="False"
                 Foreground="White"
+                PointerExited="Button_OnPointerExited"
+                PointerEntered="Button_OnPointerEntered"
                 Content="Transfer"
                 Click="TransferButton_OnClick"
                 Background="{ThemeResource AcrylicBrushBackground}"

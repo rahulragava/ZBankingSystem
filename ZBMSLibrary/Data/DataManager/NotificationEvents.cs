@@ -22,6 +22,7 @@ namespace ZBMSLibrary.Data.DataManager
         public static Action<PersonalLoanBObj> PersonalLoanCreated;
         public static Action<PersonalLoanBObj> PersonalLoanUpdated;
         public static Action<RecurringAccount,double> MonthlyInstallmentDeposited;
+        public static Action<SavingsAccount,double> MonthlyInterestCredited;
         public static Action<Deposit,double> DepositSettled;
         public static Action<TransactionSummaryVObj> UpdateSavingsAccountWithdrawTransaction;
         public static Action<TransactionSummaryVObj> SavingsLoanDuePaidNotification;

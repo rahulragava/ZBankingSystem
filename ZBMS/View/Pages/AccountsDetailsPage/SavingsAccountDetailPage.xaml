@@ -130,6 +130,9 @@
             <FontIcon Grid.Row="0"
                       FontFamily="Segoe MDL2 Assets"
                       x:Name="BackButton"
+                      FontSize="19"
+                      PointerExited="BackButton_OnPointerExited"
+                      PointerEntered="BackButton_OnPointerEntered"
                       HorizontalAlignment="Left"
                       VerticalAlignment="Center"
                       Margin="10 5 0 0"
@@ -155,6 +158,8 @@
                 <Button Content="Deposit"
                         Foreground="white"
                         IsTabStop="False"
+                        PointerExited="Button_OnPointerExited"
+                        PointerEntered="Button_OnPointerEntered"
                         CornerRadius="5"
                         Style="{ThemeResource FeatureButtonStyle}"
                         Background="{ThemeResource AcrylicBrushBackground}"
@@ -164,6 +169,7 @@
                         <Flyout>
                             <userControl:DepositMoneyUserControl ZeroDepositWarning="DepositMoneyUserControl_OnZeroDepositWarning"
                                                                  x:Name="DepositMoneyUserControl"
+                                                                 TransactionLimitExceeded="DepositMoneyUserControl_OnTransactionLimitExceeded"
                                                                  Account="{x:Bind SavingsAccountDetailViewModel.SavingsAccountBObj,Mode=OneWay}"></userControl:DepositMoneyUserControl>
                         </Flyout>
                     </Button.Flyout>
@@ -173,6 +179,8 @@
                         Foreground="white"
                         Style="{ThemeResource FeatureButtonStyle}"
                         Background="{ThemeResource AcrylicBrushBackground}"
+                        PointerExited="Button_OnPointerExited"
+                        PointerEntered="Button_OnPointerEntered"
                         IsTabStop="False"
                         x:Name="WithdrawButton">
                     <Button.Flyout>
@@ -180,6 +188,7 @@
                             <userControl:WithdrawalUserControl Account="{x:Bind SavingsAccountDetailViewModel.SavingsAccountBObj,Mode=OneWay}"
                                                                WithDrawZeroWarning="WithdrawalUserControl_OnWithDrawZeroWarning"
                                                                x:Name="WithdrawalUserControl"
+                                                               TransactionSavingsLimitExceeded="WithdrawalUserControl_OnTransactionSavingsLimitExceeded"
                                                                WithdrawInsufficientBalanceWarning="WithdrawalUserControl_OnWithdrawInsufficientBalanceWarning"></userControl:WithdrawalUserControl>
                         </Flyout>
                     </Button.Flyout>
@@ -191,6 +200,8 @@
                         CornerRadius="5"
                         Style="{ThemeResource FeatureButtonStyle}"
                         Background="{ThemeResource AcrylicBrushBackground}"
+                        PointerExited="Button_OnPointerExited"
+                        PointerEntered="Button_OnPointerEntered"
                         VerticalAlignment="Center"
                         x:Name="TransactionButton">
                     <Button.Flyout>
@@ -200,6 +211,7 @@
                                                                  AccountList="{x:Bind SavingsAccountDetailViewModel.Accounts,Mode=OneWay}"
                                                                  TransferInsufficientBalanceWarning="TransferMoneyUserControl_OnTransferInsufficientBalanceWarning"
                                                                  TransferSuccess="TransferMoneyUserControl_OnTransferSuccess"
+                                                                 TransferLimitExceededWarning="TransferMoneyUserControl_OnTransferLimitExceededWarning"
                                                                  TransferFromAccount="{x:Bind SavingsAccountDetailViewModel.SavingsAccountBObj,Mode=OneWay}"></userControl:TransferMoneyUserControl>
                         </Flyout>
                     </Button.Flyout>

@@ -76,7 +76,6 @@
                 <NavigationViewItem x:Uid="Accounts"
                                     Content="Accounts"
                                     IsTabStop="False"
-                                    Tapped="NavigationView_OnTapped"
                                     VerticalAlignment="Center"
                                     Tag="AccountsPage">
                     <NavigationViewItem.Icon>
@@ -128,6 +127,8 @@
                     </NavigationViewItem>-->
                     <NavigationViewItem x:Name="User"
                                         IsTabStop="False"
+                                        PointerExited="PersonPicture_OnPointerExited"
+                                        PointerEntered="PersonPicture_OnPointerEntered"
                                         TabIndex="-1"
                                         Tapped="UIElement_OnTapped">
                         <PersonPicture Height="20"

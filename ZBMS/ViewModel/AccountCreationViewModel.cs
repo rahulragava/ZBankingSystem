@@ -62,6 +62,11 @@ namespace ZBMS.ViewModel
             }
         }
 
+        public double GetLoanedValue()
+        {
+            return Math.Round(LoanedValue,2);
+        }
+
         public void SetAccountMetaData()
         {
             var savingsAccount = new SavingsAccount();
@@ -80,6 +85,11 @@ namespace ZBMS.ViewModel
             var recurringDeposit = new RecurringAccount();
             FixedDepositInterestRate = fixedDeposit.InterestRate;
             RecurringDepositInterestRate = recurringDeposit.InterestRate;
+        }
+
+        public double GetDepositedValue()
+        {
+            return Math.Round(DepositedValue, 2);
         }
 
         public void SetLoanMetaData()
@@ -206,7 +216,7 @@ namespace ZBMS.ViewModel
             set => Set(ref _emiValue, value);
         }
 
-        private int _tenure;
+        private int _tenure = 1;
 
         public int Tenure
         {
@@ -234,6 +244,7 @@ namespace ZBMS.ViewModel
                 CreatedOn = DateTime.Now,
                 FineAmount = 0,
                 ToBeCreditedAmount = 0,
+                NextCreditDateTime = DateTime.Now.AddDays(30),
                 IfscCode = ifsc,
                 AccountNumber = Generator.GenerateAccountNumber(),
                 UserId = AppSettings.CustomerId,
@@ -270,7 +281,7 @@ namespace ZBMS.ViewModel
                 IfscCode = ifsc,
                 AccountNumber = Generator.GenerateAccountNumber(),
                 UserId = AppSettings.CustomerId,
-                DepositedAmount = DepositedValue,
+                DepositedAmount = Math.Round(DepositedValue,2),
                 FromAccountId = fromAccountNumber,
                 SavingsAccountId = repaymentAccountNumber,
                 InterestRate = FixedDepositInterestRate,
@@ -290,12 +301,12 @@ namespace ZBMS.ViewModel
                 IfscCode = ifsc,
                 AccountNumber = Generator.GenerateAccountNumber(),
                 UserId = AppSettings.CustomerId,
-                DepositedAmount = DepositedValue,
+                DepositedAmount = Math.Round(DepositedValue,2),
                 FromAccountId = fromAccountNumber,
                 SavingsAccountId = repaymentAccountNumber,
                 InterestRate = RecurringDepositInterestRate,
-                MonthlyInstallment = DepositedValue,
-                LastPaidDate = DateTime.Now,
+                MonthlyInstallment = Math.Round(DepositedValue, 2),
+                NextDueDate = DateTime.Now.AddDays(30),
                 Tenure = tenureValue,
             };
             var request = new CreateRecurringDepositRequest(recurringAccount);
@@ -315,7 +326,7 @@ namespace ZBMS.ViewModel
                 InterestRate = PersonalLoanInterestRate,
                 Tenure = tenureValue,
                 FineAmount = 0,
-                OriginalAmount = LoanedValue,
+                OriginalAmount = Math.Round(LoanedValue, 2),
                 NextDateToBePaid = DateTime.Now.AddDays(30),
                 DueWithInterestAmount = OriginalValuePlusInterestRate,
                 Due = 0,
@@ -433,7 +444,8 @@ namespace ZBMS.ViewModel
             {
             }
         }
-        public class CreateRecurringDepositPresenterCallBack : IPresenterCallBack<CreateRecurringDepositResponse>
+
+        private class CreateRecurringDepositPresenterCallBack : IPresenterCallBack<CreateRecurringDepositResponse>
         {
             private readonly AccountCreationViewModel _accountCreationViewModel;
 
@@ -452,7 +464,7 @@ namespace ZBMS.ViewModel
             }
         }
 
-        public class CreatePersonalLoanAccountPresenterCallBack : IPresenterCallBack<CreatePersonalLoanResponse>
+        private class CreatePersonalLoanAccountPresenterCallBack : IPresenterCallBack<CreatePersonalLoanResponse>
         {
             private readonly AccountCreationViewModel _accountCreationViewModel;
 
@@ -536,7 +548,7 @@ namespace ZBMS.ViewModel
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        protected bool Set<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
+        private bool Set<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
         {
             if (EqualityComparer<T>.Default.Equals(field, value)) return false;
             field = value;

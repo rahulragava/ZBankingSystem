@@ -9,17 +9,92 @@
     d:DesignHeight="200"
     d:DesignWidth="400">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid Background="{ThemeResource BackgroundColor}"
+          CornerRadius="8"
+          RowSpacing="20"
+          Padding="5">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="0.5*"></RowDefinition>
-            <RowDefinition></RowDefinition>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <!--<RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>-->
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row ="0"
+       
+        <StackPanel Grid.Row="0"
+                    Grid.Column="1"
+                    Background="SeaGreen"
+                    Margin="0 5 0 0"
+                    Width="45"
+                    CornerRadius="4"
+                    Padding="5">
+            <TextBlock FontSize="12"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center"
+                       Foreground="White"
+                       Text="Active"/>
+        </StackPanel>
+        <StackPanel Grid.Row="0"
+                    Grid.Column="2"
+                    Width="45"
+                    Margin="0 5 0 0"
+                    Background="IndianRed"
+                    CornerRadius="4"
+                    Padding="5,5,5,5">
+            <TextBlock FontSize="12"
+                       Foreground="White"
+                       Text="Closed" />
+        </StackPanel>
+        <TextBlock Grid.Row="1"
+                   HorizontalAlignment="Center"
+                   Margin="0 10 0 0"
+                   Grid.Column="0"
+                   FontSize="16">Accounts :</TextBlock>
+
+        <TextBlock Grid.Row="1"
+                   Margin="0 10 0 0"
+                   Grid.Column="1"
+                   FontWeight="SemiBold"
+                   HorizontalAlignment="Center">30</TextBlock>
+        <TextBlock Grid.Row="1"
+                   Grid.Column="2"
+                   Margin="0 10 0 0"
+                   FontWeight="SemiBold"
+                   HorizontalAlignment="Center">30</TextBlock>
+
+        <TextBlock Grid.Row="2"
+                   Grid.Column="0"
+                   HorizontalAlignment="Center"
+                   FontSize="16">Deposits:</TextBlock>
+        <TextBlock Grid.Row="2"
+                   Grid.Column="1"
+                   FontWeight="SemiBold"
+                   HorizontalAlignment="Center">30</TextBlock>
+        <TextBlock Grid.Row="2"
+                   Grid.Column="2"
+                   FontWeight="SemiBold"
+                   HorizontalAlignment="Center">30</TextBlock>
+        <TextBlock Grid.Row="3"
+                   Grid.Column="0"
+                   HorizontalAlignment="Center"
+                   FontSize="16">Loans:</TextBlock>
+        <TextBlock Grid.Row="3"
+                   Grid.Column="1"
+                   FontWeight="SemiBold"
+                   HorizontalAlignment="Center">30</TextBlock>
+        <TextBlock Grid.Row="3"
+                   Grid.Column="2"
+                   FontWeight="SemiBold"
+                   HorizontalAlignment="Center">30</TextBlock>
+        <!--<StackPanel Grid.Row ="0"
                     Grid.Column="0"
                     Grid.ColumnSpan="2"
                     Margin="0 20 0 0">
@@ -46,7 +121,7 @@
             <TextBlock HorizontalAlignment="Center">
                 <Run Text="&#x20b9;" /> <Run Text="2000.00"></Run>
             </TextBlock>
-        </StackPanel>
+        </StackPanel>-->
 
     </Grid>
 </UserControl>

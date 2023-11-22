@@ -103,6 +103,8 @@
                 x:Name="WithdrawButton"
                 IsEnabled="False"
                 CornerRadius="8"
+                PointerExited="Button_OnPointerExited"
+                PointerEntered="Button_OnPointerEntered"
                 Click="WithdrawButton_OnClick"
                 Style="{ThemeResource FeatureButtonStyle}"
                 VerticalAlignment="Bottom"></Button>

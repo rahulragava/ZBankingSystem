@@ -8,6 +8,7 @@ using System.Security.Cryptography;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.System;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -16,6 +17,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using ZBMS.ViewModel;
+using ZBMSLibrary.Data.DataManager.CustomException;
 using ZBMSLibrary.Entities.BusinessObject;
 using ZBMSLibrary.Entities.Model;
 
@@ -61,6 +63,7 @@ namespace ZBMS.View.UserControl
         }
         public event Action TransferZeroWarning;
         public event Action TransferInsufficientBalanceWarning;
+        public event Action TransferLimitExceededWarning;
         public event Action<TransactionSummaryVObj> TransferSuccess;
         private void TransferButton_OnClick(object sender, RoutedEventArgs e)
         {
@@ -121,17 +124,36 @@ namespace ZBMS.View.UserControl
             TransferSuccess?.Invoke(transactionSummaryVObj);
         }
 
-        public void TransferFailed(string errorMessage)
+        public void TransferFailed(Exception exception)
         {
+            if (exception is TransactionLimitExceededException)
+            {
+                TransferLimitExceededWarning?.Invoke();
+            }
+            else if (exception is InsufficientBalanceException)
+            {
+                TransferInsufficientBalanceWarning?.Invoke();
+            }
             //ErrorTextBlock.Visibility = Visibility.Visible;
-            TransferInsufficientBalanceWarning?.Invoke();
             //ErrorTextBlock.Text = errorMessage;
         }
+
+
+        private void Button_OnPointerEntered(object sender, PointerRoutedEventArgs e)
+        {
+            Window.Current.CoreWindow.PointerCursor = new CoreCursor(CoreCursorType.Hand, 1);
+        }
+
+        private void Button_OnPointerExited(object sender, PointerRoutedEventArgs e)
+        {
+            Window.Current.CoreWindow.PointerCursor = new CoreCursor(CoreCursorType.Arrow, 1);
+        }
+
     }
 
     public interface ITransferMoneyView
     {
         void TransferSuccessful(TransactionSummaryVObj transactionSummaryVObj);
-        void TransferFailed(string errorMessage);
+        void TransferFailed(Exception exception);
     }
 }

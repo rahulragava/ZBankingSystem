@@ -5,52 +5,106 @@
     xmlns:local="using:ZBMS.View.UserControl"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
-    d:DesignHeight="200"
-    d:DesignWidth="400">
+    xmlns:controls="using:Microsoft.UI.Xaml.Controls"
+    mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <UserControl.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="FontSize" Value="16"></Setter>
+            <Setter Property="TextTrimming" Value="WordEllipsis"></Setter>
+            <Setter Property="TextWrapping" Value="WrapWholeWords"></Setter>
+        </Style>
+    </UserControl.Resources>
+    <Grid Background="{ThemeResource BackgroundColor}" 
+          Height="250"
+          MinWidth="350"
+          ColumnSpacing="30"
+          RowSpacing="10"
+          CornerRadius="10" Padding="5">
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="0.5*"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0"
                     Grid.Column="0"
-                    Margin="0 20 0 0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Spacing="5"
                     Grid.ColumnSpan="2">
-            <TextBlock Text="Total Balance"
-                       HorizontalAlignment="Center"
-                       Margin="0 0" />
-            <TextBlock HorizontalAlignment="Center">
-                <Run Text="&#x20b9;" /> <Run Text="2000.00"></Run>
+            <TextBlock Text="Net Balance in account"
+                       />
+            <TextBlock HorizontalAlignment="Center" FontSize="16">
+                <Run Text="&#x20b9;" /> <Run Text="{x:Bind ConsolidatedReportViewModel.NetBalance,Mode=OneWay }"></Run>
             </TextBlock>
         </StackPanel>
 
-        <StackPanel Grid.Row="1"
-                    Margin="0 20 0 0"
-                    Grid.Column="0">
+        <controls:ProgressRing Grid.Row="0" Grid.Column="1"
+                               Grid.RowSpan="2"
+                               
+                               Grid.ColumnSpan="2"  Width="120"
+                               
+                           Height="110"
+                           VerticalAlignment="Top"
+                           ToolTipService.ToolTip="Balance Chart"
+                           Background="{ThemeResource CurrentAccountCardColor}"
+                           Value="{x:Bind ConsolidatedReportViewModel.TotalSavingsPercentage,Mode=OneWay}"
+                           Foreground="{ThemeResource SavingsAccountCardColor}"
+                           IsIndeterminate="false" />
+        <StackPanel Grid.Row="0" Grid.Column="2" VerticalAlignment="Top" Spacing="10" HorizontalAlignment="Right">
+            <controls:InfoBadge Width="30" Height="10" Background="{ThemeResource SavingsAccountCardColor}"
+                                ToolTipService.ToolTip="Net Savings"/>
+            <controls:InfoBadge Width="30" Height="10" Background="{ThemeResource CurrentAccountCardColor}"
+                                ToolTipService.ToolTip="Net Current"></controls:InfoBadge>
 
+        </StackPanel>
+        <StackPanel Grid.Row="1"
+                    VerticalAlignment="Bottom"
+                    Margin="0 20 0 0"
+                    HorizontalAlignment="Center"
+                    Spacing="5"
+                    Grid.Column="0">
             <TextBlock Text="Total Savings"
                        HorizontalAlignment="Center"
                        Margin="0 0" />
-            <TextBlock HorizontalAlignment="Center">
-                <Run Text="&#x20b9;" /> <Run Text="2000.00"></Run>
+            <TextBlock HorizontalAlignment="Center"
+                       FontSize="16"> 
+                <Run Text="&#x20b9;" /> <Run Text="{x:Bind ConsolidatedReportViewModel.NetSavings,Mode=OneWay}"></Run>
             </TextBlock>
         </StackPanel>
 
-        <StackPanel Grid.Row="1"
-                    Grid.Column="1"
-                    Margin="0 20 0 0"                    >
-            <TextBlock Text="Total Amount Deposited"
+        <StackPanel Grid.Row="2"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    Spacing="5"
+                    Grid.Column="0">
+
+            <TextBlock Text="Total Current"
                        HorizontalAlignment="Center"
                        Margin="0 0" />
-            <TextBlock HorizontalAlignment="Center">
-                <Run Text="&#x20b9;" /> <Run Text="1000.00"></Run>
+            <TextBlock HorizontalAlignment="Center"
+                       FontSize="16"> 
+                <Run Text="&#x20b9;" /> <Run Text="{x:Bind ConsolidatedReportViewModel.NetCurrentAccount,Mode=OneWay}"></Run>
+            </TextBlock>
+        </StackPanel>
+
+        <StackPanel Grid.Row="2"
+                    Grid.Column="1"
+                    Grid.ColumnSpan="2"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Spacing="5">
+            <TextBlock Text="Total Amount Deposited"
+                       Margin="0 0" />
+            <TextBlock HorizontalAlignment="Center"
+                       FontSize="16">
+                <Run Text="&#x20b9;" /> <Run Text="{x:Bind ConsolidatedReportViewModel.NetDeposit,Mode=OneWay}"></Run>
             </TextBlock>
         </StackPanel>
        

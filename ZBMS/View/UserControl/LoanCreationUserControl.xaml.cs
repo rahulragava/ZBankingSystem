@@ -2,9 +2,11 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Text.RegularExpressions;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.System;
@@ -152,6 +154,7 @@ namespace ZBMS.View.UserControl
 
         private void BalanceSlider_OnValueChanged(object sender, RangeBaseValueChangedEventArgs e)
         {
+            //LoanAmountTextBox.Text = Math.Round(((Slider)sender).Value, 2).ToString();
             if (PersonalLoanRadioButton.IsChecked != null && (bool)PersonalLoanRadioButton.IsChecked)
             {
                 var dep = LoanAmountSlider.Value;
@@ -168,6 +171,74 @@ namespace ZBMS.View.UserControl
             }
             e.Handled = true;
 
+        }
+
+        private void NumberBox_OnValueChanged(NumberBox sender, NumberBoxValueChangedEventArgs args)
+        {
+            //sender.Text = new String(sender.Text.Where(c => char.IsDigit(c) | c == '.').ToArray());
+            //sender.Value = double.Parse(new String(sender.Text.Where(c => char.IsDigit(c) | c == '.').ToArray()));
+            //sender.Value = Math.Round(sender.Value, 2);
+            //sender.Sele = sender.Text.Length;
+                //NumberBox txt = (NumberBox)sender;
+                //txt.Text = txt.Value.ToString();
+                //var regex = new Regex(@"^[0-9]*(?:\.[0-9]{0,1})?$");
+                //string str = txt.Text.ToString();
+                //int cntPrc = 0;
+                //if (str.Contains('.'))
+                //{
+                //    string[] tokens = str.Split('.');
+                //    if (tokens.Count() > 0)
+                //    {
+                //        string result = tokens[1];
+                //        char[] prc = result.ToCharArray();
+                //        cntPrc = prc.Count();
+                //    }
+                //}
+                //if (regex.IsMatch(txt.Text) && !(txt.Text == "." && ((NumberBox)sender).Text.Contains(txt.Text)) && (cntPrc < 3))
+                //{
+                //    //e.Handled = false;
+                //}
+                //else
+                //{
+                //    //e.Handled = true;
+                //}
+
+            if (PersonalLoanRadioButton.IsChecked != null && (bool)PersonalLoanRadioButton.IsChecked)
+            {
+                var dep = LoanAmountSlider.Value;
+                AccountCreationViewModel.EstimatedReturnCalculationForPersonalLoan(double.Parse(PersonalLoanInterestRate.Text), LoanAmountSlider.Value, (int)TenureSlider.Value);
+            }
+        }
+
+        private void UIElement_OnCharacterReceived(UIElement sender, CharacterReceivedRoutedEventArgs args)
+        {
+            if (sender is NumberBox numberBox)
+                numberBox.Text = new String(numberBox.Text.Where(c => char.IsDigit(c) | c == '.').ToArray());
+            //sender.Sele = sender.Text.Length;
+
+            if (PersonalLoanRadioButton.IsChecked != null && (bool)PersonalLoanRadioButton.IsChecked)
+            {
+                var dep = LoanAmountSlider.Value;
+                AccountCreationViewModel.EstimatedReturnCalculationForPersonalLoan(double.Parse(PersonalLoanInterestRate.Text), LoanAmountSlider.Value, (int)TenureSlider.Value);
+            }
+        }
+
+        private void LoanAmountTextBox_OnLoaded(object sender, RoutedEventArgs e)
+        {
+            //if (sender is NumberBox loanedAmount)
+            //{
+            //    loanedAmount.Value = Math.Round(loanedAmount.Value, 2);
+            //}
+        }
+
+        private void Button_OnPointerEntered(object sender, PointerRoutedEventArgs e)
+        {
+            Window.Current.CoreWindow.PointerCursor = new CoreCursor(CoreCursorType.Hand, 1);
+        }
+
+        private void Button_OnPointerExited(object sender, PointerRoutedEventArgs e)
+        {
+            Window.Current.CoreWindow.PointerCursor = new CoreCursor(CoreCursorType.Arrow, 1);
         }
     }
 }

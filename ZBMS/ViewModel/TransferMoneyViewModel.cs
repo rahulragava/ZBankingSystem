@@ -47,6 +47,7 @@ namespace ZBMS.ViewModel
             }
         }
 
+       
 
         public void TransferMoney(double amount, string accountNumber)
         {
@@ -99,11 +100,11 @@ namespace ZBMS.ViewModel
                     {
                         if (ex is InsufficientBalanceException)
                         {
-                            _transferMoneyViewModel.TransferMoneyView.TransferFailed(ex.Message);
+                            _transferMoneyViewModel.TransferMoneyView.TransferFailed(ex);
                         }
-                        else
+                        else if(ex is TransactionLimitExceededException)
                         {
-
+                            _transferMoneyViewModel.TransferMoneyView.TransferFailed(ex);
                         }
                     }
                 );

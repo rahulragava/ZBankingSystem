@@ -22,6 +22,9 @@
         <FontIcon FontFamily="Segoe MDL2 Assets"
                   x:Name="BackButton"
                   HorizontalAlignment="Left"
+                  FontSize="19"
+                  PointerExited="BackButton_OnPointerExited"
+                  PointerEntered="BackButton_OnPointerEntered"
                   Margin="5"
                   Tapped="BackButton_OnTapped"
                   Glyph="" />

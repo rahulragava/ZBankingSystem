@@ -4,6 +4,7 @@
              xmlns:local="using:ZBMS.View.UserControl"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="using:Microsoft.UI.Xaml.Controls"
              mc:Ignorable="d">
 
     <UserControl.Resources>
@@ -21,7 +22,7 @@
           CornerRadius="8"
           BorderBrush="{ThemeResource ButtonBorderThemeBrush}"
           BorderThickness="0.5"
-          Padding="20"
+          Padding="15"
           Background="{ThemeResource BackgroundColor}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -63,6 +64,8 @@
                  HorizontalAlignment="Right"
                  Content="X"
                  Height="31"
+                 PointerExited="Button_OnPointerExited"
+                 PointerEntered="Button_OnPointerEntered"
                  HorizontalContentAlignment="Right"
                  VerticalAlignment="Top"
                  x:Name="ClosePopup"
@@ -138,21 +141,39 @@
         <TextBlock Grid.Row="6"
                    Grid.Column="0"
                    x:Name="DepositAmountTextBlock"
+                   VerticalAlignment="Center"
                    Text="Depositing Amount" />
         <TextBlock Grid.Row="6"
                    Grid.Column="0"
                    Visibility="Collapsed"
                    x:Name="MonthlyInstallmentTextBlock"
+                   VerticalAlignment="Center"
                    Text="Monthly Installment" />
-        <Slider Grid.Row="6"
-                Grid.Column="1"
-                x:Name="BalanceSlider"
-                StepFrequency="0.1"
-                IsTabStop="True"
-                ValueChanged="BalanceSlider_OnValueChanged"
-                IsEnabled="False"
-                Value="{x:Bind AccountCreationViewModel.DepositedValue,Mode=TwoWay}"
-                Minimum="100"></Slider>
+        <StackPanel Grid.Row="6"
+                    Grid.Column="1"
+                    Orientation="Vertical">
+            <controls:NumberBox  Value="{x:Bind AccountCreationViewModel.GetDepositedValue(),Mode=OneWay}"
+                                 Minimum="100"
+                                 Width="150"
+                                 HorizontalAlignment="Left"
+                                 >
+
+            </controls:NumberBox>
+            <Slider Grid.Row="6"
+                    Grid.Column="1"
+                    IsThumbToolTipEnabled="True"
+                    x:Name="BalanceSlider"
+                    StepFrequency="0.1"
+                    PointerExited="Button_OnPointerExited"
+                    PointerEntered="Button_OnPointerEntered"
+                    IsTabStop="True"
+                    ValueChanged="BalanceSlider_OnValueChanged"
+                    IsEnabled="False"
+                    Value="{x:Bind AccountCreationViewModel.DepositedValue,Mode=TwoWay}"
+                    Minimum="100"></Slider>
+            
+
+        </StackPanel>
         <TextBlock Grid.Row="8"
                    Grid.Column="0"
                    Text="Tenure"></TextBlock>
@@ -161,6 +182,8 @@
                 IsEnabled="False"
                 IsTabStop="True"
                 Minimum="1"
+                PointerExited="Button_OnPointerExited"
+                PointerEntered="Button_OnPointerEntered"
                 ValueChanged="BalanceSlider_OnValueChanged"
                 Maximum="10"
                 Value="{x:Bind AccountCreationViewModel.Tenure,Mode=TwoWay}"
@@ -198,6 +221,8 @@
                 BorderThickness="2"
                 Click="CreateDeposit_OnClick"
                 Foreground="White"
+                PointerExited="Button_OnPointerExited"
+                PointerEntered="Button_OnPointerEntered"
                 Background="{ThemeResource AcrylicBrushBackground}"
                 Style="{StaticResource FeatureButtonStyle}"
                 HorizontalAlignment="Center"

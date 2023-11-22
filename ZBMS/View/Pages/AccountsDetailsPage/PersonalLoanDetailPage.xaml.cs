@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -119,6 +120,22 @@ namespace ZBMS.View.Pages.AccountsDetailsPage
                 e.Handled = true;
                 BackButton_OnTapped(sender, new TappedRoutedEventArgs());
                 //DepositButton_OnClick(sender, e);
+            }
+        }
+
+        private void BackButton_OnPointerExited(object sender, PointerRoutedEventArgs e)
+        {
+            if (sender is FontIcon icon)
+            {
+                Window.Current.CoreWindow.PointerCursor = new CoreCursor(CoreCursorType.Arrow, 1);
+            }
+        }
+
+        private void BackButton_OnPointerEntered(object sender, PointerRoutedEventArgs e)
+        {
+            if (sender is FontIcon icon)
+            {
+                Window.Current.CoreWindow.PointerCursor = new CoreCursor(CoreCursorType.Hand, 1);
             }
         }
     }

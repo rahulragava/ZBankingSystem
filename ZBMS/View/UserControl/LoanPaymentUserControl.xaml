@@ -65,6 +65,8 @@
                 HorizontalAlignment="Center"
                 x:Name="LoanPayButton"
                 Click="LoanPayButton_OnClick"
+                PointerExited="Button_OnPointerExited"
+                PointerEntered="Button_OnPointerEntered"
                 Content="Pay">
         </Button>
     </Grid>

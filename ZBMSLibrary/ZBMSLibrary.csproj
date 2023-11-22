@@ -126,16 +126,22 @@
     <Compile Include="Data\DataHandler\Contract\IDbHandler.cs" />
     <Compile Include="Data\DataHandler\DbHandler.cs" />
     <Compile Include="Data\DataManager\ChangeRepaymentRepaymentAccountForDepositManager.cs" />
+    <Compile Include="Data\DataManager\CloseFixedDepositManager.cs" />
+    <Compile Include="Data\DataManager\CloseRecurringDepositManager.cs" />
     <Compile Include="Data\DataManager\Contract\IChangeRepaymentAccountForDepositManager.cs" />
     <Compile Include="Data\DataManager\Contract\IChangeSenderAccountDepositManager.cs" />
+    <Compile Include="Data\DataManager\Contract\ICloseFixedDepositManager.cs" />
+    <Compile Include="Data\DataManager\Contract\ICloseRecurringDepositManager.cs" />
     <Compile Include="Data\DataManager\Contract\ICreateLoanAccountManager.cs" />
     <Compile Include="Data\DataManager\Contract\IGetUserManager.cs" />
     <Compile Include="Data\DataManager\Contract\ILoanMonthlyDuePaymentManager.cs" />
+    <Compile Include="Data\DataManager\Contract\IMonthlyInterestCreditForSavingsAccountManager.cs" />
     <Compile Include="Data\DataManager\Contract\ITransferManager.cs" />
     <Compile Include="Data\DataManager\Contract\IUpdateUserLoggedInManager.cs" />
     <Compile Include="Data\DataManager\Contract\IUpdateUserLoggedOutManager.cs" />
     <Compile Include="Data\DataManager\CreateLoanAccountManager.cs" />
     <Compile Include="Data\DataManager\CustomException\InsufficientBalanceException.cs" />
+    <Compile Include="Data\DataManager\CustomException\TransactionLimitExceededException.cs" />
     <Compile Include="Data\DataManager\DeduceMonthlyInstallmentManager.cs" />
     <Compile Include="Data\DataManager\Contract\ICreateCurrentAccountManager.cs" />
     <Compile Include="Data\DataManager\Contract\ICreateFixedDepositManager.cs" />
@@ -162,6 +168,7 @@
     <Compile Include="Data\DataManager\GetUserLastSeenManager.cs" />
     <Compile Include="Data\DataManager\GetUserManager.cs" />
     <Compile Include="Data\DataManager\LoanMonthlyDuePaymentManager.cs" />
+    <Compile Include="Data\DataManager\MonthlyInterestCreditForSavingsAccountManager.cs" />
     <Compile Include="Data\DataManager\NotificationEvents.cs" />
     <Compile Include="Data\DataManager\TransferManager.cs" />
     <Compile Include="Data\DataManager\UpdateUserLoggedInManager.cs" />
@@ -196,6 +203,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UseCase\ChangeRepaymentAccountForDepositUseCase.cs" />
     <Compile Include="UseCase\ChangeSenderAccountDepositUseCase.cs" />
+    <Compile Include="UseCase\ClosingFixedDepositUseCase.cs" />
+    <Compile Include="UseCase\ClosingRecurringDepositUseCase.cs" />
     <Compile Include="UseCase\CreateCurrentAccountUseCase.cs" />
     <Compile Include="UseCase\CreateFixedDepositUseCase.cs" />
     <Compile Include="UseCase\CreatePersonalLoanUseCase.cs" />
@@ -210,6 +219,7 @@
     <Compile Include="UseCase\GetUserLastSeenUseCase.cs" />
     <Compile Include="UseCase\GetUserUseCase.cs" />
     <Compile Include="UseCase\LoanMonthlyDuePaymentUseCase.cs" />
+    <Compile Include="UseCase\MonthlyInterestCreditForSavingsAccountUseCase.cs" />
     <Compile Include="UseCase\TransferUseCase.cs" />
     <Compile Include="UseCase\UpdateUserLoggedInUseCase.cs" />
     <Compile Include="UseCase\UseCaseBase.cs" />

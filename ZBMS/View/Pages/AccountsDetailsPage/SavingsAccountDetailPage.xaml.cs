@@ -103,6 +103,7 @@ namespace ZBMS.View.Pages.AccountsDetailsPage
                 {
                     //TransactionUserControl.TransactionList.Add(transactionSummary);
                     SavingsAccountDetailViewModel.TransactionList.Insert(0,transactionSummary);
+                    SavingsAccountDetailViewModel.SavingsAccountBObj.TransactionList.Insert(0,transactionSummary);
                     //TransactionUserControl.OnTransactionUpdated(transactionSummary);
                 }
             );
@@ -116,6 +117,7 @@ namespace ZBMS.View.Pages.AccountsDetailsPage
                 {
                     //TransactionUserControl.TransactionList.Add(transactionSummary);
                     SavingsAccountDetailViewModel.TransactionList.Insert(0, transactionSummary);
+                    SavingsAccountDetailViewModel.SavingsAccountBObj.TransactionList.Insert(0, transactionSummary);
                     //TransactionUserControl.OnTransactionUpdated(transactionSummary);
                     InfoBar.Severity = InfoBarSeverity.Success;
                     InfoBar.Message = $"Successfully Deposited Rs.{transactionSummary.Amount}";
@@ -133,6 +135,7 @@ namespace ZBMS.View.Pages.AccountsDetailsPage
                 {
                     //TransactionUserControl.TransactionList.Add(transactionSummary);
                     SavingsAccountDetailViewModel.TransactionList.Insert(0, transactionSummary);
+                    SavingsAccountDetailViewModel.SavingsAccountBObj.TransactionList.Insert(0, transactionSummary);
                     //TransactionUserControl.OnTransactionUpdated(transactionSummary);
                     InfoBar.Severity = InfoBarSeverity.Success;
                     InfoBar.Message = $"Successfully Withdrawn Rs.{transactionSummary.Amount}";
@@ -219,6 +222,7 @@ namespace ZBMS.View.Pages.AccountsDetailsPage
             CreateTimer();
             InfoBar.IsOpen = true;
             SavingsAccountDetailViewModel.TransactionList.Insert(0,transactionSummaryVObj);
+            SavingsAccountDetailViewModel.SavingsAccountBObj.TransactionList.Insert(0,transactionSummaryVObj);
         }
         private void TransferMoneyUserControl_OnZeroDepositWarning()
         {
@@ -226,6 +230,58 @@ namespace ZBMS.View.Pages.AccountsDetailsPage
             InfoBar.Message = "can't transfer Rs.0";
             CreateTimer();
             InfoBar.IsOpen = true;
+        }
+
+        private void TransactionLimitReached()
+        {
+            InfoBar.Severity = InfoBarSeverity.Warning;
+            InfoBar.Message = "transaction limit reached for today";
+            CreateTimer();
+            InfoBar.IsOpen = true;
+        }
+
+        private void TransferMoneyUserControl_OnTransferLimitExceededWarning()
+        {
+            TransactionLimitReached();
+        }
+
+        private void WithdrawalUserControl_OnTransactionSavingsLimitExceeded()
+        {
+            TransactionLimitReached();
+
+        }
+
+        private void DepositMoneyUserControl_OnTransactionLimitExceeded()
+        {
+            TransactionLimitReached();
+        }
+
+        private void Button_OnPointerEntered(object sender, PointerRoutedEventArgs e)
+        {
+            Window.Current.CoreWindow.PointerCursor = new CoreCursor(CoreCursorType.Hand, 1);
+        }
+
+        private void Button_OnPointerExited(object sender, PointerRoutedEventArgs e)
+        {
+            Window.Current.CoreWindow.PointerCursor = new CoreCursor(CoreCursorType.Arrow, 1);
+        }
+
+        private void BackButton_OnPointerExited(object sender, PointerRoutedEventArgs e)
+        {
+            if (sender is FontIcon icon)
+            {
+                icon.FontSize = 19;
+                Window.Current.CoreWindow.PointerCursor = new CoreCursor(CoreCursorType.Arrow, 1);
+            }
+        }
+
+        private void BackButton_OnPointerEntered(object sender, PointerRoutedEventArgs e)
+        {
+            if (sender is FontIcon icon)
+            {
+                icon.FontSize = 21;
+                Window.Current.CoreWindow.PointerCursor = new CoreCursor(CoreCursorType.Hand, 1);
+            }
         }
     }
 }

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
+using ZBMS.View.UserControl;
 using ZBMSLibrary.Data;
 using ZBMSLibrary.Entities.BusinessObject;
 using ZBMSLibrary.Entities.Model;
@@ -11,7 +13,13 @@ namespace ZBMS.ViewModel
 {
     public class WithdrawMoneyViewModel : INotifyPropertyChanged
     {
+        private readonly IWithdrawMoneyView _withdrawMoneyView;
         private string _amountToBeDeposited;
+
+        public WithdrawMoneyViewModel(IWithdrawMoneyView withdrawMoneyView)
+        {
+            _withdrawMoneyView = withdrawMoneyView;
+        }
 
         public string AmountToBeDeposited
         {
@@ -26,24 +34,32 @@ namespace ZBMS.ViewModel
         {
             if (SavingsAccountBObj != null)
             {
-                var savingsAccount = new SavingsAccount
+                if (IsTransactionLimitExceeded())
                 {
-                    AccountNumber = SavingsAccountBObj.AccountNumber,
-                    IfscCode = SavingsAccountBObj.IfscCode,
-                    UserId = SavingsAccountBObj.UserId,
-                    CreatedOn = SavingsAccountBObj.CreatedOn,
-                    AccountStatus = SavingsAccountBObj.AccountStatus,
-                    Balance = SavingsAccountBObj.Balance,
-                    MinimumBalance = SavingsAccountBObj.MinimumBalance,
-                    FineAmount = SavingsAccountBObj.FineAmount,
-                    ServiceCharges = SavingsAccountBObj.ServiceCharges,
-                    InterestRate = SavingsAccountBObj.InterestRate,
-                    ToBeCreditedAmount = SavingsAccountBObj.ToBeCreditedAmount,
+                    var savingsAccount = new SavingsAccount
+                    {
+                        AccountNumber = SavingsAccountBObj.AccountNumber,
+                        IfscCode = SavingsAccountBObj.IfscCode,
+                        UserId = SavingsAccountBObj.UserId,
+                        CreatedOn = SavingsAccountBObj.CreatedOn,
+                        AccountStatus = SavingsAccountBObj.AccountStatus,
+                        Balance = SavingsAccountBObj.Balance,
+                        MinimumBalance = SavingsAccountBObj.MinimumBalance,
+                        FineAmount = SavingsAccountBObj.FineAmount,
+                        ServiceCharges = SavingsAccountBObj.ServiceCharges,
+                        InterestRate = SavingsAccountBObj.InterestRate,
+                        ToBeCreditedAmount = SavingsAccountBObj.ToBeCreditedAmount,
+                        NextCreditDateTime = SavingsAccountBObj.NextCreditDateTime,
 
-                };
-                var request = new WithdrawMoneyRequest(withdrawAmount , savingsAccount);
-                var withdrawMoneyUseCase = new WithdrawUseCase(request, new WithdrawMoneyPresenterCallBack(this));
-                withdrawMoneyUseCase.Execute();
+                    };
+                    var request = new WithdrawMoneyRequest(withdrawAmount, savingsAccount);
+                    var withdrawMoneyUseCase = new WithdrawUseCase(request, new WithdrawMoneyPresenterCallBack(this));
+                    withdrawMoneyUseCase.Execute();
+                }
+                else
+                {
+                    _withdrawMoneyView.TransactionLimitExceeded();
+                }
             }
             else
             {
@@ -65,7 +81,22 @@ namespace ZBMS.ViewModel
             }
         }
 
-
+        public bool IsTransactionLimitExceeded()
+        {
+            var a = SavingsAccountBObj.TransactionList[0].SenderAccountNumber;
+           
+            var today = DateTime.Today;
+            DateTime startOfDay = today.Date;
+            DateTime endOfDay = today.Date.AddDays(1);
+            var transactionsOnToday = SavingsAccountBObj.TransactionList
+                .Where(t =>
+                    (t.SenderAccountNumber == SavingsAccountBObj.AccountNumber ||
+                     t.ReceiverAccountNumber == SavingsAccountBObj.AccountNumber) &&
+                    t.TransactionOn >= startOfDay &&
+                    t.TransactionOn < endOfDay)
+                .ToList();
+            return transactionsOnToday.Count() < 10;
+        }
         private void OnSuccessfullyDeposited()
         {
             //notification fire

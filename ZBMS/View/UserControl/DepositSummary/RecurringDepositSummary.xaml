@@ -71,7 +71,7 @@
 
             <TextBlock HorizontalAlignment="Center"
                        Foreground="White">
-                    <Run Text="&#x20b9;" /> <Run Text="{x:Bind RecurringDepositBObj.DepositedAmount,Mode=OneWay}"></Run>
+                    <Run Text="&#x20b9;" /> <Run Text="{x:Bind DepositAmount,Mode=OneWay}"></Run>
             </TextBlock>
         </StackPanel>
 
@@ -85,10 +85,11 @@
                     Width="100"
                     Height="50"
                     Grid.Column="0">
-            <TextBlock Text="Status"></TextBlock>
+            <TextBlock Text="Status" HorizontalAlignment="Center"></TextBlock>
 
-            <StackPanel Background="{x:Bind RecurringDepositBObj.AccountStatus,Mode=OneWay, Converter={StaticResource AccountStatusToBackgroundConverter}}">
-                <TextBlock HorizontalAlignment="Center" Text="{x:Bind RecurringDepositBObj.AccountStatus,Mode=OneWay}"  Foreground="White"/>
+            <StackPanel Background="{x:Bind AccountStatus,Mode=OneWay, Converter={StaticResource AccountStatusToBackgroundConverter}}"
+                        CornerRadius="10">
+                <TextBlock HorizontalAlignment="Center" Text="{x:Bind AccountStatus,Mode=OneWay}"  Foreground="White"/>
 
             </StackPanel>
 

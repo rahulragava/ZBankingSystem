@@ -6,6 +6,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.System;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -14,6 +15,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using ZBMS.ViewModel;
+using ZBMSLibrary.Data.DataManager.Contract;
 using ZBMSLibrary.Entities.BusinessObject;
 using ZBMSLibrary.Entities.Model;
 
@@ -21,12 +23,12 @@ using ZBMSLibrary.Entities.Model;
 
 namespace ZBMS.View.UserControl
 {
-    public sealed partial class WithdrawalUserControl : Windows.UI.Xaml.Controls.UserControl
+    public sealed partial class WithdrawalUserControl : Windows.UI.Xaml.Controls.UserControl, IWithdrawMoneyView
     {
         public WithdrawMoneyViewModel WithdrawMoneyViewModel;
         public WithdrawalUserControl()
         {
-            WithdrawMoneyViewModel = new WithdrawMoneyViewModel();
+            WithdrawMoneyViewModel = new WithdrawMoneyViewModel(this);
             this.InitializeComponent();
             Loaded += OnLoaded;
 
@@ -105,5 +107,26 @@ namespace ZBMS.View.UserControl
         {
             WithdrawButton.IsEnabled = AmountTextBox.Text.Length > 0;
         }
+
+        public event Action TransactionSavingsLimitExceeded;
+        public void TransactionLimitExceeded()
+        {
+            TransactionSavingsLimitExceeded?.Invoke();
+        }
+
+        private void Button_OnPointerEntered(object sender, PointerRoutedEventArgs e)
+        {
+            Window.Current.CoreWindow.PointerCursor = new CoreCursor(CoreCursorType.Hand, 1);
+        }
+
+        private void Button_OnPointerExited(object sender, PointerRoutedEventArgs e)
+        {
+            Window.Current.CoreWindow.PointerCursor = new CoreCursor(CoreCursorType.Arrow, 1);
+        }
+    }
+
+    public interface IWithdrawMoneyView
+    {
+        void TransactionLimitExceeded();
     }
 }

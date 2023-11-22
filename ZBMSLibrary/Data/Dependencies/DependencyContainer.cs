@@ -31,7 +31,10 @@ namespace ZBMSLibrary.Data.Dependencies
                 .AddSingleton<ICreateLoanAccountManager, CreateLoanAccountManager>()
                 .AddSingleton<ILoanMonthlyDuePaymentManager, LoanMonthlyDuePaymentManager>()
                 .AddSingleton<IChangeRepaymentAccountForDepositManager, ChangeRepaymentRepaymentAccountForDepositManager>()
+                .AddSingleton<ICloseFixedDepositManager, CloseFixedDepositManager>()
+                .AddSingleton<ICloseRecurringDepositManager, CloseRecurringDepositManager>()
                 .AddSingleton<IChangeSenderAccountDepositManager, ChangeSenderAccountDepositManager>()
+                .AddSingleton<IMonthlyInterestCreditForSavingsAccountManager, MonthlyInterestCreditForSavingsAccountManager>()
                 .AddSingleton<ITransferManager, TransferManager>()
                 .AddSingleton<IGetInterestRateOfAllUniqueAccountsManager,GetInterestRateOfAllUniqueAccountsManager>()
                 .BuildServiceProvider();

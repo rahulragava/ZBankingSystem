@@ -21,39 +21,47 @@ namespace ZBMSLibrary.Entities.BusinessObject
         public void SetDefault()
         {
             //InterestRate = GetFixedInterestRate(Tenure);
-            MaturityAmount = MaturityAmountCalculator(DepositedAmount, Tenure*12);
+            MaturityAmount = MaturityAmountCalculator(DepositedAmount, InterestRate);
             MaturityDate = MaturityDateCalculator(CreatedOn, Tenure*12);
         }
 
         public double MaturityAmountCalculator(double amount, double interestRate)
         {
-            //P x(1 + r / 100)^nt
+            //P x(1 + r / 100)^nt === formula to calculate the maturity amount of the fixed deposit
+
             var val = (4 * Tenure);
             var interest = interestRate / 400;
             var estimatedValue = DepositedAmount * (Math.Pow(1 + (interest), val));
             return Math.Round(estimatedValue, 2);
-            //return amount + (amount * (interestRate / 100)*Tenure);
+        }
+        public double ManualMaturityAmountCalculator(double amount,int tenure)
+        {
+            //P x(1 + r / 100)^nt
+
+            var interestRate = GetFixedInterestRate(tenure);
+            var val = (4 * Tenure);
+            var interest = interestRate / 400;
+            var estimatedValue = DepositedAmount * (Math.Pow(1 + (interest), val));
+            return Math.Round(estimatedValue, 2);
         }
 
-        public DateTime MaturityDateCalculator(DateTime date, int months)
+        private DateTime MaturityDateCalculator(DateTime date, int months)
         {
             return date.AddMonths(months);
         }
 
-        public static double GetFixedInterestRate(int tenureInMonths)
+        private double GetFixedInterestRate(int tenureInYears)
         {
 
-            //switch (tenureInMonths)
-            //{
-            //    case int n when (n > 0 && n <= 3): return 1;
-            //    case int n when (n > 3 && n <= 6): return 1.3;
-            //    case int n when (n == 9): return 1.69;
-            //    case int n when (n == 10): return 1.86;
-            //    case int n when (n > 10 && n <= 24): return 3;
-            //    case int n when (n > 24 && n <= 36): return 5;
-            //    default: return 0;
-            //}
-            return 0.0;
+            switch (tenureInYears)
+            {
+                case 0: return 0;
+                case 1: return 6;
+                case 2: 
+                case 3: return 6.8;
+                case 4: return 7.2;
+                default: return InterestRate;
+            }
         }
 
         internal double CalculateClosingAmount(DateTime now)
@@ -62,7 +70,7 @@ namespace ZBMSLibrary.Entities.BusinessObject
             {
                 //TenureInMonths = ((now.Year - CreatedOn.Year) * 12) + now.Month - CreatedOn.Month;
                 var months = ((now.Year - CreatedOn.Year) * 12) + now.Month - CreatedOn.Month;
-                if (months <= 0) return 0;
+                if (months <= 0) return DepositedAmount;
                 var interestRate = GetFixedInterestRate(months);
                 return MaturityAmountCalculator(DepositedAmount, interestRate);
             }

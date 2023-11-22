@@ -43,7 +43,7 @@ namespace ZBMS.ViewModel
             useCase.Execute();
         }
 
-        public void OnSuccessfullyRetrievedUserAccount(IEnumerable<Account> accounts,IEnumerable<Deposit> deposits, IEnumerable<Loan> loans)
+        public void OnSuccessfullyRetrievedUserAccount(IEnumerable<Account> accounts, IEnumerable<Deposit> deposits, IEnumerable<Loan> loans)
         {
             Accounts.Clear();
             foreach (var account in accounts)
@@ -67,7 +67,7 @@ namespace ZBMS.ViewModel
         public string UserPan
         {
             get => _userPan;
-            set => SetField(ref _userPan,value);
+            set => SetField(ref _userPan, value);
         }
 
         public void GetUserLastLogged()
@@ -94,7 +94,7 @@ namespace ZBMS.ViewModel
 
             foreach (Deposit deposit in deposits)
             {
-                if (deposit is RecurringAccountBObj recurringDeposit)
+                if (deposit is RecurringAccountBObj recurringDeposit && deposit.AccountStatus == AccountStatus.Active)
                 {
                     recurringDeposits.Add(recurringDeposit);
                 }
@@ -117,19 +117,20 @@ namespace ZBMS.ViewModel
                     FromAccountId = recurringDeposit.FromAccountId,
                     Frequency = FrequencyType.Quarterly,
                     MonthlyInstallment = recurringDeposit.MonthlyInstallment,
-                    LastPaidDate = recurringDeposit.LastPaidDate
+                    NextDueDate = recurringDeposit.NextDueDate,
                 };
-
-                if (DateTime.Now.Subtract(recurringAccount.LastPaidDate).TotalDays > 30)
+                if (DateTime.Now.Subtract(recurringAccount.NextDueDate).TotalDays >= 0)
                 {
-                    var totalDueMonths = (int)((DateTime.Now.Subtract(recurringAccount.LastPaidDate).TotalDays)/30.44);
-                    monthlyInstallments.Add(recurringAccount,totalDueMonths);
+                    var totalDueMonths = 0;
 
-                   
+                    while (DateTime.Now.Subtract(recurringAccount.NextDueDate).TotalDays >= 0)
+                    {
+                        recurringAccount.NextDueDate = recurringAccount.NextDueDate.AddDays(30);
+                        totalDueMonths++;
+                    }
+                    monthlyInstallments.Add(recurringAccount, totalDueMonths);
                 }
             }
-            
-
             //usecase
             if (monthlyInstallments.Count > 0)
             {
@@ -174,9 +175,9 @@ namespace ZBMS.ViewModel
             }
 
             //usecase
-            }
+        }
 
-            private void CheckAccountForFine(IEnumerable<Account> responseAccounts)
+        private void CheckAccountForFine(IEnumerable<Account> responseAccounts)
         {
             //var toBeFinedCurrentAccounts = new List<CurrentAccountBObj>();
             //var toBeFinedSavingsAccounts = new List<SavingsAccountBObj>();
@@ -198,8 +199,44 @@ namespace ZBMS.ViewModel
             //}
             //usecase
         }
+        private void CheckAndCreditInterestForSavingsAccount(IEnumerable<Account> responseAccounts)
+        {
+            List<SavingsAccountBObj> savingsAccounts = new List<SavingsAccountBObj>();
 
-        public class GetUserAccountsPresenterCallback : IPresenterCallBack<GetUserAccountsResponse>
+            foreach (var account in responseAccounts)
+            {
+                if (account is SavingsAccountBObj savingsAccountBObj && account.AccountStatus == AccountStatus.Active)
+                {
+                    savingsAccounts.Add(savingsAccountBObj);
+                }
+            }
+            Dictionary<SavingsAccountBObj, int> monthlyInterestCreditForSavingsAccount = new Dictionary<SavingsAccountBObj, int>();
+            foreach (var savingsAccount in savingsAccounts)
+            {
+               
+                if (DateTime.Now.Subtract(savingsAccount.NextCreditDateTime).TotalDays >= 0)
+                {
+                    var totalCreditableMonths = 0;
+
+                    while (DateTime.Now.Subtract(savingsAccount.NextCreditDateTime).TotalDays >= 0)
+                    {
+                        savingsAccount.NextCreditDateTime = savingsAccount.NextCreditDateTime.AddDays(30);
+                        totalCreditableMonths++;
+                    }
+                    monthlyInterestCreditForSavingsAccount.Add(savingsAccount, totalCreditableMonths);
+                }
+            }
+
+            if (monthlyInterestCreditForSavingsAccount.Count > 0)
+            {
+                var request = new MonthlyInterestCreditForSavingsAccountRequest(monthlyInterestCreditForSavingsAccount);
+                var useCase = new MonthlyInterestCreditForSavingsAccountUseCase(request, new MonthlyInterestCreditForSavingsAccountPresenterCallBack(this));
+                useCase.Execute();
+            }
+
+        }
+
+        private class GetUserAccountsPresenterCallback : IPresenterCallBack<GetUserAccountsResponse>
         {
             private readonly AccountPageViewModel _viewModel;
             public GetUserAccountsPresenterCallback(AccountPageViewModel viewModel)
@@ -211,13 +248,14 @@ namespace ZBMS.ViewModel
                 Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                     () =>
                     {
-                        _viewModel.OnSuccessfullyRetrievedUserAccount(response.Accounts,response.Deposits,response.Loans);
+                        _viewModel.OnSuccessfullyRetrievedUserAccount(response.Accounts, response.Deposits, response.Loans);
+                        _viewModel.AccountView.RetrievedAccountSuccessfully();
                         _viewModel.CheckAccountForFine(response.Accounts);
                         _viewModel.CheckDepositsForSettlement(response.Deposits);
                         _viewModel.CheckDepositsForMonthlyInstallment(response.Deposits);
+                        _viewModel.CheckAndCreditInterestForSavingsAccount(response.Accounts);
                     }
                 );
-
             }
 
             public void OnError(Exception ex)
@@ -226,7 +264,7 @@ namespace ZBMS.ViewModel
             }
         }
 
-        public class GetUserLastSeenPresenterCallBack : IPresenterCallBack<GetUserLastSeenResponse>
+        private class GetUserLastSeenPresenterCallBack : IPresenterCallBack<GetUserLastSeenResponse>
         {
             private readonly AccountPageViewModel _viewModel;
             public GetUserLastSeenPresenterCallBack(AccountPageViewModel viewModel)
@@ -250,8 +288,7 @@ namespace ZBMS.ViewModel
         }
 
 
-
-        public class DepositSettlementPresenterCallBack : IPresenterCallBack<DepositSettlementResponse>
+        private class DepositSettlementPresenterCallBack : IPresenterCallBack<DepositSettlementResponse>
         {
             private readonly AccountPageViewModel _viewModel;
             public DepositSettlementPresenterCallBack(AccountPageViewModel viewModel)
@@ -275,7 +312,7 @@ namespace ZBMS.ViewModel
             }
         }
 
-        public class DeduceMonthlyInstallmentPresenterCallBack : IPresenterCallBack<DeduceMonthlyInstallmentResponse>
+        private class DeduceMonthlyInstallmentPresenterCallBack : IPresenterCallBack<DeduceMonthlyInstallmentResponse>
         {
             private readonly AccountPageViewModel _viewModel;
             public DeduceMonthlyInstallmentPresenterCallBack(AccountPageViewModel viewModel)
@@ -284,6 +321,30 @@ namespace ZBMS.ViewModel
             }
 
             public void OnSuccess(DeduceMonthlyInstallmentResponse response)
+            {
+                Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                    () =>
+                    {
+                    }
+                );
+            }
+
+            public void OnError(Exception ex)
+            {
+                //throw new NotImplementedException();
+            }
+        }
+
+
+        private class MonthlyInterestCreditForSavingsAccountPresenterCallBack : IPresenterCallBack<MonthlyInterestCreditForSavingsAccountResponse>
+        {
+            private readonly AccountPageViewModel _viewModel;
+            public MonthlyInterestCreditForSavingsAccountPresenterCallBack(AccountPageViewModel viewModel)
+            {
+                _viewModel = viewModel;
+            }
+
+            public void OnSuccess(MonthlyInterestCreditForSavingsAccountResponse response)
             {
                 Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                     () =>

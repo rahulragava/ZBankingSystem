@@ -47,6 +47,7 @@ namespace ZBMSLibrary.Data.DataManager
                     MinimumBalance = createSavingsAccountRequest.SavingsAccount.MinimumBalance,
                     FineAmount = createSavingsAccountRequest.SavingsAccount.FineAmount,
                     ToBeCreditedAmount = createSavingsAccountRequest.SavingsAccount.ToBeCreditedAmount,
+                    NextCreditDateTime = createSavingsAccountRequest.SavingsAccount.NextCreditDateTime,
                 };
                 var userName = await _dbHandler.GetUserNameAsync(createSavingsAccountRequest.SavingsAccount.UserId);
                 var branchName = await _dbHandler.GetBranchNameAsync(createSavingsAccountRequest.SavingsAccount.IfscCode);

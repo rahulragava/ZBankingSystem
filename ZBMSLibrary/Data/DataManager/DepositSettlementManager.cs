@@ -54,7 +54,7 @@ namespace ZBMSLibrary.Data.DataManager
                             Tenure = recurringAccount.Tenure,
                             FromAccountId = recurringAccount.FromAccountId,
                             SavingsAccountId = recurringAccount.SavingsAccountId,
-                            LastPaidDate = DateTime.Now,
+                            NextDueDate = DateTime.Now,
                             MonthlyInstallment = recurringAccount.MonthlyInstallment,
                         };
                         transactionSummary.Description = "Recurring Deposit Closed";

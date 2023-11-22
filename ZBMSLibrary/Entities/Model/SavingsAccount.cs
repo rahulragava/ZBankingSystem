@@ -1,4 +1,5 @@
-﻿using SQLite;
+﻿using System;
+using SQLite;
 
 namespace ZBMSLibrary.Entities.Model
 {
@@ -7,6 +8,7 @@ namespace ZBMSLibrary.Entities.Model
     {
         public double InterestRate { get; set; } 
         public double ToBeCreditedAmount { get; set; }
+        public DateTime NextCreditDateTime { get; set; }
 
         public SavingsAccount()
         {

@@ -5,6 +5,7 @@
     xmlns:local="using:ZBMS.View.UserControl"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d">
     <UserControl.Resources>
         <Style TargetType="TextBlock">
@@ -24,6 +25,7 @@
           Padding="20"
           Background="{ThemeResource BackgroundColor}">
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -62,6 +64,8 @@
                  Grid.ColumnSpan="2"
                  Style="{StaticResource CloseButtonStyle}"
                  HorizontalAlignment="Right"
+                 PointerExited="Button_OnPointerExited"
+                 PointerEntered="Button_OnPointerEntered"
                  Content="X"
                  Height="31"
                  HorizontalContentAlignment="Right"
@@ -116,14 +120,6 @@
                   x:Name="LoanedAmountGoesToAccountNumber"
                   ItemsSource="{x:Bind AccountCreationViewModel.AccountNames,Mode=OneWay}"
                   Margin="5 0 5 0"></ComboBox>
-        <!--<TextBlock Grid.Row="5"
-                   Grid.Column="0"
-                   Text="Repayment account" />
-        <ComboBox Grid.Column="1"
-                  x:Name="RepaymentComboBox"
-                  Grid.Row="5"
-                  ItemsSource="{x:Bind AccountCreationViewModel.SavingsAccountNames,Mode=OneWay}"
-                  Margin="5 0 5 0" />-->
         <TextBlock Grid.Row="5"
                    Grid.Column="0"
                    Text="Interest rate" />
@@ -133,36 +129,62 @@
                    Text="{x:Bind AccountCreationViewModel.PersonalLoanInterestRate,Mode=OneWay}"
                    Grid.Column="1"
                    HorizontalAlignment="Left"></TextBlock>
-        <!--<TextBlock Grid.Row="7"
-                   x:Name="RecurringDepositInterestRateText"
-                   Text="{x:Bind AccountCreationViewModel.RecurringDepositInterestRate,Mode=OneWay}"
-                   Grid.Column="1"
-                   Visibility="Collapsed"
-                   HorizontalAlignment="Left"></TextBlock>-->
         <TextBlock Grid.Row="4"
                    Grid.Column="0"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Left"
                    x:Name="LoanAmountTextBlock"
                    Text="Loan Amount" />
-        <!--<TextBlock Grid.Row="6"
-                   Grid.Column="0"
-                   Visibility="Collapsed"
-                   x:Name="MonthlyInstallmentTextBlock"
-                   Text="Monthly Installment" />-->
-        <Slider Grid.Row="4"
-                Grid.Column="1"
-                x:Name="LoanAmountSlider"
-                StepFrequency="0.1"
-                IsTabStop="True"
-                ValueChanged="BalanceSlider_OnValueChanged"
-                Value="{x:Bind AccountCreationViewModel.LoanedValue,Mode=TwoWay}"
-                Minimum="100000"
-                Maximum="1000000"></Slider>
+        <StackPanel Orientation="Vertical" Grid.Row="4"
+                    Grid.Column="1"
+                    Spacing="5">
+            <controls:NumberBox Minimum="100000"
+                                Grid.Row="5"
+                                SpinButtonPlacementMode="Hidden"
+                                Grid.Column="1"
+                                x:Name="LoanAmountTextBox"
+                                AcceptsExpression="True"
+                                HorizontalAlignment="Left"
+                                CharacterReceived="UIElement_OnCharacterReceived"
+                                ValueChanged="NumberBox_OnValueChanged"
+                                SmallChange="100"
+                                LargeChange="1000"
+                                Width="120"
+                                IsDoubleTapEnabled="True"
+                                Loaded="LoanAmountTextBox_OnLoaded"
+                                Value="{x:Bind AccountCreationViewModel.GetLoanedValue(),Mode=OneWay,FallbackValue=100000.0}"
+                                SelectionHighlightColor="{ThemeResource PrimaryColor}"
+                                ValidationMode="InvalidInputOverwritten"
+                                Maximum="10000000" />
+            <Slider Grid.Row="4"
+                    Grid.Column="1"
+                    x:Name="LoanAmountSlider"
+                    StepFrequency="0.1"
+                    PointerExited="Button_OnPointerExited"
+                    PointerEntered="Button_OnPointerEntered"
+                    IsTabStop="True"
+                    ValueChanged="BalanceSlider_OnValueChanged"
+                    Value="{x:Bind AccountCreationViewModel.LoanedValue,Mode=TwoWay}"
+                    Minimum="100000"
+                    Maximum="1000000"></Slider>
+            
+        </StackPanel>
+        
+            <!--<controls:NumberBox.Value>
+                <Binding Path="AccountCreationViewModel.LoanedValue"
+                         FallbackValue="10000"
+                         TargetNullValue="10000"
+                         Mode="TwoWay" />
+            </controls:NumberBox.Value>-->
+        <!--</controls:NumberBox>-->
         <TextBlock Grid.Row="6"
                    Grid.Column="0"
                    Text="Tenure"></TextBlock>
         <Slider x:Name="TenureSlider"
                 Grid.Row="6"
                 IsTabStop="True"
+                PointerExited="Button_OnPointerExited"
+                PointerEntered="Button_OnPointerEntered"
                 Minimum="1"
                 ValueChanged="BalanceSlider_OnValueChanged"
                 Maximum="10"
@@ -206,8 +228,12 @@
                 CornerRadius="8"
                 Grid.ColumnSpan="2"
                 BorderThickness="2"
+                PointerExited="Button_OnPointerExited"
+                PointerEntered="Button_OnPointerEntered"
                 Click="CreateLoan_OnClick"
                 Style="{StaticResource FeatureButtonStyle}"
+                Background="{ThemeResource AcrylicBrushBackground}"
+                Foreground="White"
                 HorizontalAlignment="Center"
                 Content="Create">
         </Button>

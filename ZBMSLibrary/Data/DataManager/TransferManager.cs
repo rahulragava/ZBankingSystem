@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Security.Principal;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -35,60 +36,69 @@ namespace ZBMSLibrary.Data.DataManager
                 var userName = await _dbHandler.GetUserNameAsync(transferRequest.Account.UserId);
                 if (transferRequest.Account is SavingsAccountBObj savingsAccountBObj)
                 {
-                    var savingsAccount = new SavingsAccount
+                    if (IsTransactionLimitExceeded(savingsAccountBObj))
                     {
-                        AccountNumber = savingsAccountBObj.AccountNumber,
-                        IfscCode = savingsAccountBObj.IfscCode,
-                        UserId = savingsAccountBObj.UserId,
-                        CreatedOn = savingsAccountBObj.CreatedOn,
-                        AccountStatus = savingsAccountBObj.AccountStatus,
-                        Balance = savingsAccountBObj.Balance,
-                        MinimumBalance = savingsAccountBObj.MinimumBalance,
-                        FineAmount = savingsAccountBObj.FineAmount,
-                        ServiceCharges = savingsAccountBObj.ServiceCharges,
-                        InterestRate = savingsAccountBObj.InterestRate,
-                        ToBeCreditedAmount = savingsAccountBObj.ToBeCreditedAmount,
-                    };
-                    if (savingsAccount.Balance - transferRequest.Amount < 0)
-                    {
-                        //no sufficient balance in account
-                        throw new InsufficientBalanceException("Insufficient balance amount for transaction");
+                        var savingsAccount = new SavingsAccount
+                        {
+                            AccountNumber = savingsAccountBObj.AccountNumber,
+                            IfscCode = savingsAccountBObj.IfscCode,
+                            UserId = savingsAccountBObj.UserId,
+                            CreatedOn = savingsAccountBObj.CreatedOn,
+                            AccountStatus = savingsAccountBObj.AccountStatus,
+                            Balance = savingsAccountBObj.Balance,
+                            MinimumBalance = savingsAccountBObj.MinimumBalance,
+                            FineAmount = savingsAccountBObj.FineAmount,
+                            ServiceCharges = savingsAccountBObj.ServiceCharges,
+                            InterestRate = savingsAccountBObj.InterestRate,
+                            ToBeCreditedAmount = savingsAccountBObj.ToBeCreditedAmount,
+                            NextCreditDateTime = savingsAccountBObj.NextCreditDateTime,
+                        };
+                        if (savingsAccount.Balance - transferRequest.Amount < 0)
+                        {
+                            //no sufficient balance in account
+                            throw new InsufficientBalanceException("Insufficient balance amount for transaction");
+                        }
+                        else
+                        {
+                            savingsAccount.Balance -= transferRequest.Amount;
+                        }
+                        await _dbHandler.UpdateSavingsAccountAsync(savingsAccount);
+                        NotificationEvents.TransferSavingsAccountBalanceUpdation(transferRequest.Amount);
+                        fromTransactionSummary.SenderAccountNumber = savingsAccount.AccountNumber;
+                        //TransactionSummary toTransactionSummary = new TransactionSummary
+                        //{
+                        //    SenderAccountNumber = savingsAccount.AccountNumber,
+                        //    TransactionOn = DateTime.Now,
+                        //    Amount = transferRequest.Amount,
+                        //    TransactionType = TransactionType.Credit,
+                        //    Description = "Transaction"
+                        //};
+                        try
+                        {
+                            var account = await _dbHandler.GetSavingsAccountAsync(transferRequest.AccountNumber);
+                            account.Balance += transferRequest.Amount;
+                            await _dbHandler.UpdateSavingsAccountAsync(account);
+                            fromTransactionSummary.ReceiverAccountNumber = account.AccountNumber;
+                            //toTransactionSummary.ReceiverAccountNumber = account.AccountNumber;
+                            await _dbHandler.InsertTransactionAsync(fromTransactionSummary);
+                            //await _dbHandler.InsertTransactionAsync(toTransactionSummary);
+
+                        }
+                        catch (InvalidOperationException e)
+                        {
+                            var account = await _dbHandler.GetCurrentAccountAsync(transferRequest.AccountNumber);
+                            account.Balance += transferRequest.Amount;
+                            await _dbHandler.UpdateCurrentAccountAsync(account);
+                            fromTransactionSummary.ReceiverAccountNumber = account.AccountNumber;
+                            //toTransactionSummary.ReceiverAccountNumber = account.AccountNumber;
+                            await _dbHandler.InsertTransactionAsync(fromTransactionSummary);
+                            //await _dbHandler.InsertTransactionAsync(toTransactionSummary);
+                        }
+
                     }
                     else
                     {
-                        savingsAccount.Balance -= transferRequest.Amount;
-                    }
-                    await _dbHandler.UpdateSavingsAccountAsync(savingsAccount);
-                    NotificationEvents.TransferSavingsAccountBalanceUpdation(transferRequest.Amount);
-                    fromTransactionSummary.SenderAccountNumber = savingsAccount.AccountNumber;
-                    //TransactionSummary toTransactionSummary = new TransactionSummary
-                    //{
-                    //    SenderAccountNumber = savingsAccount.AccountNumber,
-                    //    TransactionOn = DateTime.Now,
-                    //    Amount = transferRequest.Amount,
-                    //    TransactionType = TransactionType.Credit,
-                    //    Description = "Transaction"
-                    //};
-                    try
-                    {
-                        var account = await _dbHandler.GetSavingsAccountAsync(transferRequest.AccountNumber);
-                        account.Balance += transferRequest.Amount;
-                        await _dbHandler.UpdateSavingsAccountAsync(account);
-                        fromTransactionSummary.ReceiverAccountNumber = account.AccountNumber;
-                        //toTransactionSummary.ReceiverAccountNumber = account.AccountNumber;
-                        await _dbHandler.InsertTransactionAsync(fromTransactionSummary);
-                        //await _dbHandler.InsertTransactionAsync(toTransactionSummary);
-                        
-                    }
-                    catch (InvalidOperationException e)
-                    {
-                        var account = await _dbHandler.GetCurrentAccountAsync(transferRequest.AccountNumber);
-                        account.Balance += transferRequest.Amount;
-                        await _dbHandler.UpdateCurrentAccountAsync(account);
-                        fromTransactionSummary.ReceiverAccountNumber = account.AccountNumber;
-                        //toTransactionSummary.ReceiverAccountNumber = account.AccountNumber;
-                        await _dbHandler.InsertTransactionAsync(fromTransactionSummary);
-                        //await _dbHandler.InsertTransactionAsync(toTransactionSummary);
+                        throw new TransactionLimitExceededException("Savings account limit exceeded");
                     }
 
 
@@ -170,10 +180,29 @@ namespace ZBMSLibrary.Data.DataManager
             {
                 transferUseCaseCallBack?.OnError(insufficientBalanceException);
             }
+            catch (TransactionLimitExceededException transactionLimitExceededException)
+            {
+                transferUseCaseCallBack?.OnError(transactionLimitExceededException);
+            }
             catch (Exception ex)
             {
                 transferUseCaseCallBack?.OnError(ex);
             }
+        }
+
+        public bool IsTransactionLimitExceeded(SavingsAccountBObj savingsAccountBObj)
+        {
+            var today = DateTime.Today;
+            DateTime startOfDay = today.Date;
+            DateTime endOfDay = today.Date.AddDays(1);
+            var transactionsOnToday = savingsAccountBObj.TransactionList
+                .Where(t =>
+                    t.SenderAccountNumber == savingsAccountBObj.AccountNumber &&
+                    t.TransactionOn >= startOfDay &&
+                    t.TransactionOn < endOfDay)
+                .ToList();
+            return transactionsOnToday.Count() < 10;
+            //return transactionsOnToday.Count() < 10;
         }
     }
 }

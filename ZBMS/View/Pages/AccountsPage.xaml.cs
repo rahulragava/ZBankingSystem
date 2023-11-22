@@ -68,6 +68,13 @@ namespace ZBMS.View.Pages
             NotificationEvents.PersonalLoanUpdated += PersonalLoanUpdated;
             NotificationEvents.DepositSettled += DepositSettled;
             NotificationEvents.MonthlyInstallmentDeposited += MonthlyInstallmentDeposited;
+            NotificationEvents.MonthlyInterestCredited += MonthlyInterestCredited;
+
+        }
+
+        private void NoAccountVisibility()
+        {
+           
         }
 
 
@@ -83,6 +90,27 @@ namespace ZBMS.View.Pages
             NotificationEvents.PersonalLoanUpdated -= PersonalLoanUpdated;
             NotificationEvents.DepositSettled -= DepositSettled;
             NotificationEvents.MonthlyInstallmentDeposited -= MonthlyInstallmentDeposited;
+            NotificationEvents.MonthlyInterestCredited -= MonthlyInterestCredited;
+        }
+
+        private void MonthlyInterestCredited(SavingsAccount savingsAccount, double interestAmount)
+        {
+
+            Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                () =>
+                {
+                    if (AccountViewModel.Accounts.FirstOrDefault(x => x.AccountNumber == savingsAccount.AccountNumber) is SavingsAccountBObj account)
+                    {
+                        account.Balance = account.Balance + interestAmount;
+                        account.ToBeCreditedAmount = 0;
+                    }
+                    InfoBar.Message = "Interest credited for savings account";
+                    InfoBar.Severity = InfoBarSeverity.Informational;
+                    CreateTimer();
+                    InfoBar.IsOpen = true;
+
+                }
+            );
         }
 
         private void RecurringDepositCreated(RecurringAccountBObj recurringDeposit)
@@ -100,6 +128,8 @@ namespace ZBMS.View.Pages
                     InfoBar.Message = "Recurring Deposit is Successfully Created";
                     CreateTimer();
                     InfoBar.IsOpen = true;
+                    NoDepositIcon.Visibility = Visibility.Collapsed;
+                    AccountStatusDetailsControl.NewDepositCreated();
                 }
             );
         }
@@ -123,7 +153,9 @@ namespace ZBMS.View.Pages
                     AccountViewModel.Loans.Insert(0,personalLoanBObj);
                     InfoBar.Message = "Personal Loan Account is Successfully Created";
                     CreateTimer();
+                    NoLoanIcon.Visibility = Visibility.Collapsed;
                     InfoBar.IsOpen = true;
+                    AccountStatusDetailsControl.NewLoanCreated();
                 }
             );
         }
@@ -156,6 +188,9 @@ namespace ZBMS.View.Pages
                     InfoBar.Message = "Fixed Deposit is Successfully Created";
                     CreateTimer();
                     InfoBar.IsOpen = true;
+                    NoDepositIcon.Visibility = Visibility.Collapsed;
+                    AccountStatusDetailsControl.NewDepositCreated();
+
                 }
             );
         }
@@ -178,6 +213,7 @@ namespace ZBMS.View.Pages
                     var indexOf =
                         AccountViewModel.Deposits.IndexOf(deposit);
                     AccountViewModel.Deposits[indexOf] = deposit;
+
 
                     if (AccountViewModel.Accounts.FirstOrDefault(a => a.AccountNumber == deposit.SavingsAccountId) is SavingsAccountBObj savingsAccount)
                     {
@@ -244,6 +280,9 @@ namespace ZBMS.View.Pages
                     InfoBar.Message = "Current Account is Successfully Created";
                     CreateTimer();
                     InfoBar.IsOpen = true;
+                    NoAccountIcon.Visibility = Visibility.Collapsed;
+                    AccountStatusDetailsControl.NewAccountCreated();
+
                 }
             );
         }
@@ -258,51 +297,61 @@ namespace ZBMS.View.Pages
                 InfoBar.Message = "Savings Account is Successfully Created";
                 CreateTimer();
                 InfoBar.IsOpen = true;
+                NoAccountIcon.Visibility = Visibility.Collapsed;
+                AccountStatusDetailsControl.NewAccountCreated();
             });
         }
 
-        public bool IsAccountPopupDragging { get; set; }
-        public bool IsDepositPopupDragging{ get; set; }
-        public bool IsLoanPopupDragging{ get; set; }
+        private bool IsAccountPopupDragging { get; set; }
+        private bool IsDepositPopupDragging{ get; set; }
+        private bool IsLoanPopupDragging{ get; set; }
 
         private void CreateAccountButton_OnClick(object sender, RoutedEventArgs e)
         {
             AccountCreationPopup.IsOpen = true;
-            AccountCreationPopup.HorizontalOffset = 0;
-            AccountCreationPopup.VerticalOffset = 0;
+            AccountCreationPopup.HorizontalOffset = -250;
+            AccountCreationPopup.VerticalOffset = -280;
         }
 
         private void AccountCreationUserControl_OnClosingPopup()
         {
             AccountCreationPopup.IsOpen = false;
+            AccountCreationPopup.HorizontalAlignment = HorizontalAlignment.Center;
+            AccountCreationPopup.VerticalAlignment = VerticalAlignment.Center;
+            AccountCreationPopup.HorizontalOffset = -250;
+            AccountCreationPopup.VerticalOffset = -280;
         }
 
 
         private void CreateDepositButton_OnClick(object sender, RoutedEventArgs e)
         {
-            DepositCreationPopup.IsOpen = true; 
-            DepositCreationPopup.HorizontalOffset = 0;
-            DepositCreationPopup.VerticalOffset = 0;
+            DepositCreationPopup.IsOpen = true;
+            DepositCreationPopup.HorizontalOffset = -250;
+            DepositCreationPopup.VerticalOffset = -380;
         }
 
         private void CreateLoanButton_OnClick(object sender, RoutedEventArgs e)
         {
             LoanCreationPopup.IsOpen = true;
-            LoanCreationPopup.HorizontalOffset = 0;
-            LoanCreationPopup.VerticalOffset = 0;
+            LoanCreationPopup.HorizontalOffset = -250;
+            LoanCreationPopup.VerticalOffset = -360;
         }
 
         private void DepositCreationUserControl_OnOnClosingPopup()
         {
             DepositCreationPopup.IsOpen = false;
-            DepositCreationPopup.HorizontalOffset = 0;
-            DepositCreationPopup.VerticalOffset = 0;
+            DepositCreationPopup.HorizontalAlignment = HorizontalAlignment.Center;
+            DepositCreationPopup.VerticalAlignment = VerticalAlignment.Center;
+            DepositCreationPopup.HorizontalOffset = -250;
+            DepositCreationPopup.VerticalOffset = -360;
         } 
         private void LoanCreationUserControl_OnClosingPopup()
         {
             LoanCreationPopup.IsOpen = false;
-            LoanCreationPopup.HorizontalOffset = 0;
-            LoanCreationPopup.VerticalOffset = 0;
+            LoanCreationPopup.HorizontalAlignment = HorizontalAlignment.Center;
+            LoanCreationPopup.VerticalAlignment = VerticalAlignment.Center;
+            LoanCreationPopup.HorizontalOffset = -250;
+            LoanCreationPopup.VerticalOffset = -360;
         }
 
         private void AccountListView_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -464,108 +513,51 @@ namespace ZBMS.View.Pages
             }
         }
 
-        private void UIElement_OnPointerEntered(object sender, PointerRoutedEventArgs e)
+        
+
+        public void RetrievedAccountSuccessfully()
         {
-            throw new NotImplementedException();
+            NoAccountIcon.Visibility = AccountViewModel.Accounts.Count == 0 ? Visibility.Visible : Visibility.Collapsed;
+            NoDepositIcon.Visibility = AccountViewModel.Deposits.Count == 0 ? Visibility.Visible : Visibility.Collapsed;
+            NoLoanIcon.Visibility = AccountViewModel.Loans.Count == 0 ? Visibility.Visible : Visibility.Collapsed;
+            ConsolidatedDataSheetControl.SetBalanceDetails();
+            AccountStatusDetailsControl.SetStatusCounts();
+            LoanAccountDetailsControl.SetLoans();
         }
 
-        private void CardNameBoard_OnPointerEntered(object sender, PointerRoutedEventArgs e)
+        private void CreateAccount_OnPointerEntered(object sender, PointerRoutedEventArgs e)
         {
-            //var dataTemplate = Application.Current.Resources["SavingsAccountCardTemplate"] as DataTemplate;
-            //dataTemplate.GetElement()
-            //MyStoryboard1.Stop();
-            //MyStoryboard.Begin();
-            //var stackPanel = sender as Button;
-            //var WidthAnimation = new DoubleAnimation() { To = 130, Duration = TimeSpan.FromSeconds(0.3) };
-            //var HeightAnimation = new DoubleAnimation() { To = 150, Duration = TimeSpan.FromSeconds(0.3) };
-
-            //stackPanel.StartAnimation(StackPanel., WidthAnimation);
-            //stackPanel.BeginAnimation(StackPanel.HeightProperty, HeightAnimation);
+            if (sender is FontIcon icon)
+            {
+                icon.FontSize = 18;
+                Window.Current.CoreWindow.PointerCursor = new CoreCursor(CoreCursorType.Hand, 1);
+            }
         }
 
-        private void CardNameBoard_OnPointerExited(object sender, PointerRoutedEventArgs e)
+        private void CreateAccount_OnPointerExited(object sender, PointerRoutedEventArgs e)
         {
-            //var dataTemplate = Application.Current.Resources["SavingsAccountCardTemplate"] as DataTemplate;
-            //MyStoryboard1.Begin();
+            if (sender is FontIcon icon)
+            {
+                icon.FontSize = 16;
+                Window.Current.CoreWindow.PointerCursor = new CoreCursor(CoreCursorType.Arrow, 1);
+            }
+        }
+
+        private void AccountCard_OnPointerExited(object sender, PointerRoutedEventArgs e)
+        {
+            Window.Current.CoreWindow.PointerCursor = new CoreCursor(CoreCursorType.Arrow, 1);
+
+        }
+
+        private void AccountCard_OnPointerEntered(object sender, PointerRoutedEventArgs e)
+        {
+            Window.Current.CoreWindow.PointerCursor = new CoreCursor(CoreCursorType.Hand, 1);
+
         }
     }
 
-    //public class PopupBehaviours
-    //{
-    //    #region IsMoveEnabled DP
-    //    public static Boolean GetIsMoveEnabledProperty(DependencyObject obj)
-    //    {
-    //        return (Boolean)obj.GetValue(IsMoveEnabledPropertyProperty);
-    //    }
-
-    //    public static void SetIsMoveEnabledProperty(DependencyObject obj,
-    //                                                Boolean value)
-    //    {
-    //        obj.SetValue(IsMoveEnabledPropertyProperty, value);
-    //    }
-
-    //    // Using a DependencyProperty as the backing store for 
-    //    //IsMoveEnabledProperty. 
-    //    public static readonly DependencyProperty IsMoveEnabledPropertyProperty =
-    //        DependencyProperty.RegisterAttached("IsMoveEnabledProperty",
-    //        typeof(Boolean), typeof(PopupBehaviours),
-    //        new PropertyMetadata(false, OnIsMoveStatedChanged));
-
-
-    //    private static void OnIsMoveStatedChanged(DependencyObject sender,
-    //        DependencyPropertyChangedEventArgs e)
-    //    {
-    //        Thumb thumb = (Thumb)sender;
-
-    //        if (thumb == null) return;
-
-    //        thumb.DragStarted -= Thumb_DragStarted;
-    //        thumb.DragDelta -= Thumb_DragDelta;
-    //        thumb.DragCompleted -= Thumb_DragCompleted;
-
-    //        if (e.NewValue is bool)
-    //        {
-    //            thumb.DragStarted += Thumb_DragStarted;
-    //            thumb.DragDelta += Thumb_DragDelta;
-    //            thumb.DragCompleted += Thumb_DragCompleted;
-    //        }
-
-    //    }
-    //    #endregion
-
-    //    #region Private Methods
-    //    private static void Thumb_DragCompleted(object sender,
-    //        DragCompletedEventArgs e)
-    //    {
-    //        Thumb thumb = (Thumb)sender;
-    //        //thumb.C = null;
-    //    }
-
-    //    private static void Thumb_DragDelta(object sender,
-    //    DragDeltaEventArgs e)
-    //    {
-    //        Thumb thumb = (Thumb)sender;
-    //        Popup popup = thumb.Tag as Popup;
-
-    //        if (popup != null)
-    //        {
-    //            popup.HorizontalOffset += e.HorizontalChange;
-    //            popup.VerticalOffset += e.VerticalChange;
-    //        }
-    //    }
-
-    //    private static void Thumb_DragStarted(object sender,
-    //    DragStartedEventArgs e)
-    //    {
-    //        Thumb thumb = (Thumb)sender;
-    //        //thumb.Cursor = Cursors.Hand;
-    //    }
-    //    #endregion
-
-    //}
-
     public interface IAccountView
     {
-
+        void RetrievedAccountSuccessfully();
     }
 }

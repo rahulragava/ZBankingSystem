@@ -135,6 +135,7 @@
     <Compile Include="ViewModel\AccountPageViewModel.cs" />
     <Compile Include="ViewModel\ChangeRepaymentAccountDepositViewModel.cs" />
     <Compile Include="ViewModel\ChangeSenderAccountDepositViewModel.cs" />
+    <Compile Include="ViewModel\ConsolidatedReportViewModel.cs" />
     <Compile Include="ViewModel\DepositDetailViewModel.cs" />
     <Compile Include="ViewModel\DepositMoneyViewModel.cs" />
     <Compile Include="ViewModel\DetailViewModel\CurrentAccountDetailViewModel.cs" />
@@ -186,6 +187,9 @@
     <Compile Include="View\UserControl\AccountDetailUserControl.xaml.cs">
       <DependentUpon>AccountDetailUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\UserControl\AccountsStatusDetailControl.xaml.cs">
+      <DependentUpon>AccountsStatusDetailControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\UserControl\AccountSummary\CurrentAccountSummary.xaml.cs">
       <DependentUpon>CurrentAccountSummary.xaml</DependentUpon>
     </Compile>
@@ -206,6 +210,9 @@
     </Compile>
     <Compile Include="View\UserControl\CardTemplates\SavingsAccountCardUserControl.xaml.cs">
       <DependentUpon>SavingsAccountCardUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\UserControl\CustomContentDialogControl.xaml.cs">
+      <DependentUpon>CustomContentDialogControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\UserControl\DepositCreationUserControl.xaml.cs">
       <DependentUpon>DepositCreationUserControl.xaml</DependentUpon>
@@ -242,6 +249,9 @@
     </Compile>
     <Compile Include="View\UserControl\NetBalancePerMonthDetailsUserControl.xaml.cs">
       <DependentUpon>NetBalancePerMonthDetailsUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\UserControl\NetLoanDetailsControl.xaml.cs">
+      <DependentUpon>NetLoanDetailsControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\UserControl\OneByTwoGrid.xaml.cs">
       <DependentUpon>OneByTwoGrid.xaml</DependentUpon>
@@ -387,6 +397,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\UserControl\AccountsStatusDetailControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\UserControl\AccountSummary\CurrentAccountSummary.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -412,6 +426,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\UserControl\CardTemplates\SavingsAccountCardUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\UserControl\CustomContentDialogControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -460,6 +478,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\UserControl\NetBalancePerMonthDetailsUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\UserControl\NetLoanDetailsControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

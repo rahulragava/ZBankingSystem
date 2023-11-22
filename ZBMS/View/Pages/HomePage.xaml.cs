@@ -10,6 +10,7 @@ using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Networking.NetworkOperators;
 using Windows.UI;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -254,6 +255,17 @@ namespace ZBMS.View.Pages
         {
             //AppSettings.AccentColor = Colors.Blue;
             //AppSettings.UpdateSystemAccentColorAndBrushes(AppSettings.AccentColor);
+        }
+
+        private void PersonPicture_OnPointerExited(object sender, PointerRoutedEventArgs e)
+        {
+            Window.Current.CoreWindow.PointerCursor = new CoreCursor(CoreCursorType.Hand, 1);
+        }
+
+        private void PersonPicture_OnPointerEntered(object sender, PointerRoutedEventArgs e)
+        {
+            Window.Current.CoreWindow.PointerCursor = new CoreCursor(CoreCursorType.Hand, 1);
+
         }
     }
     public interface IHomePage

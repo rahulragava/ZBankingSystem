@@ -43,13 +43,7 @@ namespace ZBMS.View.UserControl
             {
                 TransactionListDataGrid.SelectedItem = TransactionList[0];
             }
-            if (TransactionViewModel.CurrentPage == TransactionViewModel.TotalPages)
-            {
-                //NextPageButton.IsEnabled = false;
-                //LastPageButton.IsEnabled = false;
-                //FirstPageButton.IsEnabled = false;
-                //PreviousPageButton.IsEnabled = false;
-            }
+            
         }
 
         public static readonly DependencyProperty TransactionListProperty = DependencyProperty.Register(

@@ -17,8 +17,10 @@
                                      Color="LightGray"></SolidColorBrush>-->
                     <SolidColorBrush x:Key="SecondaryColor"
                                      Color="#6F32FF"></SolidColorBrush>
+                    <!--<SolidColorBrush x:Key="PrimaryColor"
+                                     Color="#0D64FF"></SolidColorBrush-->
                     <SolidColorBrush x:Key="PrimaryColor"
-                                     Color="#0D64FF"></SolidColorBrush>
+                                     Color="DarkCyan"></SolidColorBrush>
                     <SolidColorBrush x:Key="SubtleText"
                                      Color="Gray"></SolidColorBrush>
                     <SolidColorBrush x:Key="SavingsAccountCardColor"
