@@ -103,11 +103,14 @@ namespace ZBMS.View.UserControl
                 //titleBar.BackgroundColor = Color.FromArgb(205, 43, 141, 143);
                 //titleBar.ButtonBackgroundColor = Color.FromArgb(205, 43, 141, 143);
                 titleBar.ButtonForegroundColor = Colors.White;
-                titleBar.BackgroundColor = Colors.White;
+                titleBar.BackgroundColor = Color.FromArgb(205, 43, 141, 143);
+                titleBar.ButtonBackgroundColor = Color.FromArgb(205, 43, 141, 143);
+
+                //titleBar.BackgroundColor = Colors.White;
                 //titleBar.ForegroundColor = Colors.Black;
                 //titleBar.ButtonBackgroundColor = Colors.White;
                 //titleBar.BackgroundColor = Color.FromArgb(255, 240, 242, 245);
-                titleBar.ButtonBackgroundColor = Colors.White;
+                //titleBar.ButtonBackgroundColor = Colors.White;
                 //titleBar.ButtonForegroundColor = Colors.Black;
 
                 //ThemeChangerNavigationItem.Content = "Dark";
@@ -118,6 +121,13 @@ namespace ZBMS.View.UserControl
 
         public event Action LogOutClicked;
         private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+        {
+            ClosingDepositContentDialog.Visibility = Visibility.Visible;
+            ClosingDepositContentDialog.ShowDialog();
+
+        }
+
+        private void LogOutContentDialog_OnPrimaryButtonClicked()
         {
             LogOutClicked?.Invoke();
         }

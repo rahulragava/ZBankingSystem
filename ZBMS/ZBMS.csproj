@@ -12,7 +12,7 @@
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.19041.0</TargetPlatformVersion>
-    <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
+    <TargetPlatformMinVersion>10.0.18362.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -128,9 +128,11 @@
     <Compile Include="Util\PageArguments\CurrentAccountPageArguments.cs" />
     <Compile Include="Util\PageArguments\SavingsAccountPageArguments.cs" />
     <Compile Include="Util\PageArguments\RecurringDepositPageArguments.cs" />
+    <Compile Include="Util\ScrollViewerExtenstion.cs" />
     <Compile Include="Util\SelectAccountTemplate.cs" />
     <Compile Include="Util\SelectDepositTemplate.cs" />
     <Compile Include="Util\SelectLoanTemplate.cs" />
+    <Compile Include="Util\VObj\GroupInfoCollectionVObj.cs" />
     <Compile Include="ViewModel\AccountCreationViewModel.cs" />
     <Compile Include="ViewModel\AccountPageViewModel.cs" />
     <Compile Include="ViewModel\ChangeRepaymentAccountDepositViewModel.cs" />
@@ -281,6 +283,7 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\0ddb8d1b6b67af7a01c2921322ed74dd.jpg" />
     <Content Include="Assets\AccountIcon.png" />
     <Content Include="Assets\AppLoginPageBackgroundImage.jpg" />
     <Content Include="Assets\AppLoginPageBackgroundImage1.jpg" />
@@ -304,6 +307,9 @@
     <Content Include="Assets\depositIcon.png" />
     <Content Include="Assets\loanImage.jpg" />
     <Content Include="Assets\logo.jpg" />
+    <Content Include="Assets\moneyBag-removebg-preview.png" />
+    <Content Include="Assets\MoneyWIthWIngs-removebg-preview.png" />
+    <Content Include="Assets\MoneyWIthWIngs.png" />
     <Content Include="Assets\palette.png" />
     <Content Include="Assets\SplashScreen.scale-100.png" />
     <Content Include="Assets\SplashScreen.scale-125.png" />
@@ -536,6 +542,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\bg2" />
+    <None Include="Assets\money-with-wings-flat-icons-png.webp" />
   </ItemGroup>
   <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

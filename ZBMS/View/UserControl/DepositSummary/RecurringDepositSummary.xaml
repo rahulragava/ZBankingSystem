@@ -25,6 +25,85 @@
           BorderBrush="{ThemeResource RecurringDepositCardColor}"
           BorderThickness="5 0 0 0"
           Padding="5">
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState x:Name="NarrowState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0"></AdaptiveTrigger>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="IfscPanel.(Grid.Row)"
+                                Value="4"></Setter>
+                        <Setter Target="IfscPanel.(Grid.Column)"
+                                Value="0"></Setter>
+                        <Setter Target="IfscPanel.(Grid.ColumnSpan)"
+                                Value="2"></Setter>
+                        <Setter Target="BranchNamePanel.(Grid.Row)"
+                                Value="4"></Setter>
+                        <Setter Target="BranchNamePanel.(Grid.Column)"
+                                Value="2"></Setter>
+                        <Setter Target="BranchNamePanel.(Grid.ColumnSpan)"
+                                Value="2"></Setter>
+                        <Setter Target="InterestRatePanel.(Grid.Row)"
+                                Value="4"></Setter>
+                        <Setter Target="InterestRatePanel.(Grid.Column)"
+                                Value="4"></Setter>
+                        <Setter Target="InterestRatePanel.(Grid.ColumnSpan)"
+                                Value="2"></Setter>
+                        <Setter Target="StatusPanel.(Grid.Column)"
+                                Value="0"></Setter>
+                        <Setter Target="StatusPanel.(Grid.ColumnSpan)"
+                                Value="2"></Setter>
+                        <Setter Target="NamePanel.(Grid.Column)"
+                                Value="2"></Setter>
+                        <Setter Target="NamePanel.(Grid.ColumnSpan)"
+                                Value="2"></Setter>
+                        <Setter Target="DatePanel.(Grid.Column)"
+                                Value="4"></Setter>
+                        <Setter Target="DatePanel.(Grid.ColumnSpan)"
+                                Value="2"></Setter>
+                    </VisualState.Setters>
+                </VisualState>
+
+                <VisualState x:Name="WideState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="780"></AdaptiveTrigger>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="IfscPanel.(Grid.Row)"
+                                Value="3"></Setter>
+                        <Setter Target="IfscPanel.(Grid.Column)"
+                                Value="3"></Setter>
+                        <Setter Target="IfscPanel.(Grid.ColumnSpan)"
+                                Value="1"></Setter>
+                        <Setter Target="BranchNamePanel.(Grid.Row)"
+                                Value="3"></Setter>
+                        <Setter Target="BranchNamePanel.(Grid.Column)"
+                                Value="4"></Setter>
+                        <Setter Target="BranchNamePanel.(Grid.ColumnSpan)"
+                                Value="1"></Setter>
+                        <Setter Target="InterestRatePanel.(Grid.Row)"
+                                Value="3"></Setter>
+                        <Setter Target="InterestRatePanel.(Grid.Column)"
+                                Value="5"></Setter>
+                        <Setter Target="InterestRatePanel.(Grid.ColumnSpan)"
+                                Value="1"></Setter>
+                        <Setter Target="StatusPanel.(Grid.Column)"
+                                Value="0"></Setter>
+                        <Setter Target="StatusPanel.(Grid.ColumnSpan)"
+                                Value="1"></Setter>
+                        <Setter Target="NamePanel.(Grid.Column)"
+                                Value="1"></Setter>
+                        <Setter Target="NamePanel.(Grid.ColumnSpan)"
+                                Value="1"></Setter>
+                        <Setter Target="DatePanel.(Grid.Column)"
+                                Value="2"></Setter>
+                        <Setter Target="DatePanel.(Grid.ColumnSpan)"
+                                Value="1"></Setter>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -46,7 +125,7 @@
                    Grid.ColumnSpan="3"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Left"
-                   Margin="10 0"
+                   Margin="10 0 0 0"
                    FontSize="20"
                    Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
                    FontWeight="SemiBold"
@@ -54,7 +133,8 @@
         <TextBlock Grid.Row="1"
                    Grid.Column="0"
                    HorizontalAlignment="Left"
-                   Margin="10 0"
+                   Margin="10 0 0 0"
+                   Grid.ColumnSpan="6"
                    Text="{x:Bind RecurringDepositBObj.AccountNumber,Mode=OneWay}"></TextBlock>
         <StackPanel Grid.Row="0"
                     Grid.Column="3"
@@ -77,6 +157,7 @@
 
         <TextBlock Grid.Row="2"
                    Grid.Column="0"
+                   Grid.ColumnSpan ="6"
                    Margin="10 0"
                    Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
                    FontWeight="SemiBold"
@@ -84,8 +165,9 @@
         <StackPanel Grid.Row="3"
                     Width="100"
                     Height="50"
+                    x:Name="StatusPanel"
                     Grid.Column="0">
-            <TextBlock Text="Status" HorizontalAlignment="Center"></TextBlock>
+            <TextBlock Text="Status"  HorizontalAlignment="Center"></TextBlock>
 
             <StackPanel Background="{x:Bind AccountStatus,Mode=OneWay, Converter={StaticResource AccountStatusToBackgroundConverter}}"
                         CornerRadius="10">
@@ -98,12 +180,14 @@
 
         <StackPanel Grid.Row="3"
                     Grid.Column="1"
+                    x:Name="NamePanel"
                     HorizontalAlignment="Center">
             <TextBlock Text="Name" />
             <TextBlock Text="{x:Bind RecurringDepositBObj.UserName,Mode=OneWay}"></TextBlock>
         </StackPanel>
 
         <StackPanel Grid.Row="3"
+                    x:Name="DatePanel"
                     Grid.Column="2"
                     HorizontalAlignment="Center">
             <TextBlock Text="Opened on"
@@ -112,6 +196,7 @@
                        HorizontalAlignment="Center"></TextBlock>
         </StackPanel>
         <StackPanel Grid.Row="3"
+                    x:Name="IfscPanel"
                     Grid.Column="3">
             <TextBlock Text="IFSC"
                        HorizontalAlignment="Center" />
@@ -120,6 +205,7 @@
         </StackPanel>
 
         <StackPanel Grid.Row="3"
+                    x:Name="BranchNamePanel"
                     Grid.Column="4">
             <TextBlock Text="Branch"
                        HorizontalAlignment="Center" />
@@ -129,6 +215,7 @@
 
         <StackPanel Grid.Row="3"
                     Grid.Column="5"
+                    x:Name="InterestRatePanel"
                     Margin="0 0 0 20">
             <TextBlock Text="Interest Rate"
                        HorizontalAlignment="Center" />

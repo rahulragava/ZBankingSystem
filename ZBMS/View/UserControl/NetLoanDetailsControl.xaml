@@ -15,7 +15,7 @@
         </Style>
     </UserControl.Resources>
 
-    <Grid x:Name="RootGrid" CornerRadius="8" Padding="5 5 5 10" Background="{ThemeResource BackgroundColor}" RowSpacing="10">
+    <Grid x:Name="RootGrid" CornerRadius="8" Padding="5 5 5 0" Background="{ThemeResource BackgroundColor}" RowSpacing="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
@@ -24,6 +24,10 @@
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
 
         <TextBlock Text="Total Due" Margin="5 5 0 0"></TextBlock>
         <TextBlock Grid.Row="1"
@@ -35,11 +39,17 @@
         <TextBlock Grid.Row="2" Text="Interest rate" Margin="5 5 0 0"></TextBlock>
         <TextBlock Grid.Row="3" Text="10%"  Margin="20 5 0 0"></TextBlock>
         <TextBlock Grid.Row="4" Text="Loan Range" Margin="5 5 0 0"/>
-        <TextBlock Grid.Row="5" Margin="25 5 0 0">
+        <TextBlock Grid.Row="5" Margin="25 5 0 0" TextWrapping="WrapWholeWords">
             <Run Text="from"></Run>
             <Run Text="&#x20b9;" /> <Run Text="{x:Bind ConsolidatedReportViewModel.LoanRangeFrom,Mode=OneWay }"></Run>
             <Run Text="To"></Run> <Run Text="&#x20b9;" /> <Run Text="{x:Bind ConsolidatedReportViewModel.LoanRangeTo,Mode=OneWay }"></Run>
 
         </TextBlock>
+
+        <Image Source="../../Assets/moneyBag-removebg-preview.png"
+               Tapped="UIElement_OnTapped"
+               PointerEntered="CreateAccount_OnPointerEntered"
+               PointerExited="CreateAccount_OnPointerExited"
+               Grid.Column="1" Grid.Row="0" Grid.RowSpan="6" Stretch="Uniform"></Image>
     </Grid>
 </UserControl>

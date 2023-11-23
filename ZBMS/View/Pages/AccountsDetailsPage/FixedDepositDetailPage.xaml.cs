@@ -69,7 +69,14 @@ namespace ZBMS.View.Pages.AccountsDetailsPage
             if (FixedDepositDetailViewModel.FixedDepositBObj?.AccountStatus == AccountStatus.Closed)
             {
                 DetailGrid.Visibility = Visibility.Collapsed;
+                CloseDeposit.Visibility = Visibility.Collapsed;
+                DepositCloseIcon.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                DetailGrid.Visibility = Visibility.Visible;
                 CloseDeposit.Visibility = Visibility.Visible;
+                DepositCloseIcon.Visibility = Visibility.Collapsed;
             }
         }
         private void UIElement_OnKeyDown(object sender, KeyRoutedEventArgs e)

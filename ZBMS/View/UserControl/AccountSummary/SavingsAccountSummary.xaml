@@ -158,7 +158,7 @@
 
             <TextBlock HorizontalAlignment="Center"
                        Foreground="White">
-                  <Run Text="&#x20b9;" /> <Run Text="{x:Bind SavingsAccountBObj.Balance,Mode=OneWay}"></Run>
+                  <Run Text="&#x20b9;" /> <Run Text="{x:Bind GetSavingsBalance(),Mode=OneWay}"></Run>
             </TextBlock>
         </StackPanel>
 

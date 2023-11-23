@@ -77,18 +77,12 @@ namespace ZBMS.View.Pages
             if (theme == AppSettings.LightTheme)
             {
                 var titleBar = AppSettings.TitleBar;
-                titleBar.ForegroundColor = Colors.Black;
-                titleBar.BackgroundColor = Color.FromArgb(255, 240, 242, 245);
-                //var a = new AcrylicBrush
-                //{
-                //    TintColor = Color.FromArgb(205,43,141,143),
-                //    TintOpacity = 0.2,
-                    
-                //    BackgroundSource = AcrylicBackgroundSource.Backdrop
-                //};
+                //titleBar.ForegroundColor = Colors.Black;
+                //titleBar.BackgroundColor = Color.FromArgb(255, 240, 242, 245);
                 titleBar.ForegroundColor = Colors.White;
                 titleBar.BackgroundColor = Color.FromArgb(205, 43, 141, 143);
                 titleBar.ButtonForegroundColor = Colors.White;
+                //titleBar.ButtonHoverBackgroundColor = Colors.Red;
                 titleBar.ButtonBackgroundColor = Color.FromArgb(205, 43, 141, 143);
 
 
@@ -104,10 +98,14 @@ namespace ZBMS.View.Pages
             {
                 var titleBar = AppSettings.TitleBar;
                 titleBar.ForegroundColor = Colors.White;
+                titleBar.BackgroundColor = Color.FromArgb(205, 43, 141, 143);
+
                 //titleBar.BackgroundColor = Color.FromArgb(205, 43, 141, 143);
                 //titleBar.ButtonBackgroundColor = Color.FromArgb(205, 43, 141, 143);
                 titleBar.ButtonForegroundColor = Colors.White;
-                titleBar.ButtonBackgroundColor = Colors.White;
+                //titleBar.ButtonBackgroundColor = Colors.White;
+                titleBar.ButtonBackgroundColor = Color.FromArgb(205, 43, 141, 143);
+
 
                 //titleBar.ButtonBackgroundColor = a.TintColor;
                 //titleBar.BackgroundColor = Colors.Black;

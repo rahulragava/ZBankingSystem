@@ -10,41 +10,303 @@
              xmlns:iconPacks="using:MahApps.Metro.IconPacks"
              xmlns:primitives="using:Microsoft.Toolkit.Uwp.UI.Controls.Primitives"
              xmlns:interop="using:Windows.UI.Xaml.Interop"
+             xmlns:businessObject="using:ZBMSLibrary.Entities.BusinessObject"
              mc:Ignorable="d">
     <UserControl.Resources>
         <converters:TypeToBackgroundConverter x:Key="TransactionTypeToBackgroundConverter" />
-        <converters:DateFormatter x:Key="DateTimeConverter" />
-        <!--<SolidColorBrush x:Key="DataGridColumnHeaderBackgroundColor">Blue</SolidColorBrush>-->
-        <!--<Style TargetType="primitives:DataGridColumnHeader">
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="primitives:DataGridColumnHeader">
-                        <Border>
-                            <Border BorderThickness="1"
-                                    CornerRadius="6"
-                                    Background="LightBlue"
-                                    Padding="10,0,0,0"
-                                    Margin="2">
-                                <ContentPresenter />
-                            </Border>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-            <Setter Property="Foreground"
-                    Value="White" />
-            <Setter Property="FontWeight"
-                    Value="SemiBold" />
-            <Setter Property="Height"
-                    Value="30" />
-            <Setter Property="FontSize"
-                    Value="15" />
-        </Style>-->
+        <converters:DateFormatter x:Key="DateFormatter" />
+        <CollectionViewSource x:Name="TransactionSource"
+                              
+                              x:Key="TransactionSource"
+                              
+                              Source="{x:Bind TransactionViewModel.TransactionSummaries,Mode=OneWay}"
+                              IsSourceGrouped="true" />
+
+        <DataTemplate x:Key="NarrowHeaderDataTemplate"
+                      x:Name="NarrowHeaderDataTemplate">
+            <Grid BorderThickness="0,0,0,1"
+                  BorderBrush="DarkGray"
+                  Padding="0,15,0,15"
+                  x:Name="TemplateHeaderGrid">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Foreground="Gray"
+                           FontWeight="SemiBold"
+                           MinWidth="100"
+                           FontSize="14"
+                           TextAlignment="Center"
+                           TextWrapping="WrapWholeWords"
+                           Margin="5,0,5,0"
+                           Grid.Column="0"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           Text="Ref no" />
+                <TextBlock Foreground="Gray"
+                           FontWeight="SemiBold"
+                           MinWidth="100"
+                           FontSize="14"
+                           TextAlignment="Center"
+                           TextWrapping="WrapWholeWords"
+                           Margin="5,0,5,0"
+                           Grid.Column="1"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           Text="Time stamp" />
+
+                <TextBlock Foreground="Gray"
+                           FontWeight="SemiBold"
+                           MaxWidth="100"
+                           FontSize="14"
+                           TextAlignment="Center"
+                           TextWrapping="WrapWholeWords"
+                           Margin="0,0,5,0"
+                           Grid.Column="2"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           Text="Amount" />
+            </Grid>
+        </DataTemplate>
+        <DataTemplate x:Key="WideHeaderDataTemplate" x:Name="WideHeaderDatatemplate">
+            <Grid BorderThickness="0,0,0,1"
+                  Padding="0,15,0,15"
+                  BorderBrush="DarkGray">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Foreground="Gray"
+                           FontWeight="SemiBold"
+                           MaxWidth="100"
+                           FontSize="14"
+                           TextAlignment="Center"
+                           TextWrapping="WrapWholeWords"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           Text="Ref No." />
+                <TextBlock Foreground="Gray"
+                           FontWeight="SemiBold"
+                           MaxWidth="100"
+                           FontSize="14"
+                           Grid.Column="1"
+                           TextAlignment="Center"
+                           TextWrapping="WrapWholeWords"
+                           Margin="0,0,5,0"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           Text="Sender" />
+
+                <TextBlock Foreground="Gray"
+                           FontWeight="SemiBold"
+                           MaxWidth="100"
+                           FontSize="14"
+                           Grid.Column="2"
+                           TextAlignment="Center"
+                           TextWrapping="WrapWholeWords"
+                           Margin="0,0,5,0"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           Text="Recipient" />
+
+                <TextBlock Foreground="Gray"
+                           FontWeight="SemiBold"
+                           MaxWidth="100"
+                           FontSize="14"
+                           Grid.Column="3"
+                           TextAlignment="Center"
+                           TextWrapping="WrapWholeWords"
+                           Margin="0,0,5,0"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           Text="Time stamp" />
+
+                <TextBlock Foreground="Gray"
+                           FontWeight="SemiBold"
+                           MaxWidth="100"
+                           FontSize="14"
+                           Grid.Column="4"
+                           TextAlignment="Center"
+                           TextWrapping="WrapWholeWords"
+                           Margin="0,0,5,0"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           Text="Amount" />
+                <TextBlock Foreground="Gray"
+                           FontWeight="SemiBold"
+                           MaxWidth="100"
+                           FontSize="14"
+                           Grid.Column="5"
+                           TextAlignment="Center"
+                           TextWrapping="WrapWholeWords"
+                           Margin="0,0,5,0"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           Text="Description" />
+            </Grid>
+        </DataTemplate>
+        <DataTemplate x:Key="NarrowDataTemplate"
+                      x:Name="NarrowDataTemplate">
+            <Grid Padding="0,15,0,15">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <!--<TextBlock Grid.RowSpan="2"
+                           VerticalAlignment="Center"
+                           Margin="5"
+                           HorizontalAlignment="Center"
+                           Text="{x:Bind TransactionViewModel.Id,Mode=OneWay}"
+                           TextTrimming="CharacterEllipsis" />-->
+
+                <!--<TextBlock Margin="5,0,5,0"
+                           Grid.Column="1"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Center"
+                           Text="{x:Bind TransactionViewModel.SenderAccountNumber,Mode=OneWay}"
+                           TextTrimming="CharacterEllipsis" />
+
+                <TextBlock Grid.Column="2"
+                           Margin="5,0,5,0"
+                           Foreground="Gray"
+                           HorizontalAlignment="Left"
+                           Text="{x:Bind TransactionViewModel.ReceiverAccountNumber,Mode=OneWay}"
+                           TextTrimming="CharacterEllipsis" />-->
+
+                <TextBlock Grid.Column="1"
+                           Margin="5,0,5,0"
+                           HorizontalAlignment="Center"
+                           Text="{Binding TransactionOn,Converter={StaticResource DateFormatter},Mode=OneWay}"
+                           TextTrimming="CharacterEllipsis" />
+
+                <Grid Width="60"
+                      Grid.Column="2"
+                      CornerRadius="6"
+                      Padding="3 3 4 3"
+                      HorizontalAlignment="Center"
+                      Background="{Binding TransactionType, Converter={StaticResource TransactionTypeToBackgroundConverter}}"
+                      VerticalAlignment="Center">
+                    <TextBlock TextAlignment="Center"
+                               Foreground="White"
+                               MaxWidth="80"
+                               TextTrimming="CharacterEllipsis"
+                               ToolTipService.ToolTip="{Binding Amount,Mode=OneWay}"
+                               VerticalAlignment="top">
+                        <Run Text="&#x20b9;" /> <Run  Text="{Binding Amount,Mode=OneWay}"></Run>
+                    </TextBlock>
+                </Grid>
+
+                <TextBlock Grid.Column="0"
+                           Margin="5,0,5,0"
+                           HorizontalAlignment="Center"
+                           Text="{Binding Id,Mode=OneWay}"
+                           TextTrimming="CharacterEllipsis" />
+
+            </Grid>
+        </DataTemplate>
+        <DataTemplate x:Key="WideDataTemplate"
+                      x:Name="WideDataTemplate">
+            <Grid BorderBrush="DarkGray"
+                  Padding="10,15,0,15"
+                  x:Name="TemplateGrid">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock VerticalAlignment="Center"
+                           HorizontalAlignment="Left"
+                           Text="{Binding Id,Mode=OneWay}"
+                           TextTrimming="CharacterEllipsis" />
+
+                <TextBlock Margin="5,0,5,0"
+                           Grid.Column="1"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           Text="{Binding SenderAccountNumber,Mode=OneWay}"
+                           TextTrimming="CharacterEllipsis" />
+
+                <TextBlock Grid.Column="2"
+                           Margin="5,0,5,0"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Center"
+                           Text="{Binding ReceiverAccountNumber,Mode=OneWay}"
+                           TextTrimming="CharacterEllipsis" />
+
+                <TextBlock Grid.Column="3"
+                           Margin="5,0,5,0"
+                           HorizontalAlignment="Center"
+                           Text="{Binding TransactionOn,Converter={StaticResource DateFormatter},Mode=OneWay}"
+                           TextTrimming="CharacterEllipsis" />
+
+                <Grid Width="60"
+                      Grid.Column="4"
+                      CornerRadius="6"
+                      Padding="3 3 4 3"
+                      HorizontalAlignment="Center"
+                      Background="{Binding TransactionType, Converter={StaticResource TransactionTypeToBackgroundConverter}}"
+                      VerticalAlignment="Center">
+                    <TextBlock TextAlignment="Center"
+                               Foreground="White"
+                               MaxWidth="80"
+                               TextTrimming="CharacterEllipsis"
+                               ToolTipService.ToolTip="{Binding Amount,Mode=OneWay}"
+                               VerticalAlignment="top">
+                        <Run Text="&#x20b9;" /> <Run  Text="{Binding Amount,Mode=OneWay}"></Run>
+                    </TextBlock>
+                </Grid>
+
+                <TextBlock Grid.Column="5"
+                           Margin="5,0,5,0"
+                           HorizontalAlignment="Center"
+                           Text="{Binding Description,Mode=OneWay}"
+                           TextTrimming="CharacterEllipsis" />
+
+            </Grid>
+        </DataTemplate>
+
     </UserControl.Resources>
     <Grid CornerRadius="10"
           Padding="6"
           PreviewKeyDown="TransactionListDataGrid_OnPreviewKeyDown"
           Background="{ThemeResource BackgroundColor}">
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState x:Name="wideScreen">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="900" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="TransactionListDataGrid.ItemTemplate"
+                                Value="{StaticResource WideDataTemplate}" />
+                        <Setter Target="TransactionListDataGrid.HeaderTemplate"
+                                Value="{StaticResource WideHeaderDataTemplate}" />
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="mediumScreen">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="600" />
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="TransactionListDataGrid.ItemTemplate"
+                                Value="{StaticResource NarrowDataTemplate}" />
+                        <Setter Target="TransactionListDataGrid.HeaderTemplate"
+                                Value="{StaticResource NarrowHeaderDataTemplate}" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
@@ -63,176 +325,109 @@
                 <ScrollViewer VerticalScrollBarVisibility="Hidden"
                               Grid.Row="1">
 
-                    <controls:DataGrid ItemsSource="{x:Bind TransactionList,Mode=OneWay}"
-                                       AutoGenerateColumns="False"
-                                       VerticalScrollBarVisibility="Auto"
-                                       IsReadOnly="True"
-                                       TabFocusNavigation="Local"
-                                       TabIndex="0"
-                                       MaxHeight="650"
-                                       CanUserReorderColumns="False"
-                                       CanUserSortColumns="False"
-                                       x:Name="TransactionListDataGrid"
-                                       IsTabStop="true"
-                                       IsDoubleTapEnabled="True"
-                                       IsTapEnabled="True"
-                                       SelectionChanged="TransactionListDataGrid_OnSelectionChanged"
-                                       RowHeight="60"
-                                       CanUserResizeColumns="False">
-                        <!--<controls:DataGrid.Resources>
-                            <SolidColorBrush x:Key="{x:Bind SystemColor.HighlightBrushKey}"
-                                             Color="#FF0000" />
-                        </controls:DataGrid.Resources>-->
-                        <controls:DataGrid.CellStyle>
-                            <Style TargetType="controls:DataGridCell">
-                                <Setter Property="BorderThickness"
-                                        Value="0" />
-
+                    <ListView x:Name="TransactionListDataGrid"
+                              BorderBrush="{ThemeResource AppBarItemForegroundThemeBrush}"
+                              ItemContainerStyle="{StaticResource ZListViewItemContainerStyle}"
+                              ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                              CornerRadius="10"
+                              Style="{StaticResource StickyHeaderListViewStyle}"
+                              Height="650"
+                              SelectionChanged="TransactionListDataGrid_OnSelectionChanged"
+                              ItemsSource="{Binding Source={StaticResource TransactionSource}}">
+                       <ListView.Resources>
+                           <SolidColorBrush x:Key="ListViewItemBackgroundSelected"
+                                            Color="DarkCyan" />
+                           
+                            <SolidColorBrush x:Key="ListViewItemBackgroundSelectedPointerOver"
+                                            Color="DarkCyan" />
+                           <!--<SolidColorBrush x:Key="SelectedForeground"
+                                            Color="#FF0000" />-->
+                        </ListView.Resources>
+                        <!--<ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem"
+                                   BasedOn="{StaticResource ListViewItemExpanded}">
+                                <Setter Property="HorizontalAlignment"
+                                        Value="Stretch" />
+                                <Setter Property="HorizontalContentAlignment"
+                                        Value="Stretch" />
                             </Style>
-                        </controls:DataGrid.CellStyle>
-                        <controls:DataGrid.Columns>
-
-                            <controls:DataGridTextColumn Header="Id"
-                                                         CanUserResize="False"
-                                                         Binding="{Binding Id}"
-                                                         Width="*">
-                                <controls:DataGridTextColumn.HeaderStyle>
-                                    <Style TargetType="primitives:DataGridColumnHeader">
-                                        <Setter Property="HorizontalContentAlignment"
-                                                Value="Center" />
-                                        <Setter Property="BorderThickness"
-                                                Value="0" />
-                                    </Style>
-                                </controls:DataGridTextColumn.HeaderStyle>
-                                <controls:DataGridTextColumn.ElementStyle>
-                                    <Style TargetType="TextBlock">
-                                        <Setter Property="TextTrimming"
-                                                Value="CharacterEllipsis" />
-                                        <Setter Property="TextAlignment"
-                                                Value="Center" />
-                                    </Style>
-                                </controls:DataGridTextColumn.ElementStyle>
-                            </controls:DataGridTextColumn>
-                            <controls:DataGridTextColumn Header="Sender"
-                                                         Width="*"
-                                                         Binding="{Binding SenderAccountNumber}"
-                                                         ToolTipService.ToolTip="{Binding SenderAccountNumber}">
-                                <controls:DataGridTextColumn.HeaderStyle>
-                                    <Style TargetType="primitives:DataGridColumnHeader">
-                                        <Setter Property="HorizontalContentAlignment"
-                                                Value="Center" />
-                                        <Setter Property="BorderThickness"
-                                                Value="0" />
-                                    </Style>
-                                </controls:DataGridTextColumn.HeaderStyle>
-                                <controls:DataGridTextColumn.ElementStyle>
-                                    <Style TargetType="TextBlock">
-                                        <Setter Property="TextTrimming"
-                                                Value="CharacterEllipsis" />
-                                        <Setter Property="TextAlignment"
-                                                Value="Center" />
-                                    </Style>
-                                </controls:DataGridTextColumn.ElementStyle>
-
-                            </controls:DataGridTextColumn>
-                            <controls:DataGridTextColumn Header="Receiptant"
-                                                         Width="*"
-                                                         Binding="{Binding ReceiverAccountNumber}"
-                                                         ToolTipService.ToolTip="{Binding ReceiverAccountNumber}">
-                                <controls:DataGridTextColumn.HeaderStyle>
-                                    <Style TargetType="primitives:DataGridColumnHeader">
-                                        <Setter Property="HorizontalContentAlignment"
-                                                Value="Center" />
-                                        <Setter Property="BorderThickness"
-                                                Value="0" />
-                                    </Style>
-                                </controls:DataGridTextColumn.HeaderStyle>
-                                <controls:DataGridTextColumn.ElementStyle>
-                                    <Style TargetType="TextBlock">
-                                        <Setter Property="TextTrimming"
-                                                Value="CharacterEllipsis" />
-                                        <Setter Property="TextAlignment"
-                                                Value="Center" />
-                                    </Style>
-                                </controls:DataGridTextColumn.ElementStyle>
-
-                            </controls:DataGridTextColumn>
-                            <controls:DataGridTextColumn Header="Transaction On"
-                                                         Width="*"
-                                                         ToolTipService.ToolTip="{Binding TransactionOn,Converter={StaticResource DateTimeConverter}}"
-                                                         Binding="{Binding TransactionOn,Converter={StaticResource DateTimeConverter}}">
-                                <controls:DataGridTextColumn.ElementStyle>
-                                    <Style TargetType="TextBlock">
-                                        <Setter Property="TextTrimming"
-                                                Value="CharacterEllipsis" />
-                                        <Setter Property="TextAlignment"
-                                                Value="Center" />
-                                    </Style>
-                                </controls:DataGridTextColumn.ElementStyle>
-                                <controls:DataGridTextColumn.HeaderStyle>
-                                    <Style TargetType="primitives:DataGridColumnHeader">
-                                        <Setter Property="HorizontalContentAlignment"
-                                                Value="Center" />
-                                        <Setter Property="BorderThickness"
-                                                Value="0" />
-                                    </Style>
-                                </controls:DataGridTextColumn.HeaderStyle>
-
-                            </controls:DataGridTextColumn>
-
-                            <controls:DataGridTemplateColumn Header="Amount">
-                                <controls:DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate x:DataType="model:TransactionSummary">
-                                        <Grid Width="60"
-                                              CornerRadius="6"
-                                              
-                                              Padding="3 3 4 3"
-                                              HorizontalAlignment="Center"
-                                              Background="{x:Bind TransactionType, Converter={StaticResource TransactionTypeToBackgroundConverter}}"
-                                              VerticalAlignment="Center">
-                                            <TextBlock TextAlignment="Center"
-                                                       Foreground="White"
-                                                       MaxWidth="80"
-                                                       TextTrimming="CharacterEllipsis"
-                                                       ToolTipService.ToolTip="{x:Bind Amount,Mode=OneWay}"
-                                                       VerticalAlignment="top">
-                                                 <Run Text="&#x20b9;" /> <Run  Text="{x:Bind Amount,Mode=OneWay}"></Run>
-                                            </TextBlock>
-                                        </Grid>
+                        </ListView.ItemContainerStyle>-->
+                        <!--<ListView.HeaderTemplate>
+                            <DataTemplate>
+                                <Grid Background="{ThemeResource AcrylicBrushBackground}"
+                                      Height="70">
+                                    
+                                    <TextBlock Text="Transaction List"
+                                               FontWeight="Bold"
+                                               HorizontalAlignment="Center"
+                                               VerticalAlignment="Center"
+                                               FontSize="20"
+                                               Foreground="White" />
+                                </Grid>
+                            </DataTemplate>
+                        </ListView.HeaderTemplate>-->
+                        <!--<ListView.ItemTemplate>
+                            <DataTemplate x:DataType="businessObject:TransactionSummaryVObj">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition Width="50" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="{x:Bind TransactionType}"
+                                               />
+                                    <TextBlock Grid.Column="1"
+                                               Text="{x:Bind TransactionOn}"/>
+                                </Grid>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>-->
+                        <ListView.GroupStyle>
+                            <GroupStyle>
+                                <GroupStyle.HeaderTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Key}"
+                                                   Margin="10,0"
+                                                   FontWeight="SemiBold" />
                                     </DataTemplate>
-                                </controls:DataGridTemplateColumn.CellTemplate>
-                            </controls:DataGridTemplateColumn>
-
-                            <controls:DataGridTextColumn Header="Description"
-                                                         Width="*"
-                                                         Binding="{Binding Description}"
-                                                         ToolTipService.ToolTip="{Binding Description}">
-                                <controls:DataGridTextColumn.ElementStyle>
-                                    <Style TargetType="TextBlock">
-                                        <Setter Property="TextTrimming"
-                                                Value="CharacterEllipsis" />
-                                        <Setter Property="TextAlignment"
-                                                Value="Center" />
-
-                                    </Style>
-                                </controls:DataGridTextColumn.ElementStyle>
-                                <controls:DataGridTextColumn.HeaderStyle>
-                                    <Style TargetType="primitives:DataGridColumnHeader">
-                                        <Setter Property="HorizontalContentAlignment"
-                                                Value="Center" />
-                                        <Setter Property="BorderThickness"
+                                </GroupStyle.HeaderTemplate>
+                                <GroupStyle.HeaderContainerStyle>
+                                    <Style TargetType="ListViewHeaderItem">
+                                        <Setter Property="FontFamily"
+                                                Value="{ThemeResource ContentControlThemeFontFamily}" />
+                                        <Setter Property="FontSize"
+                                                Value="{ThemeResource ListViewHeaderItemThemeFontSize}" />
+                                        <Setter Property="Background"
+                                                Value="{ThemeResource BackgroundColor}" />
+                                        <Setter Property="Margin"
                                                 Value="0" />
+                                        <Setter Property="Padding"
+                                                Value="12,8,12,0" />
+                                        <Setter Property="HorizontalContentAlignment"
+                                                Value="Left" />
+                                        <Setter Property="VerticalContentAlignment"
+                                                Value="Center" />
+                                        <Setter Property="MinHeight"
+                                                Value="{ThemeResource ListViewHeaderItemMinHeight}" />
+                                        <Setter Property="UseSystemFocusVisuals"
+                                                Value="True" />
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="ListViewHeaderItem">
+                                                    <ContentPresenter x:Name="ContentPresenter"
+                                                                      Background="{TemplateBinding Background}"
+                                                                      Content="{TemplateBinding Content}"
+                                                                      ContentTemplate="{TemplateBinding ContentTemplate}"
+                                                                      ContentTransitions="{TemplateBinding ContentTransitions}"
+                                                                      HorizontalContentAlignment="Center"
+                                                                      VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
                                     </Style>
-                                </controls:DataGridTextColumn.HeaderStyle>
-
-                            </controls:DataGridTextColumn>
-                        </controls:DataGrid.Columns>
-
-                    </controls:DataGrid>
-
+                                </GroupStyle.HeaderContainerStyle>
+                            </GroupStyle>
+                        </ListView.GroupStyle>
+                    </ListView>
                 </ScrollViewer>
-
-
             </TwoPaneView.Pane1>
             <TwoPaneView.Pane2>
                 <local:TransactionDataControl Id="{x:Bind TransactionViewModel.Id,Mode=OneWay}"

@@ -13,130 +13,134 @@
         <converters:DateFormatter x:Name="DateFormatConverter" />
 
     </Page.Resources>
-    <Grid KeyDown="UIElement_OnKeyDown">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <FontIcon FontFamily="Segoe MDL2 Assets"
-                  x:Name="BackButton"
-                  HorizontalAlignment="Left"
-                  FontSize="19"
-                  PointerExited="BackButton_OnPointerExited"
-                  PointerEntered="BackButton_OnPointerEntered"
-                  Margin="5"
-                  Tapped="BackButton_OnTapped"
-                  Glyph="" />
-        <loanSummary:PersonalAccountSummary Grid.Row="1"
-                                            PersonalLoanAccountBObj="{x:Bind PersonalLoanAccountDetailViewModel.PersonalLoanBObj,Mode=OneWay}"></loanSummary:PersonalAccountSummary>
-        <userControl:OneByTwoGrid Grid.Row="2"
-                                  Width1Ratio="3*"
-                                  Width2Ratio="2*"
-                                  NarrowScreenBreakPoint="1000">
-            <userControl:OneByTwoGrid.Column1Content>
-                <!--<userControl:AccountDetailUserControl Margin="5"></userControl:AccountDetailUserControl>-->
-                <Grid CornerRadius="10"
-                      Grid.Column="0"
-                      Margin="0 5"
-                      Background="{ThemeResource BackgroundColor}">
-                    <TextBlock HorizontalAlignment="Center"
-                               VerticalAlignment="Center">Coming soon</TextBlock>
-
-                </Grid>
-            </userControl:OneByTwoGrid.Column1Content>
-            <userControl:OneByTwoGrid.Column2Content>
-                <Grid CornerRadius="0"
-                      RowSpacing="5"
-                      Margin="5">
-                    <Grid.RowDefinitions>
-                        <!--<RowDefinition Height="Auto"></RowDefinition>-->
-                        <RowDefinition Height="Auto"></RowDefinition>
-                        <RowDefinition Height="Auto"></RowDefinition>
-                    </Grid.RowDefinitions>
-
-                    <!--<Grid Grid.Row="1"
-                          CornerRadius="10"
+    <ScrollViewer  KeyDown="UIElement_OnKeyDown">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <FontIcon FontFamily="Segoe MDL2 Assets"
+                      x:Name="BackButton"
+                      HorizontalAlignment="Left"
+                      FontSize="19"
+                      PointerExited="BackButton_OnPointerExited"
+                      PointerEntered="BackButton_OnPointerEntered"
+                      Margin="5"
+                      Tapped="BackButton_OnTapped"
+                      Glyph="" />
+            <loanSummary:PersonalAccountSummary Grid.Row="1"
+                                                Margin="5"
+                                                PersonalLoanAccountBObj="{x:Bind PersonalLoanAccountDetailViewModel.PersonalLoanBObj,Mode=OneWay}"></loanSummary:PersonalAccountSummary>
+            <userControl:OneByTwoGrid Grid.Row="2"
+                                      Width1Ratio="3*"
+                                      Width2Ratio="2*"
+                                      NarrowScreenBreakPoint="1000">
+                <userControl:OneByTwoGrid.Column1Content>
+                    <!--<userControl:AccountDetailUserControl Margin="5"></userControl:AccountDetailUserControl>-->
+                    <Grid CornerRadius="10"
                           Grid.Column="0"
-                          Margin="5"
+                          Margin="0 5"
                           Background="{ThemeResource BackgroundColor}">
                         <TextBlock HorizontalAlignment="Center"
                                    VerticalAlignment="Center">Coming soon</TextBlock>
 
-                    </Grid>-->
-                    <Grid Background="{ThemeResource BackgroundColor}"
-                          Grid.Row="0"
-                          Padding="20 10 0 0"
-                          Margin="0 0 7 0"
-                          RowSpacing="20"
-                          VerticalAlignment="Top"
-                          CornerRadius="10">
+                    </Grid>
+                </userControl:OneByTwoGrid.Column1Content>
+                <userControl:OneByTwoGrid.Column2Content>
+                    <Grid CornerRadius="0"
+                          RowSpacing="5"
+                          Margin="5">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"></RowDefinition>
-                            <RowDefinition Height="Auto"></RowDefinition>
-                            <RowDefinition Height="Auto"></RowDefinition>
-                            <RowDefinition Height="Auto"></RowDefinition>
-                            <RowDefinition Height="Auto"></RowDefinition>
-                            <RowDefinition Height="Auto"></RowDefinition>
+                            <!--<RowDefinition Height="Auto"></RowDefinition>-->
                             <RowDefinition Height="Auto"></RowDefinition>
                             <RowDefinition Height="Auto"></RowDefinition>
                         </Grid.RowDefinitions>
 
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition></ColumnDefinition>
-                            <ColumnDefinition></ColumnDefinition>
-                        </Grid.ColumnDefinitions>
+                        <!--<Grid Grid.Row="1"
+                      CornerRadius="10"
+                      Grid.Column="0"
+                      Margin="5"
+                      Background="{ThemeResource BackgroundColor}">
+                    <TextBlock HorizontalAlignment="Center"
+                               VerticalAlignment="Center">Coming soon</TextBlock>
 
-                        <TextBlock Grid.Row="0"
-                                   Grid.Column="0"
-                                   Text="Personal Loan Details"
-                                   FontSize="20"
-                                   Margin="0 0 0 20"
-                                   FontWeight="SemiBold" />
-                        <TextBlock Grid.Row="1"
-                                   Grid.Column="0"
-                                   x:Name="TextBlock1"
-                                   Text="Next Due date" />
-                        <TextBlock Grid.Column="1"
-                                   Grid.Row="1"
-                                   x:Name="NextDueDateTextBlock"
-                                   Text="{x:Bind PersonalLoanAccountDetailViewModel.PersonalLoanBObj.NextDateToBePaid,Mode=OneWay, Converter={StaticResource DateFormatConverter}}" />
-                        <TextBlock Grid.Row="2"
-                                   Grid.Column="0"
-                                   Text="Next Month Due Amount" />
-                        <TextBlock Grid.Column="1"
-                                   Grid.Row="2"
-                                   Text="{x:Bind PersonalLoanAccountDetailViewModel.NextMonthDueAmount,Mode=OneWay}" />
+                </Grid>-->
+                        <Grid Background="{ThemeResource BackgroundColor}"
+                              Grid.Row="0"
+                              Padding="20 10 0 0"
+                              Margin="0 0 7 0"
+                              RowSpacing="20"
+                              VerticalAlignment="Top"
+                              CornerRadius="10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                            </Grid.RowDefinitions>
 
-                        <TextBlock Grid.Row="3"
-                                   Grid.Column="0"
-                                   Text="Amount Paid till now" />
-                        <TextBlock Grid.Column="1"
-                                   Grid.Row="3">
-                            <Run Text="&#x20b9;" /> <Run Text="{x:Bind AmountPaidTillNow,Mode=OneWay}"></Run>
-                        </TextBlock>
-                        <TextBlock Grid.Row="4"
-                                   Grid.Column="0"
-                                   Text="Maturity Date" />
-                        <TextBlock Grid.Column="1"
-                                   Grid.Row="4"
-                                   Text="{x:Bind MaturityDate,Mode=OneWay,Converter={StaticResource DateFormatConverter}}" />
-                        <TextBlock Grid.Row="5"
-                                   Grid.Column="0"
-                                   Text="Fine Amount" />
-                        <TextBlock Grid.Column="1"
-                                   Grid.Row="5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
 
-                            <Run Text="&#x20b9;" /> <Run Text="{x:Bind PersonalLoanAccountDetailViewModel.PersonalLoanBObj.FineAmount,Mode=OneWay}"></Run>
-                        </TextBlock>
+                            <TextBlock Grid.Row="0"
+                                       Grid.Column="0"
+                                       Text="Personal Loan Details"
+                                       FontSize="20"
+                                       Margin="0 0 0 20"
+                                       FontWeight="SemiBold" />
+                            <TextBlock Grid.Row="1"
+                                       Grid.Column="0"
+                                       x:Name="TextBlock1"
+                                       Text="Next Due date" />
+                            <TextBlock Grid.Column="1"
+                                       Grid.Row="1"
+                                       x:Name="NextDueDateTextBlock"
+                                       Text="{x:Bind PersonalLoanAccountDetailViewModel.PersonalLoanBObj.NextDateToBePaid,Mode=OneWay, Converter={StaticResource DateFormatConverter}}" />
+                            <TextBlock Grid.Row="2"
+                                       Grid.Column="0"
+                                       Text="Next Month Due Amount" />
+                            <TextBlock Grid.Column="1"
+                                       Grid.Row="2"
+                                       Text="{x:Bind PersonalLoanAccountDetailViewModel.NextMonthDueAmount,Mode=OneWay}" />
+
+                            <TextBlock Grid.Row="3"
+                                       Grid.Column="0"
+                                       Text="Amount Paid till now" />
+                            <TextBlock Grid.Column="1"
+                                       Grid.Row="3">
+                        <Run Text="&#x20b9;" /> <Run Text="{x:Bind AmountPaidTillNow,Mode=OneWay}"></Run>
+                            </TextBlock>
+                            <TextBlock Grid.Row="4"
+                                       Grid.Column="0"
+                                       Text="Maturity Date" />
+                            <TextBlock Grid.Column="1"
+                                       Grid.Row="4"
+                                       Text="{x:Bind MaturityDate,Mode=OneWay,Converter={StaticResource DateFormatConverter}}" />
+                            <TextBlock Grid.Row="5"
+                                       Grid.Column="0"
+                                       Text="Fine Amount" />
+                            <TextBlock Grid.Column="1"
+                                       Grid.Row="5">
+
+                        <Run Text="&#x20b9;" /> <Run Text="{x:Bind PersonalLoanAccountDetailViewModel.PersonalLoanBObj.FineAmount,Mode=OneWay}"></Run>
+                            </TextBlock>
+                        </Grid>
+
+                        <userControl:LoanPaymentUserControl Grid.Row="1"
+                                                            PersonalLoanBObj="{x:Bind PersonalLoanAccountDetailViewModel.PersonalLoanBObj}"
+                                                            AccountList="{x:Bind PersonalLoanAccountDetailViewModel.Accounts,Mode=OneWay}"></userControl:LoanPaymentUserControl>
+
                     </Grid>
-
-                    <userControl:LoanPaymentUserControl Grid.Row="1"
-                                                        PersonalLoanBObj="{x:Bind PersonalLoanAccountDetailViewModel.PersonalLoanBObj}"
-                                                        AccountList="{x:Bind PersonalLoanAccountDetailViewModel.Accounts,Mode=OneWay}"></userControl:LoanPaymentUserControl>
-
-                </Grid>
-            </userControl:OneByTwoGrid.Column2Content>
-        </userControl:OneByTwoGrid>
-    </Grid>
+                </userControl:OneByTwoGrid.Column2Content>
+            </userControl:OneByTwoGrid>
+        </Grid>
+    </ScrollViewer>
+    
 </Page>

@@ -34,11 +34,12 @@
 
         <StackPanel Grid.Row="0"
                     Grid.Column="0"
-                    HorizontalAlignment="Left"
+                    HorizontalAlignment="Center"
                     VerticalAlignment="Top"
                     Spacing="5"
-                    Grid.ColumnSpan="2">
+                    Grid.ColumnSpan="1">
             <TextBlock Text="Net Balance in account"
+                       HorizontalAlignment="Center"
                        />
             <TextBlock HorizontalAlignment="Center" FontSize="16">
                 <Run Text="&#x20b9;" /> <Run Text="{x:Bind ConsolidatedReportViewModel.NetBalance,Mode=OneWay }"></Run>
@@ -48,9 +49,9 @@
         <controls:ProgressRing Grid.Row="0" Grid.Column="1"
                                Grid.RowSpan="2"
                                
-                               Grid.ColumnSpan="2"  Width="120"
+                               Grid.ColumnSpan="2"  Width="150"
                                
-                           Height="110"
+                           Height="150"
                            VerticalAlignment="Top"
                            ToolTipService.ToolTip="Balance Chart"
                            Background="{ThemeResource CurrentAccountCardColor}"

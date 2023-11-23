@@ -28,6 +28,13 @@
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
+        <local:CustomContentDialogControl DialogTitle="User Log out Confirmation"
+                                                x:Name="ClosingDepositContentDialog"
+                                                Visibility="Collapsed"
+                                                PrimaryButtonClicked="LogOutContentDialog_OnPrimaryButtonClicked"
+                                                DialogContent="Want to log out ? "
+                                                DialogPrimaryButtonText="Yes"
+                                                DialogCloseButtonText="No"></local:CustomContentDialogControl>
 
         <Button HorizontalAlignment="Left" VerticalAlignment="Top" Height="29" Width="45" x:Name="ThemeChanger" Click="ThemeChanger_OnClick">
             <Button.Content>

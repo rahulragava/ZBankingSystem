@@ -57,11 +57,15 @@ namespace ZBMS.View.Pages.AccountsDetailsPage
             {
                 DepositCloseIcon.Visibility = Visibility.Visible;
                 DetailGrid.Visibility = Visibility.Collapsed;
+                CloseDeposit.Visibility = Visibility.Collapsed;
+                
             }
             else
             {
                 DepositCloseIcon.Visibility = Visibility.Collapsed;
                 DetailGrid.Visibility = Visibility.Visible;
+                CloseDeposit.Visibility = Visibility.Visible;
+
             }
         }
 
@@ -86,8 +90,12 @@ namespace ZBMS.View.Pages.AccountsDetailsPage
 
         private void CloseDeposit_OnTapped(object sender, TappedRoutedEventArgs e)
         {
-            ClosingDepositContentDialog.Visibility = Visibility.Visible;
-            ClosingDepositContentDialog.ShowDialog();
+            if (RecurringDepositDetailViewModel.RecurringAccountBObj.AccountStatus == AccountStatus.Active)
+            {
+                ClosingDepositContentDialog.Visibility = Visibility.Visible;
+                ClosingDepositContentDialog.ShowDialog();
+            }
+            
         }
 
         public void CloseRecurringDepositSuccess()
@@ -96,6 +104,7 @@ namespace ZBMS.View.Pages.AccountsDetailsPage
             ChangeRepaymentAccountControl.OnCloseDeposit();
             DetailGrid.Visibility = Visibility.Collapsed;
             DepositCloseIcon.Visibility = Visibility.Visible;
+            CloseDeposit.Visibility = Visibility.Collapsed;
         }
 
         private void BackButton_OnPointerExited(object sender, PointerRoutedEventArgs e)

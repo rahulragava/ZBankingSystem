@@ -224,7 +224,8 @@
             </Border>
 
         </Popup>
-        <ScrollViewer VerticalScrollBarVisibility="Hidden"
+        <ScrollViewer VerticalScrollBarVisibility="Auto"
+                      x:Name="RootScrollViewer"
                       KeyDown="UIElement_OnKeyDown">
             <Grid RowSpacing="10">
                 <Grid.RowDefinitions>
@@ -246,16 +247,18 @@
                                        Title="Account Creation" />
                 </Canvas>
 
-                <Grid Grid.Row="1" ColumnSpacing="10" RowSpacing="10" x:Name="ConsolidateSheetGrid" Margin="0 10 10 5">
+                <Grid Grid.Row="1" ColumnSpacing="10" 
+                      RowSpacing="3" x:Name="ConsolidateSheetGrid"
+                      Margin="5 10 10 0">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"></RowDefinition>
                         <RowDefinition Height="*"></RowDefinition>
                         <RowDefinition Height="*"></RowDefinition>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width=".65*"></ColumnDefinition>
                         <ColumnDefinition Width="*"></ColumnDefinition>
-                        <ColumnDefinition Width=".65*"></ColumnDefinition>
+                        <ColumnDefinition Width="2*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <userControl:AccountsStatusDetailControl Grid.Row="0"
                                                              x:Name="AccountStatusDetailsControl"
@@ -270,6 +273,7 @@
                                                           Grid.Column="1" />
 
                     <userControl:NetLoanDetailsControl Grid.Row="0"
+                                                       MoneyBagClicked="LoanAccountDetailsControl_OnMoneyBagClicked"
                                                        LoanList="{x:Bind AccountViewModel.Loans,Mode=OneWay}"
                                                        x:Name="LoanAccountDetailsControl"
                                                        Grid.Column="2"></userControl:NetLoanDetailsControl>
@@ -291,11 +295,11 @@
                                    x:Name="AccountExpander"
                                    BorderBrush="{ThemeResource BackgroundColor}"
                                    BorderThickness="3"
-                                   Margin="0 0 10 0 "
+                                   Margin="5 0 10 0 "
                                    CornerRadius="10">
                     <controls:Expander.Header>
+
                         <Grid ColumnSpacing="15"
-                              
                               Padding="0 5 0 5">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"></ColumnDefinition>
@@ -378,7 +382,7 @@
                                    CornerRadius="10"
                                    x:Name="DepositExpander"
                                    BorderThickness="3"
-                                   Margin="0 0 10 0 "
+                                   Margin="5 0 10 0 "
                                    BorderBrush="{ThemeResource BackgroundColor}">
                     <controls:Expander.Header>
                         <Grid ColumnSpacing="15"
@@ -391,7 +395,7 @@
                             <TextBlock Text="Deposits"
                                        Width="70"
                                        VerticalAlignment="Center"
-                                       HorizontalAlignment="Left"
+                                       HorizontalAlignment="Center"
                                        FontWeight="SemiBold"></TextBlock>
 
                             <controls1:InfoBadge Grid.Column="1"
@@ -454,7 +458,7 @@
                 <controls:Expander Grid.Row="4"
                                    IsTabStop="False"
                                    IsExpanded="True"
-                                   Margin="0 0 10 0 "
+                                   Margin="5 0 10 0 "
                                    x:Name="LoanExpander"
                                    BorderThickness="3"
                                    CornerRadius="10"

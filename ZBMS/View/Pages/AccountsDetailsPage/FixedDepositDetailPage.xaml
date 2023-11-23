@@ -16,150 +16,154 @@
 
     </Page.Resources>
 
-    <Grid KeyDown="UIElement_OnKeyDown">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <userControl:CustomContentDialogControl DialogTitle="Account closing Confirmation"
-                                                x:Name="ClosingDepositContentDialog"
-                                                Visibility="Collapsed"
-                                                PrimaryButtonClicked="ClosingDepositContentDialog_OnPrimaryButtonClicked"
-                                                DialogContent="By closing the account you might get lesser money than the matured amount.Are you sure you want to close the deposit?"
-                                                DialogPrimaryButtonText="Yes"
-                                                DialogCloseButtonText="No"></userControl:CustomContentDialogControl>
-        <FontIcon Grid.Row="0" FontFamily="Segoe MDL2 Assets"
-                  x:Name="BackButton"
-                  HorizontalAlignment="Left"
-                  Margin="5"
-                  Tapped="BackButton_OnTapped"
-                  PointerExited="BackButton_OnPointerExited"
-                  PointerEntered="BackButton_OnPointerEntered"
-                  Glyph="" />
-        <FontIcon Grid.Row="0" 
-                  FontFamily="Segoe MDL2 Assets"
-                  x:Name="CloseDeposit"
-                  HorizontalAlignment="Right"
-                  PointerExited="CloseDeposit_OnPointerExited"
-                  FontSize="19"
-                  PointerEntered="CloseDeposit_OnPointerEntered"
-                  Margin="0 5 15 0"
-                  Tapped="CloseDeposit_OnTapped"
-                  ToolTipService.ToolTip="Close Account"
-                  Glyph="" />
-       
-        <depositSummary:FixedDepositSummary Grid.Row="1"
-                                            Grid.Column="0"
-                                            Margin="5"
-                                            x:Name="FixedDepositSummary"
-                                            FixedDepositBObj="{x:Bind FixedDepositDetailViewModel.FixedDepositBObj,Mode=OneWay}" />
-        <userControl:OneByTwoGrid Grid.Row="2"
-                                  Width1Ratio="3*"
-                                  Width2Ratio="2*"
-                                  NarrowScreenBreakPoint="1000">
-            <userControl:OneByTwoGrid.Column1Content>
-                <!--<userControl:AccountDetailUserControl Margin="5"></userControl:AccountDetailUserControl>-->
-                <Grid Background="{ThemeResource BackgroundColor}"
-                      Padding="20 10 0 0"
-                      Margin="5 5 0 0"
-                      RowSpacing="20"
-                      CornerRadius="10">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"></RowDefinition>
-                        <RowDefinition Height="*"></RowDefinition>
-                    </Grid.RowDefinitions>
-                    <TextBlock Grid.Row="0"
-                               Grid.Column="0"
-                               Text="Deposit Details"
-                               FontSize="20"
-                               FontWeight="SemiBold"
-                               Margin="10 10 0 10" />
-                    <FontIcon Grid.Row="1"
-                              HorizontalAlignment="Center"
-                              VerticalAlignment="Center"
-                              x:Name="DepositCloseIcon"
-                              Foreground="DarkGray"
-                              Glyph=""
-                              FontSize="100"
-                              Visibility="Collapsed" />
-                    <Grid Grid.Row="1"
-                          x:Name="DetailGrid" RowSpacing="20"
-                          >
+    <ScrollViewer KeyDown="UIElement_OnKeyDown">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <userControl:CustomContentDialogControl DialogTitle="Account closing Confirmation"
+                                                    x:Name="ClosingDepositContentDialog"
+                                                    Visibility="Collapsed"
+                                                    PrimaryButtonClicked="ClosingDepositContentDialog_OnPrimaryButtonClicked"
+                                                    DialogContent="By closing the account you might get lesser money than the matured amount.Are you sure you want to close the deposit?"
+                                                    DialogPrimaryButtonText="Yes"
+                                                    DialogCloseButtonText="No"></userControl:CustomContentDialogControl>
+            <FontIcon Grid.Row="0"
+                      FontFamily="Segoe MDL2 Assets"
+                      x:Name="BackButton"
+                      HorizontalAlignment="Left"
+                      Margin="5"
+                      Tapped="BackButton_OnTapped"
+                      PointerExited="BackButton_OnPointerExited"
+                      PointerEntered="BackButton_OnPointerEntered"
+                      Glyph="" />
+            <FontIcon Grid.Row="0"
+                      FontFamily="Segoe MDL2 Assets"
+                      x:Name="CloseDeposit"
+                      HorizontalAlignment="Right"
+                      PointerExited="CloseDeposit_OnPointerExited"
+                      FontSize="19"
+                      PointerEntered="CloseDeposit_OnPointerEntered"
+                      Margin="0 5 15 0"
+                      Tapped="CloseDeposit_OnTapped"
+                      ToolTipService.ToolTip="Close Account"
+                      Glyph="" />
+
+            <depositSummary:FixedDepositSummary Grid.Row="1"
+                                                Grid.Column="0"
+                                                Margin="5"
+                                                x:Name="FixedDepositSummary"
+                                                FixedDepositBObj="{x:Bind FixedDepositDetailViewModel.FixedDepositBObj,Mode=OneWay}" />
+            <userControl:OneByTwoGrid Grid.Row="2"
+                                      Width1Ratio="3*"
+                                      Width2Ratio="2*"
+                                      NarrowScreenBreakPoint="1000">
+                <userControl:OneByTwoGrid.Column1Content>
+                    <!--<userControl:AccountDetailUserControl Margin="5"></userControl:AccountDetailUserControl>-->
+                    <Grid Background="{ThemeResource BackgroundColor}"
+                          Padding="20 10 0 0"
+                          Margin="5 5 0 5"
+                          RowSpacing="20"
+                          CornerRadius="10">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"></RowDefinition>
-                            <RowDefinition Height="Auto"></RowDefinition>
-                            <RowDefinition Height="Auto"></RowDefinition>
-                            <RowDefinition Height="Auto"></RowDefinition>
-                            <RowDefinition Height="Auto"></RowDefinition>
-                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="*"></RowDefinition>
                         </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0"
+                                   Grid.Column="0"
+                                   Text="Deposit Details"
+                                   FontSize="20"
+                                   FontWeight="SemiBold"
+                                   Margin="10 10 0 10" />
+                        <FontIcon Grid.Row="1"
+                                  HorizontalAlignment="Center"
+                                  VerticalAlignment="Center"
+                                  x:Name="DepositCloseIcon"
+                                  Foreground="DarkGray"
+                                  Glyph=""
+                                  FontSize="100"
+                                  Visibility="Collapsed" />
+                        <Grid Grid.Row="1"
+                              x:Name="DetailGrid"
+                              RowSpacing="20">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                            </Grid.RowDefinitions>
 
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition></ColumnDefinition>
-                            <ColumnDefinition></ColumnDefinition>
-                        </Grid.ColumnDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
 
-                    <TextBlock Grid.Row="1"
-                               Grid.Column="0"
-                               Text="Tenure in years" />
-                    <TextBlock Grid.Column="1"
-                               Grid.Row="1"
-                               Text="{x:Bind FixedDepositDetailViewModel.FixedDepositBObj.Tenure,Mode=OneWay}" />
-                    <TextBlock Grid.Row="2"
-                               Grid.Column="0"
-                               Text="Maturity Amount" />
-                    <TextBlock Grid.Column="1"
-                               Grid.Row="2"
-                               Text="{x:Bind FixedDepositDetailViewModel.FixedDepositBObj.MaturityAmount,Mode=OneWay}" />
-                    <TextBlock Grid.Row="3"
-                               Grid.Column="0"
-                               Text="Maturity Date" />
-                    <TextBlock Grid.Column="1"
-                               Grid.Row="3"
-                               Text="{x:Bind FixedDepositDetailViewModel.FixedDepositBObj.MaturityDate,Mode=OneWay,Converter={StaticResource DateFormatConverter}}" />
-                    <TextBlock Grid.Row="4"
-                               Grid.Column="0"
-                               Text="From Account Number" />
-                    <TextBlock Grid.Column="1"
-                               Grid.Row="4"
-                               Text="{x:Bind FixedDepositDetailViewModel.FromAccountNumber,Mode=OneWay}" />
-                    <TextBlock Grid.Row="5"
-                               Grid.Column="0"
-                               Text="Repayment Account Number" />
-                    <TextBlock Grid.Column="1"
-                               Grid.Row="5"
-                               Text="{x:Bind FixedDepositDetailViewModel.RepaymentAccountNumber,Mode=OneWay}" />
-                </Grid>
+                            <TextBlock Grid.Row="1"
+                                       Grid.Column="0"
+                                       Text="Tenure in years" />
+                            <TextBlock Grid.Column="1"
+                                       Grid.Row="1"
+                                       Text="{x:Bind FixedDepositDetailViewModel.FixedDepositBObj.Tenure,Mode=OneWay}" />
+                            <TextBlock Grid.Row="2"
+                                       Grid.Column="0"
+                                       Text="Maturity Amount" />
+                            <TextBlock Grid.Column="1"
+                                       Grid.Row="2"
+                                       Text="{x:Bind FixedDepositDetailViewModel.FixedDepositBObj.MaturityAmount,Mode=OneWay}" />
+                            <TextBlock Grid.Row="3"
+                                       Grid.Column="0"
+                                       Text="Maturity Date" />
+                            <TextBlock Grid.Column="1"
+                                       Grid.Row="3"
+                                       Text="{x:Bind FixedDepositDetailViewModel.FixedDepositBObj.MaturityDate,Mode=OneWay,Converter={StaticResource DateFormatConverter}}" />
+                            <TextBlock Grid.Row="4"
+                                       Grid.Column="0"
+                                       Text="From Account Number" />
+                            <TextBlock Grid.Column="1"
+                                       Grid.Row="4"
+                                       Text="{x:Bind FixedDepositDetailViewModel.FromAccountNumber,Mode=OneWay}" />
+                            <TextBlock Grid.Row="5"
+                                       Grid.Column="0"
+                                       Text="Repayment Account Number" />
+                            <TextBlock Grid.Column="1"
+                                       Grid.Row="5"
+                                       Text="{x:Bind FixedDepositDetailViewModel.RepaymentAccountNumber,Mode=OneWay}" />
+                        </Grid>
                     </Grid>
 
-            </userControl:OneByTwoGrid.Column1Content>
-            <userControl:OneByTwoGrid.Column2Content>
-                <Grid CornerRadius="0"
-                      BorderBrush="{ThemeResource AppBarBorderThemeBrush}"
-                      BorderThickness="2"
-                      Margin="5">
-                    <Grid.RowDefinitions>
-                        <!--<RowDefinition Height="Auto"></RowDefinition>-->
-                        <RowDefinition Height="Auto"></RowDefinition>
-                        <RowDefinition Height="*"></RowDefinition>
-                    </Grid.RowDefinitions>
-                    <userControl:ChangeRepaymentAccount DepositAccount="{x:Bind FixedDepositDetailViewModel.FixedDepositBObj,Mode=OneWay}"
-                                                        UpdateRepaymentAccountDeposit="UpdateRepaymentAccount"
-                                                        x:Name="ChangeRepaymentAccount"
-                                                        AccountList="{x:Bind FixedDepositDetailViewModel.Accounts,Mode=OneWay}"></userControl:ChangeRepaymentAccount>
-                    <Grid Grid.Row="1"
-                          CornerRadius="10"
-                          Grid.Column="0"
-                          Margin="5"
-                          Background="{ThemeResource BackgroundColor}">
-                        <TextBlock HorizontalAlignment="Center"
-                                   VerticalAlignment="Center">Coming soon</TextBlock>
+                </userControl:OneByTwoGrid.Column1Content>
+                <userControl:OneByTwoGrid.Column2Content>
+                    <Grid CornerRadius="0"
+                          BorderBrush="{ThemeResource AppBarBorderThemeBrush}"
+                          BorderThickness="2"
+                          Margin="5">
+                        <Grid.RowDefinitions>
+                            <!--<RowDefinition Height="Auto"></RowDefinition>-->
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="*"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <userControl:ChangeRepaymentAccount DepositAccount="{x:Bind FixedDepositDetailViewModel.FixedDepositBObj,Mode=OneWay}"
+                                                            UpdateRepaymentAccountDeposit="UpdateRepaymentAccount"
+                                                            x:Name="ChangeRepaymentAccount"
+                                                            AccountList="{x:Bind FixedDepositDetailViewModel.Accounts,Mode=OneWay}"></userControl:ChangeRepaymentAccount>
+                        <Grid Grid.Row="1"
+                              CornerRadius="10"
+                              Grid.Column="0"
+                              Margin="0 5 0 0"
+                              Background="{ThemeResource BackgroundColor}">
+                            <TextBlock HorizontalAlignment="Center"
+                                       VerticalAlignment="Center">Coming soon</TextBlock>
 
+                        </Grid>
                     </Grid>
-                </Grid>
-            </userControl:OneByTwoGrid.Column2Content>
-        </userControl:OneByTwoGrid>
-    </Grid>
+                </userControl:OneByTwoGrid.Column2Content>
+            </userControl:OneByTwoGrid>
+        </Grid>
+
+    </ScrollViewer>
 
 </Page>

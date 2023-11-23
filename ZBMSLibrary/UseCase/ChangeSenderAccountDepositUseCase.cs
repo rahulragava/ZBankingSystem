@@ -10,7 +10,7 @@ namespace ZBMSLibrary.UseCase
     public class ChangeSenderAccountDepositUseCase : UseCaseBase<ChangeSenderAccountDepositResponse>
     {
         private readonly IChangeSenderAccountDepositManager _changeSenderAccountDepositManager = DependencyContainer.DiContainer.GetRequiredService<IChangeSenderAccountDepositManager>();
-        public ChangeSenderAccountDepositRequest ChangeSenderAccountDepositRequest;
+        public readonly ChangeSenderAccountDepositRequest ChangeSenderAccountDepositRequest;
 
         public ChangeSenderAccountDepositUseCase(ChangeSenderAccountDepositRequest changeSenderAccountDepositRequest, IPresenterCallBack<ChangeSenderAccountDepositResponse> presenterCallBack) : base(presenterCallBack)
         {

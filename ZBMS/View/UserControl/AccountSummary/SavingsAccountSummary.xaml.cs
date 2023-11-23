@@ -97,6 +97,11 @@ namespace ZBMS.View.UserControl.AccountSummary
             set => SetValue(SavingsAccountBObjProperty, value);
         }
 
+        public double GetSavingsBalance()
+        {
+            return Math.Round(SavingsAccountBObj.Balance, 2);
+        }
+
     }
 }
 

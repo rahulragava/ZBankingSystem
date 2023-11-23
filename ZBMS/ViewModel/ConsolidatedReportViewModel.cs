@@ -223,7 +223,7 @@ namespace ZBMS.ViewModel
         {
             foreach (var loan in Loans)
             {
-                TotalDue += loan.Due;
+                TotalDue += loan.DueWithInterestAmount;
             }
         }
 

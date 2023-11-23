@@ -554,6 +554,11 @@ namespace ZBMS.View.Pages
             Window.Current.CoreWindow.PointerCursor = new CoreCursor(CoreCursorType.Hand, 1);
 
         }
+
+        private void LoanAccountDetailsControl_OnMoneyBagClicked()
+        {
+            RootScrollViewer.ScrollToElement(LoanExpander);
+        }
     }
 
     public interface IAccountView

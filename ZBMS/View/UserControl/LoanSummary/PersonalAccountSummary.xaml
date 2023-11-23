@@ -26,7 +26,7 @@
           Margin="0 0 10 0"
           BorderBrush="{ThemeResource SavingsAccountCardColor}"
           BorderThickness="5 0 0 0"
-          Padding="5">
+          Padding="05">
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup>
                 <VisualState x:Name="NarrowState">
@@ -106,6 +106,85 @@
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
+        <!--<VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState x:Name="NarrowState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0"></AdaptiveTrigger>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="IfscPanel.(Grid.Row)"
+                                Value="4"></Setter>
+                        <Setter Target="IfscPanel.(Grid.Column)"
+                                Value="0"></Setter>
+                        <Setter Target="IfscPanel.(Grid.ColumnSpan)"
+                                Value="2"></Setter>
+                        <Setter Target="BranchNamePanel.(Grid.Row)"
+                                Value="4"></Setter>
+                        <Setter Target="BranchNamePanel.(Grid.Column)"
+                                Value="2"></Setter>
+                        <Setter Target="BranchNamePanel.(Grid.ColumnSpan)"
+                                Value="2"></Setter>
+                        <Setter Target="InterestRatePanel.(Grid.Row)"
+                                Value="4"></Setter>
+                        <Setter Target="InterestRatePanel.(Grid.Column)"
+                                Value="4"></Setter>
+                        <Setter Target="InterestRatePanel.(Grid.ColumnSpan)"
+                                Value="2"></Setter>
+                        <Setter Target="StatusPanel.(Grid.Column)"
+                                Value="0"></Setter>
+                        <Setter Target="StatusPanel.(Grid.ColumnSpan)"
+                                Value="2"></Setter>
+                        <Setter Target="NamePanel.(Grid.Column)"
+                                Value="2"></Setter>
+                        <Setter Target="NamePanel.(Grid.ColumnSpan)"
+                                Value="2"></Setter>
+                        <Setter Target="DatePanel.(Grid.Column)"
+                                Value="4"></Setter>
+                        <Setter Target="DatePanel.(Grid.ColumnSpan)"
+                                Value="2"></Setter>
+                    </VisualState.Setters>
+                </VisualState>
+
+                <VisualState x:Name="WideState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="780"></AdaptiveTrigger>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="IfscPanel.(Grid.Row)"
+                                Value="3"></Setter>
+                        <Setter Target="IfscPanel.(Grid.Column)"
+                                Value="3"></Setter>
+                        <Setter Target="IfscPanel.(Grid.ColumnSpan)"
+                                Value="1"></Setter>
+                        <Setter Target="BranchNamePanel.(Grid.Row)"
+                                Value="3"></Setter>
+                        <Setter Target="BranchNamePanel.(Grid.Column)"
+                                Value="4"></Setter>
+                        <Setter Target="BranchNamePanel.(Grid.ColumnSpan)"
+                                Value="1"></Setter>
+                        <Setter Target="InterestRatePanel.(Grid.Row)"
+                                Value="3"></Setter>
+                        <Setter Target="InterestRatePanel.(Grid.Column)"
+                                Value="5"></Setter>
+                        <Setter Target="InterestRatePanel.(Grid.ColumnSpan)"
+                                Value="1"></Setter>
+                        <Setter Target="StatusPanel.(Grid.Column)"
+                                Value="0"></Setter>
+                        <Setter Target="StatusPanel.(Grid.ColumnSpan)"
+                                Value="1"></Setter>
+                        <Setter Target="NamePanel.(Grid.Column)"
+                                Value="1"></Setter>
+                        <Setter Target="NamePanel.(Grid.ColumnSpan)"
+                                Value="1"></Setter>
+                        <Setter Target="DatePanel.(Grid.Column)"
+                                Value="2"></Setter>
+                        <Setter Target="DatePanel.(Grid.ColumnSpan)"
+                                Value="1"></Setter>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>-->
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
