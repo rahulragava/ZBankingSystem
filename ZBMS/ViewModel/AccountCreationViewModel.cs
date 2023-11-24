@@ -62,11 +62,16 @@ namespace ZBMS.ViewModel
             }
         }
 
-        public double GetLoanedValue()
+        public double GetLoanedValue(double loanedValue)
         {
+            LoanedValue = loanedValue;
             return Math.Round(LoanedValue,2);
         }
 
+        public void SetLoanedValue(double loanedValue)
+        {
+            LoanedValue = loanedValue;
+        }
         public void SetAccountMetaData()
         {
             var savingsAccount = new SavingsAccount();
@@ -87,11 +92,14 @@ namespace ZBMS.ViewModel
             RecurringDepositInterestRate = recurringDeposit.InterestRate;
         }
 
-        public double GetDepositedValue()
+        public double GetDepositedValue(double depositedValue)
         {
             return Math.Round(DepositedValue, 2);
         }
-
+        public void SetDepositedValue(double depositedValue)
+        {
+            DepositedValue = depositedValue;
+        }
         public void SetLoanMetaData()
         {
             var personalLoan = new PersonalLoan();

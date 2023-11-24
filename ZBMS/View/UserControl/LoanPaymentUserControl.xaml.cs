@@ -81,7 +81,7 @@ namespace ZBMS.View.UserControl
 
         private void LoanPayButton_OnClick(object sender, RoutedEventArgs e)
         {
-            LoanPaymentViewModel.LoanDuePayment(LoanedAmountGoesToAccountNumber.SelectedItem as string);
+            LoanPaymentViewModel.LoanDuePayment(PersonalLoanBObj,LoanedAmountGoesToAccountNumber.SelectedItem as string);
         }
 
         private void Button_OnPointerEntered(object sender, PointerRoutedEventArgs e)

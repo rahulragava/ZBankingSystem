@@ -257,7 +257,7 @@ namespace ZBMS.View.Pages
 
         private void PersonPicture_OnPointerExited(object sender, PointerRoutedEventArgs e)
         {
-            Window.Current.CoreWindow.PointerCursor = new CoreCursor(CoreCursorType.Hand, 1);
+            Window.Current.CoreWindow.PointerCursor = new CoreCursor(CoreCursorType.Arrow, 1);
         }
 
         private void PersonPicture_OnPointerEntered(object sender, PointerRoutedEventArgs e)

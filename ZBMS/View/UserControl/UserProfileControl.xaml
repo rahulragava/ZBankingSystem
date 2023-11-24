@@ -36,7 +36,8 @@
                                                 DialogPrimaryButtonText="Yes"
                                                 DialogCloseButtonText="No"></local:CustomContentDialogControl>
 
-        <Button HorizontalAlignment="Left" VerticalAlignment="Top" Height="29" Width="45" x:Name="ThemeChanger" Click="ThemeChanger_OnClick">
+        <Button HorizontalAlignment="Left" VerticalAlignment="Top"
+                Height="29" Width="45" x:Name="ThemeChanger" Click="ThemeChanger_OnClick">
             <Button.Content>
                 <FontIcon VerticalAlignment="Center"
                           FontFamily="Segoe MDL2 Assets"

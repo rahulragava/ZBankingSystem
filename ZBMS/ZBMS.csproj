@@ -283,7 +283,6 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\0ddb8d1b6b67af7a01c2921322ed74dd.jpg" />
     <Content Include="Assets\AccountIcon.png" />
     <Content Include="Assets\AppLoginPageBackgroundImage.jpg" />
     <Content Include="Assets\AppLoginPageBackgroundImage1.jpg" />
@@ -308,8 +307,6 @@
     <Content Include="Assets\loanImage.jpg" />
     <Content Include="Assets\logo.jpg" />
     <Content Include="Assets\moneyBag-removebg-preview.png" />
-    <Content Include="Assets\MoneyWIthWIngs-removebg-preview.png" />
-    <Content Include="Assets\MoneyWIthWIngs.png" />
     <Content Include="Assets\palette.png" />
     <Content Include="Assets\SplashScreen.scale-100.png" />
     <Content Include="Assets\SplashScreen.scale-125.png" />
@@ -542,7 +539,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\bg2" />
-    <None Include="Assets\money-with-wings-flat-icons-png.webp" />
   </ItemGroup>
   <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

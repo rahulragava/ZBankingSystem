@@ -56,7 +56,7 @@
             <TextBlock HorizontalAlignment="Center">
                 <Run Text="&#x20b9;" /> <Run Text="{x:Bind LoanPaymentViewModel.DueAmount,Mode=OneWay}"></Run>
             </TextBlock>
-            <TextBlock  Foreground="Red">i</TextBlock>
+            <!--<TextBlock  Foreground="Red">i</TextBlock>-->
         </StackPanel>
       
 

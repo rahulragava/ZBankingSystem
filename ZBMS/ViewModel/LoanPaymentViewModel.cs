@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using Windows.UI.Core;
+using ZBMS.Services;
 using ZBMS.View.UserControl;
 using ZBMSLibrary.Data;
 using ZBMSLibrary.Entities.BusinessObject;
@@ -54,9 +55,12 @@ namespace ZBMS.ViewModel
             }
         }
 
-        public void LoanDuePayment(string accountNumber)
+        public void LoanDuePayment(PersonalLoanBObj personalLoan,string accountNumber)
         {
-            //var request = 
+            var request = new LoanMonthlyDuePaymentRequest(personalLoan.AccountNumber, accountNumber, DueAmount,
+                AppSettings.CustomerId);
+            var useCase = new LoanMonthlyDuePaymentUseCase(request, new LoanMonthlyDuePaymentPresenterCallBack(this));
+            useCase.Execute();
         }
 
 

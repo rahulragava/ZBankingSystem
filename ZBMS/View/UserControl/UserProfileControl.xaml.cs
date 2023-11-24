@@ -6,6 +6,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -118,7 +119,16 @@ namespace ZBMS.View.UserControl
             ThemeChanged?.Invoke();
             //ProfileControl.RequestedTheme = AppSettings.Theme;
         }
+        private void PersonPicture_OnPointerExited(object sender, PointerRoutedEventArgs e)
+        {
+            Window.Current.CoreWindow.PointerCursor = new CoreCursor(CoreCursorType.Arrow, 1);
+        }
 
+        private void PersonPicture_OnPointerEntered(object sender, PointerRoutedEventArgs e)
+        {
+            Window.Current.CoreWindow.PointerCursor = new CoreCursor(CoreCursorType.Hand, 1);
+
+        }
         public event Action LogOutClicked;
         private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
         {

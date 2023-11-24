@@ -59,7 +59,7 @@ namespace ZBMSLibrary.Data.DataManager
                         };
                         NotificationEvents.MonthlyRdSavingsTransaction?.Invoke(transactionSummaryVObj);
                     }
-                    catch (Exception ex)
+                    catch (InvalidOperationException ex)
                     {
                         var account = await _dbHandler.GetCurrentAccountAsync(monthlyInstallment.Key.FromAccountId);
                         account.Balance -= dueAmount;

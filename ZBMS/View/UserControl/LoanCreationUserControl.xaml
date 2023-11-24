@@ -152,7 +152,7 @@
                                 Width="120"
                                 IsDoubleTapEnabled="True"
                                 Loaded="LoanAmountTextBox_OnLoaded"
-                                Value="{x:Bind AccountCreationViewModel.GetLoanedValue(),Mode=OneWay,FallbackValue=100000.0}"
+                                Value="{x:Bind AccountCreationViewModel.GetLoanedValue(AccountCreationViewModel.LoanedValue), BindBack=AccountCreationViewModel.SetLoanedValue, Mode=TwoWay,FallbackValue=100000.0 }"
                                 SelectionHighlightColor="{ThemeResource PrimaryColor}"
                                 ValidationMode="InvalidInputOverwritten"
                                 Maximum="10000000" />

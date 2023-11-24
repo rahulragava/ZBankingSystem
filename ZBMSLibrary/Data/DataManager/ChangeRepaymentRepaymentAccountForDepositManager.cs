@@ -54,6 +54,9 @@ namespace ZBMSLibrary.Data.DataManager
                         DepositedAmount = recurringAccountBObj.DepositedAmount,
                         InterestRate = recurringAccountBObj.InterestRate,
                         Tenure = recurringAccountBObj.Tenure,
+                        MonthlyInstallment = recurringAccountBObj.MonthlyInstallment,
+                        NextDueDate = recurringAccountBObj.NextDueDate,
+                        Frequency = recurringAccountBObj.Frequency,
                         SavingsAccountId = changeRepaymentAccountForDepositRequest.AccountNumber,
                         FromAccountId = recurringAccountBObj.FromAccountId,
                     };
