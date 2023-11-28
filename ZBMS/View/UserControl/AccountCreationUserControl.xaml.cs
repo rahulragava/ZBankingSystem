@@ -20,6 +20,8 @@ using ZBMS.ViewModel;
 using ZBMSLibrary.Entities.Model;
 using RadioButton = Windows.UI.Xaml.Controls.RadioButton;
 using Windows.UI.Core;
+using Windows.UI.Xaml.Shapes;
+using ZBMS.Util;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -250,6 +252,15 @@ namespace ZBMS.View.UserControl
         {
             Window.Current.CoreWindow.PointerCursor = new CoreCursor(CoreCursorType.Arrow, 1);
         }
+
+        //private void SavingsAccountRadioButton_OnLoaded(object sender, RoutedEventArgs e)
+        //{
+        //    foreach (Ellipse ellipse in FindVisualChild.FindVisualChildren<Ellipse>(this))
+        //    {
+        //        // do something with tb here
+        //        ellipse.Fill = Application.Current.Resources["SystemControlBackgroundAccentBrush"] as SolidColorBrush;
+        //    }
+        //}
     }
     
     public interface IAccountCreationView

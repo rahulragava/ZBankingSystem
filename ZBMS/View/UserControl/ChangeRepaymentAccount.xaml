@@ -41,14 +41,14 @@
                 Grid.Column="1"
                 Margin="0 0 20 0"
                 Content="Edit"
+                Foreground="White"
                 CornerRadius="6"
                 x:Name="EditButton"
                 Click="ButtonBase_OnClick"
                 PointerExited="Button_OnPointerExited"
                 PointerEntered="Button_OnPointerEntered"
                 Style="{ThemeResource FeatureButtonStyle}"
-                Background="{ThemeResource AcrylicBrushBackground}"
-                Foreground="White"
+                Background="{ThemeResource SystemControlBackgroundAccentBrush}"
                 VerticalAlignment="Center"></Button>
     </Grid>
 

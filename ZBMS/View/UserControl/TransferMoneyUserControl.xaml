@@ -45,7 +45,16 @@
                   x:Name="AccountNumbers"
                   ItemsSource="{x:Bind TransferMoneyViewModel.AccountNumbers,Mode=OneWay}"
                   Margin="18 5 0 0"
-                  Width="250"></ComboBox>
+                  Width="250">
+            <ComboBox.Resources>
+                <Style TargetType="ComboBoxItem">
+                    <Setter Property="FocusVisualPrimaryBrush"
+                            Value="{ThemeResource SystemControlHighlightListAccentMediumBrush}" />
+                    <Setter Property="FocusVisualSecondaryBrush"
+                            Value="{ThemeResource SystemControlHighlightListAccentMediumBrush}" />
+                </Style>
+            </ComboBox.Resources>
+        </ComboBox>
         <TextBlock Grid.Row="4"
                    Text="Transfer Amount"
                    FontSize="13"
@@ -58,6 +67,7 @@
                  Margin="17 5 0 0"
                  x:Name="AmountTextBox"
                  Width="250"
+                 Style="{ThemeResource CustomTextBoxStyle}"
                  HorizontalAlignment="Left"
                  TextChanged="AmountTextBox_OnTextChanged"
                  Text="{x:Bind TransferMoneyViewModel.AmountToBeDeposited,Mode=TwoWay, UpdateSourceTrigger = PropertyChanged}"
@@ -71,12 +81,11 @@
                 Margin="0 5 0 0 "
                 CornerRadius="7"
                 IsEnabled="False"
-                Foreground="White"
                 PointerExited="Button_OnPointerExited"
                 PointerEntered="Button_OnPointerEntered"
                 Content="Transfer"
                 Click="TransferButton_OnClick"
-                Background="{ThemeResource AcrylicBrushBackground}"
+                Background="{ThemeResource SystemControlBackgroundAccentBrush}"
                 Style="{ThemeResource FeatureButtonStyle}">
 
         </Button>

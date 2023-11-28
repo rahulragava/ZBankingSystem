@@ -90,7 +90,10 @@
                          x:Name="SavingsAccountRadioButton"
                          Checked="SavingsAccountRadioButton_OnChecked"
                          GroupName="AccountGroup"
-                         Content="Savings Account"></RadioButton>
+                         Content="Savings Account">
+
+     
+            </RadioButton>
             <RadioButton Grid.Row="3"
                          Grid.Column="1"
                          x:Name="CurrentAccountRadioButton"
@@ -192,8 +195,7 @@
                     Margin="0 10 0 0"
                     Grid.Column="0"
                     CornerRadius="8"
-                    Background="{ThemeResource AcrylicBrushBackground}"
-                    Foreground="White"
+                    Background="{ThemeResource SystemControlBackgroundAccentBrush}"
                     Style="{ThemeResource FeatureButtonStyle}"
                     PointerEntered="Button_OnPointerEntered"
                     PointerExited="Button_OnPointerExited"

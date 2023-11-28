@@ -14,8 +14,9 @@
         <converters:DateFormatter x:Key="DateFormatter"/>
     </UserControl.Resources>
 
-    <Grid RowSpacing="10" >
+    <Grid RowSpacing="5">
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
@@ -37,6 +38,8 @@
                                                 DialogCloseButtonText="No"></local:CustomContentDialogControl>
 
         <Button HorizontalAlignment="Left" VerticalAlignment="Top"
+                PointerEntered="PersonPicture_OnPointerEntered"
+                PointerExited="PersonPicture_OnPointerExited"
                 Height="29" Width="45" x:Name="ThemeChanger" Click="ThemeChanger_OnClick">
             <Button.Content>
                 <FontIcon VerticalAlignment="Center"
@@ -44,45 +47,196 @@
                           Glyph="" />
             </Button.Content>
         </Button>
-        
-        <PersonPicture Grid.Row="0"
+        <!--<GridView Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center"
+                  VerticalAlignment="Top"
+
+                  >
+            <GridView.Items>
+                <StackPanel Height="20"
+                            Width="20"
+                            Background="#2c84c7"
+                            Padding="2"
+                            CornerRadius="10">
+                    <FontIcon FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                              FontSize="15"
+                              HorizontalAlignment="Center"
+                              VerticalAlignment="Bottom"
+                              Foreground="White"
+                              Glyph="&#xF78C;" />
+                </StackPanel>
+                <Ellipse Fill="#2c84c7"
+                         x:Name="Accent1"
+                         Height="20"
+                         PointerEntered="PersonPicture_OnPointerEntered"
+                         PointerExited="PersonPicture_OnPointerExited"
+                         Width="20"
+                         
+                         Tapped="AccentChange_OnClick"
+                         VerticalAlignment="Center" >
+                  
+                    
+                </Ellipse>
+
+                <Ellipse Fill="#b95f84"
+                         x:Name="Accent2"
+                         Height="20"
+                         PointerEntered="PersonPicture_OnPointerEntered"
+                         PointerExited="PersonPicture_OnPointerExited"
+                         Tapped="AccentChange_OnClick"
+                         Width="20"
+                         VerticalAlignment="Center" />
+                <Ellipse Fill="#c0602d"
+                         x:Name="Accent3"
+                         Height="20"
+                         PointerEntered="PersonPicture_OnPointerEntered"
+                         PointerExited="PersonPicture_OnPointerExited"
+                         Width="20"
+                         Tapped="AccentChange_OnClick"
+                         VerticalAlignment="Center" />
+                <Ellipse Fill="DarkCyan"
+                         x:Name="Accent4"
+                         Height="20"
+                         PointerEntered="PersonPicture_OnPointerEntered"
+                         PointerExited="PersonPicture_OnPointerExited"
+                         Width="20"
+                         Tapped="AccentChange_OnClick"
+                         VerticalAlignment="Center" />
+
+            </GridView.Items>
+        </GridView>-->
+        <StackPanel HorizontalAlignment="Center"
+                    VerticalAlignment="Top"
+                    Orientation="Horizontal"
+                    Margin="10 0 0 0"
+                    Grid.Column="0"
+                    Grid.Row="0"
+                    Grid.ColumnSpan="2"
+                    Spacing="10"
+                    x:Name="AccentChange">
+            <StackPanel Height="25"
+                        Width="25"
+                        x:Name="Accent1"
+                        PointerEntered="PersonPicture_OnPointerEntered"
+                        PointerExited="PersonPicture_OnPointerExited"
+                        Tapped="AccentChange_OnClick"
+                        Background="#2c84c7"
+                        Padding="4"
+                        CornerRadius="17.5">
+                <FontIcon FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                          FontSize="15"
+                          x:Name="AccentFont1"
+                          HorizontalAlignment="Center"
+                          VerticalAlignment="Bottom"
+                          Foreground="White"
+                          Visibility="Collapsed"
+                          Glyph="&#xF78C;" />
+            </StackPanel>
+            <StackPanel Height="25"
+                        Width="25"
+                        x:Name="Accent2"
+                        PointerEntered="PersonPicture_OnPointerEntered"
+                        PointerExited="PersonPicture_OnPointerExited"
+                        Tapped="AccentChange_OnClick"
+                        Background="#b95f84"
+                        Padding="4"
+                        CornerRadius="17.5">
+                <FontIcon FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                          FontSize="15"
+                          x:Name="AccentFont2"
+                          HorizontalAlignment="Center"
+                          Visibility="Collapsed"
+                          VerticalAlignment="Bottom"
+                          Foreground="White"
+                          Glyph="&#xF78C;" />
+            </StackPanel>
+            <StackPanel Height="25"
+                        Width="25"
+                        x:Name="Accent3"
+                        PointerEntered="PersonPicture_OnPointerEntered"
+                        PointerExited="PersonPicture_OnPointerExited"
+                        Tapped="AccentChange_OnClick"
+                        Background="#c0602d"
+                        Padding="4"
+                        CornerRadius="17.5">
+                <FontIcon FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                          FontSize="15"
+                          x:Name="AccentFont3"
+                          Visibility="Collapsed"
+                          HorizontalAlignment="Center"
+                          VerticalAlignment="Bottom"
+                          Foreground="White"
+                          Glyph="&#xF78C;" />
+            </StackPanel>
+            <StackPanel Height="25"
+                        Width="25"
+                        x:Name="Accent4"
+                        PointerEntered="PersonPicture_OnPointerEntered"
+                        PointerExited="PersonPicture_OnPointerExited"
+                        Tapped="AccentChange_OnClick"
+                        Background="DarkCyan"
+                        Padding="4"
+                        CornerRadius="17.5">
+                <FontIcon FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                          FontSize="15"
+                          x:Name="AccentFont4"
+                          Visibility="Collapsed"
+                          HorizontalAlignment="Center"
+                          VerticalAlignment="Bottom"
+                          Foreground="White"
+                          Glyph="&#xF78C;" />
+            </StackPanel>
+
+        </StackPanel>
+        <FontIcon Grid.Column="1"
+                  HorizontalAlignment="Right"
+                  VerticalAlignment="Top"
+                  FontSize="20"
+                  PointerEntered="PersonPicture_OnPointerEntered"
+                  PointerExited="PersonPicture_OnPointerExited"
+                  x:Name="NewWindowIcon"
+                  Tapped="NewWindowIcon_OnTapped"
+                  FontFamily="{ThemeResource SymbolThemeFontFamily}"
+                  Glyph="&#xE8A7;" />
+        <PersonPicture Grid.Row="1"
                        Grid.Column="0"
                        Grid.ColumnSpan="2" 
                        Height="60"
                        Width="60"
                        VerticalAlignment="Center"
                        DisplayName="{x:Bind UserName,Mode=OneWay}"></PersonPicture>
-        <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="{x:Bind UserName,Mode=OneWay}"
+        <TextBlock Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Text="{x:Bind UserName,Mode=OneWay}"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"></TextBlock>
-        <TextBlock Grid.Row="2"
+        <TextBlock Grid.Row="3"
                    HorizontalAlignment="Center"
                    Foreground="{ThemeResource SubtleText}"
                    VerticalAlignment="Center"
                    Grid.Column="0"
                    Grid.ColumnSpan="2"
                    Text="{x:Bind Mail,Mode=OneWay}"></TextBlock>
-        <TextBlock Grid.Row="3"
+        <TextBlock Grid.Row="4"
                    Grid.Column="0"
                    Grid.ColumnSpan="2"
                    Foreground="{ThemeResource SubtleText}"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
                    Text="{x:Bind PhoneNumber,Mode=OneWay}"></TextBlock>
-        <TextBlock Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Text="Last logged on" HorizontalAlignment="Center"></TextBlock>
-        <TextBlock Grid.Row="5"
+        <TextBlock Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Text="Last logged on" HorizontalAlignment="Center"></TextBlock>
+        <TextBlock Grid.Row="6"
                    Grid.Column="0"
                    Grid.ColumnSpan="2"
                    Foreground="{ThemeResource SubtleText}"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
                    Text="{x:Bind LastLoggedOn,Mode=OneWay,Converter={StaticResource DateFormatter}}"></TextBlock>
-        <Button Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2"
+        <Button Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2"
                 HorizontalAlignment="Center"
                 CornerRadius="10"
                 Foreground="White"
                 Background="#ec5445"
                 Click="ButtonBase_OnClick"
+                PointerEntered="PersonPicture_OnPointerEntered"
+                PointerExited="PersonPicture_OnPointerExited"
                 Style="{StaticResource LogOutButtonStyle}"
                 >log out</Button>
     </Grid>

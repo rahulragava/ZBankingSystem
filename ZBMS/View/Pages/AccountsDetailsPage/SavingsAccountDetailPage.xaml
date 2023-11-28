@@ -109,6 +109,7 @@
 
     </Page.Resources>
     <ScrollViewer VerticalScrollBarVisibility="Auto"
+                  Background="{ThemeResource PageBackground}"
                   KeyDown="UIElement_OnKeyDown">
         <Grid>
             <Grid.RowDefinitions>
@@ -156,13 +157,13 @@
                         Margin=" 0 5 30 0"
                         Spacing="10">
                 <Button Content="Deposit"
-                        Foreground="white"
                         IsTabStop="False"
                         PointerExited="Button_OnPointerExited"
                         PointerEntered="Button_OnPointerEntered"
                         CornerRadius="5"
+                        Foreground="White"
                         Style="{ThemeResource FeatureButtonStyle}"
-                        Background="{ThemeResource AcrylicBrushBackground}"
+                        Background="{ThemeResource SystemControlBackgroundAccentBrush}"
                         VerticalAlignment="Center"
                         x:Name="DepositButton">
                     <Button.Flyout>
@@ -176,9 +177,9 @@
                 </Button>
                 <Button Content="Withdraw"
                         CornerRadius="5"
-                        Foreground="white"
+                        Foreground="White"
                         Style="{ThemeResource FeatureButtonStyle}"
-                        Background="{ThemeResource AcrylicBrushBackground}"
+                        Background="{ThemeResource SystemControlBackgroundAccentBrush}"
                         PointerExited="Button_OnPointerExited"
                         PointerEntered="Button_OnPointerEntered"
                         IsTabStop="False"
@@ -195,13 +196,13 @@
                 </Button>
 
                 <Button Content="Transfer"
-                        Foreground="white"
                         IsTabStop="False"
                         CornerRadius="5"
                         Style="{ThemeResource FeatureButtonStyle}"
-                        Background="{ThemeResource AcrylicBrushBackground}"
+                        Background="{ThemeResource SystemControlBackgroundAccentBrush}"
                         PointerExited="Button_OnPointerExited"
                         PointerEntered="Button_OnPointerEntered"
+                        Foreground="White"
                         VerticalAlignment="Center"
                         x:Name="TransactionButton">
                     <Button.Flyout>

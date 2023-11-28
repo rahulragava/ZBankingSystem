@@ -13,7 +13,8 @@
         <converters:DateFormatter x:Name="DateFormatConverter" />
     </Page.Resources>
 
-    <ScrollViewer KeyDown="UIElement_OnKeyDown">
+    <ScrollViewer KeyDown="UIElement_OnKeyDown"
+                  Background="{ThemeResource PageBackground}">
 
         <Grid>
             <Grid.RowDefinitions>

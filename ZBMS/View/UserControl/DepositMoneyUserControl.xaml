@@ -34,8 +34,10 @@
         <TextBox 
                  Grid.Row="2"
                  x:Name="AmountTextBox"
+                 Style="{ThemeResource CustomTextBoxStyle}"
                  KeyDown="DepositButton_OnKeyDown"
                  TextChanged="AmountTextBox_OnTextChanged"
+                 SelectionHighlightColor="{ThemeResource SystemControlBackgroundAccentBrush}"
                  Text="{x:Bind DepositMoneyViewModel.AmountToBeDeposited,Mode=TwoWay}"
                  TextChanging="AmountTextBox_TextChanging"
                  PlaceholderText="Enter Amount" >
@@ -50,6 +52,7 @@
                 PointerEntered="Button_OnPointerEntered"
                 IsEnabled="False"
                 Click="DepositButton_OnClick"
+                Background="{ThemeResource SystemControlBackgroundAccentBrush}"
                 CornerRadius="8"
                 Style="{ThemeResource FeatureButtonStyle}"
                 VerticalAlignment="Bottom"></Button>

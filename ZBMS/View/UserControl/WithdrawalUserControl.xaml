@@ -90,6 +90,7 @@
                  Margin="10 5 20 0"
                  x:Name="AmountTextBox"
                  TextChanged="AmountTextBox_OnTextChanged"
+                 Style="{ThemeResource CustomTextBoxStyle}"
                  Text="{x:Bind WithdrawMoneyViewModel.AmountToBeDeposited,Mode=TwoWay}"
                  TextChanging="AmountTextBox_TextChanging"
                  KeyDown="AmountTextBox_OnKeyDown"
@@ -106,6 +107,7 @@
                 PointerExited="Button_OnPointerExited"
                 PointerEntered="Button_OnPointerEntered"
                 Click="WithdrawButton_OnClick"
+                Background="{ThemeResource SystemControlBackgroundAccentBrush}"
                 Style="{ThemeResource FeatureButtonStyle}"
                 VerticalAlignment="Bottom"></Button>
 

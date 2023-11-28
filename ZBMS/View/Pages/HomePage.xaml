@@ -7,15 +7,12 @@
       xmlns:userControl="using:ZBMS.View.UserControl"
       xmlns:controls="using:Microsoft.UI.Xaml.Controls"
       mc:Ignorable="d"
-      Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+      Background="{ThemeResource PageBackground}">
 
     <Grid Background="Transparent">
-        <!--<Grid.Resources>
-            <SolidColorBrush x:Key="NavigationViewSelectionIndicatorForeground"
-                             Color="{ThemeResource SystemAltMediumHighColor}" />
-            <SolidColorBrush x:Key="NavigationViewBackground"
-                             Color="{ThemeResource SystemAltMediumHighColor}" />
-        </Grid.Resources>-->
+        <Grid.Resources>
+          
+        </Grid.Resources>
         <NavigationView x:Name="NavigationMenu"
                         IsPaneToggleButtonVisible="False"
                         IsBackButtonVisible="Collapsed"
@@ -28,8 +25,9 @@
                         IsPaneOpen="False"
                         SelectionChanged="NavigationMenu_OnSelectionChanged">
             <NavigationView.Resources>
-
-                <ResourceDictionary>
+                <SolidColorBrush x:Key="NavigationViewBackground"
+                                 Color="#552c84c7" />
+                <ResourceDictionary x:Key="Dictionary">
                     <ResourceDictionary.ThemeDictionaries>
                         <ResourceDictionary x:Key="Light">
                             <!--<AcrylicBrush x:Key="NavigationViewDefaultPaneBackground"
@@ -37,27 +35,24 @@
                                           TintLuminosityOpacity="0.4"
                                           TintOpacity="0.2"
                                           ></AcrylicBrush>-->
-                            <SolidColorBrush x:Key="NavigationViewExpandedPaneBackground"
+                            <!--<SolidColorBrush x:Key="NavigationViewExpandedPaneBackground"
                                              Color="Red" />
                             <SolidColorBrush x:Key="NavigationViewDefaultPaneBackground"
-                                             Color="#f0f2f5" />
-                            <!--<SolidColorBrush x:Key="NavigationViewSelectionIndicatorForeground"
-                                             Color="Blue" />-->
+                                             Color="#552c84c7" />-->
+                      
                         </ResourceDictionary>
                         <ResourceDictionary x:Key="Dark">
                             <!--<AcrylicBrush x:Key="NavigationViewDefaultPaneBackground"
                                           TintColor="Cyan"
                                           TintOpacity="0.2"></AcrylicBrush>-->
                             <!--<SolidColorBrush x:Key="NavigationViewExpandedPaneBackground"
-                                             Color="#18191a" />-->
-                            <!--<SolidColorBrush x:Key="NavigationViewDefaultPaneBackground"
-                                             Color="#134142" />-->
-                            <!--<SolidColorBrush x:Key="NavigationViewSelectionIndicatorForeground"
-                                             Color="Blue" />-->
+                                             Color="#18191a" />
+                            <SolidColorBrush x:Key="NavigationViewDefaultPaneBackground"
+                                             Color="#552c84c7" />-->
+                            
                         </ResourceDictionary>
 
                     </ResourceDictionary.ThemeDictionaries>
-
                 </ResourceDictionary>
 
                 <!--<SolidColorBrush x:Key="NavBackgroundColor" Color="{ThemeResource }"></SolidColorBrush>-->
@@ -143,12 +138,12 @@
                                                                     Mail="{x:Bind HomePageViewModel.Email,Mode=OneWay}"
                                                                     Height="270"
                                                                     Width="250"
+                                                                    x:Name="UserProfileControl"
                                                                     BorderBrush="{ThemeResource ButtonBorderThemeBrush}"
                                                                     BorderThickness="0.5"
                                                                     PhoneNumber="{x:Bind HomePageViewModel.PhoneNumber,Mode=OneWay}"
                                                                     LastLoggedOn="{x:Bind HomePageViewModel.LastLoggedOn,Mode=OneWay}"
-                                                                    LogOutClicked="UserProfileControl_OnLogOutClicked"
-                                                                    ThemeChanged="UserProfileControl_OnThemeChanged" />
+                                                                    LogOutClicked="UserProfileControl_OnLogOutClicked"/>
                                 </Flyout>
                             </FlyoutBase.AttachedFlyout>
                         </PersonPicture>

@@ -44,10 +44,14 @@ namespace ZBMS.View.UserControl.CardTemplates
 
         public double AccountBalance
         {
-            get => (double)GetValue(AccountBalanceProperty);
+            get => Math.Round((double)GetValue(AccountBalanceProperty),2);
             set => SetValue(AccountBalanceProperty, value);
         }
 
+        public double GetAccountBalance()
+        {
+            return Math.Round(AccountBalance, 2);
+        }
         public static readonly DependencyProperty AccountStatusProperty =
             DependencyProperty.Register(nameof(AccountStatus), typeof(AccountStatus), typeof(SavingsAccountCardUserControl),
                 new PropertyMetadata(default(AccountStatus)));

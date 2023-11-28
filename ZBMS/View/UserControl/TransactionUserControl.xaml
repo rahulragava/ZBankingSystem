@@ -332,14 +332,11 @@
                               CornerRadius="10"
                               Style="{StaticResource StickyHeaderListViewStyle}"
                               Height="650"
+                              Foreground="White"
                               SelectionChanged="TransactionListDataGrid_OnSelectionChanged"
                               ItemsSource="{Binding Source={StaticResource TransactionSource}}">
                        <ListView.Resources>
-                           <SolidColorBrush x:Key="ListViewItemBackgroundSelected"
-                                            Color="DarkCyan" />
-                           
-                            <SolidColorBrush x:Key="ListViewItemBackgroundSelectedPointerOver"
-                                            Color="DarkCyan" />
+                          
                            <!--<SolidColorBrush x:Key="SelectedForeground"
                                             Color="#FF0000" />-->
                         </ListView.Resources>

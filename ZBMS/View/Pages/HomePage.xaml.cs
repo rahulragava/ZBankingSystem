@@ -11,6 +11,7 @@ using Windows.Foundation.Collections;
 using Windows.Networking.NetworkOperators;
 using Windows.UI;
 using Windows.UI.Core;
+using Windows.UI.Core.Preview;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -19,6 +20,8 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using ZBMS.Services;
+using ZBMS.Util;
+using ZBMS.View.UserControl;
 using ZBMS.ViewModel;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
@@ -37,16 +40,78 @@ namespace ZBMS.View.Pages
             HomePageViewModel = new HomePageViewModel(this);
             this.InitializeComponent();
             Loaded += OnLoaded;
+            Unloaded += OnUnLoaded;
             NavigationViewItem itemContent = NavigationMenu.MenuItems.ElementAt(0) as NavigationViewItem;
             NavigationMenu.SelectedItem = itemContent;
             FrameworkElement root = (FrameworkElement)Window.Current.Content;
             root.RequestedTheme = AppSettings.Theme;
-            SetThemeToggle(AppSettings.Theme);
+            //SetThemeToggle(AppSettings.Theme);
+            SystemNavigationManagerPreview.GetForCurrentView().CloseRequested += this.OnCloseRequest;
+        }
+
+        private void OnCloseRequest(object sender, SystemNavigationCloseRequestedPreviewEventArgs e)
+        {
+            WindowService.CloseWindow();
+            Application.Current.Exit();
+
+            //e.Handled = true;
+        }
+
+        private void OnUnLoaded(object sender, RoutedEventArgs e)
+        {
+             ViewNotifier.Instance.ThemeChanged -= OnThemeChanged;
+             ViewNotifier.Instance.UserLogOut -= InstanceOnUserLogOut;
+             ViewNotifier.Instance.AccentColorChanged -= InstanceOnAccentColorChanged;
+
+
         }
 
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
             HomePageViewModel.GetUser();
+            ViewNotifier.Instance.ThemeChanged += OnThemeChanged;
+            ViewNotifier.Instance.UserLogOut += InstanceOnUserLogOut;
+            ViewNotifier.Instance.AccentColorChanged += InstanceOnAccentColorChanged;
+
+        }
+
+        private void InstanceOnAccentColorChanged(string color)
+        {
+            Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                () =>
+                {
+                    AppSettings.SetCustomAccent(color);
+                    UserProfileControl.AccentChanged();
+                }
+            );
+        }
+
+        private void InstanceOnUserLogOut()
+        {
+            Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                () =>
+                {
+                    Logout();
+                }
+            );
+        }
+
+        private void OnThemeChanged(ElementTheme theme)
+        {
+            Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                () =>
+                {
+                    FrameworkElement window = (FrameworkElement)Window.Current.Content;
+
+                    window.RequestedTheme = AppSettings.Theme;
+                    var menu = Flyout.GetAttachedFlyout(PersonPicture);
+                    menu.Hide();
+                }
+            );
+            //SetThemeToggle(theme);
+           
+
+            //((FrameworkElement)Window.Current.Content).RequestedTheme = this.RequestedTheme = theme;
         }
 
         private void NavigationMenu_OnSelectionChanged(NavigationView sender,
@@ -84,6 +149,7 @@ namespace ZBMS.View.Pages
                 titleBar.ButtonForegroundColor = Colors.White;
                 //titleBar.ButtonHoverBackgroundColor = Colors.Red;
                 titleBar.ButtonBackgroundColor = Color.FromArgb(205, 43, 141, 143);
+                ((FrameworkElement)Window.Current.Content).RequestedTheme = theme;
 
 
                 //var ab = Application.Current.Resources["AcrylicBrushBackground"] as Microsoft.UI.Xaml.Media.AcrylicBrush;
@@ -105,6 +171,7 @@ namespace ZBMS.View.Pages
                 titleBar.ButtonForegroundColor = Colors.White;
                 //titleBar.ButtonBackgroundColor = Colors.White;
                 titleBar.ButtonBackgroundColor = Color.FromArgb(205, 43, 141, 143);
+                ((FrameworkElement)Window.Current.Content).RequestedTheme = theme;
 
 
                 //titleBar.ButtonBackgroundColor = a.TintColor;
@@ -201,7 +268,7 @@ namespace ZBMS.View.Pages
             menu.ShowAt(fe);
         }
 
-        private void UserProfileControl_OnThemeChanged()
+        private void UserProfileControl_OnThemeChanged(ElementTheme elementTheme)
         {
             var menu = Flyout.GetAttachedFlyout(PersonPicture);
             menu.Hide();
@@ -221,7 +288,6 @@ namespace ZBMS.View.Pages
 
         }
 
-
         //private void AccentColorChangeItem_OnTapped(object sender, TappedRoutedEventArgs e)
         //{
         //    //var fe = PersonPicture;
@@ -229,31 +295,6 @@ namespace ZBMS.View.Pages
         //    menu.ShowAt(AccentColorChangeItem);
         //}
 
-
-        private void RedAccent_OnTapped(object sender, TappedRoutedEventArgs e)
-        {
-            //AppSettings.AccentColor = Colors.Red;
-            //AppSettings.UpdateSystemAccentColorAndBrushes(AppSettings.AccentColor);
-
-        }
-
-        private void OrangeAccent_OnTapped(object sender, TappedRoutedEventArgs e)
-        {
-            //AppSettings.AccentColor = Colors.Orange;
-            //AppSettings.UpdateSystemAccentColorAndBrushes(AppSettings.AccentColor);
-        }
-
-        private void GreenAccent_OnTapped(object sender, TappedRoutedEventArgs e)
-        {
-            //AppSettings.AccentColor = Colors.Green;
-            //AppSettings.UpdateSystemAccentColorAndBrushes(AppSettings.AccentColor);
-        }
-
-        private void BlueAccent_OnTapped(object sender, TappedRoutedEventArgs e)
-        {
-            //AppSettings.AccentColor = Colors.Blue;
-            //AppSettings.UpdateSystemAccentColorAndBrushes(AppSettings.AccentColor);
-        }
 
         private void PersonPicture_OnPointerExited(object sender, PointerRoutedEventArgs e)
         {

@@ -226,6 +226,7 @@
         </Popup>
         <ScrollViewer VerticalScrollBarVisibility="Auto"
                       x:Name="RootScrollViewer"
+                      Background="{ThemeResource PageBackground}"
                       KeyDown="UIElement_OnKeyDown">
             <Grid RowSpacing="10">
                 <Grid.RowDefinitions>
@@ -313,7 +314,8 @@
                                        FontWeight="SemiBold"></TextBlock>
 
                             <controls1:InfoBadge Grid.Column="1"
-                                                 Background="{ThemeResource AcrylicBrushBackground}"
+                                                 Foreground="White"
+                                                 Background="{ThemeResource SystemControlBackgroundAccentBrush}"
                                                  Value="{x:Bind AccountViewModel.Accounts.Count,Mode=OneWay}"
                                                  HorizontalAlignment="Left"
                                                  Width="40" />
@@ -399,7 +401,8 @@
                                        FontWeight="SemiBold"></TextBlock>
 
                             <controls1:InfoBadge Grid.Column="1"
-                                                 Background="{ThemeResource AcrylicBrushBackground}"
+                                                 Background="{ThemeResource SystemControlBackgroundAccentBrush}"
+                                                 Foreground="{ThemeResource AppBarItemForegroundThemeBrush}"
                                                  Value="{x:Bind AccountViewModel.Deposits.Count,Mode=OneWay}"
                                                  HorizontalAlignment="Left"
                                                  Width="40" />
@@ -478,7 +481,8 @@
                                        FontWeight="SemiBold"></TextBlock>
 
                             <controls1:InfoBadge Grid.Column="1"
-                                                 Background="{ThemeResource AcrylicBrushBackground}"
+                                                 Background="{ThemeResource SystemControlBackgroundAccentBrush}"
+                                                 Foreground="{ThemeResource AppBarItemForegroundThemeBrush}"
                                                  Value="{x:Bind AccountViewModel.Loans.Count,Mode=OneWay}"
                                                  HorizontalAlignment="Left"
                                                  Width="40" />

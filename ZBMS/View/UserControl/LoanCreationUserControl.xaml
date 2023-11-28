@@ -232,8 +232,7 @@
                 PointerEntered="Button_OnPointerEntered"
                 Click="CreateLoan_OnClick"
                 Style="{StaticResource FeatureButtonStyle}"
-                Background="{ThemeResource AcrylicBrushBackground}"
-                Foreground="White"
+                Background="{ThemeResource SystemControlBackgroundAccentBrush}"
                 HorizontalAlignment="Center"
                 Content="Create">
         </Button>

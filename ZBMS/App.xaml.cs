@@ -15,6 +15,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using ZBMS.Services;
 using ZBMS.View.Pages;
 using ZBMSLibrary.Data;
 
@@ -76,6 +77,7 @@ namespace ZBMS
             }
             var dbInstance = DatabaseInitializer.Instance;
             dbInstance.InitializeDatabase();
+            AppSettings.InitializeCustomAccent();
             Task.Run(async () => await dbInstance.CreateAllTablesAsync());
         }
 

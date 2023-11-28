@@ -1,22 +1,26 @@
-﻿<ResourceDictionary
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:media="using:Microsoft.UI.Xaml.Media"
-    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls">
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:media="using:Microsoft.UI.Xaml.Media"
+                    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+                    xmlns:services="using:ZBMS.Services">
     <ResourceDictionary.ThemeDictionaries>
         <ResourceDictionary x:Key="Light">
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary >
+                <ResourceDictionary>
                     <media:AcrylicBrush x:Key="AcrylicBrushBackground"
                                         BackgroundSource="Backdrop"
                                         TintColor="DarkCyan"
                                         TintOpacity="0.2" />
                     <SolidColorBrush x:Key="BackgroundColor"
                                      Color="White"></SolidColorBrush>
+                    <SolidColorBrush x:Key="ControlBackground"
+                                     Color="White" />
                     <!--<SolidColorBrush x:Key="ControlBackground"
                                      Color="LightGray"></SolidColorBrush>-->
                     <SolidColorBrush x:Key="SecondaryColor"
                                      Color="#6F32FF"></SolidColorBrush>
+                    <SolidColorBrush x:Key="PageBackground"
+                                     Color="{ThemeResource SystemAccentColor}" />
                     <!--<SolidColorBrush x:Key="PrimaryColor"
                                      Color="#0D64FF"></SolidColorBrush-->
                     <SolidColorBrush x:Key="PrimaryColor"
@@ -24,39 +28,17 @@
                     <SolidColorBrush x:Key="SubtleText"
                                      Color="Gray"></SolidColorBrush>
                     <SolidColorBrush x:Key="SavingsAccountCardColor"
-                                     Color="CornflowerBlue"/>
+                                     Color="CornflowerBlue" />
                     <SolidColorBrush x:Key="CurrentAccountCardColor"
                                      Color="BlueViolet"></SolidColorBrush>
                     <SolidColorBrush x:Key="PersonalLoanAccountCardColor"
-                                     Color="IndianRed"/>
+                                     Color="IndianRed" />
                     <SolidColorBrush x:Key="RecurringDepositCardColor"
                                      Color="Blue"></SolidColorBrush>
                     <SolidColorBrush x:Key="FixedDepositCardColor"
                                      Color="DarkMagenta"></SolidColorBrush>
-
-                   
-                    <!--//accent brush working-->
-
-                    <SolidColorBrush x:Key="SystemAccentColor"
-                                     Color="{ThemeResource SystemAltMediumColor}" />
-                    <!--<Color x:Key="SystemBasedMediumHighColor">#ffcb2128</Color>
-                    <Color x:Key="SystemAltHighColor">#ffcb2128</Color>
-                    <Color x:Key="SystemAltLowColor">#ffcb2128</Color>
-                    <Color x:Key="SystemAltMediumColor">#ffcb2128</Color>
-                    <Color x:Key="SystemAltMediumHighColor">#ffcb2128</Color>
-                    <Color x:Key="SystemAltMediumLowColor">#ffcb2128</Color>
-                    <Color x:Key="SystemBaseHighColor">#ffcb2128</Color>
-                    <Color x:Key="SystemBaseLowColor">#ffcb2128</Color>
-                    <Color x:Key="SystemBaseMediumColor">#ffcb2128</Color>
-                    <Color x:Key="SystemBaseMediumLowColor">#ffcb2128</Color>-->
-
-                   
-                    <!--<media:AcrylicBrush x:Key="AcrylicBrushBackground"
-                                        BackgroundSource="Backdrop"
-                                        TintColor="DarkCyan"
-                                        TintOpacity="0.2" />
-                    <SolidColorBrush x:Key="ImportantTextBlockForegroundGradient"
-                                     Color="#0D64FF"></SolidColorBrush>-->
+                    <Color x:Key="SystemAccentColor">DarkCyan</Color>
+                    <SolidColorBrush x:Key="NavigationViewExpandedPaneBackground" Color="Red"/>
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
@@ -64,8 +46,6 @@
         <ResourceDictionary x:Key="Dark">
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary>
-                    <!--<SolidColorBrush x:Key="ControlBackground"
-                                     Color="DimGray"></SolidColorBrush>-->
                     <media:AcrylicBrush x:Key="AcrylicBrushBackground"
                                         BackgroundSource="Backdrop"
                                         TintColor="DarkCyan"
@@ -73,7 +53,7 @@
                     <SolidColorBrush x:Key="BackgroundColor"
                                      Color="#18191a"></SolidColorBrush>
                     <SolidColorBrush x:Key="PrimaryColor"
-                                     Color="#0D64FF"></SolidColorBrush>
+                                     Color="DarkCyan"></SolidColorBrush>
                     <SolidColorBrush x:Key="SecondaryColor"
                                      Color="#6F32FF"></SolidColorBrush>
                     <SolidColorBrush x:Key="SubtleText"
@@ -86,33 +66,18 @@
                                      Color="IndianRed" />
                     <SolidColorBrush x:Key="RecurringDepositCardColor"
                                      Color="Blue"></SolidColorBrush>
+                    <SolidColorBrush x:Key="PageBackground"
+                                     Color="#202020"/>
+                    <SolidColorBrush x:Key="ControlBackground"
+                                     Color="#202020" />
                     <SolidColorBrush x:Key="FixedDepositCardColor"
                                      Color="DarkMagenta"></SolidColorBrush>
-                  
-
-                    <!--<media:AcrylicBrush x:Key="AcrylicBrushBackgroundTry"
-                                        BackgroundSource="Backdrop"
-                                        TintColor="DarkCyan"
-                                        TintOpacity="0.2" />-->
-
-                    <SolidColorBrush x:Key="SystemAccentColor"
-                                     Color="DarkCyan" />
-                    <Color x:Key="SystemBasedMediumHighColor">DarkCyan</Color>
-                    <Color x:Key="SystemAltHighColor">DarkCyan</Color>
-                    <Color x:Key="SystemAltLowColor">DarkCyan</Color>
-                    <Color x:Key="SystemAltMediumColor">DarkCyan</Color>
-                    <Color x:Key="SystemAltMediumHighColor">DarkCyan</Color>
-                    <Color x:Key="SystemAltMediumLowColor">DarkCyan</Color>
-                    <Color x:Key="SystemBaseLowColor">DarkCyan</Color>
-                    <Color x:Key="SystemBaseMediumColor">DarkCyan</Color>
-                    <Color x:Key="SystemBaseMediumLowColor">DarkCyan</Color>
-
-                    <!--<media:AcrylicBrush BackgroundSource="Backdrop"
-                                        x:Key="AcrylicBrushBackground"
-                                        TintColor="DarkViolet"
-                                        TintOpacity="0.2" />-->
-                   
-
+                    <Color x:Key="SystemAccentColor">DarkCyan</Color>
+                    <SolidColorBrush x:Key="NavigationViewDefaultPaneBackground"
+                                     Color="#202020"
+                                      />
+                    <SolidColorBrush x:Key="NavigationViewExpandedPaneBackground"
+                                     Color="#202020" />
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
@@ -121,32 +86,116 @@
                         BackgroundSource="Backdrop"
                         TintColor="DarkCyan"
                         TintOpacity="0.8" />
-    <Style x:Key="ZListViewItemContainerStyle" TargetType="ListViewItem">
-        <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}"/>
-        <Setter Property="FontSize" Value="{ThemeResource ControlContentThemeFontSize}"/>
-        <Setter Property="Background" Value="{ThemeResource ListViewItemBackground}"/>
-        <Setter Property="Foreground" Value="{ThemeResource SubtleText}"/>
-        <Setter Property="TabNavigation" Value="Local"/>
-        <Setter Property="IsHoldingEnabled" Value="True"/>
-        <Setter Property="Padding" Value="12,0,12,0"/>
-        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-        <Setter Property="VerticalContentAlignment" Value="Center"/>
-        <Setter Property="MinWidth" Value="{ThemeResource ListViewItemMinWidth}"/>
-        <Setter Property="MinHeight" Value="{ThemeResource ListViewItemMinHeight}"/>
-        <Setter Property="AllowDrop" Value="False"/>
-        <Setter Property="UseSystemFocusVisuals" Value="{StaticResource UseSystemFocusVisuals}"/>
-        <Setter Property="FocusVisualMargin" Value="0"/>
+    <SolidColorBrush x:Key="SystemControlBackgroundAccentBrush"
+                     />
+    <SolidColorBrush x:Key="SystemControlDisabledAccentBrush"
+                     Color="{ThemeResource SystemAccentColor}" />
+    <!--<SolidColorBrush x:Key="SystemControlForegroundAccentBrush"
+                     Color="{ThemeResource Sys}" />-->
+    <SolidColorBrush x:Key="SystemControlHighlightAccentBrush"
+                     Color="{ThemeResource SystemAccentColor}" />
+    <SolidColorBrush x:Key="SystemControlHighlightAltAccentBrush"
+                     Color="{ThemeResource SystemAccentColor}" />
+    <SolidColorBrush x:Key="SystemControlHighlightAltListAccentHighBrush"
+                     Color="{ThemeResource SystemAccentColor}"
+                     Opacity="0.9" />
+    <SolidColorBrush x:Key="SystemControlHighlightAltListAccentLowBrush"
+                     Color="{ThemeResource SystemAccentColor}"
+                     Opacity="0.6" />
+    <SolidColorBrush x:Key="SystemControlHighlightAltListAccentMediumBrush"
+                     Color="{ThemeResource SystemAccentColor}"
+                     Opacity="0.8" />
+    <SolidColorBrush x:Key="SystemControlHighlightListAccentHighBrush"
+                     Color="{ThemeResource SystemAccentColor}"
+                     Opacity="0.9" />
+    <SolidColorBrush x:Key="SystemControlHighlightListAccentLowBrush"
+                     Color="{ThemeResource SystemAccentColor}"
+                     Opacity="0.6" />
+    <SolidColorBrush x:Key="SystemControlHighlightListAccentMediumBrush"
+                     Color="{ThemeResource SystemAccentColor}"
+                     Opacity="0.8" />
+    <SolidColorBrush x:Key="SystemControlHyperlinkTextBrush"
+                     Color="{ThemeResource SystemAccentColor}" />
+    <SolidColorBrush x:Key="ContentDialogBorderThemeBrush"
+                     Color="{ThemeResource SystemAccentColor}" />
+    <SolidColorBrush x:Key="JumpListDefaultEnabledBackground"
+                     Color="{ThemeResource SystemAccentColor}" />
+    <SolidColorBrush x:Key="ListViewItemBackgroundSelected"
+                     Color="{ThemeResource SystemAccentColor}" />
+
+    <SolidColorBrush x:Key="ListViewItemBackgroundSelectedPointerOver"
+                     Color="{ThemeResource SystemAccentColor}" />
+    <SolidColorBrush x:Key="NavigationViewSelectionIndicatorForeground"
+                     Color="{ThemeResource SystemAccentColor}" />
+    <SolidColorBrush x:Key="SelectionHighlightColor"
+                     Color="{ThemeResource SystemAccentColor}" />
+    <SolidColorBrush x:Key="NewWindowBackground"/>
+
+    <Style x:Key="ZListViewItemContainerStyle"
+           TargetType="ListViewItem">
+        <Setter Property="FontFamily"
+                Value="{ThemeResource ContentControlThemeFontFamily}" />
+        <Setter Property="FontSize"
+                Value="{ThemeResource ControlContentThemeFontSize}" />
+        <Setter Property="Background"
+                Value="{ThemeResource ListViewItemBackground}" />
+        <Setter Property="Foreground"
+                Value="{ThemeResource SubtleText}" />
+        <Setter Property="TabNavigation"
+                Value="Local" />
+        <Setter Property="IsHoldingEnabled"
+                Value="True" />
+        <Setter Property="Padding"
+                Value="12,0,12,0" />
+        <Setter Property="HorizontalContentAlignment"
+                Value="Stretch" />
+        <Setter Property="VerticalContentAlignment"
+                Value="Center" />
+        <Setter Property="MinWidth"
+                Value="{ThemeResource ListViewItemMinWidth}" />
+        <Setter Property="MinHeight"
+                Value="{ThemeResource ListViewItemMinHeight}" />
+        <Setter Property="AllowDrop"
+                Value="False" />
+        <Setter Property="UseSystemFocusVisuals"
+                Value="{StaticResource UseSystemFocusVisuals}" />
+        <Setter Property="FocusVisualMargin"
+                Value="0" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ListViewItem">
-                    <ListViewItemPresenter x:Name="Root" CheckMode="{ThemeResource ListViewItemCheckMode}" 
+                    <ListViewItemPresenter x:Name="Root"
+                                           CheckMode="{ThemeResource ListViewItemCheckMode}"
                                            CheckBoxBrush="{ThemeResource ListViewItemCheckBoxBrush}"
-                                           CheckBrush="{ThemeResource ListViewItemCheckBrush}" 
+                                           CheckBrush="{ThemeResource ListViewItemCheckBrush}"
                                            ContentMargin="{TemplateBinding Padding}"
-                                           ContentTransitions="{TemplateBinding ContentTransitions}" DragOpacity="{ThemeResource ListViewItemDragThemeOpacity}" DragBackground="{ThemeResource ListViewItemDragBackground}" DisabledOpacity="{ThemeResource ListViewItemDisabledThemeOpacity}" DragForeground="{ThemeResource ListViewItemDragForeground}" FocusVisualMargin="{TemplateBinding FocusVisualMargin}" FocusBorderBrush="{ThemeResource ListViewItemFocusBorderBrush}" FocusSecondaryBorderBrush="{ThemeResource ListViewItemFocusSecondaryBorderBrush}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" Control.IsTemplateFocusTarget="True" PlaceholderBackground="{ThemeResource ListViewItemPlaceholderBackground}" PointerOverBackground="{ThemeResource ListViewItemBackgroundPointerOver}" PointerOverForeground="{ThemeResource SubtleText}" PressedBackground="{ThemeResource ListViewItemBackgroundPressed}" RevealBorderThickness="{ThemeResource ListViewItemRevealBorderThemeThickness}" RevealBackground="{ThemeResource ListViewItemRevealBackground}" RevealBorderBrush="{ThemeResource ListViewItemRevealBorderBrush}" ReorderHintOffset="{ThemeResource ListViewItemReorderHintThemeOffset}" SelectedForeground="{ThemeResource ListViewItemForegroundSelected}" SelectedPointerOverBackground="{ThemeResource ListViewItemBackgroundSelectedPointerOver}" SelectionCheckMarkVisualEnabled="{ThemeResource ListViewItemSelectionCheckMarkVisualEnabled}" SelectedBackground="{ThemeResource ListViewItemBackgroundSelected}" SelectedPressedBackground="{ThemeResource ListViewItemBackgroundSelectedPressed}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}">
+                                           ContentTransitions="{TemplateBinding ContentTransitions}"
+                                           DragOpacity="{ThemeResource ListViewItemDragThemeOpacity}"
+                                           DragBackground="{ThemeResource ListViewItemDragBackground}"
+                                           DisabledOpacity="{ThemeResource ListViewItemDisabledThemeOpacity}"
+                                           DragForeground="{ThemeResource ListViewItemDragForeground}"
+                                           FocusVisualMargin="{TemplateBinding FocusVisualMargin}"
+                                           FocusBorderBrush="{ThemeResource ListViewItemFocusBorderBrush}"
+                                           FocusSecondaryBorderBrush="{ThemeResource ListViewItemFocusSecondaryBorderBrush}"
+                                           HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                           Control.IsTemplateFocusTarget="True"
+                                           PlaceholderBackground="{ThemeResource ListViewItemPlaceholderBackground}"
+                                           PointerOverBackground="{ThemeResource ListViewItemBackgroundPointerOver}"
+                                           PointerOverForeground="{ThemeResource SubtleText}"
+                                           PressedBackground="{ThemeResource ListViewItemBackgroundPressed}"
+                                           RevealBorderThickness="{ThemeResource ListViewItemRevealBorderThemeThickness}"
+                                           RevealBackground="{ThemeResource ListViewItemRevealBackground}"
+                                           RevealBorderBrush="{ThemeResource ListViewItemRevealBorderBrush}"
+                                           ReorderHintOffset="{ThemeResource ListViewItemReorderHintThemeOffset}"
+                                           SelectedForeground="{ThemeResource ListViewItemForegroundSelected}"
+                                           SelectedPointerOverBackground="{ThemeResource ListViewItemBackgroundSelectedPointerOver}"
+                                           SelectionCheckMarkVisualEnabled="{ThemeResource ListViewItemSelectionCheckMarkVisualEnabled}"
+                                           SelectedBackground="{ThemeResource ListViewItemBackgroundSelected}"
+                                           SelectedPressedBackground="{ThemeResource ListViewItemBackgroundSelectedPressed}"
+                                           VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}">
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroup x:Name="CommonStates">
-                                <VisualState x:Name="Normal"/>
+                                <VisualState x:Name="Normal" />
                                 <VisualState x:Name="Selected">
                                     <VisualState.Setters>
                                         <Setter Target="Root.CornerRadius"
@@ -155,46 +204,57 @@
                                 </VisualState>
                                 <VisualState x:Name="PointerOver">
                                     <VisualState.Setters>
-                                        <Setter Target="Root.(RevealBrush.State)" Value="PointerOver"/>
+                                        <Setter Target="Root.(RevealBrush.State)"
+                                                Value="PointerOver" />
                                         <Setter Target="Root.CornerRadius"
                                                 Value="10" />
-                                        <Setter Target="Root.RevealBorderBrush" Value="{ThemeResource ListViewItemRevealBorderBrushPointerOver}"/>
+                                        <Setter Target="Root.RevealBorderBrush"
+                                                Value="{ThemeResource ListViewItemRevealBorderBrushPointerOver}" />
                                     </VisualState.Setters>
                                 </VisualState>
                                 <VisualState x:Name="PointerOverSelected">
                                     <VisualState.Setters>
-                                        <Setter Target="Root.(RevealBrush.State)" Value="PointerOver"/>
+                                        <Setter Target="Root.(RevealBrush.State)"
+                                                Value="PointerOver" />
                                         <Setter Target="Root.CornerRadius"
                                                 Value="10" />
-                                        <Setter Target="Root.RevealBorderBrush" Value="{ThemeResource ListViewItemRevealBorderBrushPointerOver}"/>
+                                        <Setter Target="Root.RevealBorderBrush"
+                                                Value="{ThemeResource ListViewItemRevealBorderBrushPointerOver}" />
                                     </VisualState.Setters>
                                 </VisualState>
                                 <VisualState x:Name="PointerOverPressed">
                                     <VisualState.Setters>
-                                        <Setter Target="Root.(RevealBrush.State)" Value="Pressed"/>
+                                        <Setter Target="Root.(RevealBrush.State)"
+                                                Value="Pressed" />
                                         <Setter Target="Root.CornerRadius"
                                                 Value="10" />
-                                        <Setter Target="Root.RevealBorderBrush" Value="{ThemeResource ListViewItemRevealBorderBrushPressed}"/>
+                                        <Setter Target="Root.RevealBorderBrush"
+                                                Value="{ThemeResource ListViewItemRevealBorderBrushPressed}" />
                                     </VisualState.Setters>
                                 </VisualState>
                                 <VisualState x:Name="Pressed">
                                     <VisualState.Setters>
-                                        <Setter Target="Root.(RevealBrush.State)" Value="Pressed"/>
-                                        <Setter Target="Root.RevealBorderBrush" Value="{ThemeResource ListViewItemRevealBorderBrushPressed}"/>
+                                        <Setter Target="Root.(RevealBrush.State)"
+                                                Value="Pressed" />
+                                        <Setter Target="Root.RevealBorderBrush"
+                                                Value="{ThemeResource ListViewItemRevealBorderBrushPressed}" />
                                     </VisualState.Setters>
                                 </VisualState>
                                 <VisualState x:Name="PressedSelected">
                                     <VisualState.Setters>
-                                        <Setter Target="Root.(RevealBrush.State)" Value="Pressed"/>
-                                        <Setter Target="Root.RevealBorderBrush" Value="{ThemeResource ListViewItemRevealBorderBrushPressed}"/>
+                                        <Setter Target="Root.(RevealBrush.State)"
+                                                Value="Pressed" />
+                                        <Setter Target="Root.RevealBorderBrush"
+                                                Value="{ThemeResource ListViewItemRevealBorderBrushPressed}" />
                                     </VisualState.Setters>
                                 </VisualState>
                             </VisualStateGroup>
                             <VisualStateGroup x:Name="DisabledStates">
-                                <VisualState x:Name="Enabled"/>
+                                <VisualState x:Name="Enabled" />
                                 <VisualState x:Name="Disabled">
                                     <VisualState.Setters>
-                                        <Setter Target="Root.RevealBorderThickness" Value="0"/>
+                                        <Setter Target="Root.RevealBorderThickness"
+                                                Value="0" />
                                     </VisualState.Setters>
                                 </VisualState>
                             </VisualStateGroup>
@@ -204,9 +264,7 @@
             </Setter.Value>
         </Setter>
     </Style>
-    
-    
-    
+
     <Style x:Key="CloseButtonStyle"
            TargetType="Button">
         <Setter Property="Background"
@@ -609,7 +667,7 @@
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter"
                                                                        Storyboard.TargetProperty="BorderBrush">
                                             <DiscreteObjectKeyFrame KeyTime="0"
-                                                                    Value="{ThemeResource PrimaryColor}" />
+                                                                    Value="{ThemeResource SystemControlBackgroundAccentBrush}" />
                                         </ObjectAnimationUsingKeyFrames>
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter"
                                                                        Storyboard.TargetProperty="Foreground">
@@ -698,10 +756,7 @@
                 Value="{ThemeResource TextControlThemePadding}" />
         <Setter Property="UseSystemFocusVisuals"
                 Value="{ThemeResource IsApplicationFocusVisualKindReveal}" />
-        <Setter Property="ContextFlyout"
-                Value="{StaticResource TextControlCommandBarContextFlyout}" />
-        <Setter Property="SelectionFlyout"
-                Value="{StaticResource TextControlCommandBarSelectionFlyout}" />
+    
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="TextBox">
@@ -745,17 +800,17 @@
                                                                 <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ButtonLayoutGrid"
                                                                                                Storyboard.TargetProperty="Background">
                                                                     <DiscreteObjectKeyFrame KeyTime="0"
-                                                                                            Value="{ThemeResource TextControlButtonBackgroundPressed}" />
+                                                                                            Value="Red" />
                                                                 </ObjectAnimationUsingKeyFrames>
                                                                 <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ButtonLayoutGrid"
                                                                                                Storyboard.TargetProperty="BorderBrush">
                                                                     <DiscreteObjectKeyFrame KeyTime="0"
-                                                                                            Value="{ThemeResource TextControlButtonBorderBrushPressed}" />
+                                                                                            Value="Red" />
                                                                 </ObjectAnimationUsingKeyFrames>
                                                                 <ObjectAnimationUsingKeyFrames Storyboard.TargetName="GlyphElement"
                                                                                                Storyboard.TargetProperty="Foreground">
                                                                     <DiscreteObjectKeyFrame KeyTime="0"
-                                                                                            Value="{ThemeResource TextControlButtonForegroundPressed}" />
+                                                                                            Value="Red" />
                                                                 </ObjectAnimationUsingKeyFrames>
                                                             </Storyboard>
                                                         </VisualState>
@@ -827,11 +882,6 @@
                                             <DiscreteObjectKeyFrame KeyTime="0"
                                                                     Value="{ThemeResource TextControlBorderBrushPointerOver}" />
                                         </ObjectAnimationUsingKeyFrames>
-                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="BorderElement"
-                                                                       Storyboard.TargetProperty="Background">
-                                            <DiscreteObjectKeyFrame KeyTime="0"
-                                                                    Value="{ThemeResource ApplicationInactiveSelectionHighlightBrush}" />
-                                        </ObjectAnimationUsingKeyFrames>
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PlaceholderTextContentPresenter"
                                                                        Storyboard.TargetProperty="Foreground">
                                             <DiscreteObjectKeyFrame KeyTime="0"
@@ -856,16 +906,7 @@
                                             <DiscreteObjectKeyFrame KeyTime="0"
                                                                     Value="{Binding PlaceholderForeground, RelativeSource={RelativeSource TemplatedParent}, TargetNullValue={ThemeResource TextControlPlaceholderForegroundFocused}}" />
                                         </ObjectAnimationUsingKeyFrames>
-                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="BorderElement"
-                                                                       Storyboard.TargetProperty="Background">
-                                            <DiscreteObjectKeyFrame KeyTime="0"
-                                                                    Value="{ThemeResource ApplicationInactiveSelectionHighlightBrush}" />
-                                        </ObjectAnimationUsingKeyFrames>
-                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="BorderElement"
-                                                                       Storyboard.TargetProperty="BorderBrush">
-                                            <DiscreteObjectKeyFrame KeyTime="0"
-                                                                    Value="{ThemeResource AccentColorBrush}" />
-                                        </ObjectAnimationUsingKeyFrames>
+
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="BorderElement"
                                                                        Storyboard.TargetProperty="BorderThickness">
                                             <DiscreteObjectKeyFrame KeyTime="0"

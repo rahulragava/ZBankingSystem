@@ -120,6 +120,13 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Services\AppSettings.cs" />
+    <Compile Include="Services\DisPatcherService.cs" />
+    <Compile Include="Services\SystemAccentColorSetting.cs" />
+    <Compile Include="Services\WindowService.cs" />
+    <Compile Include="Util\FindVisualChild.cs" />
+    <Compile Include="Util\PageArguments\ProfilePageArguments.cs" />
+    <Compile Include="Util\PageArguments\ViewCollectionValueObject.cs" />
+    <Compile Include="Util\ViewNotifier.cs" />
     <Compile Include="Util\Converters\DateFormatter.cs" />
     <Compile Include="Util\PageArguments\FixedDepositPageArguments.cs" />
     <Compile Include="Util\PageArguments\LoanPageArguments.cs" />
@@ -179,6 +186,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="View\Pages\HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Pages\ProfilePage.xaml.cs">
+      <DependentUpon>ProfilePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Pages\TransactionPage.xaml.cs">
       <DependentUpon>TransactionPage.xaml</DependentUpon>
@@ -385,6 +395,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="View\Pages\HomePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Pages\ProfilePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

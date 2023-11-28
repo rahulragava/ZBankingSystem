@@ -30,7 +30,8 @@ namespace ZBMS.View.Pages
 
         public void UserAlreadyLoggedIn()
         {
-            if (AppSettings.LocalSettings.Values["UserId"] is null) return;
+            //if (AppSettings.LocalSettings.Values["UserId"] is null) return;
+            if (AppSettings.CustomerId is null) return;
             //MainPageViewModel.UpdateUserLoggedIn();
             LoginInPage_OnGoToHome();
         }
